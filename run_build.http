@@ -1,0 +1,163 @@
+
+### 0.0 GET a list of all projects on the server (info about a parent project)
+GET http://admin:admin@localhost:8111/app/rest/projects
+Accept: application/json
+
+### 0.0.1 GET Project
+GET http://admin:admin@localhost:8111/app/rest/projects/vvvvv
+Accept: application/json
+
+### 0.1 GET Build Conf (to see what settings did we use for our manual build configuration)
+GET http://admin:admin@localhost:8111/app/rest/buildTypes/id:BuildConfId12345
+Accept: application/json
+
+### 0.2 GET Build List
+GET http://admin:admin@localhost:8111/app/rest/buildTypes
+Accept: application/json
+
+### 0.3 GET CSRF token https://www.jetbrains.com/help/teamcity/csrf-protection.html
+GET http://admin:admin@localhost:8111/authenticationTest.html?csrf
+Accept: application/json
+
+### 1. Create Project in TeamCity
+POST http://admin:admin@localhost:8111/app/rest/projects
+Content-Type: application/json
+Accept: application/json
+X-TC-CSRF-Token: d6a6495d-b615-49bf-8781-af03116193f2
+
+{
+  "parentProject": {
+    "locator": "_Root"
+  },
+  "name": "test1",
+  "id": "test1",
+  "copyAllAssociatedSettings": true
+}
+
+### 2. Create Build Conf
+POST http://admin:admin@localhost:8111/app/rest/buildTypes
+Content-Type: application/json
+Accept: application/json
+X-TC-CSRF-Token: cf7fcecd-3b69-4bc1-8908-face0a2cee4e
+
+{
+  "id": "id7164",
+  "name": "name165",
+  "project": {
+    "id": "test1",
+  "steps": {
+    "step": [
+      {
+        "name": "myCommandLineStep",
+        "type": "simpleRunner",
+        "properties": {
+          "property": [
+            {
+              "name": "script.content",
+              "value": "echo 'Hello World!'"
+            }
+          ]
+        }
+      }
+    ]
+  }
+}
+}
+
+### 3. Run Build
+POST http://admin:admin@localhost:8111/app/rest/buildQueue
+Content-Type: application/json
+Accept: application/json
+X-TC-CSRF-Token: 6d17e4ab-60e6-4b31-908b-5099f26b9472
+
+{
+  "buildType": {
+    "id": "id71"
+  }
+}
+
+### 10. Cancel build conf
+POST http://admin:admin@localhost:8111/app/rest/builds/id:id71
+Content-Type: application/json
+Accept: application/json
+X-TC-CSRF-Token: 6d17e4ab-60e6-4b31-908b-5099f26b9472
+
+{
+  "comment": "Canceling a queued build",
+  "readdIntoQueue": false
+}
+
+### 4. Check Build Status if the build was run
+GET http://admin:admin@localhost:8111/app/rest/buildQueue?locator=buildType(id:BuildConfId123456)
+Content-Type: application/json
+Accept: application/json
+
+
+
+### 5. Check if there are any build in the query
+GET http://admin:admin@localhost:8111/app/rest/buildQueue
+Content-Type: application/json
+Accept: application/json
+
+### 6. Check if our build in the query
+GET http://admin:admin@localhost:8111/app/rest/buildQueue?locator=buildType(id:BuildConfId123456)
+Content-Type: application/json
+Content-Type: application/json
+Accept: application/json
+
+### 7. Check info about the build conf
+GET http://admin:admin@localhost:8111/app/rest/buildTypes/id:id6
+Content-Type: application/json
+Accept: application/json
+
+
+### 7. Delete project
+DELETE http://admin:admin@localhost:8111/app/rest/projects/id:vvvvv
+Content-Type: application/json
+Accept: application/json
+X-TC-CSRF-Token: d583e9b8-6fdb-4db3-af60-ae8192b02bf8
+
+
+### 8. Copy project
+POST http://admin:admin@localhost:8111/app/rest/projects
+Content-Type: application/json
+Accept: application/json
+X-TC-CSRF-Token: 936c493c-8a85-4310-b583-760b9ffc6f17
+
+{
+    "parentProject": {
+        "locator": "_Root"
+    },
+    "name": "copyhjbfejhbfj",
+    "id": "id2",
+    "copyAllAssociatedSettings": true,
+    "sourceProject": {
+        "locator": "vvv5"
+    }
+}
+
+### 9. Copy build conf
+POST http://admin:admin@localhost:8111/app/rest/projects/id:test/buildTypes
+Content-Type: application/json
+Accept: application/json
+X-TC-CSRF-Token: 936c493c-8a85-4310-b583-760b9ffc6f17
+
+{
+  "sourceBuildTypeLocator": "idg",
+  "name": "Source_Config_Name_Copy1",
+  "id": "Source_Config_ID_Copy1",
+  "copyAllAssociatedSettings": true
+}
+
+### 10. Cancel build conf
+POST http://admin:admin@localhost:8111/app/rest/buildQueue/id:id714
+Content-Type: application/json
+Accept: application/json
+X-TC-CSRF-Token: cf7fcecd-3b69-4bc1-8908-face0a2cee4e
+
+{
+  "comment": "Canceling a queued build",
+  "readdIntoQueue": false
+}
+
+
