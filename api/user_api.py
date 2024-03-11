@@ -1,6 +1,7 @@
 from http import HTTPStatus
 from custom_requester.custom_requester import CustomRequester
 
+
 class UserAPI(CustomRequester):
 
     def create_user(self, user_data):

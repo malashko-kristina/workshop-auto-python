@@ -5,20 +5,16 @@ from enums.host import BASE_URL
 
 
 class CustomRequester:
-    #Словарь с базовыми заголовками
-    base_headers = dict({"Content-Type": "application/json", "Accept": "application/json"})
+    base_headers = dict({"Content-Type": "application/json", "Accept": "application/json"})  # Словарь с базовыми заголовками
 
-    #Метод инициализации класса
     def __init__(self, session):
         self.session = session
         self.base_url = BASE_URL
-        self.logger = logging.getLogger(__name__) #активируем логгер, для этого определим атрибут логгер в классе
+        self.logger = logging.getLogger(__name__)  # Активируем логгер, для этого определим атрибут логгер в классе
 
-
-    #Метод отправки запросов
     def send_request(self, method, endpoint, data=None, expected_status=HTTPStatus.OK, need_logging=True):
         """
-        Враппер для запроса. позволяет прикручивать различную логику
+        Враппер для запроса позволяет прикручивать различную логику
 
         :param method: Метод запроса
         :param endpoint: Эндпоинт для склейки с BASE_URL в переменной "url"
@@ -35,15 +31,12 @@ class CustomRequester:
             raise ValueError(f"Unexpected status code: {response.status_code}")
         return response
 
-
-    #Метод обновления хедеров, он используется только для внутреннего использования в классе
-    # **kwargs позволяет ф-ции принимать любое кол-во аргументов или не принимать вообще
-    def _update_session_headers(self, **kwargs): #позволяет принимать любое количество аргументов, в том чсиле не принимать их вообще
+    def _update_session_headers(self, **kwargs):  # Позволяет принимать любое количество аргументов или не принимать их вообще
+        # Метод обновления хедеров, он используется только для внутреннего использования в классе
         self.headers = self.base_headers.copy()
-        self.headers.update(kwargs) #обновляется значение словоря
-        self.session.headers.update(self.headers) #обновляет заголовки сессии,копирует базовые заголовки с помощью представленных аргументов kwargs, затем обновленные заголовки применяются к сесссии
+        self.headers.update(kwargs)  # Обновляется значение словаря
+        self.session.headers.update(self.headers)
 
-   #Добавление логирования
     def log_request_and_response(self, response):
 
         """
@@ -54,22 +47,19 @@ class CustomRequester:
 
         """
         try:
-            request = response.request #объект запроса, связанный с ответом
+            request = response.request  # Объект запроса, связанный с ответом
             GREEN = '\033[32m'
             RED = '\033[31m'
-            RESET = '\033[0m' #сброс цвета к стандартному
+            RESET = '\033[0m'  # Сброс цвета к стандартному
             headers = "\\\n".join([f"-H '{headers}: {value}'" for headers, value in request.headers.items()])
-            full_test_name = f"pytest {os.environ.get('PYTEST_CURRENT_TEST', '').replace(' (call)', '')}" #Добавим в логи вывод названия теста
+            full_test_name = f"pytest {os.environ.get('PYTEST_CURRENT_TEST', '').replace(' (call)', '')}"  # Добавим в логи вывод названия теста
 
-    #Отформатируем тело запроса
             body = ""
             if hasattr(request, 'body') and request.body is not None:
                 if isinstance(request.body, bytes):
-                    body = request.body.decode('utf-8') #???
+                    body = request.body.decode('utf-8')
             body = f"-d '{body}' \n" if body != '{}' else ''
 
-    #Отформатируем и выведем информацию о запросе в логи
-    #Сформированная строка передается в метод info объекта logger, который записывает эту информацию в лог
             self.logger.info(
                   f"{GREEN} {full_test_name}{RESET}\n"
                   f"curl -X {request.method} '{request.url}' \\\n"
@@ -77,10 +67,9 @@ class CustomRequester:
                   f"{body}"
                   )
 
-    #Ответ логируем только при неуспешном запросе (красный свет), для этого добавляем проверку статус кода
-            response_status = response.status_code #извлечение HTTP статус-кода ответа
-            is_success = response.ok #проверяет, находится ли статус код в диапозоне 200-299
-            response_data = response.text #возвращает тело запроса в виде строки
+            response_status = response.status_code  # Извлечение HTTP статус-кода ответа
+            is_success = response.ok  # Проверяет, находится ли статус код в диапазоне 200-299
+            response_data = response.text  # Возвращает тело запроса в виде строки
 
             if not is_success:
                 self.logger.info(f"\tRESPONSE:"

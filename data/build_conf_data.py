@@ -1,9 +1,7 @@
-from typing import Optional, List, Dict
-
+from typing import Optional, Dict
 from utilis.data_generator import DataGenerator
 from pydantic import BaseModel
 
-#Начало описание модели для билд конф ответа
 
 class ProjectModule(BaseModel):
     id: str
@@ -36,6 +34,7 @@ class FeaturesModel(BaseModel):
 class TriggersModel(BaseModel):
     count: int
 
+
 class BuildsModel(BaseModel):
     href: str
 
@@ -47,19 +46,6 @@ class InvestigationsModel(BaseModel):
 class CompatibleAgentsModel(BaseModel):
     href: str
 
-# class PropertiesBuildConf(BaseModel):
-#     property: Optional[PropertyModel] = []
-#
-# class StepBuildConfModel(BaseModel):
-#     id: Optional[str]
-#     name: Optional[str]
-#     type: Optional[str]
-#     properties: Optional[PropertiesBuildConf] = {}
-#     count: Optional[int] = None
-#
-# class StepsBuildResponseModel(BaseModel):
-#     count: Optional[int] = None
-#     step: Optional[StepBuildConfModel]
 
 class BuildResponseModel(BaseModel):
 
@@ -84,29 +70,7 @@ class BuildResponseModel(BaseModel):
         extra = "allow"
 
 
-#Окончание описание модели для билд конф ответа
-
-#Начало описание моделей для билд конф запроса
-
-# class PropertiesModel(BaseModel):
-#     property: List[PropertyModel]
-
-# class ProjectBuildModel(BaseModel):
-#     id: str
-#
-#
-# class StepModel(BaseModel):
-#     name: str
-#     type: str
-#     properties: PropertiesModel
-#
-#
-# class StepsModel(BaseModel):
-#     step: List[StepModel]
-
-
 class BuildDataModel(BaseModel):
-    #валидация конструкции тела запроса
     id: str
     name: str
     project: Dict[str, str]
@@ -115,9 +79,7 @@ class BuildDataModel(BaseModel):
     class Config:
         extra = "allow"
 
-#Окончание прописание модели для билд конф запроса
 
-#На запрос на копирование
 class BuildDataCopyModel(BaseModel):
     sourceBuildTypeLocator: str
     name: str
@@ -126,10 +88,9 @@ class BuildDataCopyModel(BaseModel):
 
 
 class BuildConfData:
-
-    #Метод по генерации данных для билда
     @staticmethod
     def create_build_conf_data(project_id, name) -> BuildDataModel:
+        # Метод по генерации данных для билда
         return (BuildDataModel(
             id=DataGenerator.fake_build_id(),
             name=name,
@@ -156,7 +117,6 @@ class BuildConfData:
                         }
                     }
                 ]}))
-
 
     @staticmethod
     def create_build_conf_data_with_empty_steps(project_id) -> BuildDataModel:
@@ -204,7 +164,6 @@ class BuildConfData:
                 }
             ]}))
 
-
     @staticmethod
     def create_build_conf_data_with_empty_name(project_id) -> BuildDataModel:
         return (BuildDataModel(
@@ -233,7 +192,6 @@ class BuildConfData:
                     }
                 }
             ]}))
-
 
     @staticmethod
     def create_build_conf_data_with_invalid_project_id(project_ids) -> BuildDataModel:
@@ -264,10 +222,6 @@ class BuildConfData:
                 }
             ]}))
 
-
-
-
-
     @staticmethod
     def create_build_conf_data_with_invalid_ids(project_id, ids) -> BuildDataModel:
         return (BuildDataModel(
@@ -296,7 +250,6 @@ class BuildConfData:
                     }
                 }
             ]}))
-
 
     @staticmethod
     def create_build_conf_data_copy(build_conf_id) -> BuildDataCopyModel:

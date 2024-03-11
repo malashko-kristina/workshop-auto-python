@@ -1,10 +1,8 @@
-#Здесь лежат наши кредо для Супер Админа
-
 import os
 from dotenv import load_dotenv
 
 
-load_dotenv() #берет переменную из файла .env под именем 'SUPER_USER_TOKEN'
+load_dotenv()  # Берет переменную из файла .env под именем 'SUPER_USER_TOKEN'
 
 
 class SuperAdminCreds:

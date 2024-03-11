@@ -2,7 +2,7 @@ from typing import Optional, Dict
 from utilis.data_generator import DataGenerator
 from pydantic import BaseModel
 
-#Начало описание модели для запуска билда (запрос)
+
 class BuildTypeRunModel(BaseModel):
     id: str
     name: str
@@ -40,9 +40,6 @@ class BuildRunCancelRequestModel(BaseModel):
     readdIntoQueue: bool
 
 
-#Конец описание модели для запуска билда (запрос)
-
-#Начало описание модели запуска билда (ответ)
 class BuildRunResponseModel(BaseModel):
     id: int
     buildTypeId: str
@@ -89,12 +86,12 @@ class BuildRunCancelResponseModel(BaseModel):
     finishOnAgentDate: str
     customization: dict = None
 
-#Конец описание модели запуска билда (ответ)
 
 class BuildConfRunStatusModel(BaseModel):
     count: int
     href: str
     build: list
+
 
 class BuildRunData:
 

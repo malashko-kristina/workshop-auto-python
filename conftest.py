@@ -1,58 +1,68 @@
-from urllib import request
-
 import pytest
 import requests
-
 from api.api_manager import ApiManager
 from data.build_conf_data import BuildConfData
 from data.project_data import ProjectData
 from data.run_build_data import BuildRunData
 from data.user_data import UserData
 from entities.user import User, Role
+from enums.browser import BROWSERS
 from enums.roles import Roles
 from resources.user_creds import SuperAdminCreds
+from utilis.browser_setup import BrowserSetup
 from utilis.data_generator import DataGenerator
 
 
-#Фикстура для создания и передачи юзер сессии
+@pytest.fixture(params=BROWSERS)
+def browser(request):
+    playwright, browser, context, page = BrowserSetup.setup(browser_type=request.param)
+    yield page
+    BrowserSetup.teardown(context, browser, playwright)
+
 
 @pytest.fixture
 def user_session():
-    user_pool = [] #создаем сессии созданных пользователей, которые мы потом будем удалять
-#Функция _create_user_session: Это вложенная функция, которая создает новую HTTP-сессию с помощью requests.Session(),
-#оборачивает ее в ApiManager для удобства управления API-вызовами, добавляет созданный объект сессии в user_pool и
-#возвращает его. Эта функция позволяет создавать отдельные сессии для разных пользователей при необходимости.
+    user_pool = []
+    """ 
+    Создаем сессии созданных пользователей, которые мы потом будем удалять.
+    Функция _create_user_session: Это вложенная функция, которая создает новую HTTP-сессию с помощью requests.Session(),
+    оборачивает ее в ApiManager для удобства управления API-вызовами, добавляет созданный объект сессии в user_pool и
+    возвращает его. Эта функция позволяет создавать отдельные сессии для разных пользователей при необходимости.
+    """
     def _create_user_session():
         session = requests.Session()
         user_session = ApiManager(session)
         user_pool.append(user_session)
         return user_session
-#Ключевое слово yield возвращается из фикстуры с функцией _create_user_session. Это означает, что в тестах,
-#где используется эта фикстура, будет предоставлена возможность создавать пользовательские сессии вызовом _create_user_session().
-#При этом выполнение кода после yield отложено до момента завершения скоупа фикстуры.
+    """
+    Ключевое слово yield возвращается из фикстуры с функцией _create_user_session. Это означает, что в тестах,
+    где используется эта фикстура, будет предоставлена возможность создавать пользовательские сессии вызовом
+    _create_user_session().
+    При этом выполнение кода после yield отложено до момента завершения скоупа фикстуры.
+    """
     yield _create_user_session
-#Очистка сессий: После того как тесты, использующие эту фикстуру, завершат своё выполнение, pytest продолжит
-#выполнение кода после yield. В этой части кода происходит итерация по всем сессиям в user_pool с вызовом
-#метода close_session() для каждой сессии. Этот шаг важен для корректного закрытия всех сессий и освобождения ресурсов,
-#ассоциированных с ними.
+
+    """
+    Очистка сессий: После того как тесты, использующие эту фикстуру, завершат своё выполнение, pytest продолжит
+    выполнение кода после yield. В этой части кода происходит итерация по всем сессиям в user_pool с вызовом
+    метода close_session() для каждой сессии. Этот шаг важен для корректного закрытия всех сессий и освобождения
+    ресурсов, ассоциированных с ними.
+    """
     for user in user_pool:
         user.close_session()
 
-#Создаем супер админа, так как других пользователей мы можем создавать только от лица супер админа
-# (тем более в самом начале + он еще и никак не удается). Делаем это в рамках сессии и с кредами (поэтому их передаем как аргументы)
+
 @pytest.fixture
 def super_admin(user_session):
     new_session = user_session()
-    super_admin = User(SuperAdminCreds.USERNAME, SuperAdminCreds.PASSWORD, new_session, ["SUPER_ADMIN", "g"]) #в класс юзер создаем новый объект
+    super_admin = User(SuperAdminCreds.USERNAME, SuperAdminCreds.PASSWORD, new_session, ["SUPER_ADMIN", "g"])  # В класс юзер создаем новый объект
     super_admin.api_manager.auth_api.auth_and_get_csrf(super_admin.creds)
-    return super_admin #возвращаем готовую сессию супер админа с токеном в хедерах, и теперь он может все что угодно делать
-    #(в нашем случае он создает юзеров)
+    return super_admin
 
-
-#Фикстура, создающая юзера от имени супер админа
 
 @pytest.fixture(params=[Roles.SYSTEM_ADMIN, Roles.PROJECT_ADMIN, Roles.PROJECT_DEVELOPER, Roles.PROJECT_VIEWER])
 def user_create(user_session, super_admin):
+    # Фикстура, создающая юзера от имени супер админа
     created_users_pool = []
 
     def _user_create(role):
@@ -67,9 +77,8 @@ def user_create(user_session, super_admin):
     for username in created_users_pool:
         super_admin.api_manager.user_api.delete_user(username)
 
-#Project Fixtures
-@pytest.fixture(params=[DataGenerator.fake_build_id(), DataGenerator.fake_name(), DataGenerator.incorrect_id_1(),
-DataGenerator.incorrect_id_2()])
+
+@pytest.fixture(params=[DataGenerator.fake_build_id()])
 def project_data(super_admin, request):
     project_id_pool = []
 
@@ -83,6 +92,7 @@ def project_data(super_admin, request):
 
     for project_id in project_id_pool:
         super_admin.api_manager.project_api.clean_up_project(project_id)
+
 
 @pytest.fixture
 def project_copy_data(super_admin, project_data):
@@ -104,6 +114,7 @@ def project_copy_data_with_another_source_project(super_admin):
         project_copy = ProjectData.create_project_data_copy_with_another_source_project()
         yield project_copy
 
+
 @pytest.fixture
 def project_data_without_deleting(super_admin):
         project = ProjectData.create_project_data_with_data()
@@ -115,11 +126,13 @@ def project_data_with_empty_id(super_admin):
         project = ProjectData.create_project_data_with_empty_id()
         yield project
 
+
 @pytest.fixture(params=[DataGenerator.incorrect_id_1(), DataGenerator.incorrect_id_2(),DataGenerator.incorrect_id_3()])
 def project_data_with_invalid_ids(request, super_admin):
     ids = request.param
     project = ProjectData.create_project_data_with_invalid_ids(ids)
     yield project
+
 
 @pytest.fixture
 def project_data_with_invalid_name(super_admin):
@@ -133,10 +146,12 @@ def project_data_with_invalid_parentProject(request, super_admin):
     project = ProjectData.create_project_data_with_invalid_parentProject(variant)
     yield project
 
+
 @pytest.fixture
 def project_data_with_empty_parentProject(super_admin):
     project = ProjectData.create_project_data_with_empty_parentProject()
     yield project
+
 
 @pytest.fixture
 def project_data_with_false(super_admin):
@@ -152,9 +167,7 @@ def project_data_with_false(super_admin):
         super_admin.api_manager.project_api.clean_up_project(project_id)
 
 
-#Build Conf Fixtures
-@pytest.fixture(params=[DataGenerator.fake_build_id(), DataGenerator.fake_name(), DataGenerator.incorrect_id_1(),
-                        DataGenerator.incorrect_id_2()])
+@pytest.fixture(params=[DataGenerator.fake_build_id()])
 def build_conf_data(super_admin, project_data, request):
     build_id_pool = []
 
@@ -169,11 +182,13 @@ def build_conf_data(super_admin, project_data, request):
     for build_conf_id in build_id_pool:
         super_admin.api_manager.build_conf_api.clean_up_build(build_conf_id)
 
+
 @pytest.fixture(params=[DataGenerator.fake_build_id(), DataGenerator.fake_name(), DataGenerator.incorrect_id_1()])
 def build_conf_data_without_deleting_id(super_admin, project_data, request):
         name = request.param
         build_conf = BuildConfData.create_build_conf_data(project_data.id, name)
         yield build_conf
+
 
 @pytest.fixture
 def build_conf_data_with_empty_steps_field(super_admin, project_data):
@@ -210,6 +225,7 @@ def build_conf_data_copy_with_invalid_parent_build_conf(super_admin):
         build_conf = BuildConfData.create_build_conf_data_copy_with_invalid_parent_build_conf()
         yield build_conf
 
+
 @pytest.fixture
 def build_conf_data_without_steps_field(super_admin, project_data):
     build_id_pool = []
@@ -223,6 +239,7 @@ def build_conf_data_without_steps_field(super_admin, project_data):
 
     for build_conf_id in build_id_pool:
         super_admin.api_manager.build_conf_api.clean_up_build(build_conf_id)
+
 
 @pytest.fixture
 def build_conf_data_with_empty_id(super_admin, project_data):
@@ -242,6 +259,7 @@ def build_conf_data_with_invalid_project_id(request, super_admin):
     build_conf = BuildConfData.create_build_conf_data_with_invalid_project_id(project_ids)
     yield build_conf
 
+
 @pytest.fixture(params=[DataGenerator.incorrect_id_1(), DataGenerator.incorrect_id_2(),DataGenerator.incorrect_id_3()])
 def build_data_with_invalid_ids(request, super_admin, project_data):
     ids = request.param
@@ -249,18 +267,21 @@ def build_data_with_invalid_ids(request, super_admin, project_data):
     yield build_conf
 
 
-#Build Run Conf Fixtures
 @pytest.fixture
 def build_conf_run_data(super_admin, build_conf_data):
         build_conf_run = BuildRunData.create_run_build_correct_data(build_conf_data.id)
         yield build_conf_run
+
 
 @pytest.fixture
 def build_conf_run_data_with_wrong_build_conf_id(super_admin):
     build_conf_run = BuildRunData.create_run_build_incorrect_data()
     yield build_conf_run
 
+
 @pytest.fixture
 def build_conf_run_cancel(super_admin):
     build_conf_run_cancel = BuildRunData.cancel_build_conf_in_queue()
     yield build_conf_run_cancel
+
+

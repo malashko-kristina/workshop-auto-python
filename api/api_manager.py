@@ -14,7 +14,6 @@ class ApiManager:
         self.build_conf_api = BuildConfAPI(session)
         self.run_build_conf_api = RunBuildConfAPI(session)
 
-    #Добавим метод для закрытия сессии, который будем использовать в фикстурах
     def close_session(self):
         self.session.close()
 

@@ -1,9 +1,6 @@
-from typing import Optional, List, Dict
-
+from typing import Optional, Dict
 from utilis.data_generator import DataGenerator
 from pydantic import BaseModel
-
-#Начало описание модели для билд конф ответа
 
 
 class Templates(BaseModel):
@@ -17,7 +14,6 @@ class ParametersModel(BaseModel):
     href: str
 
 
-#Начало описание модели для проджект ответа
 class ParentProjectModel(BaseModel):
     id: str
     name: str
@@ -61,9 +57,7 @@ class ProjectResponseModel(BaseModel):
         extra = "allow"
 
 
-#Конец описание модели для проджект ответа
 class ProjectDataModel(BaseModel):
-    #валидация для конструкции (тела запроса в формате словаря)
     parentProject: Dict[str, str]
     name:  str
     id: str
@@ -71,7 +65,6 @@ class ProjectDataModel(BaseModel):
 
 
 class ProjectDataCopyModel(BaseModel):
-    #валидация для конструкции (тела запроса в формате словаря)
     parentProject: Dict[str, str]
     name:  str
     id: str
@@ -80,16 +73,15 @@ class ProjectDataCopyModel(BaseModel):
 
 
 class ProjectData:
-    #Метод, генерирущий данные проекта, использую уникальные значения name и id
     @staticmethod
     def create_project_data_with_correct_data(name) -> ProjectDataModel:
+        # Метод, генерирующий данные проекта, использую уникальные значения name и id
         return (ProjectDataModel(
             parentProject={"locator": "_Root"},
             name=name,
             id=DataGenerator.fake_project_id(),
             copeAllAssociatedSettings=True
         ))
-
 
     @staticmethod
     def create_project_data_with_data() -> ProjectDataModel:
@@ -121,6 +113,7 @@ class ProjectData:
             sourceProject={"locator": DataGenerator.fake_build_id()}
 
         ))
+
     @staticmethod
     def create_project_data_with_empty_parentProject() -> ProjectDataModel:
         return (ProjectDataModel(
@@ -147,7 +140,6 @@ class ProjectData:
             id=DataGenerator.fake_project_id(),
             copeAllAssociatedSettings=True
         ))
-
 
     @staticmethod
     def create_project_data_with_empty_id() -> ProjectDataModel:
