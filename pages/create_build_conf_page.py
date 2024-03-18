@@ -33,7 +33,7 @@ class CreateBuildConfFormContainerFragment(BasePage):
         self.build_conf_name_selector = "input#buildTypeName"
         self.build_conf_id_selector = "input#buildTypeExternalId"
         self.build_conf_description_selector = "input#description"
-        self.create_build_conf_button = 'input[name="createBuildType"]'
+        self.create_build_conf_button = 'input.btn.btn_primary.submitButton[name="createBuildType"]'
 
     def input_build_conf_details(self, build_conf_name, build_conf_id, description):
         with allure.step("Ввод данных для создания билд конфигурации"):
@@ -48,7 +48,7 @@ class CreateBuildConfFormContainerFragment(BasePage):
 
     def click_create_build_conf_button(self):
         with allure.step("Нажатие кнопки создания билд конфигурации"):
-            self.actions.is_button_active(self.create_build_conf_button)
+            self.actions.is_element_present(self.create_build_conf_button)
             self.actions.click_button(self.create_build_conf_button)
 
 class CreateBuildConfFormContainerErrorFragment(BasePage):

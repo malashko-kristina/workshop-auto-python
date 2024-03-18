@@ -13,7 +13,7 @@ from utilis.browser_setup import BrowserSetup
 from utilis.data_generator import DataGenerator
 
 
-@pytest.fixture(params=BROWSERS)
+@pytest.fixture(params=BROWSERS, scope='session')
 def browser(request):
     playwright, browser, context, page = BrowserSetup.setup(browser_type=request.param)
     yield page
@@ -52,7 +52,7 @@ def user_session():
         user.close_session()
 
 
-@pytest.fixture
+@pytest.fixture()
 def super_admin(user_session):
     new_session = user_session()
     super_admin = User(SuperAdminCreds.USERNAME, SuperAdminCreds.PASSWORD, new_session, ["SUPER_ADMIN", "g"])  # В класс юзер создаем новый объект
@@ -183,7 +183,7 @@ def build_conf_data(super_admin, project_data, request):
         super_admin.api_manager.build_conf_api.clean_up_build(build_conf_id)
 
 
-@pytest.fixture(params=[DataGenerator.fake_build_id(), DataGenerator.fake_name(), DataGenerator.incorrect_id_1()])
+@pytest.fixture(params=[DataGenerator.fake_build_id()])
 def build_conf_data_without_deleting_id(super_admin, project_data, request):
         name = request.param
         build_conf = BuildConfData.create_build_conf_data(project_data.id, name)

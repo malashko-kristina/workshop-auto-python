@@ -37,11 +37,11 @@ def test_create_build_conf_with_invalid_data(browser, project_data, super_admin,
     with allure.step("Создание проекта"):
         project_creation_browser = ProjectCreationPage(browser)
         project_creation_browser.create_project(project_name, project_id, description)
-    with allure.step('Отправка запроса на получение информации созданного проекта'):
-        response = super_admin.api_manager.project_api.get_project_by_locator(project_data_1.name).text
-        created_project = ProjectResponseModel.model_validate_json(response)
-        assert created_project.id == project_data_1.id, \
-            f"expected project id= {project_data_1.id}, but '{created_project.id}' given"
+    with allure.step("Проверка нахождения id созданного проекта в общем списке проектов"):
+        get_project_response = super_admin.api_manager.project_api.get_project_by_locator(project_data_1.id).text
+    with allure.step("Проверка соответствия параметров созданного проекта с отправленными данными"):
+        created_model_project_response = ProjectResponseModel.model_validate_json(get_project_response)
+        assert created_model_project_response.id == project_data_1.id, f"There is no project with {project_data_1.id} id"
     with allure.step("Проверка успешности создания проекта"):
         edit_project_browser = EditProjectFormPage(browser, project_id)
         edit_project_browser.check_project_data(project_name, project_id, description)
@@ -91,11 +91,11 @@ def test_create_build_conf_by_copy(browser, project_data, super_admin, build_con
     with allure.step("Создание проекта"):
         project_creation_browser = ProjectCreationPage(browser)
         project_creation_browser.create_project(project_name, project_id, description)
-    with allure.step('Отправка запроса на получение информации созданного проекта'):
-        response = super_admin.api_manager.project_api.get_project_by_locator(project_data_1.name).text
-        created_project = ProjectResponseModel.model_validate_json(response)
-        assert created_project.id == project_data_1.id, \
-            f"expected project id= {project_data_1.id}, but '{created_project.id}' given"
+    with allure.step("Проверка нахождения id созданного проекта в общем списке проектов"):
+        get_project_response = super_admin.api_manager.project_api.get_project_by_locator(project_data_1.id).text
+    with allure.step("Проверка соответствия параметров созданного проекта с отправленными данными"):
+        created_model_project_response = ProjectResponseModel.model_validate_json(get_project_response)
+        assert created_model_project_response.id == project_data_1.id, f"There is no project with {project_data_1.id} id"
     with allure.step("Проверка успешности создания проекта"):
         edit_project_browser = EditProjectFormPage(browser, project_id)
         edit_project_browser.check_project_data(project_name, project_id, description)
@@ -116,7 +116,7 @@ def test_create_build_conf_by_copy(browser, project_data, super_admin, build_con
             f"expected build conf id= {build_conf_data_1.id}, but '{build_conf_model_response_1.id}' given"
     with allure.step("Копирование билд конфигурации"):
         copy_build_conf = BuildConfCopyPage(browser, build_conf_id)
-        copy_build_conf.copy_build_conf(project_id)
+        copy_build_conf.copy_build_conf(project_id, project_id)
     with allure.step("Удаление билд конфигурации"):
         build_conf_delete = BuildConfDeletePage(browser, project_id)
         build_conf_delete.delete_build_conf(project_id, project_id)
@@ -136,11 +136,11 @@ def test_create_build_conf_by_copy(browser, project_data, super_admin, build_con
 @allure.title('Проверка создания копии билд конфигурации с невалидным id')
 @allure.description('Негативный тест проверяет создания копии билд конфигурации с невалидным id .')
 
-def test_create_invalid_copy_build_conf(browser, project_data, super_admin, build_conf_data):
+def test_create_invalid_copy_build_conf(browser, project_data, super_admin, build_conf_data_without_deleting_id):
     project_data_1 = project_data
     project_id = project_data_1.id
     project_name = project_data_1.name
-    build_conf_data_1 = build_conf_data
+    build_conf_data_1 = build_conf_data_without_deleting_id
     build_conf_id = build_conf_data_1.id
     build_conf_name = build_conf_data_1.name
     description = DataGenerator.random_text()
@@ -152,11 +152,11 @@ def test_create_invalid_copy_build_conf(browser, project_data, super_admin, buil
     with allure.step("Создание проекта"):
         project_creation_browser = ProjectCreationPage(browser)
         project_creation_browser.create_project(project_name, project_id, description)
-    with allure.step('Отправка запроса на получение информации созданного проекта'):
-        response = super_admin.api_manager.project_api.get_project_by_locator(project_data_1.name).text
-        created_project = ProjectResponseModel.model_validate_json(response)
-        assert created_project.id == project_data_1.id, \
-            f"expected project id= {project_data_1.id}, but '{created_project.id}' given"
+    with allure.step("Проверка нахождения id созданного проекта в общем списке проектов"):
+        get_project_response = super_admin.api_manager.project_api.get_project_by_locator(project_data_1.id).text
+    with allure.step("Проверка соответствия параметров созданного проекта с отправленными данными"):
+        created_model_project_response = ProjectResponseModel.model_validate_json(get_project_response)
+        assert created_model_project_response.id == project_data_1.id, f"There is no project with {project_data_1.id} id"
     with allure.step("Проверка успешности создания проекта"):
         edit_project_browser = EditProjectFormPage(browser, project_id)
         edit_project_browser.check_project_data(project_name, project_id, description)
@@ -171,10 +171,10 @@ def test_create_invalid_copy_build_conf(browser, project_data, super_admin, buil
             f"expected build conf id= {build_conf_data_1.id}, but '{build_conf_model_response_1.id}' given"
     with allure.step("Копирование билд конфигурации с невалидным id"):
         copy_build_conf = BuildConfCopyErrorPage(browser, build_conf_id)
-        copy_build_conf.copy_build_conf_error(invalid_build_id, invalid_build_id, str(invalid_build_id[0]))
+        copy_build_conf.copy_build_conf_error(invalid_build_id, invalid_build_id, str(invalid_build_id[0]), build_conf_name)
     with allure.step("Удаление билд конфигурации"):
-        build_conf_delete = BuildConfDeletePage(browser, project_id)
-        build_conf_delete.delete_build_conf(project_id, project_id)
+        build_conf_delete = BuildConfDeletePage(browser, build_conf_name)
+        build_conf_delete.delete_build_conf(project_id, build_conf_name)
     with allure.step("Отправка запроса на получение информации об удаленной билд конфигурации"):
         get_about_build_conf_response = super_admin.api_manager.build_conf_api.get_build_conf(project_id, expected_status=HTTPStatus.NOT_FOUND)
     with pytest.assume:

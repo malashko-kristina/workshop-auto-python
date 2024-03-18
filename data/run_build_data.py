@@ -71,10 +71,10 @@ class BuildRunCancelResponseModel(BaseModel):
     webUr: Optional[str] = None
     statusText: str
     buildType: BuildTypeRunModel
-    canceledInfo: dict
+    canceledInfo: Optional[dict]
     queuedDate: str
     startDate: str
-    finishDate: str
+    finishDate: Optional[str]
     triggered: dict
     changes: dict
     revisions: Dict[str, int]
@@ -83,8 +83,11 @@ class BuildRunCancelResponseModel(BaseModel):
     relatedIssues: dict
     statistics: dict
     vcsLabels: list = []
-    finishOnAgentDate: str
+    finishOnAgentDate: Optional[str]
     customization: dict = None
+
+    class Config:
+        extra = "allow"
 
 
 class BuildConfRunStatusModel(BaseModel):

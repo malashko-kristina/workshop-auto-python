@@ -1,12 +1,11 @@
 import copy
 import time
 from http import HTTPStatus
-
 import pytest
 import allure
 from data.project_data import ProjectResponseModel
 from data.build_conf_data import BuildResponseModel
-from data.run_build_data import BuildRunResponseModel, BuildConfRunStatusModel, BuildRunCancelRequestModel, \
+from data.run_build_data import BuildRunResponseModel, BuildConfRunStatusModel, \
     BuildRunCancelResponseModel
 
 
