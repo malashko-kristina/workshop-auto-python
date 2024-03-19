@@ -67,7 +67,7 @@ class BuildConfCopyPage(BasePage):
     def go_to_edit_build_conf_page(self):
         with allure.step("Переход на страницу редактирования билд конфигурации"):
             self.actions.navigate(self.page_url)
-            self.actions.wait_for_page_load()
+            self.actions.wait_for_page_load(timeout=10000)
 
 
     def copy_build_conf(self, new_build_conf_id, new_build_conf_name):
@@ -95,7 +95,7 @@ class BuildConfCopyErrorPage(BasePage):
     def go_to_edit_build_conf_page(self):
         with allure.step("Переход на страницу редактирования билд конфигурации"):
             self.actions.navigate(self.page_url)
-            self.actions.wait_for_page_load()
+            self.actions.wait_for_page_load(timeout=10000)
 
 
     def copy_build_conf_error(self, new_build_conf_id, build_conf_id, first_symbol, new_build_conf_name):
@@ -150,7 +150,7 @@ class BuildConfDeletePage(BasePage):
     def go_to_edit_build_conf_page(self):
         with allure.step("Переход на страницу редактирования билд конфигурации"):
             self.actions.navigate(self.page_url)
-            self.actions.wait_for_page_load()
+            self.actions.wait_for_page_load(timeout=10000)
 
 
     def delete_build_conf(self, project_id, build_conf_name):

@@ -27,7 +27,7 @@ class BuildStepsPage(BasePage):
     def go_to_build_steps_page(self):
         with allure.step('Переход на страницу для добавления шагов к билд конфигурации'):
             self.actions.navigate(self.page_url)
-            self.actions.wait_for_page_load()
+            self.actions.wait_for_page_load(timeout=10000)
 
     def add_build_steps(self, build_conf_id):
         with allure.step('Клик по кнопке добавления шагов'):

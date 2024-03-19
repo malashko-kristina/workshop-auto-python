@@ -27,7 +27,7 @@ class CheckRunBuildErrors(BasePage):
     # todo def go_to_build_run_failed_page(self):
         # todo  with allure.step("Переход на страницу с отображением шагов к билд конфигурации"):
         # todo self.actions.navigate(self.page_url)
-    # todo self.actions.wait_for_page_load()
+    # todo self.actions.wait_for_page_load(timeout=10000)
 
     def run_build_conf_failed(self):
         with allure.step("Проверка ошибок на странице после неудачного запуска билда"):

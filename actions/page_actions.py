@@ -24,9 +24,9 @@ class PageAction:
             self.page.wait_for_url(expected_url)
 
 
-    def wait_for_page_load(self):
+    def wait_for_page_load(self, timeout):
         with allure.step(f"Ожидание загрузки страницы"):
-            self.page.wait_for_load_state("load")
+          self.page.wait_for_load_state("load", timeout=timeout)
 
 
     def click_button(self, selector):
@@ -54,8 +54,11 @@ class PageAction:
 
     def wait_for_selector(self, selector):
         with allure.step(f"Ожидаем появления селектора: {selector}"):
-            self.page.wait_for_selector(selector, state='visible')
+            self.page.wait_for_selector(selector, state='visible', timeout=90000)
 
+    def check_box(self, selector):
+        with allure.step("Установка флажка в чекбоксе"):
+            self.page.check(selector)
 
     def wait_for_disappear_selector(self, selector):
         with allure.step(f"Ожидаем появления селектора: {selector}"):

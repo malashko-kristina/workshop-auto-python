@@ -84,6 +84,16 @@ class ProjectData:
         ))
 
     @staticmethod
+    def create_first_project_data_with_correct_data() -> ProjectDataModel:
+        # Метод, генерирующий данные проекта, использую уникальные значения name и id
+        return (ProjectDataModel(
+            parentProject={"locator": "_Root"},
+            name=DataGenerator.fake_build_id(),
+            id=DataGenerator.fake_build_id(),
+            copeAllAssociatedSettings=True
+        ))
+
+    @staticmethod
     def create_project_data_with_data() -> ProjectDataModel:
         return (ProjectDataModel(
             parentProject={"locator": "_Root"},

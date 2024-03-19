@@ -78,7 +78,7 @@ class BuildNewStepPage(BasePage):
     def go_to_build_steps_page(self):
         with allure.step("Переход на страницу для добавления шагов к билд конфигурации"):
             self.actions.navigate(self.page_url)
-            self.actions.wait_for_page_load()
+            self.actions.wait_for_page_load(timeout=10000)
 
     def add_new_build_step(self, step_name,  step_id, text, build_conf_id):
         with allure.step("Выбор command line в качестве добавляемого шага к билд конфигурации"):
@@ -107,7 +107,7 @@ class BuildNewStepErrorPage(BasePage):
     def go_to_build_steps_page(self):
         with allure.step("Переход на страницу для добавления шагов к билд конфигурации"):
             self.actions.navigate(self.page_url)
-            self.actions.wait_for_page_load()
+            self.actions.wait_for_page_load(timeout=10000)
 
     def add_new_build_step_empty_script(self, step_name,  step_id, text):
         with allure.step("Выбор command line в качестве добавляемого шага к билд конфигурации"):
@@ -151,7 +151,7 @@ class BuildNewStepErrorPage(BasePage):
             time.sleep(2)
         with allure.step("Клик на кнопку добавления шага к билд конфигурации"):
             self.add_build_steps.click_add_new_step()
-            self.actions.wait_for_page_load()
+            self.actions.wait_for_page_load(timeout=10000)
 
 
 

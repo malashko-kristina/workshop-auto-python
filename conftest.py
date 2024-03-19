@@ -95,6 +95,20 @@ def project_data(super_admin, request):
 
 
 @pytest.fixture
+def project_data_first_project(super_admin):
+    project_id_pool = []
+
+    def _create_project_data_first_project():
+        project = ProjectData.create_first_project_data_with_correct_data()
+        project_id_pool.append(project.id)
+        return project
+
+    yield _create_project_data_first_project()
+
+    for project_id in project_id_pool:
+        super_admin.api_manager.project_api.clean_up_project(project_id)
+
+@pytest.fixture
 def project_copy_data(super_admin, project_data):
     project_id_copy_pool = []
 
