@@ -67,7 +67,6 @@ jobs:
 
       - name: Configure Tests for Selenoid on Port 4444
         run: |
-          playwright set-developer-mode
           playwright config set video 'on'
           playwright config set baseUrl 'http://selenoid:4444'
 
