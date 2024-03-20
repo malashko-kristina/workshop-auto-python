@@ -62,7 +62,7 @@ class ProjectCreationPage(BasePage):
     def go_to_creation_page(self):
         with allure.step("Переход на страницу создания проекта"):
             self.actions.navigate(self.page_url)
-            self.actions.wait_for_page_load(timeout=10000)
+            self.actions.wait_for_page_load()
 
     def create_project(self, name, project_id, description):
         with allure.step("Переход на страницу создания проекта"):
@@ -79,7 +79,7 @@ class ProjectCreationPage(BasePage):
             time.sleep(3)
         with allure.step("Проверка загрузки страницы"):
             self.page_url = (f'/admin/editProject.html?projectId={project_id}')
-            self.actions.wait_for_page_load(timeout=10000)
+            self.actions.wait_for_page_load()
 
 
 class ProjectCreationPageThroughHeader(BasePage):
@@ -102,7 +102,7 @@ class ProjectCreationPageThroughHeader(BasePage):
             time.sleep(2)
         with allure.step("Проверка загрузки страницы"):
             self.page_url = (f'/admin/editProject.html?projectId={project_id}')
-            self.actions.wait_for_page_load(timeout=10000)
+            self.actions.wait_for_page_load()
 
 
 class ProjectCreationPageWithEmptyName(BasePage):
