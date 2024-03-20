@@ -53,17 +53,17 @@ jobs:
         run: |
           docker run -d --name teamcity-agent-instance -e SERVER_URL="http://localhost:8111" jetbrains/teamcity-agent
 
-      - name: Run Selenoid Container on Port 8111
+      - name: Run Selenoid Container on Port 4444
         run: |
-          docker run -d --name selenoid -p 8111:4444 aerokube/selenoid:latest-release
+          docker run -d --name selenoid -p 4444:4444 aerokube/selenoid:latest-release
           echo "Waiting for Selenoid to start..."
           sleep 5
 
-      - name: Configure Tests for Selenoid on Port 8111
+      - name: Configure Tests for Selenoid on Port 4444
         run: |
           playwright set-developer-mode
           playwright config set video 'on'
-          playwright config set baseUrl 'http://selenoid:8111'
+          playwright config set baseUrl 'http://selenoid:4444'
 
       - name: Install Python Dependencies
         run: |
