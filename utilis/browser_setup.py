@@ -16,7 +16,7 @@ class BrowserSetup:
         context = browser.new_context()
         context.tracing.start(screenshots=True, snapshots=True, sources=True)
         page = context.new_page()
-        page.set_viewport_size({"width": browser_width, "height": browser_height}) #Настраивает размеры окна браузера для ваших тестов
+        page.set_viewport_size({"width": browser_width, "height": browser_height})  # Настраивает размеры окна браузера для ваших тестов
         return playwright, browser, context, page
 
 
