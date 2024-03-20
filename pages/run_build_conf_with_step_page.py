@@ -38,7 +38,7 @@ class RunBuildWithStep(BasePage):
     def go_to_build_steps_page(self):
         with allure.step("Переход на страницу с отображением шагов к билд конфигурации"):
             self.actions.navigate(self.page_url)
-            self.actions.wait_for_page_load(timeout=10000)
+            self.actions.wait_for_page_load()
 
     def run_build_conf_with_step(self, build_conf_id):
         with allure.step("Проверка текста на странице об успешном добавлении шагов к билд конфигурации"):

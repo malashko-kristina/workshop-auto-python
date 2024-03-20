@@ -91,7 +91,7 @@ class BuildConfCreationPage(BasePage):
     def go_to_creation_build_conf_page(self):
         with allure.step("Переход на страницу создания билд конфигурации"):
             self.actions.navigate(self.page_url)
-            self.actions.wait_for_page_load(timeout=10000)
+            self.actions.wait_for_page_load()
 
     def create_build_conf(self, build_conf_id, build_conf_name, project_id, description):
         self.go_to_creation_build_conf_page()
@@ -119,7 +119,7 @@ class BuildConfCreationWithErrorPage(BasePage):
     def go_to_creation_build_conf_page(self):
         with allure.step("Переход на страницу создания билд конфигурации"):
             self.actions.navigate(self.page_url)
-            self.actions.wait_for_page_load(timeout=10000)
+            self.actions.wait_for_page_load()
 
     def create_build_conf_with_empty_fields(self, build_conf_id, build_conf_name, description):
         self.go_to_creation_build_conf_page()

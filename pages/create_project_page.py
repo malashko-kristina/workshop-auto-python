@@ -116,7 +116,7 @@ class ProjectCreationPageWithEmptyName(BasePage):
     def go_to_creation_page(self):
         with allure.step("Переход на страницу создания проекта"):
             self.actions.navigate(self.page_url)
-            self.actions.wait_for_page_load(timeout=10000)
+            self.actions.wait_for_page_load()
 
     def create_project(self, name, project_id, description):
         with allure.step("Переход на страницу создания проекта"):
@@ -148,7 +148,7 @@ class ProjectCreationPageWithUsedId(BasePage):
     def go_to_creation_page(self):
         with allure.step("Переход на страницу создания проекта"):
             self.actions.navigate(self.page_url)
-            self.actions.wait_for_page_load(timeout=10000)
+            self.actions.wait_for_page_load()
 
     def create_project(self, name, project_id, description):
         with allure.step("Клик по кнопке ручного создания проекта"):

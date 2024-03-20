@@ -42,7 +42,7 @@ class BuildConfRunPage(BasePage):
     def go_to_creation_build_conf_page(self):
         with allure.step("Переход на страницу запуска билд конфигурации"):
             self.actions.navigate(self.page_url)
-            self.actions.wait_for_page_load(timeout=10000)
+            self.actions.wait_for_page_load()
 
     def run_build_conf(self, build_conf_id, project_id):
         self.run_build_conf_wrapper.click_run_build_conf()

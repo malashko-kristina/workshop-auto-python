@@ -32,7 +32,7 @@ class AddVCSFormPage(BasePage):
     def go_to_vcs_add_page(self):
         with allure.step("Переход на страницу добавления vcs"):
             self.actions.navigate(self.page_url)
-            self.actions.wait_for_page_load(timeout=10000)
+            self.actions.wait_for_page_load()
 
     def skip_vcs(self, build_conf_id, project_id):
         with allure.step("Проверка текста на странице об успешном добавлении шагов к билд конфигурации"):

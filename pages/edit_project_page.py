@@ -148,7 +148,7 @@ class EditProjectFormPage(BasePage):
     def go_to_edit_project_page(self):
         with allure.step("Переход на страницу редактирования проекта"):
             self.actions.navigate(self.page_url)
-            self.actions.wait_for_page_load(timeout=10000)
+            self.actions.wait_for_page_load()
 
     def check_project_data(self, name, project_id, description):
         self.message_created_project.check_text_in_selector(name)
@@ -174,7 +174,7 @@ class EditProjectFormWithWrongIdPage(BasePage):
     def go_to_edit_project_page(self):
             with allure.step("Переход на страницу редактирования проекта"):
                 self.actions.navigate(self.page_url)
-                self.actions.wait_for_page_load(timeout=10000)
+                self.actions.wait_for_page_load()
 
     def edit_project_data_with_invalid_id(self, name, project_id, description):
         with allure.step("Переход на страницу редактирования проекта"):
@@ -207,7 +207,7 @@ class EditProjectFormWithChangesPage(BasePage):
     def go_to_edit_project_page(self):
         with allure.step("Переход на страницу редактирования проекта"):
             self.actions.navigate(self.page_url)
-            self.actions.wait_for_page_load(timeout=10000)
+            self.actions.wait_for_page_load()
 
     def change_project_data(self, name, project_id, description):
         with allure.step("Добавление информации в поля для редактирования проекта"):

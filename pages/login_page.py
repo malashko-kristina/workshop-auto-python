@@ -34,7 +34,7 @@ class LoginPage(BasePage):
     def go_to_login_page(self):
         with allure.step("Переход на страницу логина"):
             self.actions.navigate(self.page_url)
-            self.actions.wait_for_page_load(timeout=10000)
+            self.actions.wait_for_page_load()
 
     def login_in_account(self, login, password):
         self.go_to_login_page()
@@ -55,7 +55,7 @@ class LoginPageFirstTime(BasePage):
     def go_to_login_page(self):
         with allure.step("Переход на страницу логина"):
             self.actions.navigate(self.page_url)
-            self.actions.wait_for_page_load(timeout=10000)
+            self.actions.wait_for_page_load()
 
     def login_in_account(self, login, password):
         self.go_to_login_page()
