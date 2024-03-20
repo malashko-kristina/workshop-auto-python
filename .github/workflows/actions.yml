@@ -53,6 +53,12 @@ jobs:
         run: |
           docker run -d --name teamcity-agent-instance -e SERVER_URL="http://localhost:8111" jetbrains/teamcity-agent
 
+      - name: Install Python Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y python3.10 python3-pip
+          pip install -r requirements.txt
+
       - name: Run Selenoid Container on Port 4444
         run: |
           docker run -d --name selenoid -p 4444:4444 aerokube/selenoid:latest-release
@@ -64,12 +70,6 @@ jobs:
           playwright set-developer-mode
           playwright config set video 'on'
           playwright config set baseUrl 'http://selenoid:4444'
-
-      - name: Install Python Dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y python3.10 python3-pip
-          pip install -r requirements.txt
 
       - name: Run Set Up Test
         run: |
