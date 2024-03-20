@@ -54,9 +54,8 @@ class PageAction:
             self.page.fill(selector, text)
 
     def wait_for_selector(self, selector):
-        with allure.step(f"Ожидаем появления селектора: {selector}"):
-            self.page.wait_for_selector(selector, state='visible')
-
+        with allure.step(f"Ожидаем появления селектора: {selector} на протяжении 1.5 минут"):
+            self.page.wait_for_selector(selector, state='visible', timeout=90000)
 
     def wait_for_disappear_selector(self, selector):
         with allure.step(f"Ожидаем появления селектора: {selector}"):
