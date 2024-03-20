@@ -18,11 +18,12 @@ class PageAction:
         with allure.step(f"Проверка URL: ожидаемый URL - {expected_url}"):
             expect(self.page).to_have_url(expected_url)
 
-
     def wait_for_url_change(self, expected_url):
         with allure.step(f"Ожидание изменения URL на {expected_url}"):
             self.page.wait_for_url(expected_url)
-
+    def check_box(self, selector):
+        with allure.step("Проставления флажка в чекбоксе"):
+            self.page.check(selector)
 
     def wait_for_page_load(self):
         with allure.step(f"Ожидание загрузки страницы"):
