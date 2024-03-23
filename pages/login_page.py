@@ -43,7 +43,7 @@ class LoginPage(BasePage):
         with allure.step("Клик на кнопку логина в аккаунт"):
             self.login_form_body.click_login_button()
             time.sleep(2)
-            self.page_url = "/favorite/projects?mode=builds"
+            self.page_url = "/favorite/projects"
             self.actions.wait_for_url_change(self.page_url)
 
 class LoginPageFirstTime(BasePage):
