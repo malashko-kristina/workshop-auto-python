@@ -225,10 +225,13 @@ class CreateTheFirstProjectPage(BasePage):
         with allure.step('Проверка приветственного текста'):
             self.create_the_first_project.check_text_is_visible()
             time.sleep(2)
-        with allure.step('Клик по кнопке создания проекта для перехода на страницу созданиям проекта'):
+        with allure.step('Клик по кнопке создания проекта для перехода на страницу создания проекта'):
             self.create_the_first_project.click_create_project_button()
         with allure.step("Ввод данных для создания проекта"):
             self.first_create_form.input_first_project_details(name, project_id, description)
             time.sleep(2)
         with allure.step('Клик по кнопке создания проекта'):
             self.first_create_form.click_create_first_project_button()
+            self.page_url = (f'/admin/editProject.html?projectId={project_id}')
+            self.actions.wait_for_url_change(self.page_url)
+

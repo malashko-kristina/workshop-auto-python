@@ -5,7 +5,7 @@ from data.build_conf_data import BuildResponseModel
 from data.project_data import ProjectResponseModel
 from pages.create_project_page import ProjectCreationPage, CreateTheFirstProjectPage
 from pages.edit_build_conf_page import BuildConfCopyPage, BuildConfDeletePage, BuildConfCopyErrorPage
-from pages.login_page import LoginPage
+from pages.login_page import LoginPage, LoginPageFirstTime
 from pages.edit_project_page import EditProjectFormPage
 from pages.create_build_conf_page import BuildConfCreationPage, BuildConfCreationWithErrorPage
 from resources.user_creds import UsualUserCreds
@@ -32,7 +32,7 @@ def test_create_build_conf_with_invalid_data(browser, project_data, super_admin,
     invalid_build_id = DataGenerator.incorrect_id_1()
 
     with allure.step("Авторизация пользователя"):
-        login_browser = LoginPage(browser)
+        login_browser = LoginPageFirstTime(browser)
         login_browser.login_in_account(UsualUserCreds.USER_LOGIN, UsualUserCreds.USER_PASSWORD)
     with allure.step("Создание первого проекта"):
         first_project_creation_browser = CreateTheFirstProjectPage(browser)

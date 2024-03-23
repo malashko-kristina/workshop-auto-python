@@ -1,5 +1,7 @@
 import time
 import allure
+import pytest
+
 from data.build_conf_data import BuildResponseModel
 from data.project_data import ProjectResponseModel
 from data.run_build_data import BuildConfRunStatusModel
