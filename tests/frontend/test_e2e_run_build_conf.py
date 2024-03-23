@@ -44,7 +44,7 @@ def test_run_build_conf(browser, project_data, super_admin, build_conf_data, pro
 
     with allure.step("Отправка запроса на создание первого проекта"):
         project_data_2 = project_data_first_project
-    create_project_response = super_admin.api_manager.project_api.create_project(project_data_2.model_dump()).text
+        create_project_response = super_admin.api_manager.project_api.create_project(project_data_2.model_dump()).text
     with allure.step("Проверка соответствия параметров созданного проекта с отправленными данными"):
         project_model_response = ProjectResponseModel.model_validate_json(create_project_response)
     with pytest.assume:
