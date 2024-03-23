@@ -1,4 +1,6 @@
 import allure
+import pytest
+
 from data.build_conf_data import BuildResponseModel
 from data.project_data import ProjectResponseModel
 from data.run_build_data import BuildConfRunStatusModel
@@ -25,7 +27,7 @@ from utilis.data_generator import DataGenerator
 @allure.title('Проверка создания шагов билд конфигурации с последующим ее запуском')
 @allure.description('Негативный тест проверяет шагов билд конфигурации с последующим ее запуском и отображением ошибки.')
 
-def test_run_build_conf(browser, project_data, super_admin, build_conf_data):
+def test_run_build_conf(browser, project_data, super_admin, build_conf_data, project_data_first_project):
     project_data_1 = project_data
     project_id = project_data_1.id
     project_name = project_data_1.name
@@ -38,6 +40,15 @@ def test_run_build_conf(browser, project_data, super_admin, build_conf_data):
     invalid_step_id = DataGenerator.incorrect_id_1()
 
 
+
+    with allure.step("Отправка запроса на создание первого проекта"):
+        project_data_2 = project_data_first_project
+        create_project_response = super_admin.api_manager.project_api.create_project(project_data_2.model_dump()).text
+    with allure.step("Проверка соответствия параметров созданного проекта с отправленными данными"):
+        project_model_response = ProjectResponseModel.model_validate_json(create_project_response)
+    with pytest.assume:
+        assert project_model_response.id == project_data_2.id, \
+            f"expected project id= {project_data_2.id}, but '{project_model_response.id}' given"
     with allure.step("Авторизация пользователя"):
         login_browser = LoginPage(browser)
         login_browser.login_in_account(UsualUserCreds.USER_LOGIN, UsualUserCreds.USER_PASSWORD)

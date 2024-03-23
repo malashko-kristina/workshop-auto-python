@@ -3,7 +3,7 @@ import allure
 import pytest
 from data.build_conf_data import BuildResponseModel
 from data.project_data import ProjectResponseModel
-from pages.create_project_page import ProjectCreationPage
+from pages.create_project_page import ProjectCreationPage, CreateTheFirstProjectPage
 from pages.edit_build_conf_page import BuildConfCopyPage, BuildConfDeletePage, BuildConfCopyErrorPage
 from pages.login_page import LoginPage
 from pages.edit_project_page import EditProjectFormPage
@@ -34,9 +34,9 @@ def test_create_build_conf_with_invalid_data(browser, project_data, super_admin,
     with allure.step("Авторизация пользователя"):
         login_browser = LoginPage(browser)
         login_browser.login_in_account(UsualUserCreds.USER_LOGIN, UsualUserCreds.USER_PASSWORD)
-    with allure.step("Создание проекта"):
-        project_creation_browser = ProjectCreationPage(browser)
-        project_creation_browser.create_project(project_name, project_id, description)
+    with allure.step("Создание первого проекта"):
+        first_project_creation_browser = CreateTheFirstProjectPage(browser)
+        first_project_creation_browser.create_first_project(project_name, project_id, description)
     with allure.step("Проверка нахождения id созданного проекта в общем списке проектов"):
         get_project_response = super_admin.api_manager.project_api.get_project_by_locator(project_data_1.id).text
     with allure.step("Проверка соответствия параметров созданного проекта с отправленными данными"):
@@ -76,7 +76,7 @@ def test_create_build_conf_with_invalid_data(browser, project_data, super_admin,
 @allure.title('Проверка создания копии билд конфигурации с изменением id билд конфигурации')
 @allure.description('Позитивный тест проверяет создания копии билд конфигурации с изменением id билд конфигурации.')
 
-def test_create_build_conf_by_copy(browser, project_data, super_admin, build_conf_data):
+def test_create_build_conf_by_copy(browser, project_data, super_admin, build_conf_data, project_data_first_project):
     project_data_1 = project_data
     project_id = project_data_1.id
     project_name = project_data_1.name
@@ -85,6 +85,15 @@ def test_create_build_conf_by_copy(browser, project_data, super_admin, build_con
     build_conf_name = build_conf_data_1.name
     description = DataGenerator.random_text()
 
+
+    with allure.step("Отправка запроса на создание первого проекта"):
+        project_data_2 = project_data_first_project
+        create_project_response = super_admin.api_manager.project_api.create_project(project_data_2.model_dump()).text
+    with allure.step("Проверка соответствия параметров созданного проекта с отправленными данными"):
+        project_model_response = ProjectResponseModel.model_validate_json(create_project_response)
+    with pytest.assume:
+        assert project_model_response.id == project_data_2.id, \
+            f"expected project id= {project_data_2.id}, but '{project_model_response.id}' given"
     with allure.step("Авторизация пользователя"):
         login_browser = LoginPage(browser)
         login_browser.login_in_account(UsualUserCreds.USER_LOGIN, UsualUserCreds.USER_PASSWORD)
@@ -136,7 +145,7 @@ def test_create_build_conf_by_copy(browser, project_data, super_admin, build_con
 @allure.title('Проверка создания копии билд конфигурации с невалидным id')
 @allure.description('Негативный тест проверяет создания копии билд конфигурации с невалидным id .')
 
-def test_create_invalid_copy_build_conf(browser, project_data, super_admin, build_conf_data_without_deleting_id):
+def test_create_invalid_copy_build_conf(browser, project_data, super_admin, build_conf_data_without_deleting_id, project_data_first_project):
     project_data_1 = project_data
     project_id = project_data_1.id
     project_name = project_data_1.name
@@ -146,6 +155,15 @@ def test_create_invalid_copy_build_conf(browser, project_data, super_admin, buil
     description = DataGenerator.random_text()
     invalid_build_id = DataGenerator.incorrect_id_1()
 
+
+    with allure.step("Отправка запроса на создание первого проекта"):
+        project_data_2 = project_data_first_project
+        create_project_response = super_admin.api_manager.project_api.create_project(project_data_2.model_dump()).text
+    with allure.step("Проверка соответствия параметров созданного проекта с отправленными данными"):
+        project_model_response = ProjectResponseModel.model_validate_json(create_project_response)
+    with pytest.assume:
+        assert project_model_response.id == project_data_2.id, \
+            f"expected project id= {project_data_2.id}, but '{project_model_response.id}' given"
     with allure.step("Авторизация пользователя"):
         login_browser = LoginPage(browser)
         login_browser.login_in_account(UsualUserCreds.USER_LOGIN, UsualUserCreds.USER_PASSWORD)

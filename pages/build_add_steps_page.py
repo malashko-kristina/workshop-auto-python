@@ -11,7 +11,7 @@ class FormNewBuildStepsFragment(BasePage):
         self.step_custom_script_selector = ".CodeMirror >> textarea"
         self.step_submit_button_selector = "input.btn.btn_primary.submitButton[name='submitButton']"
         self.step_cancel_button_script_selector = "a.cancel"
-        self.error_empty_custom_script = "#error_script.content"
+        self.error_empty_custom_script = ".error.expanded_true"
         self.error_empty_step_id = "#error_newRunnerId"
 
 

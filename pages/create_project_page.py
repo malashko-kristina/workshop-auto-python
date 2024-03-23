@@ -35,7 +35,6 @@ class CreateFormContainerFragment(BasePage):
         self.project_description_selector = "input#description"
         self.create_project_button = 'input.btn.btn_primary.submitButton[id="createProject"]'
 
-
     def input_project_details(self, name, project_id, description):
         with allure.step("Ввод данных для создания проекта"):
             self.actions.wait_for_selector(self.project_name_selector)
