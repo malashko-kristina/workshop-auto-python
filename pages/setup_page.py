@@ -24,7 +24,7 @@ class FirstStartWindow(BasePage):
 
     def is_proceed_button_active(self):
         with allure.step("Проверка активности кнопки proceed"):
-            self.actions.wait_for_selector(self.proceed_button, timeout="30000")
+            self.actions.wait_for_selector(self.proceed_button)
 
     def click_on_proceed_button(self):
         with allure.step("Клик по кнопке proceed"):
