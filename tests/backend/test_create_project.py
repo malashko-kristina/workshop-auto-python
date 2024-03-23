@@ -246,7 +246,7 @@ class TestProjectCopy:
                  project_copy_data_2 = project_copy_data_with_another_source_project
                  create_project_copy_response = super_admin.api_manager.project_api.create_copy_project(project_copy_data_2.model_dump(), expected_status=HTTPStatus.NOT_FOUND)
             with pytest.assume:
-                 assert f"NotFoundException: No project found by name or internal/external id '{project_copy_data_2.sourceProject["locator"]}'" in create_project_copy_response.text
+                 assert f"NotFoundException: No project found by name or internal/external id '{project_copy_data_2.sourceProject['locator']}'" in create_project_copy_response.text
 
 
 class TestProjectCreateAndDelete:

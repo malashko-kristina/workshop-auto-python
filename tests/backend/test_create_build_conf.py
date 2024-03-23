@@ -150,7 +150,7 @@ class TestBuildCreateWithInvalidData:
                 build_conf_data_1 = build_conf_data_with_invalid_project_id
                 build_config_response = super_admin.api_manager.build_conf_api.create_build_conf(build_conf_data_1.model_dump(), expected_status=HTTPStatus.NOT_FOUND)
             with pytest.assume:
-                assert f"NotFoundException: No project found by locator 'count:1,id:{build_conf_data_1.project["id"]}'. Project cannot be found by external id '{build_conf_data_1.project["id"]}" in build_config_response.text
+                assert f"NotFoundException: No project found by locator 'count:1,id:{build_conf_data_1.project['id']}'. Project cannot be found by external id '{build_conf_data_1.project['id']}" in build_config_response.text
 
 class TestBuildConfCreateWithoutObligatoryFields:
 
