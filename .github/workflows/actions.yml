@@ -69,16 +69,16 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y woff2 libwoff-dev
 
-#      - name: Run Selenoid Container on Port 4444
-#        run: |
-#          docker run -d --name selenoid -p 4444:4444 aerokube/selenoid:latest-release
-#          echo "Waiting for Selenoid to start..."
-#          sleep 5
-#
-#      - name: Configure Tests for Selenoid on Port 4444
-#        run: |
-#          export PLAYWRIGHT_VIDEO='on'
-#          export BASE_URL='http://selenoid:4444'
+      - name: Run Selenoid Container on Port 4444
+        run: |
+          docker run -d --name selenoid -p 4444:4444 aerokube/selenoid:latest-release
+          echo "Waiting for Selenoid to start..."
+          sleep 5
+
+      - name: Configure Tests for Selenoid on Port 4444
+        run: |
+          export PLAYWRIGHT_VIDEO='on'
+          export BASE_URL='http://selenoid:4444'
 
       - name: Run Set Up Test
         run: |

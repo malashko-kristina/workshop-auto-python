@@ -20,6 +20,13 @@ def browser(request):
     BrowserSetup.teardown(context, browser, playwright)
 
 
+@pytest.fixture(scope='session')
+def one_browser():
+    playwright, browser, context, page = BrowserSetup.setup(browser_type="chromium")
+    yield page
+    BrowserSetup.teardown(context, browser, playwright)
+
+
 @pytest.fixture
 def user_session():
     user_pool = []
