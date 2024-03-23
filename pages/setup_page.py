@@ -24,7 +24,7 @@ class FirstStartWindow(BasePage):
 
     def is_proceed_button_active(self):
         with allure.step("Проверка активности кнопки proceed"):
-            self.actions.wait_for_selector(self.proceed_button)
+            self.actions.wait_for_selector(self.proceed_button, timeout="30000")
 
     def click_on_proceed_button(self):
         with allure.step("Клик по кнопке proceed"):
@@ -106,7 +106,6 @@ class SetUpPage(BasePage):
         self.agreement = Agreement(self.page)
         self.setup_user = SetUpUser(self.page)
 
-
     def set_up(self, username="admin", password="admin"):
         with allure.step("Переход на самую первую приветственную страницу"):
             self.actions.navigate(self.page_url)
@@ -135,4 +134,4 @@ class SetUpPage(BasePage):
             self.setup_user.create_user()
         with allure.step("Проверка перехода на страницу логина"):
             self.page_url = "/favorite/projects"
-            self.actions.wait_for_url_change(self.page_url )
+            self.actions.wait_for_url_change(self.page_url)

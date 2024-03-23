@@ -13,7 +13,7 @@ from utilis.browser_setup import BrowserSetup
 from utilis.data_generator import DataGenerator
 
 
-@pytest.fixture(params=BROWSERS, scope='session')
+@pytest.fixture(params=BROWSERS)
 def browser(request):
     playwright, browser, context, page = BrowserSetup.setup(browser_type=request.param)
     yield page
