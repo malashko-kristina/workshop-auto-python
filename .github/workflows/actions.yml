@@ -49,10 +49,6 @@ jobs:
             echo "Port 8111 is not open."
           fi
 
-      - name: Run TeamCity Agent Container
-        run: |
-          docker run -d --name teamcity-agent-instance -e SERVER_URL="http://localhost:8111" jetbrains/teamcity-agent
-
       - name: Install Python Dependencies
         run: |
           sudo apt-get update
@@ -79,6 +75,10 @@ jobs:
         run: |
           export PLAYWRIGHT_VIDEO='on'
           export BASE_URL='http://selenoid:4444'
+
+      - name: Run TeamCity Agent Container
+        run: |
+          docker run -d --name teamcity-agent-instance -e SERVER_URL="http://localhost:8111" jetbrains/teamcity-agent
 
       - name: Run Set Up Test
         run: |
