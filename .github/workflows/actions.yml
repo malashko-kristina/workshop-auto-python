@@ -123,4 +123,5 @@ jobs:
       - name: Add Allure Artifacts
         if: always()
         run: |
+          export PATH=$HOME/.local/bin:$PATH
           allure serve ./allure-report
