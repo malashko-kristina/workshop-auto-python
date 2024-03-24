@@ -79,6 +79,8 @@ class ProjectCreationPage(BasePage):
         with allure.step("Проверка загрузки страницы"):
             self.page_url = (f'/admin/editProject.html?projectId={project_id}')
             self.actions.wait_for_page_load()
+            self.actions.check_url(self.page_url)
+
 
 
 class ProjectCreationPageThroughHeader(BasePage):
@@ -102,6 +104,8 @@ class ProjectCreationPageThroughHeader(BasePage):
         with allure.step("Проверка загрузки страницы"):
             self.page_url = (f'/admin/editProject.html?projectId={project_id}')
             self.actions.wait_for_page_load()
+            self.actions.check_url(self.page_url)
+
 
 
 class ProjectCreationPageWithEmptyName(BasePage):
@@ -233,5 +237,7 @@ class CreateTheFirstProjectPage(BasePage):
         with allure.step('Клик по кнопке создания проекта'):
             self.first_create_form.click_create_first_project_button()
             self.page_url = (f'/admin/editProject.html?projectId={project_id}')
-            self.actions.wait_for_url_change(self.page_url)
+            self.actions.wait_for_page_load()
+            self.actions.check_url(self.page_url)
+
 

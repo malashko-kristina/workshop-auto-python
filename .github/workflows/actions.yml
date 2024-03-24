@@ -65,6 +65,10 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y woff2 libwoff-dev
 
+      - name: Install Allure
+        run: |
+          pip install allure-pytest
+
       - name: Run Selenoid Container on Port 4444
         run: |
           docker run -d --name selenoid -p 4444:4444 aerokube/selenoid:latest-release
@@ -108,13 +112,15 @@ jobs:
       - name: Run Tests
         id: run-tests
         run: |
-          pytest -v --alluredir=results --ignore=test/frontend/test_set_up.py || true
+          pytest -v --alluredir=results --ignore=test/frontend/test_set_up.py || exit 1
           echo "::set-output name=run-tests-success::true"
 
       - name: Generate Allure Report
+        if: always()
         run: |
-          allure generate ./results --clean -o ./allure-report || true
+          allure generate ./results --clean -o ./allure-report
 
       - name: Add Allure Artifacts
+        if: always()
         run: |
-          allure serve ./allure-report || true
+          allure serve ./allure-report

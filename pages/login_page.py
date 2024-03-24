@@ -8,6 +8,7 @@ class LoginFormBody(BasePage):
         self.username_locator = "#username"
         self.password_locator = "#password"
         self.login_button_locator = "input.loginButton[name='submitLogin']"
+        self.userpic = 'span[data-test="avatar"]'
 
 
     def input_user_details(self, login, password):
@@ -23,6 +24,11 @@ class LoginFormBody(BasePage):
         with allure.step("Клик на кнопку логина для входа в систему"):
             self.actions.is_button_active(self.login_button_locator)
             self.actions.click_button(self.login_button_locator)
+
+    def userpic_is_visible(self):
+        with allure.step('Проверка видимости юзерпика'):
+            self.actions.wait_for_selector(self.userpic)
+            self.actions.is_element_present(self.userpic)
 
 
 class LoginPage(BasePage):
@@ -45,6 +51,8 @@ class LoginPage(BasePage):
             time.sleep(2)
             self.page_url = "/favorite/projects?mode=builds"
             self.actions.wait_for_url_change(self.page_url)
+        with allure.step('Проверка видимости юзерпика'):
+            self.login_form_body.userpic_is_visible()
 
 class LoginPageFirstTime(BasePage):
     def __init__(self, page):
@@ -69,6 +77,9 @@ class LoginPageFirstTime(BasePage):
             self.page_url = "/favorite/projects"
         with allure.step("Проверка перехода на страницу предпочитаемых проектов"):
             self.actions.wait_for_url_change(self.page_url)
+        with allure.step('Проверка видимости юзерпика'):
+            self.login_form_body.userpic_is_visible()
+
 
 
 

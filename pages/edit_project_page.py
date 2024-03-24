@@ -26,22 +26,24 @@ class OptionsProjectCreatedFragment(BasePage):
         self.new_project_id = '#newProjectExternalId'
         self.message_error_empty_id = '#error_newProjectExternalId'
 
-    def delete_project(self, project_id):
+    def delete_project(self):
         with allure.step("Клик на кнопку actions на странице проекта"):
-            self.actions.is_element_present(self.actions_button)
+            self.actions.wait_for_selector(self.actions_button)
+            self.actions.is_button_active(self.actions_button)
             self.actions.click_button(self.actions_button)
             time.sleep(2)
         with allure.step("Клик на кнопку удаления на странице проекта"):
             self.actions.wait_for_selector(self.delete_project_button)
-            time.sleep(2)
-            self.actions.wait_for_selector(self.delete_project_button)
+            self.actions.assert_text_in_element(self.delete_project_button, "Delete project...")
+            self.actions.is_button_active(self.delete_project_button)
             self.actions.click_button(self.delete_project_button)
             self.actions.wait_for_selector(self.after_delete_message)
             # todo self.actions.assert_text_in_element(self.after_delete_message, f'Project "{name}" has been moved to the "config/_trash" directory. All project related data (build history, artifacts, and so on) will be cleaned from the database during the next clean-up. See clean-up policy configuration.You can undo the deletion by moving the "config/_trash/{project_id}.project17024" to the "config/projects/{project_id}" manually')
 
     def copy_project(self, project_id):
         with allure.step("Клик на кнопку actions на странице проекта"):
-            self.actions.is_element_present(self.actions_button)
+            self.actions.wait_for_selector(self.actions_button)
+            self.actions.is_button_active(self.actions_button)
             self.actions.click_button(self.actions_button)
             time.sleep(2)
             self.actions.wait_for_selector(self.copy_project_button)
@@ -63,7 +65,8 @@ class OptionsProjectCreatedFragment(BasePage):
 
     def copy_project_with_empty_id(self, project_id):
         with allure.step("Клик на кнопку actions на странице проекта"):
-            self.actions.is_element_present(self.actions_button)
+            self.actions.wait_for_selector(self.actions_button)
+            self.actions.is_button_active(self.actions_button)
             self.actions.click_button(self.actions_button)
             time.sleep(2)
             self.actions.wait_for_selector(self.copy_project_button)
@@ -132,6 +135,7 @@ class AddBuildConf(BasePage):
 
     def click_on_create_build_cond(self):
         with allure.step("Нажатие кнопки создания билд конфигурации"):
+            self.actions.wait_for_selector(self.build_conf_add_button_selector)
             self.actions.is_element_present(self.build_conf_add_button_selector)
             self.actions.click_button(self.build_conf_add_button_selector)
 
@@ -228,8 +232,8 @@ class DeleteProjectPage(BasePage):
         self.options_project = OptionsProjectCreatedFragment(page)
 
 
-    def delete_project(self, project_id):
-        self.options_project.delete_project(project_id)
+    def delete_project(self):
+        self.options_project.delete_project()
 
 
 class CopyProjectPage(BasePage):

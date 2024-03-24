@@ -20,7 +20,8 @@ class PageAction:
 
     def wait_for_url_change(self, expected_url):
         with allure.step(f"Ожидание изменения URL на {expected_url}"):
-            self.page.wait_for_url(expected_url)
+            self.page.wait_for_url(expected_url, timeout=30000)
+
     def check_box(self, selector):
         with allure.step("Проставления флажка в чекбоксе"):
             self.page.check(selector)
@@ -42,7 +43,7 @@ class PageAction:
 
     def is_button_active(self, selector):
         with allure.step(f"Проверка активности кнопки: {selector}"):
-            expect(self.page.locator(selector)).to_be_enabled()
+            expect(self.page.locator(selector)).to_be_enabled(timeout=30000)
 
 
     def input_text(self, selector, text):
