@@ -86,7 +86,7 @@ class ProjectCreationPage(BasePage):
 class ProjectCreationPageThroughHeader(BasePage):
     def __init__(self, page):
         super().__init__(page)
-        self.page_url = ('/admin/createObjectMenu.html?projectId=_Root&showMode=createProjectMenu&cameFromUrl=http%3A%2F%2Flocalhost%3A8111%2Ffavorite%2Fprojects%3Fmode%3Dbuilds')
+        self.page_url = ('/admin/createObjectMenu.html?projectId=_Root&showMode=createProjectMenu&cameFromUrl=http%3A%2F%2Flocalhost%3A8111%2Ffavorite%2Fprojects#createManually')
         self.menu_list_create = MenuListCreateFragment(page)
         self.create_form_container = CreateFormContainerFragment(page)
 
@@ -95,6 +95,8 @@ class ProjectCreationPageThroughHeader(BasePage):
             self.menu_list_create.is_create_from_url_active()
             self.menu_list_create.click_create_manually()
             time.sleep(2)
+        with allure.step("Проверка текущей ссылки создания проекта"):
+            self.actions.check_url(self.page_url, timeout=90000)
         with allure.step("Заполнение полей информации о проекте"):
             self.create_form_container.input_project_details(name, project_id, description)
             time.sleep(2)
@@ -103,6 +105,7 @@ class ProjectCreationPageThroughHeader(BasePage):
             time.sleep(2)
         with allure.step("Проверка загрузки страницы"):
             self.page_url = (f'/admin/editProject.html?projectId={project_id}')
+            time.sleep(3)
             self.actions.wait_for_page_load()
             self.actions.check_url(self.page_url, timeout=90000)
 
@@ -175,7 +178,7 @@ class CreateTheFirstProjectFragment(BasePage):
     def __init__(self, page):
         self.page = page
         super().__init__(page)
-        self.welcome_text = '.ring-heading-heading >> text="Welcome to TeamCity"'
+        self.welcome_text = 'div.UIPlaceholder__infoContainer--xa > h1.ring-heading-heading.ring-global-font'
         self.create_button_selector = 'a[data-test="create-project"]'
 
 
@@ -224,6 +227,8 @@ class CreateTheFirstProjectPage(BasePage):
         super().__init__(page)
         self.create_the_first_project = CreateTheFirstProjectFragment(page)
         self.first_create_form = FirstCreateFormContainerFragment(page)
+        self.menu_list = MenuListCreateFragment(page)
+        self.page_url = "/admin/createObjectMenu.html?projectId=_Root&showMode=createProjectMenu&cameFromUrl=http%3A%2F%2Flocalhost%3A8111%2Ffavorite%2Fprojects#createManually"
 
 
     def create_first_project(self, name, project_id, description):
@@ -232,12 +237,18 @@ class CreateTheFirstProjectPage(BasePage):
             time.sleep(2)
         with allure.step('Клик по кнопке создания проекта для перехода на страницу создания проекта'):
             self.create_the_first_project.click_create_project_button()
+            time.sleep(2)
+        with allure.step("Клик на ручное создание проекта"):
+            self.menu_list.click_create_manually()
+        with allure.step("Проверка текущей ссылки создания проекта"):
+            self.actions.wait_for_url_change(self.page_url)
         with allure.step("Ввод данных для создания проекта"):
             self.first_create_form.input_first_project_details(name, project_id, description)
             time.sleep(2)
         with allure.step('Клик по кнопке создания проекта'):
             self.first_create_form.click_create_first_project_button()
             self.page_url = (f'/admin/editProject.html?projectId={project_id}')
+            time.sleep(3)
             self.actions.wait_for_page_load()
             self.actions.check_url(self.page_url, timeout=90000)
 

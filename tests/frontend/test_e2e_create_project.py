@@ -204,7 +204,7 @@ def test_create_project_by_copy(browser, project_data, super_admin, project_data
     with pytest.assume:
         assert created_model_project_response.id == project_id_new, f"There is no project with {project_id_new} id"
     with allure.step("Удаление проекта"):
-        delete_project_browser = DeleteProjectPage(browser, project_id)
+        delete_project_browser = DeleteProjectPage(browser, project_id_new)
         delete_project_browser.delete_project()
     with allure.step("Отправка запроса на получение информации об удаленно проекте"):
         get_delete_project_response = super_admin.api_manager.project_api.get_project_by_locator(project_id_new, expected_status=HTTPStatus.NOT_FOUND)

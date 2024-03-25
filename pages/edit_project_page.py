@@ -31,7 +31,6 @@ class OptionsProjectCreatedFragment(BasePage):
             self.actions.wait_for_selector(self.actions_button)
             self.actions.is_button_active(self.actions_button)
             self.actions.click_button(self.actions_button)
-            time.sleep(2)
         with allure.step("Клик на кнопку удаления на странице проекта"):
             self.actions.wait_for_selector(self.delete_project_button)
             self.actions.assert_text_in_element(self.delete_project_button, "Delete project...")
@@ -233,6 +232,8 @@ class DeleteProjectPage(BasePage):
 
 
     def delete_project(self):
+        self.actions.check_url(self.page_url, timeout=90000)
+        time.sleep(3)
         self.options_project.delete_project()
 
 
