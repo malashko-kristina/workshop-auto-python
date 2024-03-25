@@ -20,11 +20,20 @@ jobs:
         run: |
           npm install -g allure-commandline
 
+      - name: Create Results Directory
+        run: mkdir -p ./results
+
       - name: Generate Allure Report
         run: allure generate ./results --clean -o ./allure-report
 
       - name: Add Allure Artifacts
         run: allure serve ./allure-report
+
+      - name: Save Allure Report Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: allure-report
+          path: ./allure-report
 
   run-tests:
     runs-on: ubuntu-latest
@@ -41,9 +50,13 @@ jobs:
           mkdir -p ./logs  
           sudo chown -R 1000:1000 ./logs 
 
+      - name: Create Docker Network
+        run: |
+          docker network create teamcity-network
+
       - name: Run TeamCity Server Container
         run: |
-          docker run -d --name teamcity-server-instance -v ${{ github.workspace }}/logs:/opt/teamcity/logs -p 8111:8111 jetbrains/teamcity-server
+          docker run -d --name teamcity-server-instance --network teamcity-network -v ${{ github.workspace }}/logs:/opt/teamcity/logs -p 8111:8111 jetbrains/teamcity-server
           echo "Waiting for TeamCity server to start..."
           for i in {1..30}; do
                   if docker logs teamcity-server-instance 2>&1 | grep -q 'TeamCity process PID is'; then
@@ -85,7 +98,7 @@ jobs:
 
       - name: Run TeamCity Agent Container
         run: |
-          docker run -d --name teamcity-agent-instance -e SERVER_URL="http://localhost:8111" jetbrains/teamcity-agent
+          docker run -d --name teamcity-agent-instance --network teamcity-network -e SERVER_URL="http://teamcity-server-instance:8111" jetbrains/teamcity-agent
 
       - name: Run Set Up Test
         run: |

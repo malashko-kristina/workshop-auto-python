@@ -122,8 +122,6 @@ def test_create_project_invalid_id_edit(browser, project_data_without_deleting, 
     project_id_2 = DataGenerator.fake_build_id()
     description = DataGenerator.random_text()
 
-
-
     with allure.step("Отправка запроса на создание первого проекта"):
         project_data_2 = project_data_first_project
         create_project_response = super_admin.api_manager.project_api.create_project(project_data_2.model_dump()).text
