@@ -16,11 +16,11 @@ class PageAction:
 
     def check_url(self, expected_url):
         with allure.step(f"Проверка URL: ожидаемый URL - {expected_url}"):
-            expect(self.page).to_have_url(expected_url, timeout=180000)
+            expect(self.page).to_have_url(expected_url, timeout=30000)
 
     def wait_for_url_change(self, expected_url):
         with allure.step(f"Ожидание изменения URL на {expected_url}"):
-            self.page.wait_for_url(expected_url, timeout=180000)
+            self.page.wait_for_url(expected_url, timeout=30000)
 
     def check_box(self, selector):
         with allure.step("Проставления флажка в чекбоксе"):
@@ -43,7 +43,7 @@ class PageAction:
 
     def is_button_active(self, selector):
         with allure.step(f"Проверка активности кнопки: {selector}"):
-            expect(self.page.locator(selector)).to_be_enabled(timeout=180000)
+            expect(self.page.locator(selector)).to_be_enabled(timeout=30000)
 
 
     def input_text(self, selector, text):
@@ -55,8 +55,8 @@ class PageAction:
             self.page.fill(selector, text)
 
     def wait_for_selector(self, selector):
-        with allure.step(f"Ожидаем появления селектора: {selector} на протяжении 3 минут"):
-            self.page.wait_for_selector(selector, state='visible', timeout=180000)
+        with allure.step(f"Ожидаем появления селектора: {selector} на протяжении 1.5 минут"):
+            self.page.wait_for_selector(selector, state='visible', timeout=90000)
 
     def wait_for_disappear_selector(self, selector):
         with allure.step(f"Ожидаем появления селектора: {selector}"):

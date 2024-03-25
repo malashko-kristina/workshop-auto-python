@@ -107,7 +107,7 @@ jobs:
       - name: Generate Allure Report
         if: always()
         run: |
-          allure generate ./results --clean -o ./allure-report
+          /opt/homebrew/bin/allure generate ./results --clean -o ./allure-report
 
       - name: Add Allure Artifacts
         if: always()
