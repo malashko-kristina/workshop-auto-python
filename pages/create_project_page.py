@@ -189,6 +189,7 @@ class CreateTheFirstProjectFragment(BasePage):
         with allure.step('Проверка видимости текста'):
             self.actions.wait_for_selector(self.welcome_text)
             self.actions.is_element_present(self.welcome_text)
+            self.actions.assert_text_in_element(self.welcome_text, "Welcome to TeamCity")
 
 
 

@@ -17,7 +17,7 @@ class OptionsProjectCreatedFragment(BasePage):
         super().__init__(page)
         self.actions_button = '.popupLink[type="button"] >> text=" Actions "'
         self.go_to_project_page_button = 'a.buildTypeName >> text="Go to project page"'
-        self.delete_project_button = 'a[title="Delete project"]'
+        self.delete_project_button = '.menuItem a[title="Delete project"]'
         self.copy_project_button = 'a[title="Copy project"]'
         self.copy_button = '#copyButton'
         self.after_copy_message = '#message_projectCopied'

@@ -50,7 +50,7 @@ class LoginPage(BasePage):
             self.login_form_body.click_login_button()
             time.sleep(2)
             self.page_url = "/favorite/projects?mode=builds"
-            self.actions.wait_for_url_change(self.page_url)
+            self.actions.check_url(self.page_url)
         with allure.step('Проверка видимости юзерпика'):
             self.login_form_body.userpic_is_visible()
 
@@ -76,7 +76,7 @@ class LoginPageFirstTime(BasePage):
             time.sleep(2)
             self.page_url = "/favorite/projects"
         with allure.step("Проверка перехода на страницу предпочитаемых проектов"):
-            self.actions.wait_for_url_change(self.page_url)
+            self.actions.check_url(self.page_url)
         with allure.step('Проверка видимости юзерпика'):
             self.login_form_body.userpic_is_visible()
 

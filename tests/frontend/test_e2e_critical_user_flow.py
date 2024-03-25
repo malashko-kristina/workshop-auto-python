@@ -80,7 +80,7 @@ def test_critical_user_flow(browser, project_data, super_admin, build_conf_data,
     with allure.step("Запуск билд конфигурации без добавления шагов"):
         run_build_conf_without_steps = BuildConfRunPage(browser, project_id, build_conf_id)
         run_build_conf_without_steps.run_build_conf(build_conf_id, project_id)
-        time.sleep(3)
+        time.sleep(180)
     with allure.step("Отправка запроса на проверку количества билд конфигураций в очереди для запуска"):
         get_build_conf_run_response = super_admin.api_manager.build_conf_api.check_query_with_build_conf().text
     with allure.step("Проверка соответствия параметров модели ответа запуска билд конфигурации с отправленными данными"):
