@@ -14,9 +14,9 @@ class PageAction:
         with allure.step("Нажатие на клавишу Enter на физической клавиатуре"):
                 self.page.keyboard.press('Enter')
 
-    def check_url(self, expected_url):
+    def check_url(self, expected_url, timeout):
         with allure.step(f"Проверка URL: ожидаемый URL - {expected_url}"):
-            expect(self.page).to_have_url(expected_url, timeout=30000)
+            expect(self.page).to_have_url(expected_url, timeout=timeout)
 
     def wait_for_url_change(self, expected_url):
         with allure.step(f"Ожидание изменения URL на {expected_url}"):

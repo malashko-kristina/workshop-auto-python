@@ -59,7 +59,7 @@ def user_session():
         user.close_session()
 
 
-@pytest.fixture()
+@pytest.fixture
 def super_admin(user_session):
     new_session = user_session()
     super_admin = User(SuperAdminCreds.USERNAME, SuperAdminCreds.PASSWORD, new_session, ["SUPER_ADMIN", "g"])  # В класс юзер создаем новый объект
