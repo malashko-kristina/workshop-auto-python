@@ -20,12 +20,12 @@ class BuildConfCopyFragment(BasePage):
         with allure.step("Клик на кнопку actions на странице билд конфигурации"):
             self.actions.wait_for_selector(self.actions_button)
             time.sleep(2)
-            self.actions.is_element_present(self.actions_button)
+            self.actions.is_element_visible(self.actions_button)
             self.actions.click_button(self.actions_button)
             time.sleep(2)
         with allure.step("Клик на кнопку copy для копирования билд конфигурации"):
             self.actions.wait_for_selector(self.copy_button)
-            self.actions.is_element_present(self.copy_button)
+            self.actions.is_element_visible(self.copy_button)
             self.actions.click_button(self.copy_button)
             time.sleep(2)
         with allure.step("Добавления нового билд конф name в поле build cond name"):
@@ -35,7 +35,7 @@ class BuildConfCopyFragment(BasePage):
             self.actions.input_text(self.new_build_id, new_build_conf_id)
             time.sleep(2)
         with allure.step("Клик на кнопку копирования билд конфигурации"):
-            self.actions.is_element_present(self.copy_build_button)
+            self.actions.is_element_visible(self.copy_build_button)
             self.actions.click_button(self.copy_build_button)
 
     def message_after_copy_build_conf(self):
@@ -52,7 +52,7 @@ class BuildConfCopyFragment(BasePage):
 
     def tap_on_cancel_button(self):
         with allure.step("Клик на кнопку отмены"):
-            self.actions.is_element_present(self.cancel_button)
+            self.actions.is_element_visible(self.cancel_button)
             self.actions.click_button(self.cancel_button)
 
 

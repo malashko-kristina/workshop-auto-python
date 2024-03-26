@@ -14,7 +14,7 @@ class SideBarListBuildConfFragment(BasePage):
 
     def is_build_steps_active(self):
         with allure.step('Проверка активности кнопки создания шагов для билд конфигурации'):
-            return self.actions.is_element_present(self.create_build_conf_from_url_selector)
+            return self.actions.is_element_visible(self.create_build_conf_from_url_selector)
 
 
 class BreadCrumbsWrapperRunBuildConf(BasePage):
@@ -29,7 +29,7 @@ class BreadCrumbsWrapperRunBuildConf(BasePage):
 
     def is_run_build_active(self):
         with allure.step('Проверка активности кнопки запуска билд конфигурации'):
-            return self.actions.is_element_present(self.run_build_conf_selector)
+            return self.actions.is_element_visible(self.run_build_conf_selector)
 
 
 class BuildConfRunPage(BasePage):
@@ -49,6 +49,7 @@ class BuildConfRunPage(BasePage):
         time.sleep(2)
         self.page_url = f'/admin/editBuildTypeVcsRoots.html?init=1&id=buildType:{build_conf_id}&cameFromUrl=%2Fadmin%2FeditProject.html%3Finit%3D1%26projectId%3D{project_id}'
         self.actions.wait_for_url_change(self.page_url)
+        time.sleep(30)
 
     def tap_on_add_build_steps(self, build_conf_id):
         with allure.step("Клик на кнопку перехода на страницу создания шагов к билд конфигурации"):

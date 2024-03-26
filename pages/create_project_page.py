@@ -16,15 +16,16 @@ class MenuListCreateFragment(BasePage):
 
     def click_create_manually(self):
         with allure.step('Выбор создания проекта вручную'):
+            self.actions.is_element_visible(self.create_manually_selector)
             self.actions.click_button(self.create_manually_selector)
 
     def is_create_from_url_active(self):
         with allure.step('Проверка активности кнопки создания проекта по url'):
-            return self.actions.is_element_present(self.create_from_url_selector)
+            return self.actions.is_element_visible(self.create_from_url_selector)
 
     def is_create_manually_active(self):
         with allure.step('Проверка активности кнопки создания проекта вручную'):
-            return self.actions.is_element_present(self.create_manually_selector)
+            return self.actions.is_element_visible(self.create_manually_selector)
 
 
 class CreateFormContainerFragment(BasePage):
@@ -33,54 +34,80 @@ class CreateFormContainerFragment(BasePage):
         self.project_name_selector = "input#name"
         self.project_id_selector = "input#externalId"
         self.project_description_selector = "input#description"
-        self.create_project_button = 'input.btn.btn_primary.submitButton[id="createProject"]'
+        self.create_project_button = 'input#createProject'
 
     def input_project_details(self, name, project_id, description):
         with allure.step("Ввод данных для создания проекта"):
             self.actions.wait_for_selector(self.project_name_selector)
             self.actions.input_text(self.project_name_selector, name)
-            time.sleep(2)
+            time.sleep(1)
             self.actions.input_text(self.project_id_selector, project_id)
-            time.sleep(2)
+            time.sleep(1)
             self.actions.input_text(self.project_description_selector, description)
-            time.sleep(2)
 
     def click_create_button(self):
         with allure.step("Нажатие кнопки создания проекта"):
-            self.actions.is_element_present(self.create_project_button)
+            self.actions.wait_for_page_load()
+            self.actions.wait_for_selector(self.create_project_button)
+            time.sleep(2)
+            self.actions.is_button_active(self.create_project_button)
+            time.sleep(2)
             self.actions.click_button(self.create_project_button)
+
+    def check_project_name_input_visible(self):
+        with allure.step("Проверка видимости поля Name"):
+            self.actions.is_element_visible(self.project_name_selector)
+
+    def check_project_id_input_visible(self):
+        with allure.step("Проверка видимости поля Project ID"):
+            self.actions.is_element_visible(self.project_id_selector)
+
+    def check_project_description_input_visible(self):
+        with allure.step("Проверка видимости поля Description"):
+            self.actions.is_element_visible(self.project_description_selector)
+
+    def check_project_create_button_visible(self):
+        with allure.step("Проверка видимости кнопки Create"):
+            self.actions.is_element_visible(self.create_project_button)
 
 
 class ProjectCreationPage(BasePage):
     def __init__(self, page):
         super().__init__(page)
-        self.page_url = ('/admin/createObjectMenu.html?projectId=_Root&showMode=createProjectMenu&cameFromUrl=http%3A%2F%2Flocalhost%3A8111%2Ffavorite%2Fprojects%3Fmode%3Dbuilds')
+        self.page_url = ('/admin/createObjectMenu.html?projectId=_Root&showMode=createProjectMenu'
+                         '&cameFromUrl=http%3A%2F%2Flocalhost%3A8111%2Ffavorite%2Fprojects')
         self.menu_list_create = MenuListCreateFragment(page)
         self.create_form_container = CreateFormContainerFragment(page)
+
+
+    def check_project_creation_page_url(self, url=None):
+        if url is None:
+            url = self.page_url
+        self.actions.check_url(url, equal=False)
 
     def go_to_creation_page(self):
         with allure.step("Переход на страницу создания проекта"):
             self.actions.navigate(self.page_url)
             self.actions.wait_for_page_load()
 
-    def create_project(self, name, project_id, description):
-        with allure.step("Переход на страницу создания проекта"):
-            self.go_to_creation_page()
-            time.sleep(2)
+    def create_project_manually(self, name, project_id, description):
         with allure.step("Клик по кнопке ручного создания проекта"):
             self.menu_list_create.click_create_manually()
+        with allure.step("Проверка видимости поля с Project name"):
+            self.create_form_container.check_project_name_input_visible()
+        with allure.step("Проверка видимости поля с Project id"):
+            self.create_form_container.check_project_id_input_visible()
+        with allure.step("Проверка видимости поля с Project description"):
+            self.create_form_container.check_project_description_input_visible()
+        with allure.step("Проверка видимости кнопки создания Project"):
+            self.create_form_container.check_project_create_button_visible()
             time.sleep(2)
         with allure.step("Заполнение полей информации о проекте"):
             self.create_form_container.input_project_details(name, project_id, description)
-            time.sleep(2)
+            time.sleep(3)
         with allure.step("Клик по кнопке создания проекта"):
             self.create_form_container.click_create_button()
-            time.sleep(3)
-        with allure.step("Проверка загрузки страницы"):
-            self.page_url = (f'/admin/editProject.html?projectId={project_id}')
             self.actions.wait_for_page_load()
-            self.actions.check_url(self.page_url, timeout=90000)
-
 
 
 class ProjectCreationPageThroughHeader(BasePage):
@@ -92,11 +119,10 @@ class ProjectCreationPageThroughHeader(BasePage):
 
     def create_project(self, name, project_id, description):
         with allure.step("Клик по кнопке ручного создания проекта"):
-            self.menu_list_create.is_create_from_url_active()
             self.menu_list_create.click_create_manually()
             time.sleep(2)
         with allure.step("Проверка текущей ссылки создания проекта"):
-            self.actions.check_url(self.page_url, timeout=90000)
+            self.actions.check_url(self.page_url)
         with allure.step("Заполнение полей информации о проекте"):
             self.create_form_container.input_project_details(name, project_id, description)
             time.sleep(2)
@@ -105,9 +131,9 @@ class ProjectCreationPageThroughHeader(BasePage):
             time.sleep(2)
         with allure.step("Проверка загрузки страницы"):
             self.page_url = (f'/admin/editProject.html?projectId={project_id}')
-            time.sleep(3)
+            time.sleep(4)
             self.actions.wait_for_page_load()
-            self.actions.check_url(self.page_url, timeout=90000)
+            self.actions.check_url(self.page_url)
 
 
 
@@ -184,14 +210,14 @@ class CreateTheFirstProjectFragment(BasePage):
 
     def click_create_project_button(self):
         with allure.step('Клик по кнопке создания проекта'):
-            self.actions.is_element_present(self.create_button_selector)
+            self.actions.is_element_visible(self.create_button_selector)
             self.actions.click_button(self.create_button_selector)
 
 
     def check_text_is_visible(self):
         with allure.step('Проверка видимости текста'):
             self.actions.wait_for_selector(self.welcome_text)
-            self.actions.is_element_present(self.welcome_text)
+            self.actions.is_element_visible(self.welcome_text)
             self.actions.assert_text_in_element(self.welcome_text, "Welcome to TeamCity")
 
 
@@ -217,7 +243,7 @@ class FirstCreateFormContainerFragment(BasePage):
 
     def click_create_first_project_button(self):
         with allure.step("Нажатие кнопки создания проекта"):
-            self.actions.is_element_present(self.create_project_button)
+            self.actions.wait_for_selector(self.create_project_button)
             self.actions.click_button(self.create_project_button)
 
 
@@ -234,7 +260,7 @@ class CreateTheFirstProjectPage(BasePage):
     def create_first_project(self, name, project_id, description):
         with allure.step('Проверка приветственного текста'):
             self.create_the_first_project.check_text_is_visible()
-            time.sleep(2)
+            time.sleep(3)
         with allure.step('Клик по кнопке создания проекта для перехода на страницу создания проекта'):
             self.create_the_first_project.click_create_project_button()
             time.sleep(2)
@@ -250,6 +276,6 @@ class CreateTheFirstProjectPage(BasePage):
             self.page_url = (f'/admin/editProject.html?projectId={project_id}')
             time.sleep(3)
             self.actions.wait_for_page_load()
-            self.actions.check_url(self.page_url, timeout=90000)
+            self.actions.check_url(self.page_url)
 
 

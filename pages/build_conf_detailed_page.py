@@ -10,9 +10,9 @@ class ErrorMessageFragment(BasePage):
 
     def check_errors_on_screen(self):
         with allure.step('Проверка наличия текста ошибок на странице'):
-            self.actions.is_element_present(self.error_message_exit_code)
+            self.actions.is_element_visible(self.error_message_exit_code)
             self.actions.check_error_text_color(self.error_message_exit_code)
-            self.actions.is_element_present(self.error_message_build_problem)
+            self.actions.is_element_visible(self.error_message_build_problem)
             self.actions.assert_text_in_element(self.error_message_build_problem, "1 Build Problem, 1 new")
             self.actions.check_error_text_color(self.error_message_exit_code)
 

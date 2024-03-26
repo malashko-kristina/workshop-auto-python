@@ -20,12 +20,13 @@ from utilis.data_generator import DataGenerator
 @allure.title('Проверка создания первого проекта')
 @allure.description('Позитивный тест проверяет создание первого проекта в аккаунте.')
 
-@pytest.mark.skip(reason="Тест пропущен из-за того, что его надо запускать без созданных проектов в аккаунте")
+
 def test_create_the_first_project(browser, project_data, super_admin, project_data_without_deleting):
     project_data_1 = project_data
     project_id = project_data_1.id
     project_name = project_data_1.name
     description = DataGenerator.random_text()
+    project_parent = project_data_1.parentProject["locator"]
 
     with allure.step("Авторизация пользователя"):
         login_browser = LoginPageFirstTime(browser)
@@ -33,6 +34,15 @@ def test_create_the_first_project(browser, project_data, super_admin, project_da
     with allure.step("Создание проекта"):
         first_project_creation_browser = CreateTheFirstProjectPage(browser)
         first_project_creation_browser.create_first_project(project_name, project_id, description)
+    with allure.step('Отправка запроса на получение информации о созданном проекте'):
+        response = super_admin.api_manager.project_api.get_project_by_locator(project_data_1.id).text
+        created_project = ProjectResponseModel.model_validate_json(response)
+        with pytest.assume:
+            assert created_project.id == project_id, \
+                f"expected project id = {project_id}, but '{created_project.id}' given"
+        with pytest.assume:
+            assert created_project.parentProjectId == project_parent, \
+                f"expected parent project = {project_parent}, but '{created_project.parentProjectId}' given"
     with allure.step("Проверка отображения версии билда приложения"):
         first_project_creation_browser.footer.check_build_version_is_visible()
     with allure.step("Проверка отображения имени приложения"):
@@ -66,6 +76,7 @@ def test_create_project_invalid_id_name(browser, project_data, super_admin, proj
     project_name = project_data_1.name
     project_name_2 = DataGenerator.fake_build_id()
     description = DataGenerator.random_text()
+    project_parent = project_data_1.parentProject["locator"]
 
 
     with allure.step("Отправка запроса на создание первого проекта"):
@@ -84,11 +95,15 @@ def test_create_project_invalid_id_name(browser, project_data, super_admin, proj
         project_creation_browser.header.go_to_create_projects_through_header_button()
     with allure.step("Создание проекта через хедер"):
         project_creation_browser.create_project(project_name, project_id, description)
-    with allure.step("Проверка нахождения id созданного проекта в общем списке проектов"):
-        get_project_response = super_admin.api_manager.project_api.get_project_by_locator(project_data_1.id).text
-    with allure.step("Проверка соответствия параметров созданного проекта с отправленными данными"):
-        created_model_project_response = ProjectResponseModel.model_validate_json(get_project_response)
-        assert created_model_project_response.id == project_data_1.id, f"There is no project with {project_data_1.id} id"
+    with allure.step('Отправка запроса на получение информации о созданном проекте'):
+            response = super_admin.api_manager.project_api.get_project_by_locator(project_data_1.id).text
+            created_project = ProjectResponseModel.model_validate_json(response)
+            with pytest.assume:
+                assert created_project.id == project_id, \
+                    f"expected project id = {project_id}, but '{created_project.id}' given"
+            with pytest.assume:
+                assert created_project.parentProjectId == project_parent, \
+                    f"expected parent project = {project_parent}, but '{created_project.parentProjectId}' given"
     with allure.step("Создание проекта с пустым именем"):
         project_creation_with_empty_name_browser = ProjectCreationPageWithEmptyName(browser)
         project_creation_with_empty_name_browser.create_project("", project_id, description)
@@ -121,6 +136,7 @@ def test_create_project_invalid_id_edit(browser, project_data_without_deleting, 
     project_name_2 = DataGenerator.fake_name()
     project_id_2 = DataGenerator.fake_build_id()
     description = DataGenerator.random_text()
+    project_parent = project_data_1.parentProject["locator"]
 
     with allure.step("Отправка запроса на создание первого проекта"):
         project_data_2 = project_data_first_project
@@ -135,14 +151,21 @@ def test_create_project_invalid_id_edit(browser, project_data_without_deleting, 
         login_browser.login_in_account(UsualUserCreds.USER_LOGIN, UsualUserCreds.USER_PASSWORD)
     with allure.step("Создание проекта"):
         project_creation_browser = ProjectCreationPage(browser)
-        project_creation_browser.create_project(project_name, project_id, description)
-    with allure.step("Проверка нахождения id созданного проекта в общем списке проектов"):
-        get_project_response = super_admin.api_manager.project_api.get_project_by_locator(project_data_1.id).text
-    with allure.step("Проверка соответствия параметров созданного проекта с отправленными данными"):
-        created_model_project_response = ProjectResponseModel.model_validate_json(get_project_response)
-        assert created_model_project_response.id == project_data_1.id, f"There is no project with {project_data_1.id} id"
-    with allure.step("Редактирование проекта с использованием невалидного id"):
+        project_creation_browser.go_to_creation_page()
+        project_creation_browser.create_project_manually(project_name, project_id, description)
+        with allure.step('Отправка запроса на получение информации о созданном проекте'):
+            response = super_admin.api_manager.project_api.get_project_by_locator(project_data_1.id).text
+            created_project = ProjectResponseModel.model_validate_json(response)
+            with pytest.assume:
+                assert created_project.id == project_id, \
+                    f"expected project id = {project_id}, but '{created_project.id}' given"
+            with pytest.assume:
+                assert created_project.parentProjectId == project_parent, \
+                    f"expected parent project = {project_parent}, but '{created_project.parentProjectId}' given"
+    with allure.step("Проверка перехода на страницу редактирования проекта и редактирование с использованием невалидного id"):
         project_invalid_edit_browser = EditProjectFormWithWrongIdPage(browser, project_id)
+        project_invalid_edit_browser.check_edit_project_url()
+        project_invalid_edit_browser.success_message_project_creation(project_name)
         project_invalid_edit_browser.edit_project_data_with_invalid_id(project_name, project_id_invalid, description)
     with allure.step("Редактирование проекта с использованием валидных данных"):
         project_edit_browser = EditProjectFormWithChangesPage(browser, project_id)
@@ -172,7 +195,7 @@ def test_create_project_by_copy(browser, project_data, super_admin, project_data
     project_name = project_data_1.name
     description = DataGenerator.random_text()
     project_id_new = DataGenerator.fake_build_id()
-
+    project_parent = project_data_1.parentProject["locator"]
 
 
     with allure.step("Отправка запроса на создание первого проекта"):
@@ -188,12 +211,17 @@ def test_create_project_by_copy(browser, project_data, super_admin, project_data
         login_browser.login_in_account(UsualUserCreds.USER_LOGIN, UsualUserCreds.USER_PASSWORD)
     with allure.step("Создание проекта"):
         project_creation_browser = ProjectCreationPage(browser)
-        project_creation_browser.create_project(project_name, project_id, description)
-    with allure.step("Проверка нахождения id созданного проекта в общем списке проектов"):
-        get_project_response = super_admin.api_manager.project_api.get_project_by_locator(project_data_1.id).text
-    with allure.step("Проверка соответствия параметров созданного проекта с отправленными данными"):
-        created_model_project_response = ProjectResponseModel.model_validate_json(get_project_response)
-        assert created_model_project_response.id == project_data_1.id, f"There is no project with {project_data_1.id} id"
+        project_creation_browser.go_to_creation_page()
+        project_creation_browser.create_project_manually(project_name, project_id, description)
+        with allure.step('Отправка запроса на получение информации о созданном проекте'):
+            response = super_admin.api_manager.project_api.get_project_by_locator(project_id).text
+            created_project = ProjectResponseModel.model_validate_json(response)
+            with pytest.assume:
+                assert created_project.id == project_id, \
+                    f"expected project id = {project_id}, but '{created_project.id}' given"
+            with pytest.assume:
+                assert created_project.parentProjectId == project_parent, \
+                    f"expected parent project = {project_parent}, but '{created_project.parentProjectId}' given"
     with allure.step("Создание копии проекта"):
         project_copy_creation_browser = CopyProjectPage(browser, project_id)
         project_copy_creation_browser.copy_project(project_id_new)
@@ -228,6 +256,7 @@ def test_create_project_by_copy_empty_id(browser, project_data, super_admin, pro
     project_name = project_data_1.name
     description = DataGenerator.random_text()
     project_id_empty = " "
+    project_parent = project_data_1.parentProject["locator"]
 
 
     with allure.step("Отправка запроса на создание первого проекта"):
@@ -243,12 +272,17 @@ def test_create_project_by_copy_empty_id(browser, project_data, super_admin, pro
         login_browser.login_in_account(UsualUserCreds.USER_LOGIN, UsualUserCreds.USER_PASSWORD)
     with allure.step("Создание проекта"):
         project_creation_browser = ProjectCreationPage(browser)
-        project_creation_browser.create_project(project_name, project_id, description)
-    with allure.step("Проверка нахождения id созданного проекта в общем списке проектов"):
-        get_project_response = super_admin.api_manager.project_api.get_project_by_locator(project_data_1.id).text
-    with allure.step("Проверка соответствия параметров созданного проекта с отправленными данными"):
-        created_model_project_response = ProjectResponseModel.model_validate_json(get_project_response)
-        assert created_model_project_response.id == project_data_1.id, f"There is no project with {project_data_1.id} id"
+        project_creation_browser.go_to_creation_page()
+        project_creation_browser.create_project_manually(project_name, project_id, description)
+        with allure.step('Отправка запроса на получение информации о созданном проекте'):
+            response = super_admin.api_manager.project_api.get_project_by_locator(project_id).text
+            created_project = ProjectResponseModel.model_validate_json(response)
+            with pytest.assume:
+                assert created_project.id == project_id, \
+                    f"expected project id = {project_id}, but '{created_project.id}' given"
+            with pytest.assume:
+                assert created_project.parentProjectId == project_parent, \
+                    f"expected parent project = {project_parent}, but '{created_project.parentProjectId}' given"
     with allure.step("Попытка создания копии проекта с пустым project id"):
         project_copy_creation_browser = CopyProjectPage(browser, project_id)
         project_copy_creation_browser.copy_project_with_empty_id(project_id_empty)

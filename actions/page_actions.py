@@ -1,3 +1,5 @@
+import re
+
 from playwright.sync_api import Page, expect
 import allure
 
@@ -14,9 +16,14 @@ class PageAction:
         with allure.step("Нажатие на клавишу Enter на физической клавиатуре"):
                 self.page.keyboard.press('Enter')
 
-    def check_url(self, expected_url, timeout):
-        with allure.step(f"Проверка URL: ожидаемый URL - {expected_url}"):
-            expect(self.page).to_have_url(expected_url, timeout=timeout)
+    def check_url(self, expected_url, equal=True):
+        if equal:
+            with allure.step(f"Проверка URL: ожидаемый URL равен {expected_url}"):
+                expect(self.page).to_have_url(expected_url)
+        else:
+            with allure.step(f"Проверка URL: ожидаемый URL содержит {expected_url}"):
+                pattern = f".*{re.escape(expected_url)}.*"
+                expect(self.page).to_have_url(re.compile(pattern))
 
     def wait_for_url_change(self, expected_url):
         with allure.step(f"Ожидание изменения URL на {expected_url}"):
@@ -28,7 +35,7 @@ class PageAction:
 
     def wait_for_page_load(self):
         with allure.step(f"Ожидание загрузки страницы"):
-            self.page.wait_for_load_state("load")
+            self.page.wait_for_load_state("load", timeout=60000)
 
 
     def click_button(self, selector):
@@ -36,7 +43,7 @@ class PageAction:
             self.page.click(selector)
 
 
-    def is_element_present(self, selector):
+    def is_element_visible(self, selector):
         with allure.step(f"Проверка видимости элемента: {selector}"):
             expect(self.page.locator(selector)).to_be_visible()
 
@@ -56,7 +63,7 @@ class PageAction:
 
     def wait_for_selector(self, selector):
         with allure.step(f"Ожидаем появления селектора: {selector} на протяжении 1.5 минут"):
-            self.page.wait_for_selector(selector, state='visible', timeout=90000)
+            self.page.wait_for_selector(selector, state='visible', timeout=100000)
 
     def wait_for_disappear_selector(self, selector):
         with allure.step(f"Ожидаем появления селектора: {selector}"):

@@ -18,13 +18,13 @@ class FormNewBuildStepsFragment(BasePage):
     def input_step_details(self, step_name, step_id, text):
         with allure.step("Ввод данных для создания шага для билд конфигурации"):
             self.actions.wait_for_selector(self.step_name_selector)
-            time.sleep(2)
+            time.sleep(1)
             self.actions.input_text(self.step_name_selector, step_name)
-            time.sleep(2)
+            time.sleep(1)
             self.actions.input_text(self.step_id_selector, step_id)
-            time.sleep(2)
+            time.sleep(1)
             self.actions.input_text(self.step_custom_script_selector, text)
-            time.sleep(2)
+            time.sleep(1)
 
     def click_add_new_step(self):
         with allure.step('Нажатия на кнопку добавления шага для билд конфигурации'):
@@ -64,7 +64,7 @@ class ContentNewBuildStepCommandLineFragment(BasePage):
 
     def is_build_steps_active(self):
         with allure.step('Проверка активности кнопки добавления командной строки для билд конфигурации'):
-            return self.actions.is_element_present(self.add_command_line_button_selector)
+            return self.actions.is_element_visible(self.add_command_line_button_selector)
 
 
 class BuildNewStepPage(BasePage):
@@ -84,13 +84,13 @@ class BuildNewStepPage(BasePage):
         with allure.step("Выбор command line в качестве добавляемого шага к билд конфигурации"):
             self.command_line_add.is_build_steps_active()
             self.command_line_add.click_command_line()
-            time.sleep(2)
+            time.sleep(1)
         with allure.step("Заполнение полей для добавления command line в качестве шага к билд конфигурации"):
             self.add_build_steps.input_step_details(step_name, step_id, text)
-            time.sleep(2)
+            time.sleep(1)
         with allure.step("Клик на кнопку добавления шага к билд конфигурации"):
             self.add_build_steps.is_add_new_active()
-            time.sleep(2)
+            time.sleep(1)
             self.add_build_steps.click_add_new_step()
             self.page_url = f'/admin/editRunType.html?id=buildType:{build_conf_id}&runnerId=__NEW_RUNNER__&cameFromUrl=%2Fadmin%2FeditBuildRunners.html%3Fid%3DbuildType%253A{build_conf_id}%26init%3D1&cameFromTitle='
             self.actions.wait_for_url_change(self.page_url)
@@ -113,10 +113,10 @@ class BuildNewStepErrorPage(BasePage):
         with allure.step("Выбор command line в качестве добавляемого шага к билд конфигурации"):
             self.command_line_add.is_build_steps_active()
             self.command_line_add.click_command_line()
-            time.sleep(2)
+            time.sleep(1)
         with allure.step("Заполнение полей для добавления command line в качестве шага к билд конфигурации"):
             self.add_build_steps.input_step_details(step_name, step_id, text)
-            time.sleep(2)
+            time.sleep(1)
             self.add_build_steps.is_add_new_active()
         with allure.step("Клик на кнопку добавления шага к билд конфигурации"):
             self.add_build_steps.click_add_new_step()
@@ -126,7 +126,7 @@ class BuildNewStepErrorPage(BasePage):
     def add_new_build_step_empty_step_id(self, step_name,  step_id, text):
         with allure.step("Заполнение полей для добавления command line в качестве шага к билд конфигурации"):
             self.add_build_steps.input_step_details(step_name, step_id, text)
-            time.sleep(2)
+            time.sleep(1)
             self.add_build_steps.is_add_new_active()
         with allure.step("Клик на кнопку добавления шага к билд конфигурации"):
             self.add_build_steps.click_add_new_step()
@@ -136,7 +136,7 @@ class BuildNewStepErrorPage(BasePage):
     def add_new_build_step_invalid_step_id(self, step_name,  step_id, text, build_step_id, first_symbol):
         with allure.step("Заполнение полей для добавления command line в качестве шага к билд конфигурации"):
             self.add_build_steps.input_step_details(step_name, step_id, text)
-            time.sleep(2)
+            time.sleep(1)
             self.add_build_steps.is_add_new_active()
         with allure.step("Клик на кнопку добавления шага к билд конфигурации"):
             self.add_build_steps.click_add_new_step()
@@ -146,9 +146,9 @@ class BuildNewStepErrorPage(BasePage):
     def add_new_build_step_with_invalid_script(self, step_name,  step_id, text):
         with allure.step("Заполнение полей для добавления command line в качестве шага к билд конфигурации (скрипт написан некорректно)"):
             self.add_build_steps.input_step_details(step_name, step_id, text)
-            time.sleep(2)
+            time.sleep(1)
             self.add_build_steps.is_add_new_active()
-            time.sleep(2)
+            time.sleep(1)
         with allure.step("Клик на кнопку добавления шага к билд конфигурации"):
             self.add_build_steps.click_add_new_step()
             self.actions.wait_for_page_load()

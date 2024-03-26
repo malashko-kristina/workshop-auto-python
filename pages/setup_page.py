@@ -123,7 +123,7 @@ class SetUpPage(BasePage):
             time.sleep(3)
             self.agreement.check_in_box()
         with allure.step("Проверка перехода на страницу 'License Agreement'"):
-            self.actions.check_url(self.agreement.page_url, timeout=60000)
+            self.actions.check_url(self.agreement.page_url)
         with allure.step("Клик на кнопку продолжить после принятия лицензионного соглашения"):
             time.sleep(2)
             self.agreement.continue_agreement()

@@ -1,3 +1,5 @@
+import time
+
 from actions.page_actions import PageAction
 
 
@@ -46,6 +48,7 @@ class Headers:
         self.actions.is_button_active(self.add_project_button)
         self.actions.click_button(self.add_project_button)
         self.actions.wait_for_page_load()
+        self.actions.check_url(f"/admin/createObjectMenu.html?projectId=_Root&showMode=createProjectMenu&cameFromUrl=http%3A%2F%2Flocalhost%3A8111%2Ffavorite%2Fprojects", equal=False)
 
     def go_to_changes_through_header_button(self):
         self.actions.is_button_active(self.changes_button)
@@ -58,7 +61,7 @@ class Headers:
         self.actions.wait_for_page_load()
 
     def check_agents_count_through_header_button(self, number):
-        self.actions.is_element_present(self.agents_count)
+        self.actions.is_element_visible(self.agents_count)
         self.actions.assert_text_in_element(self.agents_count, number)
 
     def go_to_queue_through_header_button(self):
@@ -67,8 +70,9 @@ class Headers:
         self.actions.wait_for_page_load()
 
     def check_queue_count_through_header_button(self, number):
-        self.actions.is_element_present(self.agents_count)
+        self.actions.is_element_visible(self.agents_count)
         self.actions.assert_text_in_element(self.agents_count, number)
+        time.sleep(10)
 
     def open_drop_down_theme_in_header_button(self):
         self.actions.is_button_active(self.theme_drop_down)

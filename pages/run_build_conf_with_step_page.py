@@ -24,7 +24,7 @@ class BreadCrumbsWrapperRunBuildConfWithStep(BasePage):
 
     def is_run_build_active(self):
         with allure.step('Проверка активности кнопки запуска билд конфигурации'):
-            return self.actions.is_element_present(self.run_build_conf_with_step_selector)
+            return self.actions.is_element_visible(self.run_build_conf_with_step_selector)
 
 
 class RunBuildWithStep(BasePage):

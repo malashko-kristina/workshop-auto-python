@@ -37,6 +37,7 @@ def test_critical_user_flow(browser, project_data, super_admin, build_conf_data,
     step_name = DataGenerator.fake_name()
     step_id = DataGenerator.fake_build_id()
     description = DataGenerator.random_text()
+    project_parent = project_data_1.parentProject["locator"]
 
 
     with allure.step("Отправка запроса на создание первого проекта"):
@@ -52,12 +53,17 @@ def test_critical_user_flow(browser, project_data, super_admin, build_conf_data,
         login_browser.login_in_account(UsualUserCreds.USER_LOGIN, UsualUserCreds.USER_PASSWORD)
     with allure.step("Создание проекта"):
         project_creation_browser = ProjectCreationPage(browser)
-        project_creation_browser.create_project(project_name, project_id, description)
-    with allure.step('Отправка запроса на получение информации созданного проекта'):
-        response = super_admin.api_manager.project_api.get_project_by_locator(project_data_1.name).text
-        created_project = ProjectResponseModel.model_validate_json(response)
-        assert created_project.id == project_data_1.id, \
-            f"expected project id= {project_data_1.id}, but '{created_project.id}' given"
+        project_creation_browser.go_to_creation_page()
+        project_creation_browser.create_project_manually(project_name, project_id, description)
+        with allure.step('Отправка запроса на получение информации о созданном проекте'):
+            response = super_admin.api_manager.project_api.get_project_by_locator(project_id).text
+            created_project = ProjectResponseModel.model_validate_json(response)
+            with pytest.assume:
+                assert created_project.id == project_id, \
+                    f"expected project id = {project_id}, but '{created_project.id}' given"
+            with pytest.assume:
+                assert created_project.parentProjectId == project_parent, \
+                    f"expected parent project = {project_parent}, but '{created_project.parentProjectId}' given"
     with allure.step("Проверка успешности создания проекта"):
         edit_project_browser = EditProjectFormPage(browser, project_id)
         edit_project_browser.check_project_data(project_name, project_id, description)
@@ -80,7 +86,6 @@ def test_critical_user_flow(browser, project_data, super_admin, build_conf_data,
     with allure.step("Запуск билд конфигурации без добавления шагов"):
         run_build_conf_without_steps = BuildConfRunPage(browser, project_id, build_conf_id)
         run_build_conf_without_steps.run_build_conf(build_conf_id, project_id)
-        time.sleep(180)
     with allure.step("Отправка запроса на проверку количества билд конфигураций в очереди для запуска"):
         get_build_conf_run_response = super_admin.api_manager.build_conf_api.check_query_with_build_conf().text
     with allure.step("Проверка соответствия параметров модели ответа запуска билд конфигурации с отправленными данными"):
@@ -100,7 +105,6 @@ def test_critical_user_flow(browser, project_data, super_admin, build_conf_data,
         run_build_with_step.run_build_conf_with_step(build_conf_id)
     with allure.step("Проверка счетчика 'Queue' в header"):
         project_creation_browser.header.check_queue_count_through_header_button("1")
-        time.sleep(3)
     with allure.step("Отправка запроса на проверку количества билд конфигураций в очереди для запуска"):
         get_build_conf_run_response = super_admin.api_manager.build_conf_api.check_query_with_build_conf().text
     with allure.step("Проверка соответствия параметров модели ответа запуска билд конфигурации с отправленными данными"):

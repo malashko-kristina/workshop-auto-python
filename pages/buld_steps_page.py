@@ -14,7 +14,7 @@ class ContentBuildStepsFragment(BasePage):
 
     def is_build_steps_active(self):
         with allure.step('Проверка активности кнопки создания шагов для билд конфигурации'):
-            return self.actions.is_element_present(self.add_build_steps_button_selector)
+            return self.actions.is_element_visible(self.add_build_steps_button_selector)
 
 
 class BuildStepsPage(BasePage):
@@ -32,7 +32,7 @@ class BuildStepsPage(BasePage):
     def add_build_steps(self, build_conf_id):
         with allure.step('Клик по кнопке добавления шагов'):
             self.content_build_steps.click_create_steps_build_conf()
-            time.sleep(2)
+            time.sleep(1)
             self.page_url = f'/admin/editRunType.html?id=buildType:{build_conf_id}&runnerId=__NEW_RUNNER__&cameFromUrl=%2Fadmin%2FeditBuildRunners.html%3Fid%3DbuildType%253A{build_conf_id}%26init%3D1&cameFromTitle='
             self.actions.wait_for_url_change(self.page_url)
 

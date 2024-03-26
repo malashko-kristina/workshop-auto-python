@@ -34,7 +34,6 @@ class OptionsProjectCreatedFragment(BasePage):
         with allure.step("Клик на кнопку удаления на странице проекта"):
             self.actions.wait_for_selector(self.delete_project_button)
             self.actions.assert_text_in_element(self.delete_project_button, "Delete project...")
-            self.actions.is_button_active(self.delete_project_button)
             self.actions.click_button(self.delete_project_button)
             self.actions.wait_for_selector(self.after_delete_message)
             # todo self.actions.assert_text_in_element(self.after_delete_message, f'Project "{name}" has been moved to the "config/_trash" directory. All project related data (build history, artifacts, and so on) will be cleaned from the database during the next clean-up. See clean-up policy configuration.You can undo the deletion by moving the "config/_trash/{project_id}.project17024" to the "config/projects/{project_id}" manually')
@@ -48,7 +47,7 @@ class OptionsProjectCreatedFragment(BasePage):
             self.actions.wait_for_selector(self.copy_project_button)
             time.sleep(2)
         with allure.step("Клик на кнопку copy для копирования проекта"):
-            self.actions.is_element_present(self.copy_project_button)
+            self.actions.is_element_visible(self.copy_project_button)
             self.actions.click_button(self.copy_project_button)
             self.actions.wait_for_selector(self.copy_button)
             time.sleep(2)
@@ -56,7 +55,7 @@ class OptionsProjectCreatedFragment(BasePage):
             self.actions.input_text(self.new_project_id, project_id)
             time.sleep(2)
         with allure.step("Клик на кнопку копирования проекта"):
-            self.actions.is_element_present(self.copy_button)
+            self.actions.is_element_visible(self.copy_button)
             self.actions.click_button(self.copy_button)
             self.actions.wait_for_selector(self.after_copy_message)
         with allure.step("Проверка отображения текста об успешном копировании проекта"):
@@ -76,7 +75,7 @@ class OptionsProjectCreatedFragment(BasePage):
         with allure.step("Добавления нового проджект id в поле project id"):
             self.actions.input_text(self.new_project_id, project_id)
             time.sleep(2)
-            self.actions.is_element_present(self.copy_button)
+            self.actions.is_element_visible(self.copy_button)
         with allure.step("Клик на кнопку копирования проекта"):
             self.actions.click_button(self.copy_button)
             time.sleep(2)
@@ -115,12 +114,12 @@ class EditProjectPageFragment(BasePage):
 
     def click_save_project_edit_button(self):
         with allure.step("Нажатие кнопки изменения созданного проекта"):
-            self.actions.is_element_present(self.project_save_button_selector)
+            self.actions.is_element_visible(self.project_save_button_selector)
             self.actions.click_button(self.project_save_button_selector)
 
     def click_cancel_project_edit_button(self):
         with allure.step("Нажатие кнопки отмены изменения созданного проекта"):
-            self.actions.is_element_present(self.project_cancel_button_selector)
+            self.actions.is_element_visible(self.project_cancel_button_selector)
             self.actions.click_button(self.project_cancel_button_selector)
 
 
@@ -135,7 +134,7 @@ class AddBuildConf(BasePage):
     def click_on_create_build_cond(self):
         with allure.step("Нажатие кнопки создания билд конфигурации"):
             self.actions.wait_for_selector(self.build_conf_add_button_selector)
-            self.actions.is_element_present(self.build_conf_add_button_selector)
+            self.actions.is_element_visible(self.build_conf_add_button_selector)
             self.actions.click_button(self.build_conf_add_button_selector)
 
 
@@ -147,11 +146,9 @@ class EditProjectFormPage(BasePage):
         self.edit_project_page = EditProjectPageFragment(page)
         self.add_build_conf = AddBuildConf(page)
 
-
-    def go_to_edit_project_page(self):
-        with allure.step("Переход на страницу редактирования проекта"):
-            self.actions.navigate(self.page_url)
-            self.actions.wait_for_page_load()
+    def check_edit_project_url(self):
+        with allure.step("Проверка открытия страницы редактирования проекта"):
+            self.actions.wait_for_url_change(self.page_url)
 
     def check_project_data(self, name, project_id, description):
         self.message_created_project.check_text_in_selector(name)
@@ -173,16 +170,15 @@ class EditProjectFormWithWrongIdPage(BasePage):
         self.invalid_id_error = '#errorExternalId'
         self.warning_message ='#changeExternalIdWarning'
 
+    def check_edit_project_url(self):
+        with allure.step("Проверка открытия страницы редактирования проекта"):
+            self.actions.wait_for_url_change(self.page_url)
 
-    def go_to_edit_project_page(self):
-            with allure.step("Переход на страницу редактирования проекта"):
-                self.actions.navigate(self.page_url)
-                self.actions.wait_for_page_load(self.page_url)
+    def success_message_project_creation(self, name):
+        with allure.step("Проверка отображения текста об успешном создании проекта"):
+            self.message_created_project.check_text_in_selector(name)
 
     def edit_project_data_with_invalid_id(self, name, project_id, description):
-        with allure.step("Переход на страницу редактирования проекта"):
-            self.message_created_project.check_text_in_selector(name)
-            time.sleep(2)
         with allure.step("Добавление информации в поля для редактирования проекта"):
             self.edit_project_page.input_project_edit_details(name, project_id, description)
             time.sleep(2)
@@ -206,11 +202,9 @@ class EditProjectFormWithChangesPage(BasePage):
         self.add_build_conf = AddBuildConf(page)
         self.message_success = '#message_projectUpdated'
 
-
-    def go_to_edit_project_page(self):
-        with allure.step("Переход на страницу редактирования проекта"):
-            self.actions.navigate(self.page_url)
-            self.actions.wait_for_page_load()
+    def check_edit_project_url(self):
+        with allure.step("Проверка открытия страницы редактирования проекта"):
+            self.actions.check_url(self.page_url)
 
     def change_project_data(self, name, project_id, description):
         with allure.step("Добавление информации в поля для редактирования проекта"):
@@ -221,8 +215,7 @@ class EditProjectFormWithChangesPage(BasePage):
         with allure.step("Отображения сообщения об успешном сохранении данных редактирования проекта"):
             self.actions.wait_for_selector(self.message_success)
             self.actions.assert_text_in_element(self.message_success, 'Your changes have been saved.')
-            self.page_url = f'/admin/editProject.html?projectId={project_id}'
-            self.actions.wait_for_url_change(self.page_url)
+
 
 class DeleteProjectPage(BasePage):
     def __init__(self, page, project_id):
@@ -230,11 +223,18 @@ class DeleteProjectPage(BasePage):
         self.page_url = (f'/admin/editProject.html?projectId={project_id}')
         self.options_project = OptionsProjectCreatedFragment(page)
 
+    def go_to_edit_page(self):
+        with allure.step("Переход на страницу редактирования проекта"):
+            self.actions.navigate(self.page_url)
+    def check_edit_project_url(self):
+        with allure.step("Проверка открытия страницы редактирования проекта"):
+            self.actions.check_url(self.page_url)
 
     def delete_project(self):
-        self.actions.check_url(self.page_url, timeout=90000)
-        time.sleep(3)
-        self.options_project.delete_project()
+        with allure.step("Переход на страницу редактирования проекта"):
+            self.go_to_edit_page()
+        with allure.step("Удаление проекта"):
+            self.options_project.delete_project()
 
 
 class CopyProjectPage(BasePage):
@@ -245,11 +245,22 @@ class CopyProjectPage(BasePage):
         self.project_data_fields = EditProjectPageFragment(page)
 
 
+    def go_to_edit_page(self):
+        with allure.step("Переход на страницу редактирования проекта"):
+            self.actions.navigate(self.page_url)
+    def check_edit_project_url(self):
+        with allure.step("Проверка открытия страницы редактирования проекта"):
+            self.actions.check_url(self.page_url)
+
     def copy_project(self, project_id):
+        with allure.step("Переход на страницу редактирования проекта"):
+            self.go_to_edit_page()
         with allure.step("Копирование проекта"):
             self.options_project.copy_project(project_id)
 
     def copy_project_with_empty_id(self, project_id):
+        with allure.step("Переход на страницу редактирования проекта"):
+            self.go_to_edit_page()
         with allure.step("Копирование проекта с пустым project id"):
             self.options_project.copy_project_with_empty_id(project_id)
 

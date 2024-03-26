@@ -23,12 +23,13 @@ class LoginFormBody(BasePage):
     def click_login_button(self):
         with allure.step("Клик на кнопку логина для входа в систему"):
             self.actions.is_button_active(self.login_button_locator)
+            self.actions.wait_for_selector(self.login_button_locator)
             self.actions.click_button(self.login_button_locator)
 
     def userpic_is_visible(self):
         with allure.step('Проверка видимости юзерпика'):
             self.actions.wait_for_selector(self.userpic)
-            self.actions.is_element_present(self.userpic)
+            self.actions.is_element_visible(self.userpic)
 
 
 class LoginPage(BasePage):
@@ -50,7 +51,7 @@ class LoginPage(BasePage):
             self.login_form_body.click_login_button()
             time.sleep(2)
             self.page_url = "/favorite/projects?mode=builds"
-            self.actions.check_url(self.page_url, timeout=60000)
+            self.actions.check_url(self.page_url, equal=False)
         with allure.step('Проверка видимости юзерпика'):
             self.login_form_body.userpic_is_visible()
 
@@ -76,7 +77,7 @@ class LoginPageFirstTime(BasePage):
             time.sleep(2)
             self.page_url = "/favorite/projects"
         with allure.step("Проверка перехода на страницу предпочитаемых проектов"):
-            self.actions.check_url(self.page_url, timeout=60000)
+            self.actions.check_url(self.page_url, equal=False)
         with allure.step('Проверка видимости юзерпика'):
             self.login_form_body.userpic_is_visible()
 

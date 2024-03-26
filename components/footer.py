@@ -13,15 +13,15 @@ class Footers:
 
 
     def check_build_version_is_visible(self):
-        self.actions.is_element_present(self.build_version)
+        self.actions.is_element_visible(self.build_version)
 
 
     def check_app_name_is_visible(self):
-        self.actions.is_element_present(self.app_name)
+        self.actions.is_element_visible(self.app_name)
 
 
     def check_copyright_text_is_visible(self):
-        self.actions.is_element_present(self.copyright_text)
+        self.actions.is_element_visible(self.copyright_text)
         self.actions.assert_text_in_element(self.copyright_text, "Copyright © 2006–2024 JetBrains s.r.o.")
 
 
