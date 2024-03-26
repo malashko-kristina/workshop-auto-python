@@ -1,3 +1,4 @@
+import time
 from http import HTTPStatus
 import allure
 import pytest
@@ -34,6 +35,7 @@ def test_create_the_first_project(browser, project_data, super_admin, project_da
     with allure.step("Создание проекта"):
         first_project_creation_browser = CreateTheFirstProjectPage(browser)
         first_project_creation_browser.create_first_project(project_name, project_id, description)
+        time.sleep(10)
     with allure.step('Отправка запроса на получение информации о созданном проекте'):
         response = super_admin.api_manager.project_api.get_project_by_locator(project_data_1.id).text
         created_project = ProjectResponseModel.model_validate_json(response)
@@ -95,6 +97,7 @@ def test_create_project_invalid_id_name(browser, project_data, super_admin, proj
         project_creation_browser.header.go_to_create_projects_through_header_button()
     with allure.step("Создание проекта через хедер"):
         project_creation_browser.create_project(project_name, project_id, description)
+        time.sleep(10)
     with allure.step('Отправка запроса на получение информации о созданном проекте'):
             response = super_admin.api_manager.project_api.get_project_by_locator(project_data_1.id).text
             created_project = ProjectResponseModel.model_validate_json(response)
@@ -153,6 +156,7 @@ def test_create_project_invalid_id_edit(browser, project_data_without_deleting, 
         project_creation_browser = ProjectCreationPage(browser)
         project_creation_browser.go_to_creation_page()
         project_creation_browser.create_project_manually(project_name, project_id, description)
+        time.sleep(10)
         with allure.step('Отправка запроса на получение информации о созданном проекте'):
             response = super_admin.api_manager.project_api.get_project_by_locator(project_data_1.id).text
             created_project = ProjectResponseModel.model_validate_json(response)
@@ -213,6 +217,7 @@ def test_create_project_by_copy(browser, project_data, super_admin, project_data
         project_creation_browser = ProjectCreationPage(browser)
         project_creation_browser.go_to_creation_page()
         project_creation_browser.create_project_manually(project_name, project_id, description)
+        time.sleep(10)
         with allure.step('Отправка запроса на получение информации о созданном проекте'):
             response = super_admin.api_manager.project_api.get_project_by_locator(project_id).text
             created_project = ProjectResponseModel.model_validate_json(response)
@@ -274,6 +279,7 @@ def test_create_project_by_copy_empty_id(browser, project_data, super_admin, pro
         project_creation_browser = ProjectCreationPage(browser)
         project_creation_browser.go_to_creation_page()
         project_creation_browser.create_project_manually(project_name, project_id, description)
+        time.sleep(10)
         with allure.step('Отправка запроса на получение информации о созданном проекте'):
             response = super_admin.api_manager.project_api.get_project_by_locator(project_id).text
             created_project = ProjectResponseModel.model_validate_json(response)

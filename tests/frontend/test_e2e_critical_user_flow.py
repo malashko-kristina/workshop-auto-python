@@ -55,6 +55,7 @@ def test_critical_user_flow(browser, project_data, super_admin, build_conf_data,
         project_creation_browser = ProjectCreationPage(browser)
         project_creation_browser.go_to_creation_page()
         project_creation_browser.create_project_manually(project_name, project_id, description)
+        time.sleep(10)
         with allure.step('Отправка запроса на получение информации о созданном проекте'):
             response = super_admin.api_manager.project_api.get_project_by_locator(project_id).text
             created_project = ProjectResponseModel.model_validate_json(response)
