@@ -23,13 +23,12 @@ jobs:
       - name: Create Results Directory
         run: mkdir -p ./results
 
-      - name: Generate and Serve Allure Report
+      - name: Generate Allure Report
         run: |
           npm install -g allure-commandline
           mkdir -p ./results
           allure generate ./results --clean -o ./allure-report
           echo "Allure Report generated successfully."
-          allure serve ./allure-report
 
       - name: Save Allure Report Artifact
         uses: actions/upload-artifact@v2
