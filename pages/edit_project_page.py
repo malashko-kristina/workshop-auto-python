@@ -259,8 +259,8 @@ class CopyProjectPage(BasePage):
             self.options_project.copy_project(project_id)
 
     def copy_project_with_empty_id(self, project_id):
-        with allure.step("Переход на страницу редактирования проекта"):
-            self.go_to_edit_page()
+        with allure.step("Проверка открытия страницы редактирования проекта"):
+            self.check_edit_project_url()
         with allure.step("Копирование проекта с пустым project id"):
             self.options_project.copy_project_with_empty_id(project_id)
 

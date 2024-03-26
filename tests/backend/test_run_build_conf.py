@@ -151,6 +151,7 @@ class TestRunBuildConfAndCancel:
             with allure.step('Отправка запроса на запуск билд конфигурации'):
                 build_conf_run_data_1 = build_conf_run_data
                 build_run_response = super_admin.api_manager.run_build_conf_api.run_build_conf(build_conf_run_data_1.model_dump()).text
+                time.sleep(60)
             with allure.step("Проверка соответствия параметров запущенной билд конфигурации с отправленными данными"):
                 build_run_model_response = BuildRunResponseModel.model_validate_json(build_run_response)
             with pytest.assume:

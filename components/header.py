@@ -70,9 +70,10 @@ class Headers:
         self.actions.wait_for_page_load()
 
     def check_queue_count_through_header_button(self, number):
+        self.actions.wait_for_selector(self.agents_count)
         self.actions.is_element_visible(self.agents_count)
         self.actions.assert_text_in_element(self.agents_count, number)
-        time.sleep(10)
+        time.sleep(30)
 
     def open_drop_down_theme_in_header_button(self):
         self.actions.is_button_active(self.theme_drop_down)
