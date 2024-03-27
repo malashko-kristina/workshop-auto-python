@@ -205,7 +205,7 @@ class CreateTheFirstProjectFragment(BasePage):
     def __init__(self, page):
         self.page = page
         super().__init__(page)
-        self.welcome_text = 'div.UIPlaceholder__infoContainer--xa > h1.ring-heading-heading.ring-global-font'
+        self.welcome_text = '.ring-global-font'
         self.create_button_selector = 'a[data-test="create-project"]'
 
 

@@ -31,7 +31,7 @@ class Headers:
         self.profile_button = 'a[data-test="ring-link ring-list-link ring-list-item"] >> text="Profile"'
         self.favourite_builds_button = 'a[data-test="ring-link ring-list-link ring-list-item"] >> text="Favorite Builds"'
         self.investigation_button = 'a[data-test="ring-link ring-list-link ring-list-item"] >> text="Investigations"'
-        self.logout_button = '.ring-link-inner >> text="Logout"'
+        self.logout_button = 'a.ring-link-text[data-test="ring-link ring-list-link ring-list-item"]'
 
 
     def logo_is_visible_and_clickable(self):

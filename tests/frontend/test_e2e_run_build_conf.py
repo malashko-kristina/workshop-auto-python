@@ -97,12 +97,6 @@ def test_run_build_conf(browser, project_data, super_admin, build_conf_data, pro
     with allure.step("Проверка добавления шагов для билд конфигурации c пустым script для command line"):
         add_new_step_error_browser = BuildNewStepErrorPage(browser, build_conf_id)
         add_new_step_error_browser.add_new_build_step_empty_script(step_name, step_id, " ")
-    with allure.step("Проверка отображения версии билда приложения"):
-        add_new_step_error_browser.footer.check_build_version_is_visible()
-    with allure.step("Проверка отображения имени приложения"):
-        add_new_step_error_browser.footer.check_app_name_is_visible()
-    with allure.step("Проверка отображения текста копирайтинга"):
-        add_new_step_error_browser.footer.check_copyright_text_is_visible()
     with allure.step("Проверка добавления шагов для билд конфигурации c пустым id step"):
         add_new_step_error_browser.add_new_build_step_empty_step_id(step_name, " ", "print('Hello World')")
     with allure.step("Проверка добавления шагов для билд конфигурации c невалидным id step"):

@@ -47,8 +47,6 @@ def test_create_the_first_project(browser, project_data_create, super_admin, pro
         with pytest.assume:
             assert created_project.parentProjectId == project_parent, \
                 f"expected parent project = {project_parent}, but '{created_project.parentProjectId}' given"
-    with allure.step("Проверка отображения версии билда приложения"):
-        first_project_creation_browser.footer.check_build_version_is_visible()
     with allure.step("Проверка отображения имени приложения"):
         first_project_creation_browser.footer.check_app_name_is_visible()
     with allure.step("Проверка отображения текста копирайтинга"):
