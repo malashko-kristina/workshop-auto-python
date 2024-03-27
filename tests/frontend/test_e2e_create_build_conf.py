@@ -40,7 +40,9 @@ def test_create_build_conf_with_invalid_data(browser, project_data, super_admin,
     with allure.step("Создание первого проекта"):
         first_project_creation_browser = CreateTheFirstProjectPage(browser)
         first_project_creation_browser.create_first_project(project_name, project_id, description)
-        time.sleep(10)
+    with allure.step("Проверка редиректа на страницу редактирования проекта"):
+        edit_project_browser = EditProjectFormPage(browser, project_id)
+        edit_project_browser.check_project_data(project_name, project_id, description)
         with allure.step('Отправка запроса на получение информации о созданном проекте'):
             response = super_admin.api_manager.project_api.get_project_by_locator(project_data_1.id).text
             created_project = ProjectResponseModel.model_validate_json(response)

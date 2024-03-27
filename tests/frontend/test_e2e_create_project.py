@@ -6,7 +6,7 @@ from data.project_data import ProjectResponseModel
 from pages.create_project_page import ProjectCreationPageThroughHeader, ProjectCreationPage, \
     ProjectCreationPageWithEmptyName, ProjectCreationPageWithUsedId, CreateTheFirstProjectPage
 from pages.edit_project_page import EditProjectFormWithWrongIdPage, EditProjectFormWithChangesPage, DeleteProjectPage, \
-    CopyProjectPage
+    CopyProjectPage, EditProjectFormPage
 from pages.login_page import LoginPage, LoginPageFirstTime
 from resources.user_creds import UsualUserCreds
 from utilis.data_generator import DataGenerator
@@ -35,9 +35,11 @@ def test_create_the_first_project(browser, project_data_create, super_admin, pro
     with allure.step("Создание проекта"):
         first_project_creation_browser = CreateTheFirstProjectPage(browser)
         first_project_creation_browser.create_first_project(project_name, project_id, description)
-        time.sleep(10)
+    with allure.step("Проверка редиректа на страницу редактирования проекта"):
+        edit_project_browser = EditProjectFormPage(browser, project_id)
+        edit_project_browser.check_project_data(project_name, project_id, description)
     with allure.step('Отправка запроса на получение информации о созданном проекте'):
-        response = super_admin.api_manager.project_api.get_project_by_locator(project_data_1.id).text
+        response = super_admin.api_manager.project_api.get_project_by_locator(project_name).text
         created_project = ProjectResponseModel.model_validate_json(response)
         with pytest.assume:
             assert created_project.id == project_id, \
@@ -97,9 +99,11 @@ def test_create_project_invalid_id_name(browser, project_data_create, super_admi
         project_creation_browser.header.go_to_create_projects_through_header_button()
     with allure.step("Создание проекта через хедер"):
         project_creation_browser.create_project(project_name, project_id, description)
-        time.sleep(10)
+    with allure.step("Проверка редиректа на страницу редактирования проекта"):
+        edit_project_browser = EditProjectFormPage(browser, project_id)
+        edit_project_browser.check_project_data(project_name, project_id, description)
     with allure.step('Отправка запроса на получение информации о созданном проекте'):
-            response = super_admin.api_manager.project_api.get_project_by_locator(project_data_1.id).text
+            response = super_admin.api_manager.project_api.get_project_by_locator(project_name).text
             created_project = ProjectResponseModel.model_validate_json(response)
             with pytest.assume:
                 assert created_project.id == project_id, \
@@ -156,9 +160,11 @@ def test_create_project_invalid_id_edit(browser, project_data_without_deleting, 
         project_creation_browser = ProjectCreationPage(browser)
         project_creation_browser.go_to_creation_page()
         project_creation_browser.create_project_manually(project_name, project_id, description)
-        time.sleep(10)
+    with allure.step("Проверка редиректа на страницу редактирования проекта"):
+        edit_project_browser = EditProjectFormPage(browser, project_id)
+        edit_project_browser.check_project_data(project_name, project_id, description)
         with allure.step('Отправка запроса на получение информации о созданном проекте'):
-            response = super_admin.api_manager.project_api.get_project_by_locator(project_data_1.id).text
+            response = super_admin.api_manager.project_api.get_project_by_locator(project_name).text
             created_project = ProjectResponseModel.model_validate_json(response)
             with pytest.assume:
                 assert created_project.id == project_id, \
@@ -217,9 +223,11 @@ def test_create_project_by_copy(browser, project_data_create, super_admin, proje
         project_creation_browser = ProjectCreationPage(browser)
         project_creation_browser.go_to_creation_page()
         project_creation_browser.create_project_manually(project_name, project_id, description)
-        time.sleep(10)
+    with allure.step("Проверка редиректа на страницу редактирования проекта"):
+        edit_project_browser = EditProjectFormPage(browser, project_id)
+        edit_project_browser.check_project_data(project_name, project_id, description)
         with allure.step('Отправка запроса на получение информации о созданном проекте'):
-            response = super_admin.api_manager.project_api.get_project_by_locator(project_data_1.id).text
+            response = super_admin.api_manager.project_api.get_project_by_locator(project_name).text
             created_project = ProjectResponseModel.model_validate_json(response)
             with pytest.assume:
                 assert created_project.id == project_id, \
@@ -279,9 +287,11 @@ def test_create_project_by_copy_empty_id(browser, project_data_create, super_adm
         project_creation_browser = ProjectCreationPage(browser)
         project_creation_browser.go_to_creation_page()
         project_creation_browser.create_project_manually(project_name, project_id, description)
-        time.sleep(10)
+    with allure.step("Проверка редиректа на страницу редактирования проекта"):
+        edit_project_browser = EditProjectFormPage(browser, project_id)
+        edit_project_browser.check_project_data(project_name, project_id, description)
         with allure.step('Отправка запроса на получение информации о созданном проекте'):
-            response = super_admin.api_manager.project_api.get_project_by_locator(project_data_1.id).text
+            response = super_admin.api_manager.project_api.get_project_by_locator(project_name).text
             created_project = ProjectResponseModel.model_validate_json(response)
             with pytest.assume:
                 assert created_project.id == project_id, \
