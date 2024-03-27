@@ -27,8 +27,8 @@ from utilis.data_generator import DataGenerator
 @allure.title('Проверка создания проекта, билд конфигурации с последующим запуском')
 @allure.description('Позитивный тест проверяет критический юзер флоу от создания проекта до запуска билда.')
 
-def test_critical_user_flow(browser, project_data, super_admin, build_conf_data, project_data_first_project):
-    project_data_1 = project_data
+def test_critical_user_flow(browser, project_data_create, super_admin, build_conf_data, project_data_first_project):
+    project_data_1 = project_data_create()
     project_id = project_data_1.id
     project_name = project_data_1.name
     build_conf_data_1 = build_conf_data
@@ -41,7 +41,7 @@ def test_critical_user_flow(browser, project_data, super_admin, build_conf_data,
 
 
     with allure.step("Отправка запроса на создание первого проекта"):
-        project_data_2 = project_data_first_project
+        project_data_2 = project_data_first_project()
         create_project_response = super_admin.api_manager.project_api.create_project(project_data_2.model_dump()).text
     with allure.step("Проверка соответствия параметров созданного проекта с отправленными данными"):
         project_model_response = ProjectResponseModel.model_validate_json(create_project_response)
@@ -57,7 +57,7 @@ def test_critical_user_flow(browser, project_data, super_admin, build_conf_data,
         project_creation_browser.create_project_manually(project_name, project_id, description)
         time.sleep(10)
         with allure.step('Отправка запроса на получение информации о созданном проекте'):
-            response = super_admin.api_manager.project_api.get_project_by_locator(project_id).text
+            response = super_admin.api_manager.project_api.get_project_by_locator(project_data_1.id).text
             created_project = ProjectResponseModel.model_validate_json(response)
             with pytest.assume:
                 assert created_project.id == project_id, \

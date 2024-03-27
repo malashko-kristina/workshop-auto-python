@@ -22,8 +22,8 @@ from utilis.data_generator import DataGenerator
 @allure.description('Позитивный тест проверяет создание первого проекта в аккаунте.')
 
 
-def test_create_the_first_project(browser, project_data, super_admin, project_data_without_deleting):
-    project_data_1 = project_data
+def test_create_the_first_project(browser, project_data_create, super_admin, project_data_without_deleting):
+    project_data_1 = project_data_create()
     project_id = project_data_1.id
     project_name = project_data_1.name
     description = DataGenerator.random_text()
@@ -72,8 +72,8 @@ def test_create_the_first_project(browser, project_data, super_admin, project_da
 @allure.title('Проверка создания проекта с пустым полем "id", с уже используемым id')
 @allure.description('Флоу негативных тестов проверяет создание нового проекта с пустым полем "id", с уже используемым id.')
 
-def test_create_project_invalid_id_name(browser, project_data, super_admin, project_data_first_project):
-    project_data_1 = project_data
+def test_create_project_invalid_id_name(browser, project_data_create, super_admin, project_data_first_project):
+    project_data_1 = project_data_create()
     project_id = project_data_1.id
     project_name = project_data_1.name
     project_name_2 = DataGenerator.fake_build_id()
@@ -82,7 +82,7 @@ def test_create_project_invalid_id_name(browser, project_data, super_admin, proj
 
 
     with allure.step("Отправка запроса на создание первого проекта"):
-        project_data_2 = project_data_first_project
+        project_data_2 = project_data_first_project()
         create_project_response = super_admin.api_manager.project_api.create_project(project_data_2.model_dump()).text
     with allure.step("Проверка соответствия параметров созданного проекта с отправленными данными"):
         project_model_response = ProjectResponseModel.model_validate_json(create_project_response)
@@ -132,7 +132,7 @@ def test_create_project_invalid_id_name(browser, project_data, super_admin, proj
 @allure.description('Флоу из негативный теста по изменению проекта с невалидным id с последующим корректным его изменением.')
 
 def test_create_project_invalid_id_edit(browser, project_data_without_deleting, super_admin, project_data_first_project):
-    project_data_1 = project_data_without_deleting
+    project_data_1 = project_data_without_deleting()
     project_id = project_data_1.id
     project_name = project_data_1.name
     project_id_invalid = DataGenerator.incorrect_id_1()
@@ -142,7 +142,7 @@ def test_create_project_invalid_id_edit(browser, project_data_without_deleting, 
     project_parent = project_data_1.parentProject["locator"]
 
     with allure.step("Отправка запроса на создание первого проекта"):
-        project_data_2 = project_data_first_project
+        project_data_2 = project_data_first_project()
         create_project_response = super_admin.api_manager.project_api.create_project(project_data_2.model_dump()).text
     with allure.step("Проверка соответствия параметров созданного проекта с отправленными данными"):
         project_model_response = ProjectResponseModel.model_validate_json(create_project_response)
@@ -193,8 +193,8 @@ def test_create_project_invalid_id_edit(browser, project_data_without_deleting, 
 @allure.title('Проверка создания копии проекта')
 @allure.description('Позитивный тест проверяет создание нового проекта на основе копирования с уже существующего.')
 
-def test_create_project_by_copy(browser, project_data, super_admin, project_data_first_project):
-    project_data_1 = project_data
+def test_create_project_by_copy(browser, project_data_create, super_admin, project_data_first_project):
+    project_data_1 = project_data_create()
     project_id = project_data_1.id
     project_name = project_data_1.name
     description = DataGenerator.random_text()
@@ -203,7 +203,7 @@ def test_create_project_by_copy(browser, project_data, super_admin, project_data
 
 
     with allure.step("Отправка запроса на создание первого проекта"):
-        project_data_2 = project_data_first_project
+        project_data_2 = project_data_first_project()
         create_project_response = super_admin.api_manager.project_api.create_project(project_data_2.model_dump()).text
     with allure.step("Проверка соответствия параметров созданного проекта с отправленными данными"):
         project_model_response = ProjectResponseModel.model_validate_json(create_project_response)
@@ -219,7 +219,7 @@ def test_create_project_by_copy(browser, project_data, super_admin, project_data
         project_creation_browser.create_project_manually(project_name, project_id, description)
         time.sleep(10)
         with allure.step('Отправка запроса на получение информации о созданном проекте'):
-            response = super_admin.api_manager.project_api.get_project_by_locator(project_id).text
+            response = super_admin.api_manager.project_api.get_project_by_locator(project_data_1.id).text
             created_project = ProjectResponseModel.model_validate_json(response)
             with pytest.assume:
                 assert created_project.id == project_id, \
@@ -255,8 +255,8 @@ def test_create_project_by_copy(browser, project_data, super_admin, project_data
 @allure.title('Проверка создания копии проекта с пустым полем "id"')
 @allure.description('Негативный тест проверяет создание копии нового проекта с пустым полем "id".')
 
-def test_create_project_by_copy_empty_id(browser, project_data, super_admin, project_data_first_project):
-    project_data_1 = project_data
+def test_create_project_by_copy_empty_id(browser, project_data_create, super_admin, project_data_first_project):
+    project_data_1 = project_data_create()
     project_id = project_data_1.id
     project_name = project_data_1.name
     description = DataGenerator.random_text()
@@ -265,7 +265,7 @@ def test_create_project_by_copy_empty_id(browser, project_data, super_admin, pro
 
 
     with allure.step("Отправка запроса на создание первого проекта"):
-        project_data_2 = project_data_first_project
+        project_data_2 = project_data_first_project()
         create_project_response = super_admin.api_manager.project_api.create_project(project_data_2.model_dump()).text
     with allure.step("Проверка соответствия параметров созданного проекта с отправленными данными"):
         project_model_response = ProjectResponseModel.model_validate_json(create_project_response)
@@ -281,7 +281,7 @@ def test_create_project_by_copy_empty_id(browser, project_data, super_admin, pro
         project_creation_browser.create_project_manually(project_name, project_id, description)
         time.sleep(10)
         with allure.step('Отправка запроса на получение информации о созданном проекте'):
-            response = super_admin.api_manager.project_api.get_project_by_locator(project_id).text
+            response = super_admin.api_manager.project_api.get_project_by_locator(project_data_1.id).text
             created_project = ProjectResponseModel.model_validate_json(response)
             with pytest.assume:
                 assert created_project.id == project_id, \

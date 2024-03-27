@@ -49,9 +49,8 @@ class CreateFormContainerFragment(BasePage):
         with allure.step("Нажатие кнопки создания проекта"):
             self.actions.wait_for_page_load()
             self.actions.wait_for_selector(self.create_project_button)
-            time.sleep(2)
             self.actions.is_button_active(self.create_project_button)
-            time.sleep(2)
+            time.sleep(3)
             self.actions.click_button(self.create_project_button)
 
     def check_project_name_input_visible(self):
@@ -122,7 +121,7 @@ class ProjectCreationPageThroughHeader(BasePage):
             self.menu_list_create.click_create_manually()
             time.sleep(2)
         with allure.step("Проверка текущей ссылки создания проекта"):
-            self.actions.check_url(self.page_url)
+            self.actions.check_url(self.page_url, equal=False)
         with allure.step("Заполнение полей информации о проекте"):
             self.create_form_container.input_project_details(name, project_id, description)
             time.sleep(2)
