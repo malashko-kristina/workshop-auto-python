@@ -137,7 +137,7 @@ def project_copy_data(super_admin, project_data):
         project_id_copy_pool.append(project_copy.id)
         return project_copy
 
-    yield _create_project_copy_data
+    yield _create_project_copy_data()
 
     for project_copy_id in project_id_copy_pool :
         super_admin.api_manager.project_api.clean_up_project(project_copy_id)

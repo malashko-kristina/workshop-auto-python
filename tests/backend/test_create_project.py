@@ -19,7 +19,7 @@ class TestProjectCreateWithInvalidData:
 
         def test_create_project_with_empty_id(self, super_admin, user_create, project_data_with_empty_id):
             with allure.step("Отправка запроса на создание проекта c пустым id"):
-                invalid_project_data = project_data_with_empty_id
+                invalid_project_data = project_data_with_empty_id()
                 create_project_response = super_admin.api_manager.project_api.create_project(invalid_project_data.model_dump(), expected_status=HTTPStatus.INTERNAL_SERVER_ERROR)
 
             with pytest.assume:
@@ -55,7 +55,7 @@ class TestProjectCreateWithInvalidData:
         def test_create_project_with_empty_name(self, super_admin, user_create, project_data_with_invalid_name):
 
             with allure.step("Отправка запроса на создание проекта c пустым полем 'name''"):
-                invalid_project_data = project_data_with_invalid_name
+                invalid_project_data = project_data_with_invalid_name()
                 create_project_response = super_admin.api_manager.project_api.create_project(invalid_project_data.model_dump(), expected_status=HTTPStatus.BAD_REQUEST)
 
             with pytest.assume:
@@ -74,7 +74,7 @@ class TestProjectCreateWithInvalidData:
         def test_create_project_with_empty_parentProject(self, super_admin, user_create, project_data_with_empty_parentProject):
 
             with allure.step("Отправка запроса на создание проекта c пустым полем 'parentProject'"):
-                invalid_project_data = project_data_with_empty_parentProject
+                invalid_project_data = project_data_with_empty_parentProject()
                 create_project_response = super_admin.api_manager.project_api.create_project(invalid_project_data.model_dump(), expected_status=HTTPStatus.BAD_REQUEST)
 
             with pytest.assume:
@@ -243,7 +243,7 @@ class TestProjectCopy:
                      (f"expected parent project id= {project_data_3.parentProject['locator']},"
                       f" but '{project_model_response.parentProjectId}' given in response")
             with allure.step("Отправка запроса на создание копии уже существующего проекта, но с указанием неизвестного id"):
-                 project_copy_data_2 = project_copy_data_with_another_source_project
+                 project_copy_data_2 = project_copy_data_with_another_source_project()
                  create_project_copy_response = super_admin.api_manager.project_api.create_copy_project(project_copy_data_2.model_dump(), expected_status=HTTPStatus.NOT_FOUND)
             with pytest.assume:
                  assert f"NotFoundException: No project found by name or internal/external id '{project_copy_data_2.sourceProject['locator']}'" in create_project_copy_response.text
@@ -263,7 +263,7 @@ class TestProjectCreateAndDelete:
         def test_create_project_and_delete(self, super_admin, user_create, project_data_without_deleting):
 
             with allure.step("Отправка запроса на создание проекта"):
-                 project_data_1 = project_data_without_deleting
+                 project_data_1 = project_data_without_deleting()
                  create_project_response = super_admin.api_manager.project_api.create_project(project_data_1.model_dump()).text
             with allure.step("Проверка соответствия параметров созданного проекта с отправленными данными"):
                  project_model_response = ProjectResponseModel.model_validate_json(create_project_response)
