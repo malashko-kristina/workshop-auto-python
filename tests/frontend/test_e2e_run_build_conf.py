@@ -62,6 +62,8 @@ def test_run_build_conf(browser, project_data, super_admin, build_conf_data, pro
     with allure.step("Проверка редиректа на страницу редактирования проекта"):
         edit_project_browser = EditProjectFormPage(browser, project_id)
         edit_project_browser.check_project_data(project_name, project_id, description)
+    with allure.step("Переход на страницу создания билд конфигурации"):
+        edit_project_browser.redirect_to_create_build_conf(project_id)
         with allure.step('Отправка запроса на получение информации о созданном проекте'):
             response = super_admin.api_manager.project_api.get_project_by_locator(project_name).text
             created_project = ProjectResponseModel.model_validate_json(response)

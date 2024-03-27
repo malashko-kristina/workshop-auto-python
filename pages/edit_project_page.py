@@ -10,6 +10,7 @@ class MessageProjectCreatedFragment(BasePage):
 
     def check_text_in_selector(self, project_name):
         with allure.step('Проверка наличия текста на странице'):
+            self.actions.wait_for_selector(self.message_created_project_locator)
             self.actions.assert_text_in_element(self.message_created_project_locator,f'Project "{project_name}" has been successfully created. You can now create a build configuration.')
 
 class OptionsProjectCreatedFragment(BasePage):
@@ -95,7 +96,6 @@ class EditProjectPageFragment(BasePage):
 
     def input_project_edit_details(self, name, project_id, description):
         with allure.step("Ввод данных для изменения проекта"):
-            self.actions.wait_for_selector(self.project_name_selector)
             self.actions.input_text(self.project_name_selector, name)
             time.sleep(2)
             self.actions.input_text(self.project_id_selector, project_id)
@@ -153,8 +153,9 @@ class EditProjectFormPage(BasePage):
     def check_project_data(self, name, project_id, description):
         self.message_created_project.check_text_in_selector(name)
         self.edit_project_page.check_project_details(name, project_id, description)
-        time.sleep(2)
-        with allure.step("Клик на кнопку создания проекта"):
+
+    def redirect_to_create_build_conf(self, project_id):
+        with allure.step("Клик на кнопку создания билд конфигурации"):
             self.add_build_conf.click_on_create_build_cond()
             self.page_url = f"/admin/createObjectMenu.html?projectId={project_id}&showMode=createBuildTypeMenu&cameFromUrl=%2Fadmin%2FeditProject.html%3FprojectId%3D{project_id}"
             self.actions.wait_for_url_change(self.page_url)
@@ -179,6 +180,8 @@ class EditProjectFormWithWrongIdPage(BasePage):
             self.message_created_project.check_text_in_selector(name)
 
     def edit_project_data_with_invalid_id(self, name, project_id, description):
+        with allure.step("Проверка нахождения юзера на странице редактирования"):
+            self.actions.check_url(self.page_url)
         with allure.step("Добавление информации в поля для редактирования проекта"):
             self.edit_project_page.input_project_edit_details(name, project_id, description)
             time.sleep(2)
@@ -207,6 +210,8 @@ class EditProjectFormWithChangesPage(BasePage):
             self.actions.check_url(self.page_url)
 
     def change_project_data(self, name, project_id, description):
+        with allure.step("Проверка нахождения юзера на странице редактирования"):
+            self.actions.check_url(self.page_url)
         with allure.step("Добавление информации в поля для редактирования проекта"):
             self.edit_project_page.input_project_edit_details(name, project_id, description)
             time.sleep(2)

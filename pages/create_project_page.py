@@ -182,6 +182,8 @@ class ProjectCreationPageWithUsedId(BasePage):
             self.actions.wait_for_page_load()
 
     def create_project(self, name, project_id, description):
+        with allure.step("Переход на страницу создания проекта"):
+            self.go_to_creation_page()
         with allure.step("Клик по кнопке ручного создания проекта"):
             self.menu_list_create.is_create_manually_active()
             self.menu_list_create.click_create_manually()
