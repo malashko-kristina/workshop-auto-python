@@ -47,7 +47,7 @@ class BuildRunResponseModel(BaseModel):
     href: str
     webUrl: str
     buildType: BuildTypeRunModel
-    waitReason: str
+    waitReason: Optional[str]
     queuedDate: str
     triggered: TriggeredModel
     changes: Optional[dict]

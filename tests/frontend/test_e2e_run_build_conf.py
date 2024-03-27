@@ -29,8 +29,8 @@ from utilis.data_generator import DataGenerator
 @allure.title('Проверка создания шагов билд конфигурации с последующим ее запуском')
 @allure.description('Негативный тест проверяет шагов билд конфигурации с последующим ее запуском и отображением ошибки.')
 
-def test_run_build_conf(browser,project_data_create, super_admin, build_conf_data, project_data_first_project):
-    project_data_1 = project_data_create()
+def test_run_build_conf(browser, project_data, super_admin, build_conf_data, project_data_first_project):
+    project_data_1 = project_data
     project_id = project_data_1.id
     project_name = project_data_1.name
     build_conf_data_1 = build_conf_data
@@ -59,7 +59,6 @@ def test_run_build_conf(browser,project_data_create, super_admin, build_conf_dat
         project_creation_browser = ProjectCreationPage(browser)
         project_creation_browser.go_to_creation_page()
         project_creation_browser.create_project_manually(project_name, project_id, description)
-        time.sleep(10)
         with allure.step('Отправка запроса на получение информации о созданном проекте'):
             response = super_admin.api_manager.project_api.get_project_by_locator(project_data_1.id).text
             created_project = ProjectResponseModel.model_validate_json(response)
@@ -72,7 +71,7 @@ def test_run_build_conf(browser,project_data_create, super_admin, build_conf_dat
     with allure.step("Проверка успешности создания проекта"):
         edit_project_browser = EditProjectFormPage(browser, project_id)
         edit_project_browser.check_project_data(project_name, project_id, description)
-    with allure.step("Создание билд конфигурации"):
+    with allure.step("Cоздание билд конфигурации"):
         build_conf_creation_browser = BuildConfCreationPage(browser, project_id)
         build_conf_creation_browser.create_build_conf(build_conf_id, build_conf_name, project_id, build_conf_name)
     with allure.step("Проверка нахождения id созданной билд конфигурации в общем списке билд конфигураций"):
@@ -111,7 +110,7 @@ def test_run_build_conf(browser,project_data_create, super_admin, build_conf_dat
     with allure.step("Запуск билд конфигурации с некорректно введенным script для command line"):
         run_build_with_step_invalid = RunBuildWithStep(browser, build_conf_id)
         run_build_with_step_invalid.run_build_conf_with_invalid_step()
-        time.sleep(10)
+        time.sleep(3)
     with allure.step("Проверка счетчика 'Queue' в header"):
         project_creation_browser.header.check_queue_count_through_header_button("1")
     with allure.step("Отправка запроса на проверку количества билд конфигураций в очереди для запуска"):

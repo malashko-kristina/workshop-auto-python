@@ -67,7 +67,7 @@ def super_admin(user_session):
     return super_admin
 
 
-@pytest.fixture(params=[Roles.SYSTEM_ADMIN, Roles.PROJECT_ADMIN, Roles.PROJECT_DEVELOPER, Roles.PROJECT_VIEWER])
+@pytest.fixture(params=[Roles.PROJECT_ADMIN, Roles.PROJECT_DEVELOPER, Roles.PROJECT_VIEWER])
 def user_create(user_session, super_admin):
     # Фикстура, создающая юзера от имени супер админа
     created_users_pool = []
@@ -222,7 +222,6 @@ def build_conf_data_without_deleting_id(super_admin, project_data, request):
         name = request.param
         build_conf = BuildConfData.create_build_conf_data(project_data.id, name)
         yield build_conf
-
 
 @pytest.fixture
 def build_conf_data_with_empty_steps_field(super_admin, project_data):

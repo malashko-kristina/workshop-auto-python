@@ -60,15 +60,6 @@ jobs:
           sudo apt-get install -y python3.10 python3-pip
           pip install -r requirements.txt
 
-      - name: Install System Libraries
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y libvpx7 libevent-2.1-7 libopus0 libharfbuzz-icu0
-
-      - name: Install WOFF2 Dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y woff2 libwoff-dev
 
       - name: Install Playwright Dependencies
         run: |

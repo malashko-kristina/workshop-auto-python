@@ -22,8 +22,8 @@ from utilis.data_generator import DataGenerator
 @allure.title('Проверка создания билд конфигурации с пустыми обязательными полями, невалидным id, с уже существующим именем билд конфигурации')
 @allure.description('Негативный тест проверяет создание билд конфигурации с пустыми обязательными полями, невалидным id, с уже существующим именем билд конфигурации.')
 
-def test_create_build_conf_with_invalid_data(browser, project_data_create, super_admin, build_conf_data):
-    project_data_1 = project_data_create()
+def test_create_build_conf_with_invalid_data(browser, project_data, super_admin, build_conf_data):
+    project_data_1 = project_data
     project_id = project_data_1.id
     project_name = project_data_1.name
     build_conf_data_1 = build_conf_data
@@ -84,8 +84,8 @@ def test_create_build_conf_with_invalid_data(browser, project_data_create, super
 @allure.title('Проверка создания копии билд конфигурации с изменением id билд конфигурации')
 @allure.description('Позитивный тест проверяет создания копии билд конфигурации с изменением id билд конфигурации.')
 
-def test_create_build_conf_by_copy(browser, project_data_create, super_admin, build_conf_data, project_data_first_project):
-    project_data_1 = project_data_create()
+def test_create_build_conf_by_copy(browser, project_data, super_admin, build_conf_data, project_data_first_project):
+    project_data_1 = project_data
     project_id = project_data_1.id
     project_name = project_data_1.name
     build_conf_data_1 = build_conf_data
@@ -93,6 +93,7 @@ def test_create_build_conf_by_copy(browser, project_data_create, super_admin, bu
     build_conf_name = build_conf_data_1.name
     description = DataGenerator.random_text()
     project_parent = project_data_1.parentProject["locator"]
+    new_build_conf_id = DataGenerator.fake_project_id()
 
 
     with allure.step("Отправка запроса на создание первого проекта"):
@@ -140,14 +141,14 @@ def test_create_build_conf_by_copy(browser, project_data_create, super_admin, bu
             f"expected build conf id= {build_conf_data_1.id}, but '{build_conf_model_response_1.id}' given"
     with allure.step("Копирование билд конфигурации"):
         copy_build_conf = BuildConfCopyPage(browser, build_conf_id)
-        copy_build_conf.copy_build_conf(project_id, project_id)
+        copy_build_conf.copy_build_conf(new_build_conf_id, new_build_conf_id)
     with allure.step("Удаление билд конфигурации"):
-        build_conf_delete = BuildConfDeletePage(browser, project_id)
-        build_conf_delete.delete_build_conf(project_id, project_id)
+        build_conf_delete = BuildConfDeletePage(browser, new_build_conf_id)
+        build_conf_delete.delete_build_conf(project_id, new_build_conf_id)
     with allure.step("Отправка запроса на получение информации об удаленной билд конфигурации"):
-        get_about_build_conf_response = super_admin.api_manager.build_conf_api.get_build_conf(project_id, expected_status=HTTPStatus.NOT_FOUND)
+        get_about_build_conf_response = super_admin.api_manager.build_conf_api.get_build_conf(new_build_conf_id, expected_status=HTTPStatus.NOT_FOUND)
     with pytest.assume:
-        assert f"NotFoundException: No build type nor template is found by id '{project_id}'" in get_about_build_conf_response.text
+        assert f"NotFoundException: No build type nor template is found by id '{new_build_conf_id}'" in get_about_build_conf_response.text
 
 
 
@@ -160,8 +161,8 @@ def test_create_build_conf_by_copy(browser, project_data_create, super_admin, bu
 @allure.title('Проверка создания копии билд конфигурации с невалидным id')
 @allure.description('Негативный тест проверяет создания копии билд конфигурации с невалидным id .')
 
-def test_create_invalid_copy_build_conf(browser, project_data_create, super_admin, build_conf_data_without_deleting_id, project_data_first_project):
-    project_data_1 = project_data_create()
+def test_create_invalid_copy_build_conf(browser, project_data, super_admin, build_conf_data_without_deleting_id, project_data_first_project):
+    project_data_1 = project_data
     project_id = project_data_1.id
     project_name = project_data_1.name
     build_conf_data_1 = build_conf_data_without_deleting_id

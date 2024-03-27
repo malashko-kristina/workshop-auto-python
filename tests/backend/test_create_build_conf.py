@@ -184,7 +184,7 @@ class TestBuildConfCreateWithoutObligatoryFields:
             with pytest.assume:
                 assert created_model_project_response.id == project_data_1.id, f"There is no project with {project_data_1.id} id"
             with allure.step("Отправка запроса на создание билд конфигурации с пустым 'steps' полем"):
-                build_conf_data_1 = build_conf_data_with_empty_steps_field
+                build_conf_data_1 = build_conf_data_with_empty_steps_field()
                 build_config_response = super_admin.api_manager.build_conf_api.create_build_conf(build_conf_data_1.model_dump()).text
             with allure.step("Проверка соответствия параметров созданной билд конфигурации с отправленными данными"):
                 build_conf_model_response = BuildResponseModel.model_validate_json(build_config_response)
@@ -224,7 +224,7 @@ class TestBuildConfCreateWithoutObligatoryFields:
             with pytest.assume:
                 assert created_model_project_response.id == project_data_1.id, f"There is no project with {project_data_1.id} id"
             with allure.step("Отправка запроса на создание билд конфигурации без поля 'steps'"):
-                build_conf_data_1 = build_conf_data_without_steps_field
+                build_conf_data_1 = build_conf_data_without_steps_field()
                 build_config_response = super_admin.api_manager.build_conf_api.create_build_conf(build_conf_data_1.model_dump()).text
             with allure.step("Проверка соответствия параметров созданной билд конфигурации с отправленными данными"):
                 build_conf_model_response = BuildResponseModel.model_validate_json(build_config_response)
