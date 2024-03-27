@@ -12,6 +12,6 @@ def test_set_up(one_browser):
     with allure.step("Проверка перехода на Home page"):
         after_login = LoginFormBody(one_browser)
         after_login.userpic_is_visible()
-    with allure.step("Авторизация тимсити агента"):
+    with allure.step("Авторизация нового неавторизованного тимсити агента"):
         agents_page = AgentsPage(one_browser)
         agents_page.authorize_agent()
