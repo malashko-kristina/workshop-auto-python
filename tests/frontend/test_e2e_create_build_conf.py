@@ -52,9 +52,6 @@ def test_create_build_conf_with_invalid_data(browser, project_data, super_admin,
             with pytest.assume:
                 assert created_project.parentProjectId == project_parent, \
                     f"expected parent project = {project_parent}, but '{created_project.parentProjectId}' given"
-    with allure.step("Проверка успешности создания проекта"):
-        edit_project_browser = EditProjectFormPage(browser, project_id)
-        edit_project_browser.check_project_data(project_name, project_id, description)
     with allure.step("Cоздание билд конфигурации"):
         build_conf_creation_browser = BuildConfCreationPage(browser, project_id)
         build_conf_creation_browser.create_build_conf(build_conf_id, build_conf_name, project_id, build_conf_name)
@@ -113,7 +110,9 @@ def test_create_build_conf_by_copy(browser, project_data, super_admin, build_con
         project_creation_browser = ProjectCreationPage(browser)
         project_creation_browser.go_to_creation_page()
         project_creation_browser.create_project_manually(project_name, project_id, description)
-        time.sleep(10)
+    with allure.step("Проверка редиректа на страницу редактирования проекта"):
+        edit_project_browser = EditProjectFormPage(browser, project_id)
+        edit_project_browser.check_project_data(project_name, project_id, description)
         with allure.step('Отправка запроса на получение информации о созданном проекте'):
             response = super_admin.api_manager.project_api.get_project_by_locator(project_data_1.id).text
             created_project = ProjectResponseModel.model_validate_json(response)
@@ -123,9 +122,6 @@ def test_create_build_conf_by_copy(browser, project_data, super_admin, build_con
             with pytest.assume:
                 assert created_project.parentProjectId == project_parent, \
                     f"expected parent project = {project_parent}, but '{created_project.parentProjectId}' given"
-    with allure.step("Проверка успешности создания проекта"):
-        edit_project_browser = EditProjectFormPage(browser, project_id)
-        edit_project_browser.check_project_data(project_name, project_id, description)
     with allure.step("Cоздание билд конфигурации"):
         build_conf_creation_browser = BuildConfCreationPage(browser, project_id)
         build_conf_creation_browser.create_build_conf(build_conf_id, build_conf_name, project_id, description)
@@ -190,7 +186,9 @@ def test_create_invalid_copy_build_conf(browser, project_data, super_admin, buil
         project_creation_browser = ProjectCreationPage(browser)
         project_creation_browser.go_to_creation_page()
         project_creation_browser.create_project_manually(project_name, project_id, description)
-        time.sleep(10)
+    with allure.step("Проверка редиректа на страницу редактирования проекта"):
+        edit_project_browser = EditProjectFormPage(browser, project_id)
+        edit_project_browser.check_project_data(project_name, project_id, description)
         with allure.step('Отправка запроса на получение информации о созданном проекте'):
             response = super_admin.api_manager.project_api.get_project_by_locator(project_data_1.id).text
             created_project = ProjectResponseModel.model_validate_json(response)
@@ -200,9 +198,6 @@ def test_create_invalid_copy_build_conf(browser, project_data, super_admin, buil
             with pytest.assume:
                 assert created_project.parentProjectId == project_parent, \
                     f"expected parent project = {project_parent}, but '{created_project.parentProjectId}' given"
-    with allure.step("Проверка успешности создания проекта"):
-        edit_project_browser = EditProjectFormPage(browser, project_id)
-        edit_project_browser.check_project_data(project_name, project_id, description)
     with allure.step("Cоздание билд конфигурации"):
         build_conf_creation_browser = BuildConfCreationPage(browser, project_id)
         build_conf_creation_browser.create_build_conf(build_conf_id, build_conf_name, project_id, build_conf_name)

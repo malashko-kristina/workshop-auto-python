@@ -67,8 +67,9 @@ class TestRunBuildConfSeveralTimes:
             with pytest.assume:
                 assert build_run_model_response.state == "queued", \
                         f"build was expected to be run= {build_run_model_response.state} should be queued, but it is not in a query= {build_run_model_response.state}"
-            with allure.step("Проверка количества билд конфигураций в очереди для запуска"):
-                    get_build_conf_run_response = super_admin.api_manager.run_build_conf_api.check_query_with_build_conf().text
+            with allure.step("Отправка запроса на проверку количества билд конфигураций в очереди для запуска"):
+                get_build_conf_run_response = super_admin.api_manager.run_build_conf_api.check_query_with_build_conf().text
+                time.sleep(4)
             with allure.step("Проверка соответствия параметров запущенных билд конфигураций с отправленными данными"):
                     build_conf_run_check_model_response = BuildConfRunStatusModel.model_validate_json(get_build_conf_run_response)
             with pytest.assume:

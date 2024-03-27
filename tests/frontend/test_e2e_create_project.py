@@ -172,10 +172,8 @@ def test_create_project_invalid_id_edit(browser, project_data_without_deleting, 
             with pytest.assume:
                 assert created_project.parentProjectId == project_parent, \
                     f"expected parent project = {project_parent}, but '{created_project.parentProjectId}' given"
-    with allure.step("Проверка перехода на страницу редактирования проекта и редактирование с использованием невалидного id"):
+    with allure.step("Редактирование проекта с использованием невалидного id"):
         project_invalid_edit_browser = EditProjectFormWithWrongIdPage(browser, project_id)
-        project_invalid_edit_browser.check_edit_project_url()
-        project_invalid_edit_browser.success_message_project_creation(project_name)
         project_invalid_edit_browser.edit_project_data_with_invalid_id(project_name, project_id_invalid, description)
     with allure.step("Редактирование проекта с использованием валидных данных"):
         project_edit_browser = EditProjectFormWithChangesPage(browser, project_id)

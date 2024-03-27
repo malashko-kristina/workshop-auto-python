@@ -99,7 +99,7 @@ jobs:
         id: run-tests
         continue-on-error: true
         run: |
-          pytest -v --alluredir=results --ignore=test/frontend/test_set_up.py || exit 1
+          pytest -v --alluredir=results --ignore=tests/frontend/test_set_up.py || exit 1
           echo "::set-output name=run-tests-success::true"
 
       - name: Check Results Directory
