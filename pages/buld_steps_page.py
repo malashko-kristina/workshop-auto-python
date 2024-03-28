@@ -32,7 +32,6 @@ class BuildStepsPage(BasePage):
     def add_build_steps(self, build_conf_id):
         with allure.step('Клик по кнопке добавления шагов'):
             self.content_build_steps.click_create_steps_build_conf()
-            time.sleep(1)
             self.page_url = f'/admin/editRunType.html?id=buildType:{build_conf_id}&runnerId=__NEW_RUNNER__&cameFromUrl=%2Fadmin%2FeditBuildRunners.html%3Fid%3DbuildType%253A{build_conf_id}%26init%3D1&cameFromTitle='
             self.actions.wait_for_url_change(self.page_url)
 

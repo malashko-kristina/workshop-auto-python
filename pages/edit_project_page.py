@@ -44,17 +44,13 @@ class OptionsProjectCreatedFragment(BasePage):
             self.actions.wait_for_selector(self.actions_button)
             self.actions.is_button_active(self.actions_button)
             self.actions.click_button(self.actions_button)
-            time.sleep(2)
             self.actions.wait_for_selector(self.copy_project_button)
-            time.sleep(2)
         with allure.step("Клик на кнопку copy для копирования проекта"):
             self.actions.is_element_visible(self.copy_project_button)
             self.actions.click_button(self.copy_project_button)
             self.actions.wait_for_selector(self.copy_button)
-            time.sleep(2)
         with allure.step("Добавления нового проджект id в поле project id"):
             self.actions.input_text(self.new_project_id, project_id)
-            time.sleep(2)
         with allure.step("Клик на кнопку копирования проекта"):
             self.actions.is_element_visible(self.copy_button)
             self.actions.click_button(self.copy_button)
@@ -67,19 +63,15 @@ class OptionsProjectCreatedFragment(BasePage):
             self.actions.wait_for_selector(self.actions_button)
             self.actions.is_button_active(self.actions_button)
             self.actions.click_button(self.actions_button)
-            time.sleep(2)
             self.actions.wait_for_selector(self.copy_project_button)
         with allure.step("Клик на кнопку copy для копирования проекта"):
             self.actions.click_button(self.copy_project_button)
-            time.sleep(2)
             self.actions.wait_for_selector(self.copy_button)
         with allure.step("Добавления нового проджект id в поле project id"):
             self.actions.input_text(self.new_project_id, project_id)
-            time.sleep(2)
             self.actions.is_element_visible(self.copy_button)
         with allure.step("Клик на кнопку копирования проекта"):
             self.actions.click_button(self.copy_button)
-            time.sleep(2)
             self.actions.wait_for_selector(self.message_error_empty_id)
         with allure.step("Проверка отображения текста об ошибке копирования проекта (project id пустой)"):
             self.actions.assert_text_in_element(self.message_error_empty_id,'Project ID must not be empty.')
@@ -97,9 +89,7 @@ class EditProjectPageFragment(BasePage):
     def input_project_edit_details(self, name, project_id, description):
         with allure.step("Ввод данных для изменения проекта"):
             self.actions.input_text(self.project_name_selector, name)
-            time.sleep(2)
             self.actions.input_text(self.project_id_selector, project_id)
-            time.sleep(2)
             self.actions.input_text(self.project_description_selector, description)
 
     def check_project_details(self, name, project_id, description):
@@ -185,13 +175,11 @@ class EditProjectFormWithWrongIdPage(BasePage):
             self.actions.check_url(self.page_url)
         with allure.step("Добавление информации в поля для редактирования проекта"):
             self.edit_project_page.input_project_edit_details(name, project_id, description)
-            time.sleep(2)
             self.actions.wait_for_selector(self.warning_message)
         with allure.step("Проверка отображения сообщения об предупреждении project id"):
             self.actions.assert_text_in_element(self.warning_message, 'Important: Modifying the ID will change all the URLs related to the project. It is highly recommended to update the ID in any of the URLs bookmarked or hard-coded in the scripts. The corresponding configuration and artifacts directory names on the disk will change too and it can take time.')
         with allure.step("Клик на кнопку сохранения данных редактирования проекта"):
             self.edit_project_page.click_save_project_edit_button()
-            time.sleep(2)
         with allure.step("Проверка отображения сообщения об ошибке при редактировании проекта (невалидный project id)"):
             self.actions.wait_for_selector(self.invalid_id_error)
             self.actions.assert_text_in_element(self.invalid_id_error, f"Project ID \"{project_id}\" is invalid: starts with non-letter character '{project_id[0]}'. ID should start with a latin letter and contain only latin letters, digits and underscores (at most 225 characters).")
@@ -215,7 +203,6 @@ class EditProjectFormWithChangesPage(BasePage):
             self.actions.check_url(self.page_url)
         with allure.step("Добавление информации в поля для редактирования проекта"):
             self.edit_project_page.input_project_edit_details(name, project_id, description)
-            time.sleep(2)
         with allure.step("Клик на кнопку сохранения данных редактирования проекта"):
             self.edit_project_page.click_save_project_edit_button()
         with allure.step("Отображения сообщения об успешном сохранении данных редактирования проекта"):

@@ -46,7 +46,6 @@ class RunBuildWithStep(BasePage):
         with allure.step("Клик по кнопке запуска билда"):
             self.run_build_with_step.is_run_build_active()
             self.run_build_with_step.click_run_build_conf()
-            time.sleep(2)
             self.page_url = f'/admin/editBuildRunners.html?id=buildType:{build_conf_id}'
             self.actions.wait_for_url_change(self.page_url)
 

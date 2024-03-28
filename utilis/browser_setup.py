@@ -12,7 +12,7 @@ class BrowserSetup:
     @classmethod
     def setup(cls, browser_type="chromium", headless=headless_mode):
         playwright = sync_playwright().start()
-        browser = getattr(playwright, browser_type).launch(headless=headless)
+        browser = getattr(playwright, browser_type).launch(headless=headless, slow_mo=100)
         context = browser.new_context()
         context.tracing.start(screenshots=True, snapshots=True, sources=True)
         page = context.new_page()

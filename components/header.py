@@ -74,7 +74,6 @@ class Headers:
         self.actions.wait_for_selector(self.agents_count)
         self.actions.is_element_visible(self.agents_count)
         self.actions.assert_text_in_element(self.agents_count, number)
-        time.sleep(30)
 
     def open_drop_down_theme_in_header_button(self):
         self.actions.is_button_active(self.theme_drop_down)

@@ -81,13 +81,10 @@ class SetUpUser(BasePage):
         self.actions.wait_for_page_load()
         self.actions.wait_for_selector(self.username_field)
         self.actions.input_text(self.username_field, username)
-        time.sleep(2)
         self.actions.wait_for_selector(self.password_field)
         self.actions.input_text(self.password_field, password)
-        time.sleep(2)
         self.actions.wait_for_selector(self.repeat_password_field)
         self.actions.input_text(self.repeat_password_field, password)
-        time.sleep(2)
 
 
     def create_user(self):
@@ -111,21 +108,16 @@ class SetUpPage(BasePage):
             self.actions.navigate(self.page_url)
             self.actions.wait_for_page_load()
         with allure.step("Клик на кнопку продолжить на странице 'First Start'"):
-            time.sleep(2)
             self.first_start_window.proceed_step()
-            time.sleep(2)
             self.loading.wait_loading()
         with allure.step("Клик на кнопку продолжить на странице 'DataBase connection setup'"):
-            time.sleep(2)
             self.first_start_window.proceed_step()
             self.loading.wait_loading()
         with allure.step("Добавление флажка в чекбокс о принятии лицензионного соглашения"):
-            time.sleep(3)
             self.agreement.check_in_box()
         with allure.step("Проверка перехода на страницу 'License Agreement'"):
             self.actions.check_url(self.agreement.page_url)
         with allure.step("Клик на кнопку продолжить после принятия лицензионного соглашения"):
-            time.sleep(2)
             self.agreement.continue_agreement()
             self.actions.wait_for_page_load()
         with allure.step("Заполнение данных пользователя для его создания"):

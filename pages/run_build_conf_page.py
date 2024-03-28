@@ -46,10 +46,8 @@ class BuildConfRunPage(BasePage):
 
     def run_build_conf(self, build_conf_id, project_id):
         self.run_build_conf_wrapper.click_run_build_conf()
-        time.sleep(2)
         self.page_url = f'/admin/editBuildTypeVcsRoots.html?init=1&id=buildType:{build_conf_id}&cameFromUrl=%2Fadmin%2FeditProject.html%3Finit%3D1%26projectId%3D{project_id}'
         self.actions.wait_for_url_change(self.page_url)
-        time.sleep(30)
 
     def tap_on_add_build_steps(self, build_conf_id):
         with allure.step("Клик на кнопку перехода на страницу создания шагов к билд конфигурации"):

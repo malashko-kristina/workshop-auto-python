@@ -38,13 +38,9 @@ class CreateBuildConfFormContainerFragment(BasePage):
     def input_build_conf_details(self, build_conf_name, build_conf_id, description):
         with allure.step("Ввод данных для создания билд конфигурации"):
             self.actions.wait_for_selector(self.build_conf_name_selector)
-            time.sleep(1)
             self.actions.input_text(self.build_conf_name_selector, build_conf_name)
-            time.sleep(1)
             self.actions.input_text(self.build_conf_id_selector, build_conf_id)
-            time.sleep(1)
             self.actions.input_text(self.build_conf_description_selector, description)
-            time.sleep(1)
 
     def click_create_build_conf_button(self):
         with allure.step("Нажатие кнопки создания билд конфигурации"):
@@ -97,13 +93,10 @@ class BuildConfCreationPage(BasePage):
         self.go_to_creation_build_conf_page()
         with allure.step("Клик на кнопку ручного создания билд конфигурации"):
             self.menu_list_create_build_conf.click_create_build_conf_manually()
-            time.sleep(1)
         with allure.step("Добавления информации для создания билд конфигурации"):
             self.create_build_conf_form_container.input_build_conf_details(build_conf_name,build_conf_id, description)
-            time.sleep(1)
         with allure.step("Клик на кнопку создания билд конфигурации"):
             self.create_build_conf_form_container.click_create_build_conf_button()
-            time.sleep(1)
             self.page_url = (f'/admin/editVcsRoot.html?action=addVcsRoot&editingScope=buildType%3A{build_conf_id}&cameFromUrl=%2Fadmin%2FeditBuildTypeVcsRoots.html%3Finit%3D1%26id%3DbuildType%3A{build_conf_id}%26cameFromUrl%3D%252Fadmin%252FeditProject.html%253Finit%253D1%2526projectId%253D{project_id}&cameFromTitle=Version%20Control%20Settings&showSkip=true')
             self.actions.wait_for_url_change(self.page_url)
 
@@ -125,16 +118,12 @@ class BuildConfCreationWithErrorPage(BasePage):
         self.go_to_creation_build_conf_page()
         with allure.step("Клик на кнопку ручного создания билд конфигурации"):
             self.menu_list_create_build_conf.click_create_build_conf_manually()
-            time.sleep(1)
         with allure.step("Добавления информации для создания билд конфигурации"):
             self.create_build_conf_form_container.input_build_conf_details(build_conf_name,build_conf_id, description)
-            time.sleep(1)
         with allure.step("Клик на кнопку создания билд конфигурации"):
             self.create_build_conf_form_container.click_create_build_conf_button()
-            time.sleep(1)
         with allure.step("Проверка ошибки создания билд конфигурации из-за пустого поля имени"):
             self.build_conf_errors.check_error_message_empty_build_name()
-            time.sleep(1)
         with allure.step("Проверка ошибки создания билд конфигурации из-за пустого поля id"):
             self.build_conf_errors.check_error_message_empty_build_id()
 
@@ -142,13 +131,10 @@ class BuildConfCreationWithErrorPage(BasePage):
         self.go_to_creation_build_conf_page()
         with allure.step("Клик на кнопку ручного создания билд конфигурации"):
             self.menu_list_create_build_conf.click_create_build_conf_manually()
-            time.sleep(1)
         with allure.step("Добавления информации для создания билд конфигурации"):
             self.create_build_conf_form_container.input_build_conf_details(build_conf_name,build_conf_id, description)
-            time.sleep(1)
         with allure.step("Клик на кнопку создания билд конфигурации"):
             self.create_build_conf_form_container.click_create_build_conf_button()
-            time.sleep(1)
         with allure.step("Проверка ошибки создания билд конфигурации из-за некорректного build id"):
             self.build_conf_errors.check_error_message_invalid_build_id(build_conf_id, first_symbol)
 
@@ -156,13 +142,10 @@ class BuildConfCreationWithErrorPage(BasePage):
         self.go_to_creation_build_conf_page()
         with allure.step("Клик на кнопку ручного создания билд конфигурации"):
             self.menu_list_create_build_conf.click_create_build_conf_manually()
-            time.sleep(1)
         with allure.step("Добавления информации для создания билд конфигурации"):
             self.create_build_conf_form_container.input_build_conf_details(build_conf_name,build_conf_id, description)
-            time.sleep(1)
         with allure.step("Клик на кнопку создания билд конфигурации"):
             self.create_build_conf_form_container.click_create_build_conf_button()
-            time.sleep(1)
         with allure.step("Проверка ошибки создания билд конфигурации из-за уже используемого build имени"):
             self.build_conf_errors.check_error_message_used_build_name(build_conf_name, project_name)
 
