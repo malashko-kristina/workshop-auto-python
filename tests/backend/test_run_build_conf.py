@@ -45,7 +45,7 @@ class TestRunBuildConfSeveralTimes:
             with allure.step('Отправка запроса на запуск билд конфигурации'):
                 build_conf_run_data_1 = build_conf_run_data
                 build_run_response = super_admin.api_manager.run_build_conf_api.run_build_conf(build_conf_run_data_1.model_dump()).text
-                time.sleep(10)
+                time.sleep(15)
             with allure.step("Проверка соответствия параметров запущенной билд конфигурации с отправленными данными"):
                 build_run_model_response = BuildRunResponseModel.model_validate_json(build_run_response)
             with pytest.assume:
@@ -61,7 +61,7 @@ class TestRunBuildConfSeveralTimes:
             with allure.step("Отправка запроса на повторный запуск билд конфигурации"):
                 build_conf_run_data_2 = copy.deepcopy(build_conf_run_data)
                 build_run_response = super_admin.api_manager.run_build_conf_api.run_build_conf(build_conf_run_data_2.model_dump()).text
-                time.sleep(10)
+                time.sleep(15)
             with allure.step("Проверка соответствия параметров запущенной билд конфигурации с отправленными данными"):
                 build_run_model_response = BuildRunResponseModel.model_validate_json(build_run_response)
             with pytest.assume:
