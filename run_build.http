@@ -4,11 +4,11 @@ GET http://admin:admin@localhost:8111/app/rest/projects
 Accept: application/json
 
 ### 0.0.1 GET Project
-GET http://admin:admin@localhost:8111/app/rest/projects/vvvvv
+GET http://admin:admin@localhost:8111/app/rest/projects/test12
 Accept: application/json
 
 ### 0.1 GET Build Conf (to see what settings did we use for our manual build configuration)
-GET http://admin:admin@localhost:8111/app/rest/buildTypes/id:BuildConfId12345
+GET http://admin:admin@localhost:8111/app/rest/buildTypes/id:id7164
 Accept: application/json
 
 ### 0.2 GET Build List
@@ -23,14 +23,14 @@ Accept: application/json
 POST http://admin:admin@localhost:8111/app/rest/projects
 Content-Type: application/json
 Accept: application/json
-X-TC-CSRF-Token: d6a6495d-b615-49bf-8781-af03116193f2
+X-TC-CSRF-Token: 6c4c348a-ef0c-46b8-95fc-adb19de39c49
 
 {
   "parentProject": {
     "locator": "_Root"
   },
-  "name": "test1",
-  "id": "test1",
+  "name": "test12",
+  "id": "test12",
   "copyAllAssociatedSettings": true
 }
 
@@ -38,13 +38,13 @@ X-TC-CSRF-Token: d6a6495d-b615-49bf-8781-af03116193f2
 POST http://admin:admin@localhost:8111/app/rest/buildTypes
 Content-Type: application/json
 Accept: application/json
-X-TC-CSRF-Token: cf7fcecd-3b69-4bc1-8908-face0a2cee4e
+X-TC-CSRF-Token: 6c4c348a-ef0c-46b8-95fc-adb19de39c49
 
 {
   "id": "id7164",
   "name": "name165",
   "project": {
-    "id": "test1",
+    "id": "test12",
   "steps": {
     "step": [
       {
@@ -68,11 +68,11 @@ X-TC-CSRF-Token: cf7fcecd-3b69-4bc1-8908-face0a2cee4e
 POST http://admin:admin@localhost:8111/app/rest/buildQueue
 Content-Type: application/json
 Accept: application/json
-X-TC-CSRF-Token: 6d17e4ab-60e6-4b31-908b-5099f26b9472
+X-TC-CSRF-Token: 6c4c348a-ef0c-46b8-95fc-adb19de39c49
 
 {
   "buildType": {
-    "id": "id71"
+    "id": "id7164"
   }
 }
 
@@ -93,20 +93,19 @@ Content-Type: application/json
 Accept: application/json
 
 
-
 ### 5. Check if there are any build in the query
 GET http://admin:admin@localhost:8111/app/rest/buildQueue
 Content-Type: application/json
 Accept: application/json
 
 ### 6. Check if our build in the query
-GET http://admin:admin@localhost:8111/app/rest/buildQueue?locator=buildType(id:BuildConfId123456)
+GET http://admin:admin@localhost:8111/app/rest/buildQueue?locator=buildType(id:id7164)
 Content-Type: application/json
 Content-Type: application/json
 Accept: application/json
 
 ### 7. Check info about the build conf
-GET http://admin:admin@localhost:8111/app/rest/buildTypes/id:id6
+GET http://admin:admin@localhost:8111/app/rest/buildTypes/id:id7164
 Content-Type: application/json
 Accept: application/json
 
@@ -160,4 +159,7 @@ X-TC-CSRF-Token: cf7fcecd-3b69-4bc1-8908-face0a2cee4e
   "readdIntoQueue": false
 }
 
-
+### 11. Check agent info
+GET http://admin:admin@localhost:8111/app/rest/agents?locator=connected:true,authorized:true
+Content-Type: application/json
+Accept: application/json
