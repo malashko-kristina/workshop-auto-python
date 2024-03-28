@@ -267,7 +267,6 @@ class TestProjectCreateAndDelete:
                  create_project_response = super_admin.api_manager.project_api.create_project(project_data_1.model_dump()).text
             with allure.step("Проверка соответствия параметров созданного проекта с отправленными данными"):
                  project_model_response = ProjectResponseModel.model_validate_json(create_project_response)
-
             with pytest.assume:
                 assert project_model_response.id == project_data_1.id, \
                     f"expected project id= {project_data_1.id}, but '{project_model_response.id}' given"

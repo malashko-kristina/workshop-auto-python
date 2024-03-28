@@ -34,7 +34,6 @@ class TestProjectCreate:
                 (f"expected parent project id= {project_data_1.parentProject['locator']},"
                        f" but '{project_model_response.parentProjectId}' given in response")
 
-            #Дополнительная проверка создания проекта (не видно, создан он или нет, так как сразу идет удаление)
             with allure.step("Проверка нахождения id созданного проекта в общем списке проектов"):
                 get_project_response = super_admin.api_manager.project_api.get_project_by_locator(project_data_1.id).text
             with allure.step("Проверка соответствия параметров созданного проекта с отправленными данными"):
@@ -48,10 +47,16 @@ class TestProjectCreate:
                 build_config_response = super_admin.api_manager.build_conf_api.create_build_conf(build_conf_data_1.model_dump()).text
             with allure.step("Проверка соответствия параметров созданной билд конфигурации с отправленными данными"):
                 build_conf_model_response = BuildResponseModel.model_validate_json(build_config_response)
-
             with pytest.assume:
                 assert build_conf_model_response.id == build_conf_data_1.id, \
                     f"expected build conf id= {build_conf_data_1.id}, but '{build_conf_model_response.id}' given"
+            with allure.step("Проверка нахождения id созданной билд конфигурации в общем списке билд конфигураций"):
+                get_build_conf_response = super_admin.api_manager.build_conf_api.get_build_conf(build_conf_data_1.id).text
+            with allure.step("Проверка соответствия параметров созданной билд конфигурации с отправленными данными"):
+                build_conf_model_response_1 = BuildResponseModel.model_validate_json(get_build_conf_response)
+            with pytest.assume:
+                assert build_conf_model_response_1.id == build_conf_data_1.id, \
+                    f"expected build conf id= {build_conf_data_1.id}, but '{build_conf_model_response_1.id}' given"
 
             with allure.step("Отправка запроса на запуск созданной билд конфигурации с временем ожидания после запроса 3 секунды"):
                 build_conf_run_data_1 = build_conf_run_data
