@@ -31,7 +31,7 @@ class Headers:
         self.profile_button = 'a[data-test="ring-link ring-list-link ring-list-item"] >> text="Profile"'
         self.favourite_builds_button = 'a[data-test="ring-link ring-list-link ring-list-item"] >> text="Favorite Builds"'
         self.investigation_button = 'a[data-test="ring-link ring-list-link ring-list-item"] >> text="Investigations"'
-        self.logout_button = 'a.ring-link-text[data-test="ring-link ring-list-link ring-list-item"]'
+        self.logout_button = 'a[data-test="ring-link ring-list-link ring-list-item"] >> text="Logout"'
 
 
     def logo_is_visible_and_clickable(self):
@@ -201,6 +201,6 @@ class Headers:
         self.actions.is_button_active(self.admin_button)
         self.actions.click_button(self.admin_button)
         self.actions.wait_for_page_load()
-        self.actions.wait_for_selector(self.logout_button)
+        self.actions.is_button_active(self.logout_button)
         self.actions.click_button(self.logout_button)
         self.actions.wait_for_page_load()
