@@ -6,7 +6,7 @@ from pages.create_project_page import ProjectCreationPage
 class MessageProjectCreatedFragment(BasePage):
     def __init__(self, page):
         super().__init__(page)
-        self.message_created_project_locator = "#message_projectCreated"
+        self.message_created_project_locator = ".successMessage#message_projectCreated"
 
     def check_text_in_selector(self, project_name):
         with allure.step('Проверка наличия текста на странице'):
@@ -151,6 +151,7 @@ class EditProjectFormPage(BasePage):
             self.actions.wait_for_url_change(self.page_url)
 
     def check_project_data(self, name, project_id, description):
+        self.check_edit_project_url()
         self.message_created_project.check_text_in_selector(name)
         self.edit_project_page.check_project_details(name, project_id, description)
 
