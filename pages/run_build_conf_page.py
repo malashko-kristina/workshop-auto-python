@@ -1,4 +1,3 @@
-import time
 import allure
 from pages.base_page import BasePage
 
@@ -44,15 +43,16 @@ class BuildConfRunPage(BasePage):
             self.actions.navigate(self.page_url)
             self.actions.wait_for_page_load()
 
-    def run_build_conf(self, build_conf_id, project_id):
-        self.run_build_conf_wrapper.click_run_build_conf()
-        self.page_url = f'/admin/editBuildTypeVcsRoots.html?init=1&id=buildType:{build_conf_id}&cameFromUrl=%2Fadmin%2FeditProject.html%3Finit%3D1%26projectId%3D{project_id}'
-        self.actions.wait_for_url_change(self.page_url)
-
-    def tap_on_add_build_steps(self, build_conf_id):
+    def tap_on_add_build_steps(self):
         with allure.step("Клик на кнопку перехода на страницу создания шагов к билд конфигурации"):
+            self.create_steps_build_conf_bar.is_build_steps_active()
             self.create_steps_build_conf_bar.click_create_steps_build_conf()
-            self.page_url = f"/admin/editBuildRunners.html?id=buildType:{build_conf_id}"
+
+    def run_build_conf_ui(self):
+        with allure.step("Запуск билд конфигурации без добавления шагов"):
+            self.run_build_conf_wrapper.click_run_build_conf()
+            self.actions.wait_for_url_change(self.page_url)
+
 
 
 

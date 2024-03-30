@@ -200,6 +200,13 @@ def project_data_with_false(super_admin):
     for project_id in project_id_pool:
         super_admin.api_manager.project_api.clean_up_project(project_id)
 
+@pytest.fixture
+def delete_all_projects(super_admin):
+    list_proj = super_admin.api_manager.project_api.get_project().json()
+    id_list = [proj['id'] for proj in list_proj['project'] if proj['id'] != '_Root']
+
+    for id_project in id_list:
+        super_admin.api_manager.project_api.delete_project(id_project)
 
 @pytest.fixture(params=[DataGenerator.fake_build_id()])
 def build_conf_data(super_admin, project_data, request):

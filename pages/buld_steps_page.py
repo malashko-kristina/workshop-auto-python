@@ -1,4 +1,3 @@
-import time
 import allure
 from pages.base_page import BasePage
 
@@ -23,7 +22,6 @@ class BuildStepsPage(BasePage):
         self.page_url = (f'/admin/editBuildRunners.html?id=buildType:"{build_conf_id}"')
         self.content_build_steps = ContentBuildStepsFragment(page)
 
-
     def go_to_build_steps_page(self):
         with allure.step('Переход на страницу для добавления шагов к билд конфигурации'):
             self.actions.navigate(self.page_url)
@@ -31,11 +29,8 @@ class BuildStepsPage(BasePage):
 
     def add_build_steps(self, build_conf_id):
         with allure.step('Клик по кнопке добавления шагов'):
+            self.content_build_steps.is_build_steps_active()
             self.content_build_steps.click_create_steps_build_conf()
             self.page_url = f'/admin/editRunType.html?id=buildType:{build_conf_id}&runnerId=__NEW_RUNNER__&cameFromUrl=%2Fadmin%2FeditBuildRunners.html%3Fid%3DbuildType%253A{build_conf_id}%26init%3D1&cameFromTitle='
             self.actions.wait_for_url_change(self.page_url)
-
-
-
-
 

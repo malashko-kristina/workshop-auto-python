@@ -18,7 +18,7 @@ class BuildVersion:
 
 class AppName:
     """
-    Имя приложения, указанная в футере
+    Имя приложения, указанное в футере
     """
     APP_NAME = os.getenv('APPLICATION_NAME')
 

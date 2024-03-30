@@ -1,12 +1,10 @@
-import time
-
 import allure
 import pytest
-
 from data.build_conf_data import BuildResponseModel
 from data.project_data import ProjectResponseModel
 from data.run_build_data import BuildConfRunStatusModel
-from pages.build_add_steps_page import BuildNewStepErrorPage
+from pages.build_add_steps_page import BuildNewStepPage
+from pages.build_conf_detailed_page import CheckRunBuildErrors
 from pages.buld_steps_page import BuildStepsPage
 from pages.create_project_page import ProjectCreationPage
 from pages.login_page import LoginPage
@@ -55,13 +53,16 @@ def test_run_build_conf(browser, project_data, super_admin, build_conf_data, pro
     with allure.step("Авторизация пользователя"):
         login_browser = LoginPage(browser)
         login_browser.login_in_account(UsualUserCreds.USER_LOGIN, UsualUserCreds.USER_PASSWORD)
+        login_browser.check_url_favourite_projects_mode()
+        login_browser.login_form_body.userpic_is_visible()
     with allure.step("Создание проекта"):
         project_creation_browser = ProjectCreationPage(browser)
         project_creation_browser.go_to_creation_page()
         project_creation_browser.create_project_manually(project_name, project_id, description)
     with allure.step("Проверка редиректа на страницу редактирования проекта"):
         edit_project_browser = EditProjectFormPage(browser, project_id)
-        edit_project_browser.check_project_data(project_name, project_id, description)
+        edit_project_browser.wait_edit_project_url()
+        edit_project_browser.check_success_project_creation(project_name, project_id, description)
     with allure.step("Переход на страницу создания билд конфигурации"):
         edit_project_browser.redirect_to_create_build_conf(project_id)
         with allure.step('Отправка запроса на получение информации о созданном проекте'):
@@ -75,7 +76,8 @@ def test_run_build_conf(browser, project_data, super_admin, build_conf_data, pro
                     f"expected parent project = {project_parent}, but '{created_project.parentProjectId}' given"
     with allure.step("Cоздание билд конфигурации"):
         build_conf_creation_browser = BuildConfCreationPage(browser, project_id)
-        build_conf_creation_browser.create_build_conf(build_conf_id, build_conf_name, project_id, build_conf_name)
+        build_conf_creation_browser.create_build_conf(build_conf_id, build_conf_name, description)
+        build_conf_creation_browser.check_url_after_build_create(build_conf_id, project_id)
     with allure.step("Проверка нахождения id созданной билд конфигурации в общем списке билд конфигураций"):
         get_build_conf_response = super_admin.api_manager.build_conf_api.get_build_conf(build_conf_data_1.id).text
     with allure.step("Проверка соответствия параметров созданной билд конфигурации с отправленными данными"):
@@ -91,21 +93,28 @@ def test_run_build_conf(browser, project_data, super_admin, build_conf_data, pro
         skip_vcs_browser.skip_vcs(build_conf_id, project_id)
     with allure.step("Переход на страницу для клика на кнопку добавления шагов для билд конфигурации"):
         go_to_build_steps_browser = BuildConfRunPage(browser, project_id, build_conf_id)
-        go_to_build_steps_browser.tap_on_add_build_steps(build_conf_id)
+        go_to_build_steps_browser.tap_on_add_build_steps()
         go_to_add_build_steps = BuildStepsPage(browser, build_conf_id)
         go_to_add_build_steps.add_build_steps(build_conf_id)
     with allure.step("Проверка добавления шагов для билд конфигурации c пустым script для command line"):
-        add_new_step_error_browser = BuildNewStepErrorPage(browser, build_conf_id)
-        add_new_step_error_browser.add_new_build_step_empty_script(step_name, step_id, " ")
+        add_new_step_error_browser = BuildNewStepPage(browser, build_conf_id)
+        add_new_step_error_browser.select_command_line()
+        add_new_step_error_browser.add_new_build_step(step_name, step_id, " ", build_conf_id)
+        add_new_step_error_browser.check_error_message_empty_custom_script()
     with allure.step("Проверка добавления шагов для билд конфигурации c пустым id step"):
-        add_new_step_error_browser.add_new_build_step_empty_step_id(step_name, " ", "print('Hello World')")
+        add_new_step_error_browser.add_new_build_step(step_name, " ", "print('Hello World')", build_conf_id)
+        add_new_step_error_browser.check_error_message_empty_step_id()
     with allure.step("Проверка добавления шагов для билд конфигурации c невалидным id step"):
-        add_new_step_error_browser.add_new_build_step_invalid_step_id(step_name, invalid_step_id, " ", invalid_step_id, str(invalid_step_id[0]))
+        add_new_step_error_browser.add_new_build_step(step_name, invalid_step_id, " ", build_conf_id)
+        add_new_step_error_browser.check_error_message_invalid_step_id(invalid_step_id, str(invalid_step_id[0]))
     with allure.step("Проверка запуска билд конфигурации с некорректно веденным script для command line"):
-        add_new_step_error_browser.add_new_build_step_with_invalid_script(step_name, step_id, invalid_step_id)
+        add_new_step_error_browser.add_new_build_step(step_name, step_id, invalid_step_id, build_conf_id)
+        add_new_step_error_browser.wait_for_current_page_load()
     with allure.step("Запуск билд конфигурации с некорректно введенным script для command line"):
         run_build_with_step_invalid = RunBuildWithStep(browser, build_conf_id)
-        run_build_with_step_invalid.run_build_conf_with_invalid_step()
+        run_build_with_step_invalid.run_build_conf_with_step()
+        error_messages = CheckRunBuildErrors(browser)
+        error_messages.run_build_conf_failed()
     with allure.step("Проверка счетчика 'Queue' в header"):
         project_creation_browser.header.check_queue_count_through_header_button("1")
     with allure.step("Отправка запроса на проверку количества билд конфигураций в очереди для запуска"):

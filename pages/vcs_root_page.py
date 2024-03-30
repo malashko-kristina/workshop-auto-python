@@ -10,6 +10,7 @@ class MessageBuildConfCreatedFragment(BasePage):
         with allure.step('Проверка наличия текста на странице'):
             self.actions.assert_text_in_element(self.message_created_build_conf_locator,'Build configuration successfully created. You can now configure VCS roots.')
 
+
 class AddVCSPageFragment(BasePage):
     def __init__(self, page):
         super().__init__(page)
@@ -28,7 +29,6 @@ class AddVCSFormPage(BasePage):
         self.message_created_build_conf = MessageBuildConfCreatedFragment(page)
         self.add_vcs_page = AddVCSPageFragment(page)
 
-
     def go_to_vcs_add_page(self):
         with allure.step("Переход на страницу добавления vcs"):
             self.actions.navigate(self.page_url)
@@ -42,4 +42,3 @@ class AddVCSFormPage(BasePage):
         with allure.step("Проверка загрузки страницы"):
             self.page_url = f"/admin/editBuildTypeVcsRoots.html?init=1&id=buildType:{build_conf_id}&cameFromUrl=%2Fadmin%2FeditProject.html%3Finit%3D1%26projectId%3D{project_id}"
             self.actions.wait_for_url_change(self.page_url)
-

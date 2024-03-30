@@ -1,4 +1,3 @@
-import time
 import allure
 from pages.base_page import BasePage
 
@@ -12,7 +11,6 @@ class FirstStartWindow(BasePage):
         self.restore_button = "input#restoreButton"
         self.proceed_button = "input#proceedButton"
         self.data_base_title = "#pageContent > h1"
-
 
     def is_restore_button_active(self):
         with allure.step("Проверка активности кнопки restore"):
@@ -30,19 +28,16 @@ class FirstStartWindow(BasePage):
         with allure.step("Клик по кнопке proceed"):
             self.actions.click_button(self.proceed_button)
 
-
     def proceed_step(self):
         self.actions.wait_for_page_load()
         self.is_proceed_button_active()
         self.click_on_proceed_button()
 
 
-
 class Loading(BasePage):
     def __init__(self, page):
         self.page = page
         super().__init__(page)
-
 
     def wait_loading(self):
         self.actions.wait_for_page_load()
@@ -60,7 +55,6 @@ class Agreement(BasePage):
         self.actions.wait_for_selector(self.check_box)
         self.actions.check_box(self.check_box)
 
-
     def continue_agreement(self):
         self.actions.is_button_active(self.continue_button)
         self.actions.click_button(self.continue_button)
@@ -76,7 +70,6 @@ class SetUpUser(BasePage):
         self.repeat_password_field = "input#retypedPassword"
         self.create_account_button = "input.btn.loginButton[value='Create Account']"
 
-
     def fill_user_data(self, username, password):
         self.actions.wait_for_page_load()
         self.actions.wait_for_selector(self.username_field)
@@ -86,11 +79,9 @@ class SetUpUser(BasePage):
         self.actions.wait_for_selector(self.repeat_password_field)
         self.actions.input_text(self.repeat_password_field, password)
 
-
     def create_user(self):
         self.actions.is_button_active(self.create_account_button)
         self.actions.click_button(self.create_account_button)
-
 
 
 class SetUpPage(BasePage):

@@ -1,4 +1,3 @@
-import time
 import allure
 from pages.base_page import BasePage
 
@@ -12,8 +11,7 @@ class FormNewBuildStepsFragment(BasePage):
         self.step_submit_button_selector = "input.btn.btn_primary.submitButton[name='submitButton']"
         self.step_cancel_button_script_selector = "a.cancel"
         self.error_empty_custom_script = ".error.expanded_true"
-        self.error_empty_step_id = "#error_newRunnerId"
-
+        self.error_step_id = "#error_newRunnerId"
 
     def input_step_details(self, step_name, step_id, text):
         with allure.step("Ввод данных для создания шага для билд конфигурации"):
@@ -25,6 +23,7 @@ class FormNewBuildStepsFragment(BasePage):
     def click_add_new_step(self):
         with allure.step('Нажатия на кнопку добавления шага для билд конфигурации'):
             self.actions.click_button(self.step_submit_button_selector)
+
     def is_add_new_active(self):
         with allure.step('Проверка активности кнопки добавления шага для билд конфигурации'):
             self.actions.is_button_active(self.step_submit_button_selector)
@@ -33,19 +32,19 @@ class FormNewBuildStepsFragment(BasePage):
         with allure.step('Проверка сообщения об ошибке насчет пустого поля со скриптом command line'):
             self.actions.wait_for_selector(self.error_empty_custom_script)
             self.actions.assert_text_in_element(self.error_empty_custom_script, "Script content must be specified")
-            self.actions.check_error_text_color(self.error_empty_step_id)
+            self.actions.check_error_text_color(self.error_step_id)
 
     def check_error_message_empty_step_id(self):
         with allure.step('Проверка сообщения об ошибке насчет пустого поля с id step'):
-            self.actions.wait_for_selector(self.error_empty_step_id)
-            self.actions.assert_text_in_element(self.error_empty_step_id, "Build step ID must not be empty.")
-            self.actions.check_error_text_color(self.error_empty_step_id)
+            self.actions.wait_for_selector(self.error_step_id)
+            self.actions.assert_text_in_element(self.error_step_id, "Build step ID must not be empty.")
+            self.actions.check_error_text_color(self.error_step_id)
 
     def check_error_message_invalid_step_id(self, build_step_id, first_symbol):
         with allure.step('Проверка сообщения об ошибке насчет невалидного поля с id step'):
-            self.actions.wait_for_selector(self.error_empty_step_id)
-            self.actions.assert_text_in_element(self.error_empty_step_id, f'Build step ID "{build_step_id}" is invalid: starts with non-letter character \'{first_symbol}\'. ID should start with a latin letter and contain only latin letters, digits and underscores (at most 80 characters).')
-            self.actions.check_error_text_color(self.error_empty_step_id)
+            self.actions.wait_for_selector(self.error_step_id)
+            self.actions.assert_text_in_element(self.error_step_id, f'Build step ID "{build_step_id}" is invalid: starts with non-letter character \'{first_symbol}\'. ID should start with a latin letter and contain only latin letters, digits and underscores (at most 80 characters).')
+            self.actions.check_error_text_color(self.error_step_id)
 
 
 class ContentNewBuildStepCommandLineFragment(BasePage):
@@ -70,75 +69,46 @@ class BuildNewStepPage(BasePage):
         self.command_line_add = ContentNewBuildStepCommandLineFragment(page)
         self.add_build_steps = FormNewBuildStepsFragment(page)
 
-
     def go_to_build_steps_page(self):
         with allure.step("Переход на страницу для добавления шагов к билд конфигурации"):
             self.actions.navigate(self.page_url)
             self.actions.wait_for_page_load()
 
-    def add_new_build_step(self, step_name,  step_id, text, build_conf_id):
+    def select_command_line(self):
         with allure.step("Выбор command line в качестве добавляемого шага к билд конфигурации"):
             self.command_line_add.is_build_steps_active()
             self.command_line_add.click_command_line()
+
+    def add_new_build_step(self, step_name,  step_id, text, build_conf_id):
         with allure.step("Заполнение полей для добавления command line в качестве шага к билд конфигурации"):
             self.add_build_steps.input_step_details(step_name, step_id, text)
         with allure.step("Клик на кнопку добавления шага к билд конфигурации"):
             self.add_build_steps.is_add_new_active()
             self.add_build_steps.click_add_new_step()
+
+    def check_url_after_step_add(self, build_conf_id):
             self.page_url = f'/admin/editRunType.html?id=buildType:{build_conf_id}&runnerId=__NEW_RUNNER__&cameFromUrl=%2Fadmin%2FeditBuildRunners.html%3Fid%3DbuildType%253A{build_conf_id}%26init%3D1&cameFromTitle='
             self.actions.wait_for_url_change(self.page_url)
 
-
-class BuildNewStepErrorPage(BasePage):
-    def __init__(self, page, build_conf_id):
-        super().__init__(page)
-        self.page_url = (f'/admin/editRunType.html?id=buildType:{build_conf_id}&runnerId=__NEW_RUNNER__&cameFromUrl=%2Fadmin%2FeditBuildRunners.html%3Fid%3DbuildType%253A{build_conf_id}%26init%3D1&cameFromTitle=')
-        self.command_line_add = ContentNewBuildStepCommandLineFragment(page)
-        self.add_build_steps = FormNewBuildStepsFragment(page)
-
-
-    def go_to_build_steps_page(self):
-        with allure.step("Переход на страницу для добавления шагов к билд конфигурации"):
-            self.actions.navigate(self.page_url)
-            self.actions.wait_for_page_load()
-
-    def add_new_build_step_empty_script(self, step_name,  step_id, text):
-        with allure.step("Выбор command line в качестве добавляемого шага к билд конфигурации"):
-            self.command_line_add.is_build_steps_active()
-            self.command_line_add.click_command_line()
-        with allure.step("Заполнение полей для добавления command line в качестве шага к билд конфигурации"):
-            self.add_build_steps.input_step_details(step_name, step_id, text)
-            self.add_build_steps.is_add_new_active()
-        with allure.step("Клик на кнопку добавления шага к билд конфигурации"):
-            self.add_build_steps.click_add_new_step()
-        with allure.step("Проверка сообщения об ошибке о пустом скрипте command line"):
-            self.add_build_steps.check_error_message_empty_script()
-
-    def add_new_build_step_empty_step_id(self, step_name,  step_id, text):
-        with allure.step("Заполнение полей для добавления command line в качестве шага к билд конфигурации"):
-            self.add_build_steps.input_step_details(step_name, step_id, text)
-            self.add_build_steps.is_add_new_active()
-        with allure.step("Клик на кнопку добавления шага к билд конфигурации"):
-            self.add_build_steps.click_add_new_step()
+    def check_error_message_empty_step_id(self):
         with allure.step("Проверка сообщения об ошибке о пустом step id"):
             self.add_build_steps.check_error_message_empty_step_id()
 
-    def add_new_build_step_invalid_step_id(self, step_name,  step_id, text, build_step_id, first_symbol):
-        with allure.step("Заполнение полей для добавления command line в качестве шага к билд конфигурации"):
-            self.add_build_steps.input_step_details(step_name, step_id, text)
-            self.add_build_steps.is_add_new_active()
-        with allure.step("Клик на кнопку добавления шага к билд конфигурации"):
-            self.add_build_steps.click_add_new_step()
+    def check_error_message_invalid_step_id(self, build_step_id, first_symbol):
         with allure.step("Проверка сообщения об ошибке о невалидном step id"):
             self.add_build_steps.check_error_message_invalid_step_id(build_step_id, first_symbol)
 
-    def add_new_build_step_with_invalid_script(self, step_name,  step_id, text):
-        with allure.step("Заполнение полей для добавления command line в качестве шага к билд конфигурации (скрипт написан некорректно)"):
-            self.add_build_steps.input_step_details(step_name, step_id, text)
-            self.add_build_steps.is_add_new_active()
-        with allure.step("Клик на кнопку добавления шага к билд конфигурации"):
-            self.add_build_steps.click_add_new_step()
+    def check_error_message_empty_custom_script(self):
+        with allure.step('Проверка сообщения об ошибке насчет пустого поля со скриптом command line'):
+            self.add_build_steps.check_error_message_empty_script()
+
+    def wait_for_current_page_load(self):
+        with allure.step('Проверка загрузки страницы'):
             self.actions.wait_for_page_load()
+
+
+
+
 
 
 

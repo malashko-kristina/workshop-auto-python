@@ -55,7 +55,7 @@ class TestProjectCreate:
             with allure.step("Отправка запроса на запуск созданной билд конфигурации с временем ожидания после запроса 10 секунд"):
                 build_conf_run_data_1 = build_conf_run_data
                 build_run_response = super_admin.api_manager.run_build_conf_api.run_build_conf(build_conf_run_data_1.model_dump()).text
-                time.sleep(10)
+                time.sleep(15)
             with allure.step("Проверка соответствия параметров модели запуска билд конфигурации с отправленными данными"):
                 build_run_model_response = BuildRunResponseModel.model_validate_json(build_run_response)
             with pytest.assume:
@@ -63,7 +63,7 @@ class TestProjectCreate:
                     f"build was expected to be run= {build_run_model_response.state} should be queued, but it is not in a query= {build_run_model_response.state}"
             with allure.step("Отправка запроса на проверку количества билд конфигураций в очереди для запуска"):
                 get_build_conf_run_response = super_admin.api_manager.build_conf_api.check_query_with_build_conf().text
-                time.sleep(4)
+                time.sleep(10)
             with allure.step("Проверка соответствия параметров модели ответа запуска билд конфигурации с отправленными данными"):
                 build_conf_run_check_model_response = BuildConfRunStatusModel.model_validate_json(get_build_conf_run_response)
             with pytest.assume:
