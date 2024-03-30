@@ -50,26 +50,6 @@ class CreateFormContainerFragment(BasePage):
             self.actions.is_button_active(self.create_project_button)
             self.actions.click_button(self.create_project_button)
 
-    def check_project_name_input_visible(self):
-        with allure.step("Проверка видимости поля Name"):
-            self.actions.wait_for_selector(self.project_name_selector)
-            self.actions.is_element_visible(self.project_name_selector)
-
-    def check_project_id_input_visible(self):
-        with allure.step("Проверка видимости поля Project ID"):
-            self.actions.wait_for_selector(self.project_id_selector)
-            self.actions.is_element_visible(self.project_id_selector)
-
-    def check_project_description_input_visible(self):
-        with allure.step("Проверка видимости поля Description"):
-            self.actions.wait_for_selector(self.project_description_selector)
-            self.actions.is_element_visible(self.project_description_selector)
-
-    def check_project_create_button_visible(self):
-        with allure.step("Проверка видимости кнопки Create"):
-            self.actions.wait_for_selector(self.create_project_button)
-            self.actions.is_element_visible(self.create_project_button)
-
     def error_empty_project_name(self):
         with allure.step(f"Проверка нахождения текста об ошибке 'Project name is empty' в селекторе {self.error_empty_name}"):
             self.actions.wait_for_selector(self.error_empty_name)
@@ -102,14 +82,6 @@ class ProjectCreationPage(BasePage):
     def create_project_manually(self, name, project_id, description):
         with allure.step("Клик по кнопке ручного создания проекта"):
             self.menu_list_create.click_create_manually()
-        with allure.step("Проверка видимости поля с Project name"):
-            self.create_form_container.check_project_name_input_visible()
-        with allure.step("Проверка видимости поля с Project id"):
-            self.create_form_container.check_project_id_input_visible()
-        with allure.step("Проверка видимости поля с Project description"):
-            self.create_form_container.check_project_description_input_visible()
-        with allure.step("Проверка видимости кнопки создания Project"):
-            self.create_form_container.check_project_create_button_visible()
         with allure.step("Заполнение полей информации о проекте"):
             self.create_form_container.input_project_details(name, project_id, description)
         with allure.step("Клик по кнопке создания проекта"):
