@@ -1,11 +1,12 @@
 import allure
+
 from pages.base_page import BasePage
 
 class ErrorMessageFragment(BasePage):
     def __init__(self, page):
         self.page = page
         super().__init__(page)
-        self.error_message_build_problem = 'span#buildProblemsPreview'
+        self.error_message_build_problem = '#buildProblemsPreview'
 
     def check_error_on_screen(self):
         with allure.step('Проверка наличия текста ошибки message_build_problem на странице'):
