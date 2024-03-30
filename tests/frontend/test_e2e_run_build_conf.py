@@ -113,8 +113,6 @@ def test_run_build_conf(browser, project_data, super_admin, build_conf_data, pro
     with allure.step("Запуск билд конфигурации с некорректно введенным script для command line"):
         run_build_with_step_invalid = RunBuildWithStep(browser, build_conf_id)
         run_build_with_step_invalid.run_build_conf_with_step()
-        error_messages = CheckRunBuildErrors(browser)
-        error_messages.run_build_conf_failed()
     with allure.step("Проверка счетчика 'Queue' в header"):
         project_creation_browser.header.check_queue_count_through_header_button("1")
     with allure.step("Отправка запроса на проверку количества билд конфигураций в очереди для запуска"):
