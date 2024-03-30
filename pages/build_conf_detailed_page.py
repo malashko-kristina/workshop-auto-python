@@ -5,11 +5,11 @@ class ErrorMessageFragment(BasePage):
     def __init__(self, page):
         self.page = page
         super().__init__(page)
-        self.error_message_build_problem = '#buildProblemsPreview'
+        self.error_message_build_problem = 'span#buildProblemsPreview'
 
     def check_error_on_screen(self):
         with allure.step('Проверка наличия текста ошибки message_build_problem на странице'):
-            self.actions.is_element_visible(self.error_message_build_problem)
+            self.actions.wait_for_selector(self.error_message_build_problem)
             self.actions.assert_text_in_element(self.error_message_build_problem, "1 Build Problem, 1 new")
             self.actions.check_error_text_color(self.error_message_build_problem)
 
