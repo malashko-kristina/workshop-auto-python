@@ -52,19 +52,24 @@ class CreateFormContainerFragment(BasePage):
 
     def check_project_name_input_visible(self):
         with allure.step("Проверка видимости поля Name"):
+            self.actions.wait_for_selector(self.project_name_selector)
             self.actions.is_element_visible(self.project_name_selector)
 
     def check_project_id_input_visible(self):
         with allure.step("Проверка видимости поля Project ID"):
+            self.actions.wait_for_selector(self.project_id_selector)
             self.actions.is_element_visible(self.project_id_selector)
 
     def check_project_description_input_visible(self):
         with allure.step("Проверка видимости поля Description"):
+            self.actions.wait_for_selector(self.project_description_selector)
             self.actions.is_element_visible(self.project_description_selector)
 
     def check_project_create_button_visible(self):
         with allure.step("Проверка видимости кнопки Create"):
+            self.actions.wait_for_selector(self.create_project_button)
             self.actions.is_element_visible(self.create_project_button)
+
     def error_empty_project_name(self):
         with allure.step(f"Проверка нахождения текста об ошибке 'Project name is empty' в селекторе {self.error_empty_name}"):
             self.actions.wait_for_selector(self.error_empty_name)

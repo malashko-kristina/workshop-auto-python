@@ -7,11 +7,10 @@ class ErrorMessageFragment(BasePage):
         self.page = page
         super().__init__(page)
         self.error_message_build_problem = '#buildProblemsPreview'
-        self.exception_sign = 'button[type="button"][title="exception"]'
 
     def check_error_on_screen(self):
-        with allure.step('Проверка наличия знака ошибки на странице'):
-            self.actions.wait_for_selector(self.exception_sign)
+        with allure.step('Проверка наличия текста ошибки message_build_problem на странице'):
+            self.actions.wait_for_selector(self.error_message_build_problem)
             self.actions.check_error_text_color(self.error_message_build_problem)
 
 
