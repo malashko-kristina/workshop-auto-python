@@ -1,0 +1,51 @@
+2024-03-31 21:05:57 INFO [32m pytest tests/backend/test_create_project.py::TestProjectCreateAndDelete::test_create_project_and_delete[Roles.PROJECT_DEVELOPER] (setup)[0m
+curl -X GET 'http://localhost:8111/authenticationTest.html?csrf' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: */*'\
+-H 'Connection: keep-alive'\
+-H 'Authorization: Basic Ojg4MTE5MzQ2MjM3MjA4Mzg5NjA=' \
+-d ''
+2024-03-31 21:05:57 INFO [32m pytest tests/backend/test_create_project.py::TestProjectCreateAndDelete::test_create_project_and_delete[Roles.PROJECT_DEVELOPER][0m
+curl -X POST 'http://localhost:8111/app/rest/projects' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: application/json'\
+-H 'Connection: keep-alive'\
+-H 'Content-Type: application/json'\
+-H 'X-TC-CSRF-Token: 2f103acf-04f2-4af7-aadf-096b176245fc'\
+-H 'Cookie: RecentLogin=; TCSESSIONID=FAA8751928E93625C851D151176BD878'\
+-H 'Content-Length: 111'\
+-H 'Authorization: Basic Ojg4MTE5MzQ2MjM3MjA4Mzg5NjA=' \
+-d '{"parentProject": {"locator": "_Root"}, "name": "rich", "id": "PHsBpcozJrd", "copeAllAssociatedSettings": true}' 
+
+2024-03-31 21:05:58 INFO [32m pytest tests/backend/test_create_project.py::TestProjectCreateAndDelete::test_create_project_and_delete[Roles.PROJECT_DEVELOPER][0m
+curl -X DELETE 'http://localhost:8111/app/rest/projects/id:PHsBpcozJrd' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: application/json'\
+-H 'Connection: keep-alive'\
+-H 'Content-Type: application/json'\
+-H 'X-TC-CSRF-Token: 2f103acf-04f2-4af7-aadf-096b176245fc'\
+-H 'Cookie: TCSESSIONID=FAA8751928E93625C851D151176BD878'\
+-H 'Content-Length: 0'\
+-H 'Authorization: Basic Ojg4MTE5MzQ2MjM3MjA4Mzg5NjA=' \
+-d '' 
+
+2024-03-31 21:05:58 INFO [32m pytest tests/backend/test_create_project.py::TestProjectCreateAndDelete::test_create_project_and_delete[Roles.PROJECT_DEVELOPER][0m
+curl -X GET 'http://localhost:8111/app/rest/projects/PHsBpcozJrd' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: application/json'\
+-H 'Connection: keep-alive'\
+-H 'Content-Type: application/json'\
+-H 'X-TC-CSRF-Token: 2f103acf-04f2-4af7-aadf-096b176245fc'\
+-H 'Cookie: TCSESSIONID=FAA8751928E93625C851D151176BD878'\
+-H 'Authorization: Basic Ojg4MTE5MzQ2MjM3MjA4Mzg5NjA=' \
+-d '' 
+
+2024-03-31 21:05:58 INFO 	RESPONSE:
+STATUS_CODE: [31m404[0m
+DATA: [31mResponding with error, status code: 404 (Not Found).
+Details: jetbrains.buildServer.server.rest.errors.NotFoundException: No project found by name or internal/external id 'PHsBpcozJrd'.
+Could not find the entity requested. Check the reference is correct and the user has permissions to access the entity.[0m

@@ -1,0 +1,111 @@
+2024-03-31 21:13:19 INFO [32m pytest tests/frontend/test_e2e_create_build_conf.py::test_create_invalid_copy_build_conf[webkit-Zco5RR6PMvL-GPBJNsOGNda] (setup)[0m
+curl -X GET 'http://localhost:8111/authenticationTest.html?csrf' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: */*'\
+-H 'Connection: keep-alive'\
+-H 'Authorization: Basic Ojg4MTE5MzQ2MjM3MjA4Mzg5NjA=' \
+-d ''
+2024-03-31 21:13:19 INFO [32m pytest tests/frontend/test_e2e_create_build_conf.py::test_create_invalid_copy_build_conf[webkit-Zco5RR6PMvL-GPBJNsOGNda][0m
+curl -X POST 'http://localhost:8111/app/rest/projects' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: application/json'\
+-H 'Connection: keep-alive'\
+-H 'Content-Type: application/json'\
+-H 'X-TC-CSRF-Token: 16d4549c-0ed0-4917-bb55-f0645fbbe49f'\
+-H 'Cookie: RecentLogin=; TCSESSIONID=F60B11550AA15418B580A997DD6FBA73'\
+-H 'Content-Length: 118'\
+-H 'Authorization: Basic Ojg4MTE5MzQ2MjM3MjA4Mzg5NjA=' \
+-d '{"parentProject": {"locator": "_Root"}, "name": "OlseJTXvdeS", "id": "gy9mPUkwB5k", "copeAllAssociatedSettings": true}' 
+
+2024-03-31 21:13:27 INFO [32m pytest tests/frontend/test_e2e_create_build_conf.py::test_create_invalid_copy_build_conf[webkit-Zco5RR6PMvL-GPBJNsOGNda][0m
+curl -X GET 'http://localhost:8111/app/rest/projects/WTi1kV6PALm' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: application/json'\
+-H 'Connection: keep-alive'\
+-H 'Content-Type: application/json'\
+-H 'X-TC-CSRF-Token: 16d4549c-0ed0-4917-bb55-f0645fbbe49f'\
+-H 'Cookie: TCSESSIONID=F60B11550AA15418B580A997DD6FBA73'\
+-H 'Authorization: Basic Ojg4MTE5MzQ2MjM3MjA4Mzg5NjA=' \
+-d '' 
+
+2024-03-31 21:13:30 INFO [32m pytest tests/frontend/test_e2e_create_build_conf.py::test_create_invalid_copy_build_conf[webkit-Zco5RR6PMvL-GPBJNsOGNda][0m
+curl -X GET 'http://localhost:8111/app/rest/buildTypes/id:CYijsHVUtzs' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: application/json'\
+-H 'Connection: keep-alive'\
+-H 'Content-Type: application/json'\
+-H 'X-TC-CSRF-Token: 16d4549c-0ed0-4917-bb55-f0645fbbe49f'\
+-H 'Cookie: TCSESSIONID=F60B11550AA15418B580A997DD6FBA73'\
+-H 'Authorization: Basic Ojg4MTE5MzQ2MjM3MjA4Mzg5NjA=' \
+-d '' 
+
+2024-03-31 21:13:35 INFO [32m pytest tests/frontend/test_e2e_create_build_conf.py::test_create_invalid_copy_build_conf[webkit-Zco5RR6PMvL-GPBJNsOGNda][0m
+curl -X GET 'http://localhost:8111/app/rest/buildTypes/id:WTi1kV6PALm' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: application/json'\
+-H 'Connection: keep-alive'\
+-H 'Content-Type: application/json'\
+-H 'X-TC-CSRF-Token: 16d4549c-0ed0-4917-bb55-f0645fbbe49f'\
+-H 'Cookie: TCSESSIONID=F60B11550AA15418B580A997DD6FBA73'\
+-H 'Authorization: Basic Ojg4MTE5MzQ2MjM3MjA4Mzg5NjA=' \
+-d '' 
+
+2024-03-31 21:13:35 INFO 	RESPONSE:
+STATUS_CODE: [31m404[0m
+DATA: [31mResponding with error, status code: 404 (Not Found).
+Details: jetbrains.buildServer.server.rest.errors.NotFoundException: No build type nor template is found by id 'WTi1kV6PALm'.
+Could not find the entity requested. Check the reference is correct and the user has permissions to access the entity.[0m
+2024-03-31 21:13:35 INFO [32m pytest tests/frontend/test_e2e_create_build_conf.py::test_create_invalid_copy_build_conf[webkit-Zco5RR6PMvL-GPBJNsOGNda] (teardown)[0m
+curl -X DELETE 'http://localhost:8111/app/rest/projects/id:gy9mPUkwB5k' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: application/json'\
+-H 'Connection: keep-alive'\
+-H 'Content-Type: application/json'\
+-H 'X-TC-CSRF-Token: 16d4549c-0ed0-4917-bb55-f0645fbbe49f'\
+-H 'Cookie: TCSESSIONID=F60B11550AA15418B580A997DD6FBA73'\
+-H 'Content-Length: 0'\
+-H 'Authorization: Basic Ojg4MTE5MzQ2MjM3MjA4Mzg5NjA=' \
+-d '' 
+
+2024-03-31 21:13:35 INFO [32m pytest tests/frontend/test_e2e_create_build_conf.py::test_create_invalid_copy_build_conf[webkit-Zco5RR6PMvL-GPBJNsOGNda] (teardown)[0m
+curl -X GET 'http://localhost:8111/app/rest/projects' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: application/json'\
+-H 'Connection: keep-alive'\
+-H 'Content-Type: application/json'\
+-H 'X-TC-CSRF-Token: 16d4549c-0ed0-4917-bb55-f0645fbbe49f'\
+-H 'Cookie: TCSESSIONID=F60B11550AA15418B580A997DD6FBA73'\
+-H 'Authorization: Basic Ojg4MTE5MzQ2MjM3MjA4Mzg5NjA=' \
+-d '' 
+
+2024-03-31 21:13:35 INFO [32m pytest tests/frontend/test_e2e_create_build_conf.py::test_create_invalid_copy_build_conf[webkit-Zco5RR6PMvL-GPBJNsOGNda] (teardown)[0m
+curl -X DELETE 'http://localhost:8111/app/rest/projects/id:WTi1kV6PALm' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: application/json'\
+-H 'Connection: keep-alive'\
+-H 'Content-Type: application/json'\
+-H 'X-TC-CSRF-Token: 16d4549c-0ed0-4917-bb55-f0645fbbe49f'\
+-H 'Cookie: TCSESSIONID=F60B11550AA15418B580A997DD6FBA73'\
+-H 'Content-Length: 0'\
+-H 'Authorization: Basic Ojg4MTE5MzQ2MjM3MjA4Mzg5NjA=' \
+-d '' 
+
+2024-03-31 21:13:35 INFO [32m pytest tests/frontend/test_e2e_create_build_conf.py::test_create_invalid_copy_build_conf[webkit-Zco5RR6PMvL-GPBJNsOGNda] (teardown)[0m
+curl -X GET 'http://localhost:8111/app/rest/projects' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: application/json'\
+-H 'Connection: keep-alive'\
+-H 'Content-Type: application/json'\
+-H 'X-TC-CSRF-Token: 16d4549c-0ed0-4917-bb55-f0645fbbe49f'\
+-H 'Cookie: TCSESSIONID=F60B11550AA15418B580A997DD6FBA73'\
+-H 'Authorization: Basic Ojg4MTE5MzQ2MjM3MjA4Mzg5NjA=' \
+-d ''

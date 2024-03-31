@@ -1,0 +1,63 @@
+2024-03-31 21:05:57 INFO [32m pytest tests/backend/test_create_project.py::TestProjectCopy::test_project_copy_with_invalid_source_project[Roles.PROJECT_VIEWER-Zco5RR6PMvL] (setup)[0m
+curl -X GET 'http://localhost:8111/authenticationTest.html?csrf' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: */*'\
+-H 'Connection: keep-alive'\
+-H 'Authorization: Basic Ojg4MTE5MzQ2MjM3MjA4Mzg5NjA=' \
+-d ''
+2024-03-31 21:05:57 INFO [32m pytest tests/backend/test_create_project.py::TestProjectCopy::test_project_copy_with_invalid_source_project[Roles.PROJECT_VIEWER-Zco5RR6PMvL][0m
+curl -X POST 'http://localhost:8111/app/rest/projects' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: application/json'\
+-H 'Connection: keep-alive'\
+-H 'Content-Type: application/json'\
+-H 'X-TC-CSRF-Token: eea6a358-a256-433f-afef-e4ba65bbc39b'\
+-H 'Cookie: RecentLogin=; TCSESSIONID=5A9DB6C1D008182B5E86CF54800CD431'\
+-H 'Content-Length: 118'\
+-H 'Authorization: Basic Ojg4MTE5MzQ2MjM3MjA4Mzg5NjA=' \
+-d '{"parentProject": {"locator": "_Root"}, "name": "Zco5RR6PMvL", "id": "Lu5EB6FDeQd", "copeAllAssociatedSettings": true}' 
+
+2024-03-31 21:05:57 INFO [32m pytest tests/backend/test_create_project.py::TestProjectCopy::test_project_copy_with_invalid_source_project[Roles.PROJECT_VIEWER-Zco5RR6PMvL][0m
+curl -X POST 'http://localhost:8111/app/rest/projects' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: application/json'\
+-H 'Connection: keep-alive'\
+-H 'Content-Type: application/json'\
+-H 'X-TC-CSRF-Token: eea6a358-a256-433f-afef-e4ba65bbc39b'\
+-H 'Cookie: TCSESSIONID=5A9DB6C1D008182B5E86CF54800CD431'\
+-H 'Content-Length: 158'\
+-H 'Authorization: Basic Ojg4MTE5MzQ2MjM3MjA4Mzg5NjA=' \
+-d '{"parentProject": {"locator": "_Root"}, "name": "energy", "id": "hFKETYVcgLo", "copeAllAssociatedSettings": true, "sourceProject": {"locator": "B1HJE4TEvSq"}}' 
+
+2024-03-31 21:05:57 INFO 	RESPONSE:
+STATUS_CODE: [31m404[0m
+DATA: [31mResponding with error, status code: 404 (Not Found).
+Details: jetbrains.buildServer.server.rest.errors.NotFoundException: No project found by name or internal/external id 'B1HJE4TEvSq'.
+Could not find the entity requested. Check the reference is correct and the user has permissions to access the entity.[0m
+2024-03-31 21:05:57 INFO [32m pytest tests/backend/test_create_project.py::TestProjectCopy::test_project_copy_with_invalid_source_project[Roles.PROJECT_VIEWER-Zco5RR6PMvL] (teardown)[0m
+curl -X DELETE 'http://localhost:8111/app/rest/projects/id:Lu5EB6FDeQd' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: application/json'\
+-H 'Connection: keep-alive'\
+-H 'Content-Type: application/json'\
+-H 'X-TC-CSRF-Token: eea6a358-a256-433f-afef-e4ba65bbc39b'\
+-H 'Cookie: TCSESSIONID=5A9DB6C1D008182B5E86CF54800CD431'\
+-H 'Content-Length: 0'\
+-H 'Authorization: Basic Ojg4MTE5MzQ2MjM3MjA4Mzg5NjA=' \
+-d '' 
+
+2024-03-31 21:05:57 INFO [32m pytest tests/backend/test_create_project.py::TestProjectCopy::test_project_copy_with_invalid_source_project[Roles.PROJECT_VIEWER-Zco5RR6PMvL] (teardown)[0m
+curl -X GET 'http://localhost:8111/app/rest/projects' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: application/json'\
+-H 'Connection: keep-alive'\
+-H 'Content-Type: application/json'\
+-H 'X-TC-CSRF-Token: eea6a358-a256-433f-afef-e4ba65bbc39b'\
+-H 'Cookie: TCSESSIONID=5A9DB6C1D008182B5E86CF54800CD431'\
+-H 'Authorization: Basic Ojg4MTE5MzQ2MjM3MjA4Mzg5NjA=' \
+-d ''
