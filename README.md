@@ -10,3 +10,7 @@ Steps to open "allure-report":
 3. In your terminal open "allure-report" folder with  --->  cd *your-path-to*/allure-report.
 4. When "allure-report" folder is opened in your terminal use a command  --->  allure open ./
 5. After that allure report will be opened in a browser with all graphical results.
+
+
+### Automated Allure Reports
+Allure reports are being generated in a seperate gh-pages branch after pipeline. In order to open a report go to https://malashko-kristina.github.io/workshop-auto-python (the link can be found in Settings -> Pages).
