@@ -1,0 +1,75 @@
+2024-03-31 20:54:19 INFO [32m pytest tests/backend/test_create_build_conf.py::TestBuildCreateWithInvalidData::test_create_build_conf_with_invalid_project_id[Roles.PROJECT_VIEWER-sSabQ9AzsHM-MNa_Q0nmsSe] (setup)[0m
+curl -X GET 'http://localhost:8111/authenticationTest.html?csrf' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: */*'\
+-H 'Connection: keep-alive'\
+-H 'Authorization: Basic OjE2OTcxMTQxODIxOTA0NjI4NjA=' \
+-d ''
+2024-03-31 20:54:19 INFO [32m pytest tests/backend/test_create_build_conf.py::TestBuildCreateWithInvalidData::test_create_build_conf_with_invalid_project_id[Roles.PROJECT_VIEWER-sSabQ9AzsHM-MNa_Q0nmsSe][0m
+curl -X POST 'http://localhost:8111/app/rest/projects' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: application/json'\
+-H 'Connection: keep-alive'\
+-H 'Content-Type: application/json'\
+-H 'X-TC-CSRF-Token: f7ed181b-89cd-4690-bf8d-8ddc52b27180'\
+-H 'Cookie: RecentLogin=; TCSESSIONID=F10E50CABE50DB07EBE099E377600CA4'\
+-H 'Content-Length: 118'\
+-H 'Authorization: Basic OjE2OTcxMTQxODIxOTA0NjI4NjA=' \
+-d '{"parentProject": {"locator": "_Root"}, "name": "sSabQ9AzsHM", "id": "o5kpl2__q3G", "copeAllAssociatedSettings": true}' 
+
+2024-03-31 20:54:19 INFO [32m pytest tests/backend/test_create_build_conf.py::TestBuildCreateWithInvalidData::test_create_build_conf_with_invalid_project_id[Roles.PROJECT_VIEWER-sSabQ9AzsHM-MNa_Q0nmsSe][0m
+curl -X GET 'http://localhost:8111/app/rest/projects/o5kpl2__q3G' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: application/json'\
+-H 'Connection: keep-alive'\
+-H 'Content-Type: application/json'\
+-H 'X-TC-CSRF-Token: f7ed181b-89cd-4690-bf8d-8ddc52b27180'\
+-H 'Cookie: TCSESSIONID=F10E50CABE50DB07EBE099E377600CA4'\
+-H 'Authorization: Basic OjE2OTcxMTQxODIxOTA0NjI4NjA=' \
+-d '' 
+
+2024-03-31 20:54:19 INFO [32m pytest tests/backend/test_create_build_conf.py::TestBuildCreateWithInvalidData::test_create_build_conf_with_invalid_project_id[Roles.PROJECT_VIEWER-sSabQ9AzsHM-MNa_Q0nmsSe][0m
+curl -X POST 'http://localhost:8111/app/rest/buildTypes' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: application/json'\
+-H 'Connection: keep-alive'\
+-H 'Content-Type: application/json'\
+-H 'X-TC-CSRF-Token: f7ed181b-89cd-4690-bf8d-8ddc52b27180'\
+-H 'Cookie: TCSESSIONID=F10E50CABE50DB07EBE099E377600CA4'\
+-H 'Content-Length: 337'\
+-H 'Authorization: Basic OjE2OTcxMTQxODIxOTA0NjI4NjA=' \
+-d '{"id": "VE3diR89S7n", "name": "seek", "project": {"id": "MNa_Q0nmsSe"}, "steps": {"step": [{"name": "myCommandLineStep", "type": "simpleRunner", "properties": {"property": [{"name": "script.content", "value": "echo 'Hello World!'"}, {"name": "teamcity.step.mode", "value": "default"}, {"name": "use.custom.script", "value": "true"}]}}]}}' 
+
+2024-03-31 20:54:19 INFO 	RESPONSE:
+STATUS_CODE: [31m404[0m
+DATA: [31mResponding with error, status code: 404 (Not Found).
+Details: jetbrains.buildServer.server.rest.errors.NotFoundException: No project found by locator 'count:1,id:MNa_Q0nmsSe'. Project cannot be found by external id 'MNa_Q0nmsSe'.
+Could not find the entity requested. Check the reference is correct and the user has permissions to access the entity.[0m
+2024-03-31 20:54:19 INFO [32m pytest tests/backend/test_create_build_conf.py::TestBuildCreateWithInvalidData::test_create_build_conf_with_invalid_project_id[Roles.PROJECT_VIEWER-sSabQ9AzsHM-MNa_Q0nmsSe] (teardown)[0m
+curl -X DELETE 'http://localhost:8111/app/rest/projects/id:o5kpl2__q3G' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: application/json'\
+-H 'Connection: keep-alive'\
+-H 'Content-Type: application/json'\
+-H 'X-TC-CSRF-Token: f7ed181b-89cd-4690-bf8d-8ddc52b27180'\
+-H 'Cookie: TCSESSIONID=F10E50CABE50DB07EBE099E377600CA4'\
+-H 'Content-Length: 0'\
+-H 'Authorization: Basic OjE2OTcxMTQxODIxOTA0NjI4NjA=' \
+-d '' 
+
+2024-03-31 20:54:19 INFO [32m pytest tests/backend/test_create_build_conf.py::TestBuildCreateWithInvalidData::test_create_build_conf_with_invalid_project_id[Roles.PROJECT_VIEWER-sSabQ9AzsHM-MNa_Q0nmsSe] (teardown)[0m
+curl -X GET 'http://localhost:8111/app/rest/projects' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: application/json'\
+-H 'Connection: keep-alive'\
+-H 'Content-Type: application/json'\
+-H 'X-TC-CSRF-Token: f7ed181b-89cd-4690-bf8d-8ddc52b27180'\
+-H 'Cookie: TCSESSIONID=F10E50CABE50DB07EBE099E377600CA4'\
+-H 'Authorization: Basic OjE2OTcxMTQxODIxOTA0NjI4NjA=' \
+-d ''

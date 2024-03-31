@@ -1,0 +1,26 @@
+2024-03-31 20:54:22 INFO [32m pytest tests/backend/test_create_project.py::TestProjectCreateWithInvalidData::test_create_project_with_empty_id[Roles.PROJECT_DEVELOPER] (setup)[0m
+curl -X GET 'http://localhost:8111/authenticationTest.html?csrf' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: */*'\
+-H 'Connection: keep-alive'\
+-H 'Authorization: Basic OjE2OTcxMTQxODIxOTA0NjI4NjA=' \
+-d ''
+2024-03-31 20:54:22 INFO [32m pytest tests/backend/test_create_project.py::TestProjectCreateWithInvalidData::test_create_project_with_empty_id[Roles.PROJECT_DEVELOPER][0m
+curl -X POST 'http://localhost:8111/app/rest/projects' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: application/json'\
+-H 'Connection: keep-alive'\
+-H 'Content-Type: application/json'\
+-H 'X-TC-CSRF-Token: dc1dad0a-72d3-45a7-9d52-a9ec79ae38e1'\
+-H 'Cookie: RecentLogin=; TCSESSIONID=E7FB984B596E3B16DE95147721B4A09D'\
+-H 'Content-Length: 101'\
+-H 'Authorization: Basic OjE2OTcxMTQxODIxOTA0NjI4NjA=' \
+-d '{"parentProject": {"locator": "_Root"}, "name": "start", "id": "", "copeAllAssociatedSettings": true}' 
+
+2024-03-31 20:54:22 INFO 	RESPONSE:
+STATUS_CODE: [31m500[0m
+DATA: [31mError has occurred during request processing, status code: 500 (Internal Server Error).
+Details: jetbrains.buildServer.serverSide.InvalidIdentifierException: Project ID must not be empty.
+Error occurred while processing this request.[0m

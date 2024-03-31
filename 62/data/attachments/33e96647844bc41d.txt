@@ -1,0 +1,82 @@
+2024-03-31 20:54:23 INFO [32m pytest tests/backend/test_create_project.py::TestProjectCopy::test_project_copy[Roles.PROJECT_DEVELOPER-sSabQ9AzsHM] (setup)[0m
+curl -X GET 'http://localhost:8111/authenticationTest.html?csrf' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: */*'\
+-H 'Connection: keep-alive'\
+-H 'Authorization: Basic OjE2OTcxMTQxODIxOTA0NjI4NjA=' \
+-d ''
+2024-03-31 20:54:23 INFO [32m pytest tests/backend/test_create_project.py::TestProjectCopy::test_project_copy[Roles.PROJECT_DEVELOPER-sSabQ9AzsHM][0m
+curl -X POST 'http://localhost:8111/app/rest/projects' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: application/json'\
+-H 'Connection: keep-alive'\
+-H 'Content-Type: application/json'\
+-H 'X-TC-CSRF-Token: 96a9cf31-de72-4f08-87b6-e4eaed75a132'\
+-H 'Cookie: RecentLogin=; TCSESSIONID=8DBD3248F185BEFBFF1F2992B3DF8A18'\
+-H 'Content-Length: 118'\
+-H 'Authorization: Basic OjE2OTcxMTQxODIxOTA0NjI4NjA=' \
+-d '{"parentProject": {"locator": "_Root"}, "name": "sSabQ9AzsHM", "id": "LO89NawP5Tl", "copeAllAssociatedSettings": true}' 
+
+2024-03-31 20:54:23 INFO [32m pytest tests/backend/test_create_project.py::TestProjectCopy::test_project_copy[Roles.PROJECT_DEVELOPER-sSabQ9AzsHM][0m
+curl -X POST 'http://localhost:8111/app/rest/projects' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: application/json'\
+-H 'Connection: keep-alive'\
+-H 'Content-Type: application/json'\
+-H 'X-TC-CSRF-Token: 96a9cf31-de72-4f08-87b6-e4eaed75a132'\
+-H 'Cookie: TCSESSIONID=8DBD3248F185BEFBFF1F2992B3DF8A18'\
+-H 'Content-Length: 155'\
+-H 'Authorization: Basic OjE2OTcxMTQxODIxOTA0NjI4NjA=' \
+-d '{"parentProject": {"locator": "_Root"}, "name": "bar", "id": "pMPMl0_cAPk", "copeAllAssociatedSettings": true, "sourceProject": {"locator": "LO89NawP5Tl"}}'
+2024-03-31 20:54:23 INFO [32m pytest tests/backend/test_create_project.py::TestProjectCopy::test_project_copy[Roles.PROJECT_DEVELOPER-sSabQ9AzsHM] (teardown)[0m
+curl -X DELETE 'http://localhost:8111/app/rest/projects/id:pMPMl0_cAPk' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: application/json'\
+-H 'Connection: keep-alive'\
+-H 'Content-Type: application/json'\
+-H 'X-TC-CSRF-Token: 96a9cf31-de72-4f08-87b6-e4eaed75a132'\
+-H 'Cookie: TCSESSIONID=8DBD3248F185BEFBFF1F2992B3DF8A18'\
+-H 'Content-Length: 0'\
+-H 'Authorization: Basic OjE2OTcxMTQxODIxOTA0NjI4NjA=' \
+-d '' 
+
+2024-03-31 20:54:23 INFO [32m pytest tests/backend/test_create_project.py::TestProjectCopy::test_project_copy[Roles.PROJECT_DEVELOPER-sSabQ9AzsHM] (teardown)[0m
+curl -X GET 'http://localhost:8111/app/rest/projects' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: application/json'\
+-H 'Connection: keep-alive'\
+-H 'Content-Type: application/json'\
+-H 'X-TC-CSRF-Token: 96a9cf31-de72-4f08-87b6-e4eaed75a132'\
+-H 'Cookie: TCSESSIONID=8DBD3248F185BEFBFF1F2992B3DF8A18'\
+-H 'Authorization: Basic OjE2OTcxMTQxODIxOTA0NjI4NjA=' \
+-d '' 
+
+2024-03-31 20:54:23 INFO [32m pytest tests/backend/test_create_project.py::TestProjectCopy::test_project_copy[Roles.PROJECT_DEVELOPER-sSabQ9AzsHM] (teardown)[0m
+curl -X DELETE 'http://localhost:8111/app/rest/projects/id:LO89NawP5Tl' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: application/json'\
+-H 'Connection: keep-alive'\
+-H 'Content-Type: application/json'\
+-H 'X-TC-CSRF-Token: 96a9cf31-de72-4f08-87b6-e4eaed75a132'\
+-H 'Cookie: TCSESSIONID=8DBD3248F185BEFBFF1F2992B3DF8A18'\
+-H 'Content-Length: 0'\
+-H 'Authorization: Basic OjE2OTcxMTQxODIxOTA0NjI4NjA=' \
+-d '' 
+
+2024-03-31 20:54:23 INFO [32m pytest tests/backend/test_create_project.py::TestProjectCopy::test_project_copy[Roles.PROJECT_DEVELOPER-sSabQ9AzsHM] (teardown)[0m
+curl -X GET 'http://localhost:8111/app/rest/projects' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: application/json'\
+-H 'Connection: keep-alive'\
+-H 'Content-Type: application/json'\
+-H 'X-TC-CSRF-Token: 96a9cf31-de72-4f08-87b6-e4eaed75a132'\
+-H 'Cookie: TCSESSIONID=8DBD3248F185BEFBFF1F2992B3DF8A18'\
+-H 'Authorization: Basic OjE2OTcxMTQxODIxOTA0NjI4NjA=' \
+-d ''

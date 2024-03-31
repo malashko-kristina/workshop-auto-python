@@ -1,0 +1,26 @@
+2024-03-31 20:54:22 INFO [32m pytest tests/backend/test_create_project.py::TestProjectCreateWithInvalidData::test_create_project_with_invalid_ids[Roles.PROJECT_VIEWER-skkO 882] (setup)[0m
+curl -X GET 'http://localhost:8111/authenticationTest.html?csrf' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: */*'\
+-H 'Connection: keep-alive'\
+-H 'Authorization: Basic OjE2OTcxMTQxODIxOTA0NjI4NjA=' \
+-d ''
+2024-03-31 20:54:22 INFO [32m pytest tests/backend/test_create_project.py::TestProjectCreateWithInvalidData::test_create_project_with_invalid_ids[Roles.PROJECT_VIEWER-skkO 882][0m
+curl -X POST 'http://localhost:8111/app/rest/projects' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: application/json'\
+-H 'Connection: keep-alive'\
+-H 'Content-Type: application/json'\
+-H 'X-TC-CSRF-Token: 217ddab4-2842-47bf-b7f5-acc096e8594c'\
+-H 'Cookie: RecentLogin=; TCSESSIONID=F9598069D9EAE7DEB9BF63BC07183245'\
+-H 'Content-Length: 109'\
+-H 'Authorization: Basic OjE2OTcxMTQxODIxOTA0NjI4NjA=' \
+-d '{"parentProject": {"locator": "_Root"}, "name": "argue", "id": "skkO 882", "copeAllAssociatedSettings": true}' 
+
+2024-03-31 20:54:22 INFO 	RESPONSE:
+STATUS_CODE: [31m500[0m
+DATA: [31mError has occurred during request processing, status code: 500 (Internal Server Error).
+Details: jetbrains.buildServer.serverSide.InvalidIdentifierException: Project ID "skkO 882" is invalid: contains unsupported character ' '. ID should start with a latin letter and contain only latin letters, digits and underscores (at most 225 characters).
+Error occurred while processing this request.[0m
