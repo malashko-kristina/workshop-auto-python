@@ -12,27 +12,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Set up Python 3.12.2
+      - name: Set up Python 3.10
         uses: actions/setup-python@v2
         with:
-          python-version: ‘3.12.2’
+          python-version: ‘3.10’
       - name: Install flake8
         run: pip install flake8
       - name: Run flake8
         run: flake8 .
 
-  checkstyle-report:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Set up Checkstyle
-        run: |
-          pip install flake8
-          flake8 .
-
   run-tests:
-    needs: [lint, checkstyle-report]
-    if: ${{ github.event_name == 'workflow_dispatch' || needs.lint.result == 'success' && needs.checkstyle-report.result == 'success' }}
+    needs: lint
+    if: ${{ github.event_name == 'workflow_dispatch' || needs.lint.result == 'success' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
