@@ -23,6 +23,8 @@ jobs:
       - name: Run flake8 and continue even with errors
         run: |
           flake8 . || true
+      - name: Install autopep8
+        run: pip install autopep8
       - name: Auto-format code with autopep8
         run: autopep8 --in-place .
 
