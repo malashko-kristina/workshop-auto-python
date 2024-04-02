@@ -1,0 +1,94 @@
+2024-04-02 20:36:55 INFO [32m pytest tests/backend/test_create_build_conf.py::TestBuildConfCreateWithoutObligatoryFields::test_create_build_conf_without_steps_field[Roles.PROJECT_ADMIN-byGqnh2fX4C] (setup)[0m
+curl -X GET 'http://localhost:8111/authenticationTest.html?csrf' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: */*'\
+-H 'Connection: keep-alive'\
+-H 'Authorization: Basic OjQwOTU3ODkyMzU3NzU2NDM0OTc=' \
+-d ''
+2024-04-02 20:36:55 INFO [32m pytest tests/backend/test_create_build_conf.py::TestBuildConfCreateWithoutObligatoryFields::test_create_build_conf_without_steps_field[Roles.PROJECT_ADMIN-byGqnh2fX4C][0m
+curl -X POST 'http://localhost:8111/app/rest/projects' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: application/json'\
+-H 'Connection: keep-alive'\
+-H 'Content-Type: application/json'\
+-H 'X-TC-CSRF-Token: e2c7de6e-961e-431d-91d4-09e08178bb7e'\
+-H 'Cookie: RecentLogin=; TCSESSIONID=0570D256DAE00B0A94FCB1D0D6B4A7F5'\
+-H 'Content-Length: 118'\
+-H 'Authorization: Basic OjQwOTU3ODkyMzU3NzU2NDM0OTc=' \
+-d '{"parentProject": {"locator": "_Root"}, "name": "byGqnh2fX4C", "id": "orFh54tCCzj", "copeAllAssociatedSettings": true}' 
+
+2024-04-02 20:36:55 INFO [32m pytest tests/backend/test_create_build_conf.py::TestBuildConfCreateWithoutObligatoryFields::test_create_build_conf_without_steps_field[Roles.PROJECT_ADMIN-byGqnh2fX4C][0m
+curl -X GET 'http://localhost:8111/app/rest/projects/orFh54tCCzj' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: application/json'\
+-H 'Connection: keep-alive'\
+-H 'Content-Type: application/json'\
+-H 'X-TC-CSRF-Token: e2c7de6e-961e-431d-91d4-09e08178bb7e'\
+-H 'Cookie: TCSESSIONID=0570D256DAE00B0A94FCB1D0D6B4A7F5'\
+-H 'Authorization: Basic OjQwOTU3ODkyMzU3NzU2NDM0OTc=' \
+-d '' 
+
+2024-04-02 20:36:55 INFO [32m pytest tests/backend/test_create_build_conf.py::TestBuildConfCreateWithoutObligatoryFields::test_create_build_conf_without_steps_field[Roles.PROJECT_ADMIN-byGqnh2fX4C][0m
+curl -X POST 'http://localhost:8111/app/rest/buildTypes' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: application/json'\
+-H 'Connection: keep-alive'\
+-H 'Content-Type: application/json'\
+-H 'X-TC-CSRF-Token: e2c7de6e-961e-431d-91d4-09e08178bb7e'\
+-H 'Cookie: TCSESSIONID=0570D256DAE00B0A94FCB1D0D6B4A7F5'\
+-H 'Content-Length: 89'\
+-H 'Authorization: Basic OjQwOTU3ODkyMzU3NzU2NDM0OTc=' \
+-d '{"id": "c2j0oilD8Ia", "name": "measure", "project": {"id": "orFh54tCCzj"}, "steps": null}'
+2024-04-02 20:36:55 INFO [32m pytest tests/backend/test_create_build_conf.py::TestBuildConfCreateWithoutObligatoryFields::test_create_build_conf_without_steps_field[Roles.PROJECT_ADMIN-byGqnh2fX4C] (teardown)[0m
+curl -X DELETE 'http://localhost:8111/app/rest/buildTypes/id:c2j0oilD8Ia' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: application/json'\
+-H 'Connection: keep-alive'\
+-H 'Content-Type: application/json'\
+-H 'X-TC-CSRF-Token: e2c7de6e-961e-431d-91d4-09e08178bb7e'\
+-H 'Cookie: TCSESSIONID=0570D256DAE00B0A94FCB1D0D6B4A7F5'\
+-H 'Content-Length: 0'\
+-H 'Authorization: Basic OjQwOTU3ODkyMzU3NzU2NDM0OTc=' \
+-d '' 
+
+2024-04-02 20:36:55 INFO [32m pytest tests/backend/test_create_build_conf.py::TestBuildConfCreateWithoutObligatoryFields::test_create_build_conf_without_steps_field[Roles.PROJECT_ADMIN-byGqnh2fX4C] (teardown)[0m
+curl -X GET 'http://localhost:8111/app/rest/buildQueue' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: application/json'\
+-H 'Connection: keep-alive'\
+-H 'Content-Type: application/json'\
+-H 'X-TC-CSRF-Token: e2c7de6e-961e-431d-91d4-09e08178bb7e'\
+-H 'Cookie: TCSESSIONID=0570D256DAE00B0A94FCB1D0D6B4A7F5'\
+-H 'Authorization: Basic OjQwOTU3ODkyMzU3NzU2NDM0OTc=' \
+-d '' 
+
+2024-04-02 20:36:55 INFO [32m pytest tests/backend/test_create_build_conf.py::TestBuildConfCreateWithoutObligatoryFields::test_create_build_conf_without_steps_field[Roles.PROJECT_ADMIN-byGqnh2fX4C] (teardown)[0m
+curl -X DELETE 'http://localhost:8111/app/rest/projects/id:orFh54tCCzj' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: application/json'\
+-H 'Connection: keep-alive'\
+-H 'Content-Type: application/json'\
+-H 'X-TC-CSRF-Token: e2c7de6e-961e-431d-91d4-09e08178bb7e'\
+-H 'Cookie: TCSESSIONID=0570D256DAE00B0A94FCB1D0D6B4A7F5'\
+-H 'Content-Length: 0'\
+-H 'Authorization: Basic OjQwOTU3ODkyMzU3NzU2NDM0OTc=' \
+-d '' 
+
+2024-04-02 20:36:55 INFO [32m pytest tests/backend/test_create_build_conf.py::TestBuildConfCreateWithoutObligatoryFields::test_create_build_conf_without_steps_field[Roles.PROJECT_ADMIN-byGqnh2fX4C] (teardown)[0m
+curl -X GET 'http://localhost:8111/app/rest/projects' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: application/json'\
+-H 'Connection: keep-alive'\
+-H 'Content-Type: application/json'\
+-H 'X-TC-CSRF-Token: e2c7de6e-961e-431d-91d4-09e08178bb7e'\
+-H 'Cookie: TCSESSIONID=0570D256DAE00B0A94FCB1D0D6B4A7F5'\
+-H 'Authorization: Basic OjQwOTU3ODkyMzU3NzU2NDM0OTc=' \
+-d ''

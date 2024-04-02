@@ -1,0 +1,75 @@
+2024-04-02 20:36:54 INFO [32m pytest tests/backend/test_create_build_conf.py::TestBuildCreateWithInvalidData::test_create_build_conf_with_invalid_project_id[Roles.PROJECT_ADMIN-byGqnh2fX4C-Ej6XoI5tOCQ] (setup)[0m
+curl -X GET 'http://localhost:8111/authenticationTest.html?csrf' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: */*'\
+-H 'Connection: keep-alive'\
+-H 'Authorization: Basic OjQwOTU3ODkyMzU3NzU2NDM0OTc=' \
+-d ''
+2024-04-02 20:36:54 INFO [32m pytest tests/backend/test_create_build_conf.py::TestBuildCreateWithInvalidData::test_create_build_conf_with_invalid_project_id[Roles.PROJECT_ADMIN-byGqnh2fX4C-Ej6XoI5tOCQ][0m
+curl -X POST 'http://localhost:8111/app/rest/projects' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: application/json'\
+-H 'Connection: keep-alive'\
+-H 'Content-Type: application/json'\
+-H 'X-TC-CSRF-Token: 01250787-24e2-4e00-a75a-2fa217b0060b'\
+-H 'Cookie: RecentLogin=; TCSESSIONID=3122A42C757403C4D09473141CE55A07'\
+-H 'Content-Length: 118'\
+-H 'Authorization: Basic OjQwOTU3ODkyMzU3NzU2NDM0OTc=' \
+-d '{"parentProject": {"locator": "_Root"}, "name": "byGqnh2fX4C", "id": "fjRNqEq9Px2", "copeAllAssociatedSettings": true}' 
+
+2024-04-02 20:36:54 INFO [32m pytest tests/backend/test_create_build_conf.py::TestBuildCreateWithInvalidData::test_create_build_conf_with_invalid_project_id[Roles.PROJECT_ADMIN-byGqnh2fX4C-Ej6XoI5tOCQ][0m
+curl -X GET 'http://localhost:8111/app/rest/projects/fjRNqEq9Px2' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: application/json'\
+-H 'Connection: keep-alive'\
+-H 'Content-Type: application/json'\
+-H 'X-TC-CSRF-Token: 01250787-24e2-4e00-a75a-2fa217b0060b'\
+-H 'Cookie: TCSESSIONID=3122A42C757403C4D09473141CE55A07'\
+-H 'Authorization: Basic OjQwOTU3ODkyMzU3NzU2NDM0OTc=' \
+-d '' 
+
+2024-04-02 20:36:54 INFO [32m pytest tests/backend/test_create_build_conf.py::TestBuildCreateWithInvalidData::test_create_build_conf_with_invalid_project_id[Roles.PROJECT_ADMIN-byGqnh2fX4C-Ej6XoI5tOCQ][0m
+curl -X POST 'http://localhost:8111/app/rest/buildTypes' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: application/json'\
+-H 'Connection: keep-alive'\
+-H 'Content-Type: application/json'\
+-H 'X-TC-CSRF-Token: 01250787-24e2-4e00-a75a-2fa217b0060b'\
+-H 'Cookie: TCSESSIONID=3122A42C757403C4D09473141CE55A07'\
+-H 'Content-Length: 337'\
+-H 'Authorization: Basic OjQwOTU3ODkyMzU3NzU2NDM0OTc=' \
+-d '{"id": "vuUPPINmmVt", "name": "hair", "project": {"id": "Ej6XoI5tOCQ"}, "steps": {"step": [{"name": "myCommandLineStep", "type": "simpleRunner", "properties": {"property": [{"name": "script.content", "value": "echo 'Hello World!'"}, {"name": "teamcity.step.mode", "value": "default"}, {"name": "use.custom.script", "value": "true"}]}}]}}' 
+
+2024-04-02 20:36:54 INFO 	RESPONSE:
+STATUS_CODE: [31m404[0m
+DATA: [31mResponding with error, status code: 404 (Not Found).
+Details: jetbrains.buildServer.server.rest.errors.NotFoundException: No project found by locator 'count:1,id:Ej6XoI5tOCQ'. Project cannot be found by external id 'Ej6XoI5tOCQ'.
+Could not find the entity requested. Check the reference is correct and the user has permissions to access the entity.[0m
+2024-04-02 20:36:54 INFO [32m pytest tests/backend/test_create_build_conf.py::TestBuildCreateWithInvalidData::test_create_build_conf_with_invalid_project_id[Roles.PROJECT_ADMIN-byGqnh2fX4C-Ej6XoI5tOCQ] (teardown)[0m
+curl -X DELETE 'http://localhost:8111/app/rest/projects/id:fjRNqEq9Px2' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: application/json'\
+-H 'Connection: keep-alive'\
+-H 'Content-Type: application/json'\
+-H 'X-TC-CSRF-Token: 01250787-24e2-4e00-a75a-2fa217b0060b'\
+-H 'Cookie: TCSESSIONID=3122A42C757403C4D09473141CE55A07'\
+-H 'Content-Length: 0'\
+-H 'Authorization: Basic OjQwOTU3ODkyMzU3NzU2NDM0OTc=' \
+-d '' 
+
+2024-04-02 20:36:54 INFO [32m pytest tests/backend/test_create_build_conf.py::TestBuildCreateWithInvalidData::test_create_build_conf_with_invalid_project_id[Roles.PROJECT_ADMIN-byGqnh2fX4C-Ej6XoI5tOCQ] (teardown)[0m
+curl -X GET 'http://localhost:8111/app/rest/projects' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: application/json'\
+-H 'Connection: keep-alive'\
+-H 'Content-Type: application/json'\
+-H 'X-TC-CSRF-Token: 01250787-24e2-4e00-a75a-2fa217b0060b'\
+-H 'Cookie: TCSESSIONID=3122A42C757403C4D09473141CE55A07'\
+-H 'Authorization: Basic OjQwOTU3ODkyMzU3NzU2NDM0OTc=' \
+-d ''

@@ -1,0 +1,75 @@
+2024-04-02 20:36:54 INFO [32m pytest tests/backend/test_create_build_conf.py::TestBuildCreateWithInvalidData::test_create_build_conf_with_empty_name_field[Roles.PROJECT_ADMIN-byGqnh2fX4C] (setup)[0m
+curl -X GET 'http://localhost:8111/authenticationTest.html?csrf' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: */*'\
+-H 'Connection: keep-alive'\
+-H 'Authorization: Basic OjQwOTU3ODkyMzU3NzU2NDM0OTc=' \
+-d ''
+2024-04-02 20:36:54 INFO [32m pytest tests/backend/test_create_build_conf.py::TestBuildCreateWithInvalidData::test_create_build_conf_with_empty_name_field[Roles.PROJECT_ADMIN-byGqnh2fX4C][0m
+curl -X POST 'http://localhost:8111/app/rest/projects' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: application/json'\
+-H 'Connection: keep-alive'\
+-H 'Content-Type: application/json'\
+-H 'X-TC-CSRF-Token: 94786623-8046-4ef8-9d62-35b412939f24'\
+-H 'Cookie: RecentLogin=; TCSESSIONID=55C4B5E9985FE3D97935807C5C5AD7FA'\
+-H 'Content-Length: 118'\
+-H 'Authorization: Basic OjQwOTU3ODkyMzU3NzU2NDM0OTc=' \
+-d '{"parentProject": {"locator": "_Root"}, "name": "byGqnh2fX4C", "id": "sz76dsjLF7P", "copeAllAssociatedSettings": true}' 
+
+2024-04-02 20:36:54 INFO [32m pytest tests/backend/test_create_build_conf.py::TestBuildCreateWithInvalidData::test_create_build_conf_with_empty_name_field[Roles.PROJECT_ADMIN-byGqnh2fX4C][0m
+curl -X GET 'http://localhost:8111/app/rest/projects/sz76dsjLF7P' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: application/json'\
+-H 'Connection: keep-alive'\
+-H 'Content-Type: application/json'\
+-H 'X-TC-CSRF-Token: 94786623-8046-4ef8-9d62-35b412939f24'\
+-H 'Cookie: TCSESSIONID=55C4B5E9985FE3D97935807C5C5AD7FA'\
+-H 'Authorization: Basic OjQwOTU3ODkyMzU3NzU2NDM0OTc=' \
+-d '' 
+
+2024-04-02 20:36:54 INFO [32m pytest tests/backend/test_create_build_conf.py::TestBuildCreateWithInvalidData::test_create_build_conf_with_empty_name_field[Roles.PROJECT_ADMIN-byGqnh2fX4C][0m
+curl -X POST 'http://localhost:8111/app/rest/buildTypes' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: application/json'\
+-H 'Connection: keep-alive'\
+-H 'Content-Type: application/json'\
+-H 'X-TC-CSRF-Token: 94786623-8046-4ef8-9d62-35b412939f24'\
+-H 'Cookie: TCSESSIONID=55C4B5E9985FE3D97935807C5C5AD7FA'\
+-H 'Content-Length: 333'\
+-H 'Authorization: Basic OjQwOTU3ODkyMzU3NzU2NDM0OTc=' \
+-d '{"id": "renF8v9aFCW", "name": "", "project": {"id": "sz76dsjLF7P"}, "steps": {"step": [{"name": "myCommandLineStep", "type": "simpleRunner", "properties": {"property": [{"name": "script.content", "value": "echo 'Hello World!'"}, {"name": "teamcity.step.mode", "value": "default"}, {"name": "use.custom.script", "value": "true"}]}}]}}' 
+
+2024-04-02 20:36:54 INFO 	RESPONSE:
+STATUS_CODE: [31m400[0m
+DATA: [31mResponding with error, status code: 400 (Bad Request).
+Details: jetbrains.buildServer.server.rest.errors.BadRequestException: When creating a build type, non empty name should be provided.
+Invalid request. Please check the request URL and data are correct.[0m
+2024-04-02 20:36:54 INFO [32m pytest tests/backend/test_create_build_conf.py::TestBuildCreateWithInvalidData::test_create_build_conf_with_empty_name_field[Roles.PROJECT_ADMIN-byGqnh2fX4C] (teardown)[0m
+curl -X DELETE 'http://localhost:8111/app/rest/projects/id:sz76dsjLF7P' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: application/json'\
+-H 'Connection: keep-alive'\
+-H 'Content-Type: application/json'\
+-H 'X-TC-CSRF-Token: 94786623-8046-4ef8-9d62-35b412939f24'\
+-H 'Cookie: TCSESSIONID=55C4B5E9985FE3D97935807C5C5AD7FA'\
+-H 'Content-Length: 0'\
+-H 'Authorization: Basic OjQwOTU3ODkyMzU3NzU2NDM0OTc=' \
+-d '' 
+
+2024-04-02 20:36:54 INFO [32m pytest tests/backend/test_create_build_conf.py::TestBuildCreateWithInvalidData::test_create_build_conf_with_empty_name_field[Roles.PROJECT_ADMIN-byGqnh2fX4C] (teardown)[0m
+curl -X GET 'http://localhost:8111/app/rest/projects' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: application/json'\
+-H 'Connection: keep-alive'\
+-H 'Content-Type: application/json'\
+-H 'X-TC-CSRF-Token: 94786623-8046-4ef8-9d62-35b412939f24'\
+-H 'Cookie: TCSESSIONID=55C4B5E9985FE3D97935807C5C5AD7FA'\
+-H 'Authorization: Basic OjQwOTU3ODkyMzU3NzU2NDM0OTc=' \
+-d ''
