@@ -20,14 +20,14 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
       - name: Install flake8
         run: pip install flake8
-      - name: Install Black
-        run: pip install black
       - name: Run flake8 and continue even with errors
         run: |
           flake8 . || true
+      - name: Install Black
+        run: pip install black
       - name: Auto-format code with Black
         run: black .
-      - run: echo "Code formatting with Black successful"
+      - run: echo "Code formatting with Black after running Flake8 successful"
 
   run-tests:
     needs: lint
