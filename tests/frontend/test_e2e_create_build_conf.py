@@ -96,12 +96,12 @@ def test_create_build_conf_with_invalid_data(browser, project_data, super_admin,
             project_id, build_conf_name, project_name)
         build_conf_error.check_error_used_build_id(
             build_conf_name, project_name)
-    with allure.step("Отправка запроса на получение информации билд конфигурации, которую попробовали создать"):
+    with allure.step("Отправка запроса на получение информации билд конфигурации"):
         get_about_build_conf_response = super_admin.api_manager.build_conf_api.get_build_conf(
             project_id, expected_status=HTTPStatus.NOT_FOUND)
     with pytest.assume:
-        assert f"NotFoundException: No build type nor template is found by id '{
-            project_id}'" in get_about_build_conf_response.text
+        assert (f"NotFoundException: No build type nor template is found"
+                f" by id '{project_id}'") in get_about_build_conf_response.text
 
 
 @allure.feature('Управление билд конфигурациями')

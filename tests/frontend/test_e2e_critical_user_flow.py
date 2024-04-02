@@ -90,8 +90,8 @@ def test_critical_user_flow(browser, project_data, super_admin, build_conf_data,
         build_conf_model_response_1 = BuildResponseModel.model_validate_json(
             get_build_conf_response)
         assert build_conf_model_response_1.id == build_conf_data_1.id, \
-            f"expected build conf id= {build_conf_data_1.id}, but '{
-                build_conf_model_response_1.id}' given"
+            (f"expected build conf id= {build_conf_data_1.id},"
+             f" but '{build_conf_model_response_1.id}' given")
     with allure.step("Проверка количества активных агентов"):
         response_2 = super_admin.api_manager.agent_api.check_amount_of_authorized_agents()
         count = str(response_2.json()["count"])

@@ -171,21 +171,22 @@ class TestProjectCreateWithTheSameData:
             project_data_1 = project_data
             create_project_response = super_admin.api_manager.project_api.create_project(
                 project_data_1.model_dump()).text
-        with allure.step("Проверка соответствия параметров созданного проекта с отправленными данными"):
+        with allure.step("Проверка соответствия параметров созданного проекта"):
             project_model_response = ProjectResponseModel.model_validate_json(
                 create_project_response)
         with pytest.assume:
             assert project_model_response.id == project_data_1.id, \
-                f"expected project id= {project_data_1.id}, but '{
-                    project_model_response.id}' given"
-        with allure.step("Отправка запроса на создание проекта с таким же id, которое использовалось в прошлом запросе"):
+                (f"expected project id= {project_data_1.id},"
+                 f" but '{project_model_response.id}' given")
+        with allure.step("Отправка запроса на создание проекта с таким же id"):
             project_data_2 = copy.deepcopy(project_data_1)
             project_data_2.name = DataGenerator.fake_build_id()
             create_project_response_2 = super_admin.api_manager.project_api.create_project(
                 project_data_2.model_dump(), expected_status=HTTPStatus.BAD_REQUEST)
         with pytest.assume:
-            assert f'DuplicateExternalIdException: Project ID "{
-                project_data_1.id}" is already used by another project' in create_project_response_2.text
+            assert (f'DuplicateExternalIdException:'
+                    f' Project ID "{project_data_1.id}" is already used by'
+                    f' another project') in create_project_response_2.text
 
 
 class TestProjectCopy:

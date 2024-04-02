@@ -81,14 +81,15 @@ class TestBuildCreateWithInvalidData:
             created_model_project_response = ProjectResponseModel.model_validate_json(
                 get_project_response)
         with pytest.assume:
-            assert created_model_project_response.id == project_data_1.id, f"There is no project with {
-                project_data_1.id} id"
+            assert created_model_project_response.id == project_data_1.id, (f"There is no project with"
+                                                                            f" {project_data_1.id} id")
         with allure.step("Отправка запроса на создание билд конфигурации с invalid данными в 'id' поле"):
             build_conf_data_1 = build_data_with_invalid_ids
             build_config_response = super_admin.api_manager.build_conf_api.create_build_conf(
                 build_conf_data_1.model_dump(), expected_status=HTTPStatus.INTERNAL_SERVER_ERROR)
         with pytest.assume:
-            assert "ID should start with a latin letter and contain only latin letters, digits and underscores (at most 225 characters)." in build_config_response.text
+            assert ("ID should start with a latin letter and contain only latin letters,"
+                    " digits and underscores (at most 225 characters).") in build_config_response.text
 
     @allure.story('Отправка запроса на создание билд конфигурации с пустым полем "name" с разными ролями')
     @allure.severity(allure.severity_level.CRITICAL)

@@ -96,8 +96,8 @@ def test_create_project_invalid_id_name(browser, project_data_create, super_admi
             create_project_response)
     with pytest.assume:
         assert project_model_response.id == project_data_2.id, \
-            f"expected project id= {project_data_2.id}, but '{
-                project_model_response.id}' given"
+            (f"expected project id= {project_data_2.id},"
+             f" but '{project_model_response.id}' given")
     with allure.step("Авторизация пользователя"):
         login_browser = LoginPage(browser)
         login_browser.login_in_account(
