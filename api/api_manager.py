@@ -18,4 +18,3 @@ class ApiManager:
 
     def close_session(self):
         self.session.close()
-

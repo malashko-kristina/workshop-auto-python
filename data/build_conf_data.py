@@ -10,42 +10,33 @@ class ProjectModule(BaseModel):
     href: str
     webUrl: str
 
-
 class Templates(BaseModel):
     count: int
     buildType: list = []
 
-
 class PropertyModel(BaseModel):
     name: str
     value: str
-
 
 class ParametersModel(BaseModel):
     property: list = []
     count: int
     href: str
 
-
 class FeaturesModel(BaseModel):
     count: int
-
 
 class TriggersModel(BaseModel):
     count: int
 
-
 class BuildsModel(BaseModel):
     href: str
-
 
 class InvestigationsModel(BaseModel):
     href: str
 
-
 class CompatibleAgentsModel(BaseModel):
     href: str
-
 
 class BuildResponseModel(BaseModel):
 
@@ -69,7 +60,6 @@ class BuildResponseModel(BaseModel):
     class Config:
         extra = "allow"
 
-
 class BuildDataModel(BaseModel):
     id: str
     name: str
@@ -79,17 +69,16 @@ class BuildDataModel(BaseModel):
     class Config:
         extra = "allow"
 
-
 class BuildDataCopyModel(BaseModel):
     sourceBuildTypeLocator: str
     name: str
     id: str
     copyAllAssociatedSettings: bool
 
-
 class BuildConfData:
     @staticmethod
-    def create_build_conf_data(project_id, name) -> BuildDataModel:
+    def create_build_conf_data(project_id, name)\
+            -> BuildDataModel:
         # Метод по генерации данных для билда
         return (BuildDataModel(
             id=DataGenerator.fake_build_id(),
@@ -118,9 +107,9 @@ class BuildConfData:
                     }
                 ]}))
 
-
     @staticmethod
-    def create_build_conf_data_with_empty_steps(project_id) -> BuildDataModel:
+    def create_build_conf_data_with_empty_steps(project_id)\
+            -> BuildDataModel:
         return (BuildDataModel(
             id=DataGenerator.fake_build_id(),
             name=DataGenerator.fake_name(),
@@ -129,7 +118,8 @@ class BuildConfData:
         ))
 
     @staticmethod
-    def create_build_conf_data_without_steps(project_id) -> BuildDataModel:
+    def create_build_conf_data_without_steps(project_id)\
+            -> BuildDataModel:
         return (BuildDataModel(
             id=DataGenerator.fake_build_id(),
             name=DataGenerator.fake_name(),
@@ -137,7 +127,8 @@ class BuildConfData:
         ))
 
     @staticmethod
-    def create_build_conf_data_with_empty_id(project_id) -> BuildDataModel:
+    def create_build_conf_data_with_empty_id(project_id)\
+            -> BuildDataModel:
         return (BuildDataModel(
             id="",
             name=DataGenerator.fake_name(),
@@ -166,7 +157,8 @@ class BuildConfData:
             ]}))
 
     @staticmethod
-    def create_build_conf_data_with_empty_name(project_id) -> BuildDataModel:
+    def create_build_conf_data_with_empty_name(project_id)\
+            -> BuildDataModel:
         return (BuildDataModel(
             id=DataGenerator.fake_build_id(),
             name="",
@@ -195,7 +187,8 @@ class BuildConfData:
             ]}))
 
     @staticmethod
-    def create_build_conf_data_with_invalid_project_id(project_ids) -> BuildDataModel:
+    def create_build_conf_data_with_invalid_project_id(project_ids)\
+            -> BuildDataModel:
         return (BuildDataModel(
             id=DataGenerator.fake_build_id(),
             name=DataGenerator.fake_name(),
@@ -224,7 +217,8 @@ class BuildConfData:
             ]}))
 
     @staticmethod
-    def create_build_conf_data_with_invalid_ids(project_id, ids) -> BuildDataModel:
+    def create_build_conf_data_with_invalid_ids(project_id, ids)\
+            -> BuildDataModel:
         return (BuildDataModel(
             id=ids,
             name=DataGenerator.fake_name(),
@@ -262,15 +256,13 @@ class BuildConfData:
         ))
 
     @staticmethod
-    def create_build_conf_data_copy_with_invalid_parent_build_conf() -> BuildDataCopyModel:
+    def create_build_conf_data_copy_with_invalid_parent_build_conf()\
+            -> BuildDataCopyModel:
         return (BuildDataCopyModel(
             sourceBuildTypeLocator=DataGenerator.fake_build_id(),
             name=DataGenerator.fake_name(),
             id=DataGenerator.fake_build_id(),
             copyAllAssociatedSettings=True
         ))
-
-
-
 
 

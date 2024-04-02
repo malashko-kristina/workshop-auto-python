@@ -12,8 +12,8 @@ class BuildVersion:
 
     @classmethod
     def build_version(cls):
-        return f"[title=\"Node id: MAIN_SERVER\"] >> text=\"{cls.BUILD_VERSION}\""
-
+        return (f"[title=\"Node id: MAIN_SERVER\"]"
+                f" >> text=\"{cls.BUILD_VERSION}\"")
 
 
 class AppName:
@@ -24,4 +24,5 @@ class AppName:
 
     @classmethod
     def app_name(cls):
-        return f"[title=\"Node id: MAIN_SERVER\"] >> text=\"{cls.APP_NAME}\""
+        return (f"[title=\"Node id: MAIN_SERVER\"]"
+                f" >> text=\"{cls.APP_NAME}\"")

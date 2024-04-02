@@ -22,6 +22,8 @@ jobs:
         run: pip install flake8
       - name: Run flake8
         run: flake8 .
+      - name: Auto-format code with autopep8
+        run: autopep8 --in-place .
 
   run-tests:
     needs: lint

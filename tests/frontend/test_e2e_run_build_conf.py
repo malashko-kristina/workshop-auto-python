@@ -4,7 +4,6 @@ from data.build_conf_data import BuildResponseModel
 from data.project_data import ProjectResponseModel
 from data.run_build_data import BuildConfRunStatusModel
 from pages.build_add_steps_page import BuildNewStepPage
-from pages.build_conf_detailed_page import CheckRunBuildErrors
 from pages.buld_steps_page import BuildStepsPage
 from pages.create_project_page import ProjectCreationPage
 from pages.login_page import LoginPage
@@ -99,16 +98,16 @@ def test_run_build_conf(browser, project_data, super_admin, build_conf_data, pro
     with allure.step("Проверка добавления шагов для билд конфигурации c пустым script для command line"):
         add_new_step_error_browser = BuildNewStepPage(browser, build_conf_id)
         add_new_step_error_browser.select_command_line()
-        add_new_step_error_browser.add_new_build_step(step_name, step_id, " ", build_conf_id)
+        add_new_step_error_browser.add_new_build_step(step_name, step_id, " ")
         add_new_step_error_browser.check_error_message_empty_custom_script()
     with allure.step("Проверка добавления шагов для билд конфигурации c пустым id step"):
-        add_new_step_error_browser.add_new_build_step(step_name, " ", "print('Hello World')", build_conf_id)
+        add_new_step_error_browser.add_new_build_step(step_name, " ", "print('Hello World')")
         add_new_step_error_browser.check_error_message_empty_step_id()
     with allure.step("Проверка добавления шагов для билд конфигурации c невалидным id step"):
-        add_new_step_error_browser.add_new_build_step(step_name, invalid_step_id, " ", build_conf_id)
+        add_new_step_error_browser.add_new_build_step(step_name, invalid_step_id, " ")
         add_new_step_error_browser.check_error_message_invalid_step_id(invalid_step_id, str(invalid_step_id[0]))
     with allure.step("Проверка запуска билд конфигурации с некорректно веденным script для command line"):
-        add_new_step_error_browser.add_new_build_step(step_name, step_id, invalid_step_id, build_conf_id)
+        add_new_step_error_browser.add_new_build_step(step_name, step_id, invalid_step_id)
         add_new_step_error_browser.wait_for_current_page_load()
     with allure.step("Запуск билд конфигурации с некорректно введенным script для command line"):
         run_build_with_step_invalid = RunBuildWithStep(browser, build_conf_id)

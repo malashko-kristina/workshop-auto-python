@@ -2,7 +2,6 @@ from typing import Optional, Dict
 from utilis.data_generator import DataGenerator
 from pydantic import BaseModel
 
-
 class BuildTypeRunModel(BaseModel):
     id: str
     name: str
@@ -11,22 +10,18 @@ class BuildTypeRunModel(BaseModel):
     href: str
     webUrl: str
 
-
 class UserModel(BaseModel):
     username: str
     id: int
     href: str
-
 
 class TriggeredModel(BaseModel):
     type: str
     date: str
     user: UserModel
 
-
 class BuildTypesModel(BaseModel):
     id: str
-
 
 class BuildRunRequestModel(BaseModel):
     buildType: BuildTypesModel
@@ -34,11 +29,9 @@ class BuildRunRequestModel(BaseModel):
     class Config:
         extra = "allow"
 
-
 class BuildRunCancelRequestModel(BaseModel):
     comment: str
     readdIntoQueue: bool
-
 
 class BuildRunResponseModel(BaseModel):
     id: int
@@ -59,7 +52,6 @@ class BuildRunResponseModel(BaseModel):
 
     class Config:
         extra = "allow"
-
 
 class BuildRunCancelResponseModel(BaseModel):
     id: int
@@ -89,12 +81,10 @@ class BuildRunCancelResponseModel(BaseModel):
     class Config:
         extra = "allow"
 
-
 class BuildConfRunStatusModel(BaseModel):
     count: int
     href: str
     build: list
-
 
 class BuildRunData:
 
@@ -128,9 +118,5 @@ class BuildRunData:
             comment="Canceling a queued build",
             readdIntoQueue=False
         ))
-
-
-
-
 
 

@@ -1,7 +1,6 @@
 from api.api_manager import ApiManager
 from enums.roles import Roles
 
-
 class Role:
     def __init__(self, role_id, scope="g", href=None):
         if role_id not in Roles.__members__:
@@ -10,9 +9,10 @@ class Role:
         self.scope = scope
         self.href = href
 
-
 class User:
-    def __init__(self, username: str, password: str, session: ApiManager, roles: list,  **kwargs):  # Это нотации, которые описывают, какой тип данных у каждого аргумента
+    def __init__(self, username: str, password: str,
+                 session: ApiManager,
+                 roles: list,  **kwargs):
         self.username = username
         self.password = password
         self.email = None

@@ -104,7 +104,7 @@ def test_critical_user_flow(browser, project_data, super_admin, build_conf_data,
     with allure.step("Проверка добавления шагов для билд конфигурации"):
         add_new_step_browser = BuildNewStepPage(browser, build_conf_id)
         add_new_step_browser.select_command_line()
-        add_new_step_browser.add_new_build_step(step_name, step_id, "print('Hello World')", build_conf_id)
+        add_new_step_browser.add_new_build_step(step_name, step_id, "print('Hello World')")
     with allure.step("Запуск билд конфигурации с добавлением шагов"):
         run_build_with_step = RunBuildWithStep(browser, build_conf_id)
         run_build_with_step.run_build_conf_with_step()
