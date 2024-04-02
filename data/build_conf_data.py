@@ -256,8 +256,7 @@ class BuildConfData:
         ))
 
     @staticmethod
-    def create_build_conf_data_copy_with_invalid_parent_build_conf()\
-            -> BuildDataCopyModel:
+    def create_build_conf_invalid_parent() -> BuildDataCopyModel:
         return (BuildDataCopyModel(
             sourceBuildTypeLocator=DataGenerator.fake_build_id(),
             name=DataGenerator.fake_name(),

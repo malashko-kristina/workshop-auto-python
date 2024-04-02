@@ -71,11 +71,13 @@ class PageAction:
             expect(self.page).to_have_text(text)
 
     def assert_text_in_element(self, selector, text):
-        with allure.step(f"Проверка наличия текста '{text}' в элементе: {selector}"):
+        with allure.step(f"Проверка наличия текста '{text}'"
+                         f" в элементе: {selector}"):
             expect(self.page.locator(selector)).to_have_text(text)
 
     def assert_element_attribute(self, selector, attribute, value):
-        with allure.step(f"Проверка значения '{value}' аттрибута {attribute} элемента: {selector}"):
+        with allure.step(f"Проверка значения '{value}'"
+                         f" аттрибута {attribute} элемента: {selector}"):
             expect(self.page.locator(selector)
                    ).to_have_attribute(attribute, value)
 
@@ -84,7 +86,7 @@ class PageAction:
             expect(self.page.locator(selector)).to_be_hidden()
 
     def check_error_text_color(self, selector):
-        with allure.step(f"Проверка, что текст ошибки красного цвета"):
+        with allure.step("Проверка, что текст ошибки красного цвета"):
             error_element = self.page.locator(selector)
             color = error_element.evaluate(
                 '(element) => window.getComputedStyle(element).color')

@@ -56,8 +56,8 @@ class CustomRequester:
             RESET = '\033[0m'  # Сброс цвета к стандартному
             headers = "\\\n".join(
                 [f"-H '{headers}: {value}'" for headers, value in request.headers.items()])
-            full_test_name = f"pytest {os.environ.get('PYTEST_CURRENT_TEST', '').replace(
-                ' (call)', '')}"  # Добавим в логи вывод названия теста
+            full_test_name = f"pytest {os.environ.get('PYTEST_CURRENT_TEST', '')
+            .replace(' (call)', '')}"  # Добавим в логи вывод названия теста
 
             body = ""
             if hasattr(request, 'body') and request.body is not None:

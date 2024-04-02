@@ -27,6 +27,7 @@ jobs:
         run: pip install autopep8
       - name: Auto-format code with autopep8
         run: autopep8 --in-place --recursive .
+      - run: echo "Code formatting with autopep8 successful"
 
   run-tests:
     needs: lint

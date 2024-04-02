@@ -30,7 +30,8 @@ class ProjectAPI(CustomRequester):
                                  f"/app/rest/projects/{locator}",
                                  expected_status=expected_status)
 
-    def delete_project(self, project_id, expected_status=HTTPStatus.NO_CONTENT):
+    def delete_project(self, project_id,
+                       expected_status=HTTPStatus.NO_CONTENT):
         # Метод для удаления проекта
         return self.send_request("DELETE",
                                  f"/app/rest/projects/id:{project_id}",

@@ -22,7 +22,8 @@ class Footers:
     def check_copyright_text_is_visible(self):
         self.actions.is_element_visible(self.copyright_text)
         self.actions.assert_text_in_element(self.copyright_text,
-                                            "Copyright © 2006–2024 JetBrains s.r.o.")
+                                            "Copyright © 2006–2024"
+                                            " JetBrains s.r.o.")
 
     def go_to_about_teamcity_page(self):
         self.actions.wait_for_selector(self.about_button)

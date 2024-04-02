@@ -64,13 +64,17 @@ def user_session():
 @pytest.fixture
 def super_admin(user_session):
     new_session = user_session()
-    super_admin = User(SuperAdminCreds.USERNAME, SuperAdminCreds.PASSWORD, new_session, [
+    super_admin = User(SuperAdminCreds.USERNAME,
+                       SuperAdminCreds.PASSWORD,
+                       new_session, [
                        "SUPER_ADMIN", "g"])  # В класс юзер создаем новый объект
     super_admin.api_manager.auth_api.auth_and_get_csrf(super_admin.creds)
     return super_admin
 
 
-@pytest.fixture(params=[Roles.PROJECT_ADMIN, Roles.PROJECT_DEVELOPER, Roles.PROJECT_VIEWER])
+@pytest.fixture(params=[Roles.PROJECT_ADMIN,
+                        Roles.PROJECT_DEVELOPER,
+                        Roles.PROJECT_VIEWER])
 def user_create(user_session, super_admin):
     # Фикстура, создающая юзера от имени супер админа
     created_users_pool = []
@@ -80,7 +84,8 @@ def user_create(user_session, super_admin):
         super_admin.api_manager.user_api.create_user(user_data)
         new_session = user_session()
         created_users_pool.append(user_data['username'])
-        return User(user_data['username'], user_data['password'], new_session, [Role(role)])
+        return User(user_data['username'], user_data['password'],
+                    new_session, [Role(role)])
 
     yield _user_create
 
@@ -167,7 +172,9 @@ def project_data_with_empty_id(super_admin):
     yield project
 
 
-@pytest.fixture(params=[DataGenerator.incorrect_id_1(), DataGenerator.incorrect_id_2(), DataGenerator.incorrect_id_3()])
+@pytest.fixture(params=[DataGenerator.incorrect_id_1(),
+                        DataGenerator.incorrect_id_2(),
+                        DataGenerator.incorrect_id_3()])
 def project_data_with_invalid_ids(request, super_admin):
     ids = request.param
     project = ProjectData.create_project_data_with_invalid_ids(ids)
@@ -277,7 +284,7 @@ def build_conf_data_copy(super_admin, build_conf_data):
 
 @pytest.fixture
 def build_conf_data_copy_with_invalid_parent_build_conf(super_admin):
-    build_conf = BuildConfData.create_build_conf_data_copy_with_invalid_parent_build_conf()
+    build_conf = BuildConfData.create_build_conf_invalid_parent()
     yield build_conf
 
 
@@ -311,7 +318,8 @@ def build_conf_data_with_empty_name(super_admin, project_data):
     yield build_conf
 
 
-@pytest.fixture(params=["", DataGenerator.incorrect_id_1(), DataGenerator.fake_project_id()])
+@pytest.fixture(params=["", DataGenerator.incorrect_id_1(),
+                        DataGenerator.fake_project_id()])
 def build_conf_data_with_invalid_project_id(request, super_admin):
     project_ids = request.param
     build_conf = BuildConfData.create_build_conf_data_with_invalid_project_id(
@@ -319,7 +327,9 @@ def build_conf_data_with_invalid_project_id(request, super_admin):
     yield build_conf
 
 
-@pytest.fixture(params=[DataGenerator.incorrect_id_1(), DataGenerator.incorrect_id_2(), DataGenerator.incorrect_id_3()])
+@pytest.fixture(params=[DataGenerator.incorrect_id_1(),
+                        DataGenerator.incorrect_id_2(),
+                        DataGenerator.incorrect_id_3()])
 def build_data_with_invalid_ids(request, super_admin, project_data):
     ids = request.param
     build_conf = BuildConfData.create_build_conf_data_with_invalid_ids(

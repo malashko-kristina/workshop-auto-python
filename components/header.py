@@ -1,5 +1,3 @@
-import time
-
 from actions.page_actions import PageAction
 
 
@@ -52,9 +50,11 @@ class Headers:
         self.profile_button = ('a[data-test="ring-link ring-list-link'
                                ' ring-list-item"] >> text="Profile"')
         self.favourite_builds_button = ('a[data-test="ring-link ring-list-link'
-                                        ' ring-list-item"] >> text="Favorite Builds"')
+                                        ' ring-list-item"]'
+                                        ' >> text="Favorite Builds"')
         self.investigation_button = ('a[data-test="ring-link ring-list-link'
-                                     ' ring-list-item"] >> text="Investigations"')
+                                     ' ring-list-item"]'
+                                     ' >> text="Investigations"')
         self.logout_button = ('a[data-test="ring-link ring-list-link'
                               ' ring-list-item"] >> text="Logout"')
 
@@ -72,9 +72,11 @@ class Headers:
         self.actions.is_button_active(self.add_project_button)
         self.actions.click_button(self.add_project_button)
         self.actions.wait_for_page_load()
-        self.actions.check_url(f"/admin/createObjectMenu.html?projectId=_Root&showMode"
+        self.actions.check_url(f"/admin/createObjectMenu.html"
+                               f"?projectId=_Root&showMode"
                                f"=createProjectMenu&cameFromUrl=http%3A%2F%2"
-                               f"Flocalhost%3A8111%2Ffavorite%2Fprojects", equal=False)
+                               f"Flocalhost%3A8111%2Ffavorite%2Fprojects",
+                               equal=False)
 
     def go_to_changes_through_header_button(self):
         self.actions.is_button_active(self.changes_button)
