@@ -49,8 +49,8 @@ class TestProjectCreate:
                 build_config_response)
         with pytest.assume:
             assert build_conf_model_response.id == build_conf_data_1.id, \
-                f"expected build conf id= {build_conf_data_1.id}, but '{
-                    build_conf_model_response.id}' given"
+                (f"expected build conf id= {build_conf_data_1.id},"
+                 f" but '{build_conf_model_response.id}' given")
         with allure.step("Проверка нахождения id созданной билд конфигурации в общем списке билд конфигураций"):
             get_build_conf_response = super_admin.api_manager.build_conf_api.get_build_conf(
                 build_conf_data_1.id).text

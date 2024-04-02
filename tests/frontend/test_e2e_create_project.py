@@ -53,7 +53,8 @@ def test_create_the_first_project(browser, project_data_create, super_admin, pro
                 f"expected project id = {project_id}, but '{created_project.id}' given"
         with pytest.assume:
             assert created_project.parentProjectId == project_parent, \
-                f"expected parent project = {project_parent}, but '{created_project.parentProjectId}' given"
+                (f"expected parent project = {project_parent},"
+                 f" but '{created_project.parentProjectId}' given")
     with allure.step("Проверка отображения имени приложения"):
         edit_project_browser.footer.check_app_name_is_visible()
     with allure.step("Проверка отображения текста копирайтинга"):
@@ -66,8 +67,8 @@ def test_create_the_first_project(browser, project_data_create, super_admin, pro
     with allure.step("Проверка соответствия параметров созданного проекта с отправленными данными"):
         created_model_project_response = ProjectResponseModel.model_validate_json(
             get_project_response)
-        assert created_model_project_response.id == project_data_1.id, f"There is no project with {
-            project_data_1.id} id"
+        assert created_model_project_response.id == project_data_1.id, (f"There is no project with"
+                                                                        f" {project_data_1.id} id")
 
 
 @allure.feature('Управление проектами')

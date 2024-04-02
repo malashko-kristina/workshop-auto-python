@@ -149,8 +149,8 @@ class TestProjectCreateWithTheSameData:
                 create_project_response)
         with pytest.assume:
             assert project_model_response.id == project_data_1.id, \
-                f"expected project id= {project_data_1.id}, but '{
-                    project_model_response.id}' given"
+                (f"expected project id= {project_data_1.id},"
+                 f" but '{project_model_response.id}' given")
         with allure.step("Отправка запроса на создание проекта с таким же именем, которое использовалось в прошлом запросе"):
             create_project_response_2 = super_admin.api_manager.project_api.create_project(
                 project_data_1.model_dump(), expected_status=HTTPStatus.BAD_REQUEST)

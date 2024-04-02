@@ -75,8 +75,8 @@ def test_run_build_conf(browser, project_data, super_admin, build_conf_data, pro
                     f"expected project id = {project_id}, but '{created_project.id}' given"
             with pytest.assume:
                 assert created_project.parentProjectId == project_parent, \
-                    f"expected parent project = {project_parent}, but '{
-                        created_project.parentProjectId}' given"
+                    (f"expected parent project = {project_parent},"
+                     f" but '{created_project.parentProjectId}' given")
     with allure.step("Cоздание билд конфигурации"):
         build_conf_creation_browser = BuildConfCreationPage(
             browser, project_id)

@@ -68,8 +68,8 @@ class TestBuildCreateWithInvalidData:
                 create_project_response)
         with pytest.assume:
             assert project_model_response.id == project_data_1.id, \
-                f"expected project id= {project_data_1.id}, but '{
-                    project_model_response.id}' given"
+                (f"expected project id= {project_data_1.id},"
+                 f" but '{project_model_response.id}' given")
         with pytest.assume:
             assert project_model_response.parentProjectId == project_data_1.parentProject["locator"], \
                 (f"expected parent project id= {project_data_1.parentProject['locator']},"

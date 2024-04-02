@@ -63,7 +63,8 @@ def test_create_build_conf_with_invalid_data(browser, project_data, super_admin,
                     f"expected project id = {project_id}, but '{created_project.id}' given"
             with pytest.assume:
                 assert created_project.parentProjectId == project_parent, \
-                    f"expected parent project = {project_parent}, but '{created_project.parentProjectId}' given"
+                    (f"expected parent project = {project_parent},"
+                     f" but '{created_project.parentProjectId}' given")
     with allure.step("Cоздание билд конфигурации"):
         build_conf_creation_browser = BuildConfCreationPage(
             browser, project_id)
@@ -78,8 +79,8 @@ def test_create_build_conf_with_invalid_data(browser, project_data, super_admin,
         build_conf_model_response_1 = BuildResponseModel.model_validate_json(
             get_build_conf_response)
         assert build_conf_model_response_1.id == build_conf_data_1.id, \
-            f"expected build conf id= {build_conf_data_1.id}, but '{
-                build_conf_model_response_1.id}' given"
+            (f"expected build conf id= {build_conf_data_1.id},"
+             f" but '{build_conf_model_response_1.id}' given")
     with allure.step("Создание билд конфигурации с пустыми полями имени и id"):
         build_conf_error = BuildConfCreationPage(browser, project_id)
         build_conf_error.create_build_conf(" ", " ", description)
