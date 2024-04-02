@@ -5,17 +5,25 @@ from enums.host import BASE_URL
 
 
 class CustomRequester:
-    # Словарь с базовыми заголовками
     base_headers = dict(
-        {"Content-Type": "application/json", "Accept": "application/json"})
+        {"Content-Type": "application/json", "Accept": "application/json"}
+    )  # Словарь с базовыми заголовками
 
     def __init__(self, session):
         self.session = session
         self.base_url = BASE_URL
-        # Активируем логгер, для этого определим атрибут логгер в классе
-        self.logger = logging.getLogger(__name__)
+        self.logger = logging.getLogger(
+            __name__
+        )  # Активируем логгер, для этого определим атрибут логгер в классе
 
-    def send_request(self, method, endpoint, data=None, expected_status=HTTPStatus.OK, need_logging=True):
+    def send_request(
+        self,
+        method,
+        endpoint,
+        data=None,
+        expected_status=HTTPStatus.OK,
+        need_logging=True,
+    ):
         """
         Враппер для запроса позволяет прикручивать различную логику
 
@@ -34,8 +42,9 @@ class CustomRequester:
             raise ValueError(f"Unexpected status code: {response.status_code}")
         return response
 
-    # Позволяет принимать любое количество аргументов или не принимать их вообще
-    def _update_session_headers(self, **kwargs):
+    def _update_session_headers(
+        self, **kwargs
+    ):  # Позволяет принимать любое количество аргументов или не принимать их вообще
         # Метод обновления хедеров, он используется только для внутреннего использования в классе
         self.headers = self.base_headers.copy()
         self.headers.update(kwargs)  # Обновляется значение словаря
@@ -51,19 +60,22 @@ class CustomRequester:
         """
         try:
             request = response.request  # Объект запроса, связанный с ответом
-            GREEN = '\033[32m'
-            RED = '\033[31m'
-            RESET = '\033[0m'  # Сброс цвета к стандартному
+            GREEN = "\033[32m"
+            RED = "\033[31m"
+            RESET = "\033[0m"  # Сброс цвета к стандартному
             headers = "\\\n".join(
-                [f"-H '{headers}: {value}'" for headers, value in request.headers.items()])
-            full_test_name = f"pytest {os.environ.get('PYTEST_CURRENT_TEST', '')
-            .replace(' (call)', '')}"  # Добавим в логи вывод названия теста
+                [
+                    f"-H '{headers}: {value}'"
+                    for headers, value in request.headers.items()
+                ]
+            )
+            full_test_name = f"pytest {os.environ.get('PYTEST_CURRENT_TEST', '').replace(' (call)', '')}"  # Добавим в логи вывод названия теста
 
             body = ""
-            if hasattr(request, 'body') and request.body is not None:
+            if hasattr(request, "body") and request.body is not None:
                 if isinstance(request.body, bytes):
-                    body = request.body.decode('utf-8')
-            body = f"-d '{body}' \n" if body != '{}' else ''
+                    body = request.body.decode("utf-8")
+            body = f"-d '{body}' \n" if body != "{}" else ""
 
             self.logger.info(
                 f"{GREEN} {full_test_name}{RESET}\n"
@@ -73,14 +85,15 @@ class CustomRequester:
             )
 
             response_status = response.status_code  # Извлечение HTTP статус-кода ответа
-            is_success = response.ok  # Проверяет, находится ли статус код в диапазоне 200-299
+            is_success = (
+                response.ok
+            )  # Проверяет, находится ли статус код в диапазоне 200-299
             response_data = response.text  # Возвращает тело запроса в виде строки
 
             if not is_success:
-                self.logger.info(f"\tRESPONSE:"
-                                 f"\nSTATUS_CODE: {RED}{
-                                     response_status}{RESET}"
-                                 f"\nDATA: {RED}{response_data}{RESET}")
+                self.logger.info(
+                    f"\tRESPONSE:\nSTATUS_CODE: {RED}{response_status}{RESET}\nDATA: {RED}{response_data}{RESET}"
+                )
 
         except Exception as e:
             self.logger.info(f"\nLogging went wrong: {type(e)} - {e}")
