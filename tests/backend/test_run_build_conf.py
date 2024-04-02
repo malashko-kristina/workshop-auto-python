@@ -44,8 +44,7 @@ class TestRunBuildConfSeveralTimes:
                 build_config_response)
         with pytest.assume:
             assert build_conf_model_response.id == build_conf_data_1.id, \
-                f"expected build conf id= {build_conf_data_1.id}, but '{
-                    build_conf_model_response.id}' given"
+                f"expected build conf id= {build_conf_data_1.id}, but '{build_conf_model_response.id}' given"
         with allure.step('Отправка запроса на запуск билд конфигурации'):
             build_conf_run_data_1 = build_conf_run_data
             build_run_response = super_admin.api_manager.run_build_conf_api.run_build_conf(

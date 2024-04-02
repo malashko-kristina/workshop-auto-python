@@ -72,8 +72,7 @@ def test_run_build_conf(browser, project_data, super_admin, build_conf_data, pro
                 response)
             with pytest.assume:
                 assert created_project.id == project_id, \
-                    f"expected project id = {project_id}, but '{
-                        created_project.id}' given"
+                    f"expected project id = {project_id}, but '{created_project.id}' given"
             with pytest.assume:
                 assert created_project.parentProjectId == project_parent, \
                     f"expected parent project = {project_parent}, but '{

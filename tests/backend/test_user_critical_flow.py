@@ -39,8 +39,7 @@ class TestProjectCreate:
             created_model_project_response = ProjectResponseModel.model_validate_json(
                 get_project_response)
         with pytest.assume:
-            assert created_model_project_response.id == project_data_1.id, f"There is no project with {
-                project_data_1.id} id"
+            assert created_model_project_response.id == project_data_1.id, f"There is no project with {project_data_1.id} id"
         with allure.step("Отправка запроса на создание билд конфигурации"):
             build_conf_data_1 = build_conf_data
             build_config_response = super_admin.api_manager.build_conf_api.create_build_conf(

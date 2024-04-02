@@ -71,8 +71,7 @@ def test_critical_user_flow(browser, project_data, super_admin, build_conf_data,
                 response)
             with pytest.assume:
                 assert created_project.id == project_id, \
-                    f"expected project id = {project_id}, but '{
-                        created_project.id}' given"
+                    f"expected project id = {project_id}, but '{created_project.id}' given"
             with pytest.assume:
                 assert created_project.parentProjectId == project_parent, \
                     f"expected parent project = {project_parent}, but '{

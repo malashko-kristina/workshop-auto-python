@@ -120,8 +120,7 @@ class TestProjectCreateWithVariantData:
 
         with pytest.assume:
             assert project_model_response.id == project_data_2.id, \
-                f"expected project id= {project_data_2.id}, but '{
-                    project_model_response.id}' given"
+                f"expected project id= {project_data_2.id}, but '{project_model_response.id}' given"
 
         with pytest.assume:
             assert project_model_response.parentProjectId == project_data_2.parentProject["locator"], \
