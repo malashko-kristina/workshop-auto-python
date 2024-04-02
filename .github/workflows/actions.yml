@@ -26,7 +26,7 @@ jobs:
       - name: Install autopep8
         run: pip install autopep8
       - name: Auto-format code with autopep8
-        run: autopep8 --in-place .
+        run: autopep8 --in-place --recursive .
 
   run-tests:
     needs: lint

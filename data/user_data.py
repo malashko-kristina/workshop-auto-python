@@ -1,6 +1,7 @@
 from enums.roles import Roles
 from utilis.data_generator import DataGenerator
 
+
 class UserData:
     @staticmethod
     def create_user_data(role=Roles.SYSTEM_ADMIN.value,
@@ -11,7 +12,7 @@ class UserData:
             "password": DataGenerator.fake_project_id(),
             "email": DataGenerator.fake_emaiL(),
             "roles": {
-                "role":[
+                "role": [
                     {
                            "roleId": role,
                            "scope": scope,
