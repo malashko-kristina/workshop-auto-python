@@ -50,8 +50,7 @@ def test_create_the_first_project(browser, project_data_create, super_admin, pro
         created_project = ProjectResponseModel.model_validate_json(response)
         with pytest.assume:
             assert created_project.id == project_id, \
-                f"expected project id = {project_id}, but '{
-                    created_project.id}' given"
+                f"expected project id = {project_id}, but '{created_project.id}' given"
         with pytest.assume:
             assert created_project.parentProjectId == project_parent, \
                 f"expected parent project = {project_parent}, but '{
@@ -123,8 +122,7 @@ def test_create_project_invalid_id_name(browser, project_data_create, super_admi
         created_project = ProjectResponseModel.model_validate_json(response)
         with pytest.assume:
             assert created_project.id == project_id, \
-                f"expected project id = {project_id}, but '{
-                    created_project.id}' given"
+                f"expected project id = {project_id}, but '{created_project.id}' given"
         with pytest.assume:
             assert created_project.parentProjectId == project_parent, \
                 f"expected parent project = {project_parent}, but '{

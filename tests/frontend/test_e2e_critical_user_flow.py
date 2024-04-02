@@ -45,8 +45,7 @@ def test_critical_user_flow(browser, project_data, super_admin, build_conf_data,
             create_project_response)
     with pytest.assume:
         assert project_model_response.id == project_data_2.id, \
-            f"expected project id= {project_data_2.id}, but '{
-                project_model_response.id}' given"
+            f"expected project id= {project_data_2.id}, but '{project_model_response.id}' given"
     with allure.step("Авторизация пользователя"):
         login_browser = LoginPage(browser)
         login_browser.login_in_account(
