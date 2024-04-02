@@ -15,6 +15,7 @@ class SuperAdminCreds:
     USERNAME = ''
     PASSWORD = os.getenv('SUPER_USER_TOKEN')
 
+
 class UsualUserCreds:
     """
     Креды для обычного юзера

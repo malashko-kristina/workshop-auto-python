@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+
 class BuildVersion:
     """
     Версия билда, указанная в футере

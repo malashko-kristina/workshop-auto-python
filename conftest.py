@@ -15,14 +15,16 @@ from utilis.data_generator import DataGenerator
 
 @pytest.fixture(params=BROWSERS)
 def browser(request):
-    playwright, browser, context, page = BrowserSetup.setup(browser_type=request.param)
+    playwright, browser, context, page = BrowserSetup.setup(
+        browser_type=request.param)
     yield page
     BrowserSetup.teardown(context, browser, playwright)
 
 
 @pytest.fixture(scope='session')
 def one_browser():
-    playwright, browser, context, page = BrowserSetup.setup(browser_type="chromium")
+    playwright, browser, context, page = BrowserSetup.setup(
+        browser_type="chromium")
     yield page
     BrowserSetup.teardown(context, browser, playwright)
 
@@ -62,7 +64,8 @@ def user_session():
 @pytest.fixture
 def super_admin(user_session):
     new_session = user_session()
-    super_admin = User(SuperAdminCreds.USERNAME, SuperAdminCreds.PASSWORD, new_session, ["SUPER_ADMIN", "g"])  # В класс юзер создаем новый объект
+    super_admin = User(SuperAdminCreds.USERNAME, SuperAdminCreds.PASSWORD, new_session, [
+                       "SUPER_ADMIN", "g"])  # В класс юзер создаем новый объект
     super_admin.api_manager.auth_api.auth_and_get_csrf(super_admin.creds)
     return super_admin
 
@@ -83,6 +86,7 @@ def user_create(user_session, super_admin):
 
     for username in created_users_pool:
         super_admin.api_manager.user_api.delete_user(username)
+
 
 @pytest.fixture
 def project_data_create(super_admin):
@@ -114,6 +118,7 @@ def project_data(super_admin, request):
     for project_id in project_id_pool:
         super_admin.api_manager.project_api.clean_up_project(project_id)
 
+
 @pytest.fixture
 def project_data_first_project(super_admin):
     project_id_pool = []
@@ -128,6 +133,7 @@ def project_data_first_project(super_admin):
     for project_id in project_id_pool:
         super_admin.api_manager.project_api.clean_up_project(project_id)
 
+
 @pytest.fixture
 def project_copy_data(super_admin, project_data):
     project_id_copy_pool = []
@@ -139,29 +145,29 @@ def project_copy_data(super_admin, project_data):
 
     yield _create_project_copy_data()
 
-    for project_copy_id in project_id_copy_pool :
+    for project_copy_id in project_id_copy_pool:
         super_admin.api_manager.project_api.clean_up_project(project_copy_id)
 
 
 @pytest.fixture
 def project_copy_data_with_another_source_project(super_admin):
-        project_copy = ProjectData.create_project_data_copy_with_another_source_project
-        yield project_copy
+    project_copy = ProjectData.create_project_data_copy_with_another_source_project
+    yield project_copy
 
 
 @pytest.fixture
 def project_data_without_deleting(super_admin):
-        project = ProjectData.create_project_data_with_data
-        yield project
+    project = ProjectData.create_project_data_with_data
+    yield project
 
 
 @pytest.fixture
 def project_data_with_empty_id(super_admin):
-        project = ProjectData.create_project_data_with_empty_id
-        yield project
+    project = ProjectData.create_project_data_with_empty_id
+    yield project
 
 
-@pytest.fixture(params=[DataGenerator.incorrect_id_1(), DataGenerator.incorrect_id_2(),DataGenerator.incorrect_id_3()])
+@pytest.fixture(params=[DataGenerator.incorrect_id_1(), DataGenerator.incorrect_id_2(), DataGenerator.incorrect_id_3()])
 def project_data_with_invalid_ids(request, super_admin):
     ids = request.param
     project = ProjectData.create_project_data_with_invalid_ids(ids)
@@ -177,7 +183,8 @@ def project_data_with_invalid_name(super_admin):
 @pytest.fixture(params=["Root", " Root", "_Root4", "_Root "])
 def project_data_with_invalid_parentProject(request, super_admin):
     variant = request.param
-    project = ProjectData.create_project_data_with_invalid_parentProject(variant)
+    project = ProjectData.create_project_data_with_invalid_parentProject(
+        variant)
     yield project
 
 
@@ -190,6 +197,7 @@ def project_data_with_empty_parentProject(super_admin):
 @pytest.fixture
 def project_data_with_false(super_admin):
     project_id_pool = []
+
     def _create_project_data_with_false():
         project = ProjectData.create_project_data_with_false()
         project_id_pool.append(project.id)
@@ -200,13 +208,16 @@ def project_data_with_false(super_admin):
     for project_id in project_id_pool:
         super_admin.api_manager.project_api.clean_up_project(project_id)
 
+
 @pytest.fixture
 def delete_all_projects(super_admin):
     list_proj = super_admin.api_manager.project_api.get_project().json()
-    id_list = [proj['id'] for proj in list_proj['project'] if proj['id'] != '_Root']
+    id_list = [proj['id']
+               for proj in list_proj['project'] if proj['id'] != '_Root']
 
     for id_project in id_list:
         super_admin.api_manager.project_api.delete_project(id_project)
+
 
 @pytest.fixture(params=[DataGenerator.fake_build_id()])
 def build_conf_data(super_admin, project_data, request):
@@ -214,7 +225,8 @@ def build_conf_data(super_admin, project_data, request):
 
     def _create_build_conf_data():
         name = request.param
-        build_conf = BuildConfData.create_build_conf_data(project_data.id, name)
+        build_conf = BuildConfData.create_build_conf_data(
+            project_data.id, name)
         build_id_pool.append(build_conf.id)
         return build_conf
 
@@ -226,16 +238,18 @@ def build_conf_data(super_admin, project_data, request):
 
 @pytest.fixture(params=[DataGenerator.fake_build_id()])
 def build_conf_data_without_deleting_id(super_admin, project_data, request):
-        name = request.param
-        build_conf = BuildConfData.create_build_conf_data(project_data.id, name)
-        yield build_conf
+    name = request.param
+    build_conf = BuildConfData.create_build_conf_data(project_data.id, name)
+    yield build_conf
+
 
 @pytest.fixture
 def build_conf_data_with_empty_steps_field(super_admin, project_data):
     build_id_pool = []
 
     def _create_build_conf_data():
-        build_conf = BuildConfData.create_build_conf_data_with_empty_steps(project_data.id)
+        build_conf = BuildConfData.create_build_conf_data_with_empty_steps(
+            project_data.id)
         build_id_pool.append(build_conf.id)
         return build_conf
 
@@ -250,7 +264,8 @@ def build_conf_data_copy(super_admin, build_conf_data):
     build_id_pool = []
 
     def _create_build_conf_data():
-        build_conf = BuildConfData.create_build_conf_data_copy(build_conf_data.id)
+        build_conf = BuildConfData.create_build_conf_data_copy(
+            build_conf_data.id)
         build_id_pool.append(build_conf.id)
         return build_conf
 
@@ -262,8 +277,8 @@ def build_conf_data_copy(super_admin, build_conf_data):
 
 @pytest.fixture
 def build_conf_data_copy_with_invalid_parent_build_conf(super_admin):
-        build_conf = BuildConfData.create_build_conf_data_copy_with_invalid_parent_build_conf()
-        yield build_conf
+    build_conf = BuildConfData.create_build_conf_data_copy_with_invalid_parent_build_conf()
+    yield build_conf
 
 
 @pytest.fixture
@@ -271,7 +286,8 @@ def build_conf_data_without_steps_field(super_admin, project_data):
     build_id_pool = []
 
     def _create_build_conf_data():
-        build_conf = BuildConfData.create_build_conf_data_without_steps(project_data.id)
+        build_conf = BuildConfData.create_build_conf_data_without_steps(
+            project_data.id)
         build_id_pool.append(build_conf.id)
         return build_conf
 
@@ -283,34 +299,39 @@ def build_conf_data_without_steps_field(super_admin, project_data):
 
 @pytest.fixture
 def build_conf_data_with_empty_id(super_admin, project_data):
-        build_conf = BuildConfData.create_build_conf_data_with_empty_id(project_data.id)
-        yield build_conf
+    build_conf = BuildConfData.create_build_conf_data_with_empty_id(
+        project_data.id)
+    yield build_conf
 
 
 @pytest.fixture
 def build_conf_data_with_empty_name(super_admin, project_data):
-    build_conf = BuildConfData.create_build_conf_data_with_empty_name(project_data.id)
+    build_conf = BuildConfData.create_build_conf_data_with_empty_name(
+        project_data.id)
     yield build_conf
 
 
 @pytest.fixture(params=["", DataGenerator.incorrect_id_1(), DataGenerator.fake_project_id()])
 def build_conf_data_with_invalid_project_id(request, super_admin):
     project_ids = request.param
-    build_conf = BuildConfData.create_build_conf_data_with_invalid_project_id(project_ids)
+    build_conf = BuildConfData.create_build_conf_data_with_invalid_project_id(
+        project_ids)
     yield build_conf
 
 
-@pytest.fixture(params=[DataGenerator.incorrect_id_1(), DataGenerator.incorrect_id_2(),DataGenerator.incorrect_id_3()])
+@pytest.fixture(params=[DataGenerator.incorrect_id_1(), DataGenerator.incorrect_id_2(), DataGenerator.incorrect_id_3()])
 def build_data_with_invalid_ids(request, super_admin, project_data):
     ids = request.param
-    build_conf = BuildConfData.create_build_conf_data_with_invalid_ids(project_data.id, ids)
+    build_conf = BuildConfData.create_build_conf_data_with_invalid_ids(
+        project_data.id, ids)
     yield build_conf
 
 
 @pytest.fixture
 def build_conf_run_data(super_admin, build_conf_data):
-        build_conf_run = BuildRunData.create_run_build_correct_data(build_conf_data.id)
-        yield build_conf_run
+    build_conf_run = BuildRunData.create_run_build_correct_data(
+        build_conf_data.id)
+    yield build_conf_run
 
 
 @pytest.fixture
@@ -323,5 +344,3 @@ def build_conf_run_data_with_wrong_build_conf_id(super_admin):
 def build_conf_run_cancel(super_admin):
     build_conf_run_cancel = BuildRunData.cancel_build_conf_in_queue()
     yield build_conf_run_cancel
-
-

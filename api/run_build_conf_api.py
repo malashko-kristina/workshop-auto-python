@@ -30,7 +30,3 @@ class RunBuildConfAPI(CustomRequester):
         return self.send_request("GET",
                                  "/app/rest/buildQueue",
                                  expected_status=expected_status)
-
-
-
-

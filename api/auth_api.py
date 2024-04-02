@@ -9,8 +9,3 @@ class AuthAPI(CustomRequester):
         if not csrf_token:
             raise ValueError("CSRF Token is missing or invalid")
         self._update_session_headers(**{"X-TC-CSRF-Token": csrf_token})
-
-
-
-
-

@@ -59,7 +59,8 @@ class PageAction:
 
     def wait_for_selector(self, selector):
         with allure.step(f"Ожидаем появления селектора: {selector}"):
-            self.page.wait_for_selector(selector, state='visible', timeout=100000)
+            self.page.wait_for_selector(
+                selector, state='visible', timeout=100000)
 
     def wait_for_disappear_selector(self, selector):
         with allure.step(f"Ожидаем появления селектора: {selector}"):
@@ -75,7 +76,8 @@ class PageAction:
 
     def assert_element_attribute(self, selector, attribute, value):
         with allure.step(f"Проверка значения '{value}' аттрибута {attribute} элемента: {selector}"):
-            expect(self.page.locator(selector)).to_have_attribute(attribute, value)
+            expect(self.page.locator(selector)
+                   ).to_have_attribute(attribute, value)
 
     def assert_element_hidden(self, selector):
         with allure.step(f"Проверка, что элемент {selector} скрыт"):
@@ -84,5 +86,6 @@ class PageAction:
     def check_error_text_color(self, selector):
         with allure.step(f"Проверка, что текст ошибки красного цвета"):
             error_element = self.page.locator(selector)
-            color = error_element.evaluate('(element) => window.getComputedStyle(element).color')
+            color = error_element.evaluate(
+                '(element) => window.getComputedStyle(element).color')
             return color == "rgb(238, 68, 80)"

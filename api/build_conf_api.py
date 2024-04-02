@@ -21,7 +21,8 @@ class BuildConfAPI(CustomRequester):
     def check_status_build_conf(self, build_conf_id, expected_status=HTTPStatus.OK):
         # Метод для запроса списка билд конфигураций в очереди по определенной билд конфигурации
         return self.send_request("GET",
-                                 f"/app/rest/buildQueue?locator=buildType(id:{build_conf_id})",
+                                 f"/app/rest/buildQueue?locator=buildType(id:{
+                                     build_conf_id})",
                                  expected_status=expected_status)
 
     def check_query_with_build_conf(self, expected_status=HTTPStatus.OK):
@@ -53,10 +54,7 @@ class BuildConfAPI(CustomRequester):
         # Логика для проверки создания билд конфигурации и его удаления
         self.delete_build_conf(build_conf_id)
         get_response = self.check_query_with_build_conf().json()
-        build_conf_ids = [build_conf.get("id", {}) for build_conf in get_response.get("build", [])]
-        assert build_conf_id not in build_conf_ids,\
+        build_conf_ids = [build_conf.get(
+            "id", {}) for build_conf in get_response.get("build", [])]
+        assert build_conf_id not in build_conf_ids, \
             "ID созданного билд конфига найдет в списке билд конфигов после удаления"
-
-
-
-

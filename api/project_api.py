@@ -40,11 +40,7 @@ class ProjectAPI(CustomRequester):
         # Логика для проверки создания проекта и его удаления
         self.delete_project(created_project_id)
         get_response = self.get_project().json()
-        project_ids = [project.get("id", {}) for project in get_response.get("project", [])]
-        assert created_project_id not in project_ids,\
+        project_ids = [project.get("id", {})
+                       for project in get_response.get("project", [])]
+        assert created_project_id not in project_ids, \
             "ID созданного проекта найден в списке проектов после удаления"
-
-
-
-
-

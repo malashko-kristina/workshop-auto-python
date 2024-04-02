@@ -80,6 +80,7 @@ class Headers:
         self.actions.is_button_active(self.changes_button)
         self.actions.click_button(self.changes_button)
         self.actions.wait_for_page_load()
+
     def go_to_agents_through_header_button(self):
         self.actions.is_button_active(self.agents_button)
         self.actions.click_button(self.agents_button)
