@@ -4,6 +4,7 @@ from components.footer import Footers
 from enums.host import BASE_URL
 from components.header import Headers
 
+
 class BasePage:
     def __init__(self, page: Page):
         self.page = page
@@ -20,18 +21,3 @@ class BasePage:
     @page_url.setter
     def page_url(self, endpoint):
         self._endpoint = endpoint
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -1,6 +1,7 @@
 import allure
 from pages.base_page import BasePage
 
+
 class LoginFormBody(BasePage):
     def __init__(self, page):
         super().__init__(page)
@@ -22,7 +23,7 @@ class LoginFormBody(BasePage):
             self.actions.click_button(self.login_button_locator)
 
     def userpic_is_visible(self):
-        with allure.step('Проверка видимости юзерпика'):
+        with allure.step("Проверка видимости юзерпика"):
             self.actions.wait_for_selector(self.userpic)
             self.actions.is_element_visible(self.userpic)
 
@@ -30,7 +31,7 @@ class LoginFormBody(BasePage):
 class LoginPage(BasePage):
     def __init__(self, page):
         super().__init__(page)
-        self.page_url = '/login.html'
+        self.page_url = "/login.html"
         self.login_form_body = LoginFormBody(page)
 
     def go_to_login_page(self):
@@ -45,7 +46,9 @@ class LoginPage(BasePage):
 
     def check_url_favourite_projects(self):
         self.page_url = "/favorite/projects"
-        with allure.step("Проверка перехода по url /favorite/projects (для самого первого проекта)"):
+        with allure.step(
+            "Проверка перехода по url /favorite/projects (для самого первого проекта)"
+        ):
             self.actions.check_url(self.page_url, equal=False)
 
     def login_in_account(self, login, password):
@@ -54,4 +57,3 @@ class LoginPage(BasePage):
             self.login_form_body.input_user_details(login, password)
         with allure.step("Клик на кнопку логина в аккаунт"):
             self.login_form_body.click_login_button()
-
