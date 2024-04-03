@@ -1,0 +1,75 @@
+2024-04-03 15:06:36 INFO [32m pytest tests/backend/test_create_build_conf.py::TestBuildCreateWithInvalidData::test_create_build_conf_with_invalid_id_field[Roles.PROJECT_DEVELOPER-nUvexM7yOJd-\u043e3927299] (setup)[0m
+curl -X GET 'http://localhost:8111/authenticationTest.html?csrf' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: */*'\
+-H 'Connection: keep-alive'\
+-H 'Authorization: Basic OjQ0OTMwMjgxMDEzMzk2NTMzODk=' \
+-d ''
+2024-04-03 15:06:36 INFO [32m pytest tests/backend/test_create_build_conf.py::TestBuildCreateWithInvalidData::test_create_build_conf_with_invalid_id_field[Roles.PROJECT_DEVELOPER-nUvexM7yOJd-\u043e3927299][0m
+curl -X POST 'http://localhost:8111/app/rest/projects' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: application/json'\
+-H 'Connection: keep-alive'\
+-H 'Content-Type: application/json'\
+-H 'X-TC-CSRF-Token: 77f56cbb-2612-4bf0-b79b-bee04427aeb8'\
+-H 'Cookie: RecentLogin=; TCSESSIONID=58861071E83B2B54205F20E77166BC2E'\
+-H 'Content-Length: 118'\
+-H 'Authorization: Basic OjQ0OTMwMjgxMDEzMzk2NTMzODk=' \
+-d '{"parentProject": {"locator": "_Root"}, "name": "nUvexM7yOJd", "id": "lazwk8vqPwh", "copeAllAssociatedSettings": true}' 
+
+2024-04-03 15:06:36 INFO [32m pytest tests/backend/test_create_build_conf.py::TestBuildCreateWithInvalidData::test_create_build_conf_with_invalid_id_field[Roles.PROJECT_DEVELOPER-nUvexM7yOJd-\u043e3927299][0m
+curl -X GET 'http://localhost:8111/app/rest/projects/lazwk8vqPwh' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: application/json'\
+-H 'Connection: keep-alive'\
+-H 'Content-Type: application/json'\
+-H 'X-TC-CSRF-Token: 77f56cbb-2612-4bf0-b79b-bee04427aeb8'\
+-H 'Cookie: TCSESSIONID=58861071E83B2B54205F20E77166BC2E'\
+-H 'Authorization: Basic OjQ0OTMwMjgxMDEzMzk2NTMzODk=' \
+-d '' 
+
+2024-04-03 15:06:36 INFO [32m pytest tests/backend/test_create_build_conf.py::TestBuildCreateWithInvalidData::test_create_build_conf_with_invalid_id_field[Roles.PROJECT_DEVELOPER-nUvexM7yOJd-\u043e3927299][0m
+curl -X POST 'http://localhost:8111/app/rest/buildTypes' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: application/json'\
+-H 'Connection: keep-alive'\
+-H 'Content-Type: application/json'\
+-H 'X-TC-CSRF-Token: 77f56cbb-2612-4bf0-b79b-bee04427aeb8'\
+-H 'Cookie: TCSESSIONID=58861071E83B2B54205F20E77166BC2E'\
+-H 'Content-Length: 338'\
+-H 'Authorization: Basic OjQ0OTMwMjgxMDEzMzk2NTMzODk=' \
+-d '{"id": "\u043e3927299", "name": "out", "project": {"id": "lazwk8vqPwh"}, "steps": {"step": [{"name": "myCommandLineStep", "type": "simpleRunner", "properties": {"property": [{"name": "script.content", "value": "echo 'Hello World!'"}, {"name": "teamcity.step.mode", "value": "default"}, {"name": "use.custom.script", "value": "true"}]}}]}}' 
+
+2024-04-03 15:06:36 INFO 	RESPONSE:
+STATUS_CODE: [31m500[0m
+DATA: [31mError has occurred during request processing, status code: 500 (Internal Server Error).
+Details: jetbrains.buildServer.serverSide.InvalidIdentifierException: Build configuration or template ID "Ð¾3927299" is invalid: contains non-latin letter 'Ð¾'. ID should start with a latin letter and contain only latin letters, digits and underscores (at most 225 characters).
+Error occurred while processing this request.[0m
+2024-04-03 15:06:36 INFO [32m pytest tests/backend/test_create_build_conf.py::TestBuildCreateWithInvalidData::test_create_build_conf_with_invalid_id_field[Roles.PROJECT_DEVELOPER-nUvexM7yOJd-\u043e3927299] (teardown)[0m
+curl -X DELETE 'http://localhost:8111/app/rest/projects/id:lazwk8vqPwh' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: application/json'\
+-H 'Connection: keep-alive'\
+-H 'Content-Type: application/json'\
+-H 'X-TC-CSRF-Token: 77f56cbb-2612-4bf0-b79b-bee04427aeb8'\
+-H 'Cookie: TCSESSIONID=58861071E83B2B54205F20E77166BC2E'\
+-H 'Content-Length: 0'\
+-H 'Authorization: Basic OjQ0OTMwMjgxMDEzMzk2NTMzODk=' \
+-d '' 
+
+2024-04-03 15:06:36 INFO [32m pytest tests/backend/test_create_build_conf.py::TestBuildCreateWithInvalidData::test_create_build_conf_with_invalid_id_field[Roles.PROJECT_DEVELOPER-nUvexM7yOJd-\u043e3927299] (teardown)[0m
+curl -X GET 'http://localhost:8111/app/rest/projects' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: application/json'\
+-H 'Connection: keep-alive'\
+-H 'Content-Type: application/json'\
+-H 'X-TC-CSRF-Token: 77f56cbb-2612-4bf0-b79b-bee04427aeb8'\
+-H 'Cookie: TCSESSIONID=58861071E83B2B54205F20E77166BC2E'\
+-H 'Authorization: Basic OjQ0OTMwMjgxMDEzMzk2NTMzODk=' \
+-d ''
