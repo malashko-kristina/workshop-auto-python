@@ -18,11 +18,6 @@ jobs:
           python-version: "3.10"
           architecture: "x64"
           token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Install Black
-        run: pip install black
-      - name: Auto-format code with Black
-        run: black .
-      - run: echo "Code formatting with Black"
       - name: Install flake8
         run: pip install flake8
       - name: Run flake8
