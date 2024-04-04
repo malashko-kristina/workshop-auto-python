@@ -1,0 +1,81 @@
+2024-04-04 12:50:31 INFO [32m pytest tests/frontend/test_e2e_create_project.py::test_create_project_invalid_id_name[chromium] (setup)[0m
+curl -X GET 'http://localhost:8111/authenticationTest.html?csrf' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: */*'\
+-H 'Connection: keep-alive'\
+-H 'Authorization: Basic OjM4NzAyODQzODA0MjQ1NTUzMTM=' \
+-d ''
+2024-04-04 12:50:31 INFO [32m pytest tests/frontend/test_e2e_create_project.py::test_create_project_invalid_id_name[chromium][0m
+curl -X POST 'http://localhost:8111/app/rest/projects' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: application/json'\
+-H 'Connection: keep-alive'\
+-H 'Content-Type: application/json'\
+-H 'X-TC-CSRF-Token: 4f742953-2038-4cb2-b466-4368f4ff53d5'\
+-H 'Cookie: RecentLogin=; TCSESSIONID=338DCBE09C30CB79E4E960EE53874F20'\
+-H 'Content-Length: 118'\
+-H 'Authorization: Basic OjM4NzAyODQzODA0MjQ1NTUzMTM=' \
+-d '{"parentProject": {"locator": "_Root"}, "name": "PsBd0qYFmpF", "id": "e3M6iPRm6Er", "copeAllAssociatedSettings": true}' 
+
+2024-04-04 12:50:42 INFO [32m pytest tests/frontend/test_e2e_create_project.py::test_create_project_invalid_id_name[chromium][0m
+curl -X GET 'http://localhost:8111/app/rest/projects/situation' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: application/json'\
+-H 'Connection: keep-alive'\
+-H 'Content-Type: application/json'\
+-H 'X-TC-CSRF-Token: 4f742953-2038-4cb2-b466-4368f4ff53d5'\
+-H 'Cookie: TCSESSIONID=338DCBE09C30CB79E4E960EE53874F20'\
+-H 'Authorization: Basic OjM4NzAyODQzODA0MjQ1NTUzMTM=' \
+-d ''
+2024-04-04 12:50:47 INFO [32m pytest tests/frontend/test_e2e_create_project.py::test_create_project_invalid_id_name[chromium] (teardown)[0m
+curl -X DELETE 'http://localhost:8111/app/rest/projects/id:e3M6iPRm6Er' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: application/json'\
+-H 'Connection: keep-alive'\
+-H 'Content-Type: application/json'\
+-H 'X-TC-CSRF-Token: 4f742953-2038-4cb2-b466-4368f4ff53d5'\
+-H 'Cookie: TCSESSIONID=338DCBE09C30CB79E4E960EE53874F20'\
+-H 'Content-Length: 0'\
+-H 'Authorization: Basic OjM4NzAyODQzODA0MjQ1NTUzMTM=' \
+-d '' 
+
+2024-04-04 12:50:47 INFO [32m pytest tests/frontend/test_e2e_create_project.py::test_create_project_invalid_id_name[chromium] (teardown)[0m
+curl -X GET 'http://localhost:8111/app/rest/projects' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: application/json'\
+-H 'Connection: keep-alive'\
+-H 'Content-Type: application/json'\
+-H 'X-TC-CSRF-Token: 4f742953-2038-4cb2-b466-4368f4ff53d5'\
+-H 'Cookie: TCSESSIONID=338DCBE09C30CB79E4E960EE53874F20'\
+-H 'Authorization: Basic OjM4NzAyODQzODA0MjQ1NTUzMTM=' \
+-d '' 
+
+2024-04-04 12:50:47 INFO [32m pytest tests/frontend/test_e2e_create_project.py::test_create_project_invalid_id_name[chromium] (teardown)[0m
+curl -X DELETE 'http://localhost:8111/app/rest/projects/id:QWE8rTcNEnz' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: application/json'\
+-H 'Connection: keep-alive'\
+-H 'Content-Type: application/json'\
+-H 'X-TC-CSRF-Token: 4f742953-2038-4cb2-b466-4368f4ff53d5'\
+-H 'Cookie: TCSESSIONID=338DCBE09C30CB79E4E960EE53874F20'\
+-H 'Content-Length: 0'\
+-H 'Authorization: Basic OjM4NzAyODQzODA0MjQ1NTUzMTM=' \
+-d '' 
+
+2024-04-04 12:50:47 INFO [32m pytest tests/frontend/test_e2e_create_project.py::test_create_project_invalid_id_name[chromium] (teardown)[0m
+curl -X GET 'http://localhost:8111/app/rest/projects' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: application/json'\
+-H 'Connection: keep-alive'\
+-H 'Content-Type: application/json'\
+-H 'X-TC-CSRF-Token: 4f742953-2038-4cb2-b466-4368f4ff53d5'\
+-H 'Cookie: TCSESSIONID=338DCBE09C30CB79E4E960EE53874F20'\
+-H 'Authorization: Basic OjM4NzAyODQzODA0MjQ1NTUzMTM=' \
+-d ''

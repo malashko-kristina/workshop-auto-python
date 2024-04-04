@@ -1,0 +1,101 @@
+2024-04-04 12:41:22 INFO [32m pytest tests/backend/test_create_build_conf.py::TestBuildConfCreateWithAlreadyUsedIdAndName::test_create_build_conf_when_build_conf_exists_with_id[Roles.PROJECT_VIEWER-t9OLheTdIxI-wrxVOO52Bdz] (setup)[0m
+curl -X GET 'http://localhost:8111/authenticationTest.html?csrf' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: */*'\
+-H 'Connection: keep-alive'\
+-H 'Authorization: Basic OjM4NzAyODQzODA0MjQ1NTUzMTM=' \
+-d ''
+2024-04-04 12:41:22 INFO [32m pytest tests/backend/test_create_build_conf.py::TestBuildConfCreateWithAlreadyUsedIdAndName::test_create_build_conf_when_build_conf_exists_with_id[Roles.PROJECT_VIEWER-t9OLheTdIxI-wrxVOO52Bdz][0m
+curl -X POST 'http://localhost:8111/app/rest/projects' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: application/json'\
+-H 'Connection: keep-alive'\
+-H 'Content-Type: application/json'\
+-H 'X-TC-CSRF-Token: 0de6a26c-9ce9-4a42-96ed-753ce512657b'\
+-H 'Cookie: RecentLogin=; TCSESSIONID=0BCD71CB8035E815B50A33B79A08313F'\
+-H 'Content-Length: 118'\
+-H 'Authorization: Basic OjM4NzAyODQzODA0MjQ1NTUzMTM=' \
+-d '{"parentProject": {"locator": "_Root"}, "name": "t9OLheTdIxI", "id": "S62hlBeCzZF", "copeAllAssociatedSettings": true}' 
+
+2024-04-04 12:41:22 INFO [32m pytest tests/backend/test_create_build_conf.py::TestBuildConfCreateWithAlreadyUsedIdAndName::test_create_build_conf_when_build_conf_exists_with_id[Roles.PROJECT_VIEWER-t9OLheTdIxI-wrxVOO52Bdz][0m
+curl -X POST 'http://localhost:8111/app/rest/buildTypes' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: application/json'\
+-H 'Connection: keep-alive'\
+-H 'Content-Type: application/json'\
+-H 'X-TC-CSRF-Token: 0de6a26c-9ce9-4a42-96ed-753ce512657b'\
+-H 'Cookie: TCSESSIONID=0BCD71CB8035E815B50A33B79A08313F'\
+-H 'Content-Length: 344'\
+-H 'Authorization: Basic OjM4NzAyODQzODA0MjQ1NTUzMTM=' \
+-d '{"id": "ZfolrasX9Ti", "name": "wrxVOO52Bdz", "project": {"id": "S62hlBeCzZF"}, "steps": {"step": [{"name": "myCommandLineStep", "type": "simpleRunner", "properties": {"property": [{"name": "script.content", "value": "echo 'Hello World!'"}, {"name": "teamcity.step.mode", "value": "default"}, {"name": "use.custom.script", "value": "true"}]}}]}}' 
+
+2024-04-04 12:41:22 INFO [32m pytest tests/backend/test_create_build_conf.py::TestBuildConfCreateWithAlreadyUsedIdAndName::test_create_build_conf_when_build_conf_exists_with_id[Roles.PROJECT_VIEWER-t9OLheTdIxI-wrxVOO52Bdz][0m
+curl -X POST 'http://localhost:8111/app/rest/buildTypes' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: application/json'\
+-H 'Connection: keep-alive'\
+-H 'Content-Type: application/json'\
+-H 'X-TC-CSRF-Token: 0de6a26c-9ce9-4a42-96ed-753ce512657b'\
+-H 'Cookie: TCSESSIONID=0BCD71CB8035E815B50A33B79A08313F'\
+-H 'Content-Length: 344'\
+-H 'Authorization: Basic OjM4NzAyODQzODA0MjQ1NTUzMTM=' \
+-d '{"id": "ZfolrasX9Ti", "name": "wrxVOO52Bdz", "project": {"id": "S62hlBeCzZF"}, "steps": {"step": [{"name": "myCommandLineStep", "type": "simpleRunner", "properties": {"property": [{"name": "script.content", "value": "echo 'Hello World!'"}, {"name": "teamcity.step.mode", "value": "default"}, {"name": "use.custom.script", "value": "true"}]}}]}}' 
+
+2024-04-04 12:41:22 INFO 	RESPONSE:
+STATUS_CODE: [31m400[0m
+DATA: [31mResponding with error, status code: 400 (Bad Request).
+Details: jetbrains.buildServer.serverSide.identifiers.DuplicateExternalIdException: The build configuration / template ID "ZfolrasX9Ti" is already used by another configuration or template
+The build configuration / template ID "ZfolrasX9Ti" is already used by another configuration or template[0m
+2024-04-04 12:41:22 INFO [32m pytest tests/backend/test_create_build_conf.py::TestBuildConfCreateWithAlreadyUsedIdAndName::test_create_build_conf_when_build_conf_exists_with_id[Roles.PROJECT_VIEWER-t9OLheTdIxI-wrxVOO52Bdz] (teardown)[0m
+curl -X DELETE 'http://localhost:8111/app/rest/buildTypes/id:ZfolrasX9Ti' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: application/json'\
+-H 'Connection: keep-alive'\
+-H 'Content-Type: application/json'\
+-H 'X-TC-CSRF-Token: 0de6a26c-9ce9-4a42-96ed-753ce512657b'\
+-H 'Cookie: TCSESSIONID=0BCD71CB8035E815B50A33B79A08313F'\
+-H 'Content-Length: 0'\
+-H 'Authorization: Basic OjM4NzAyODQzODA0MjQ1NTUzMTM=' \
+-d '' 
+
+2024-04-04 12:41:22 INFO [32m pytest tests/backend/test_create_build_conf.py::TestBuildConfCreateWithAlreadyUsedIdAndName::test_create_build_conf_when_build_conf_exists_with_id[Roles.PROJECT_VIEWER-t9OLheTdIxI-wrxVOO52Bdz] (teardown)[0m
+curl -X GET 'http://localhost:8111/app/rest/buildQueue' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: application/json'\
+-H 'Connection: keep-alive'\
+-H 'Content-Type: application/json'\
+-H 'X-TC-CSRF-Token: 0de6a26c-9ce9-4a42-96ed-753ce512657b'\
+-H 'Cookie: TCSESSIONID=0BCD71CB8035E815B50A33B79A08313F'\
+-H 'Authorization: Basic OjM4NzAyODQzODA0MjQ1NTUzMTM=' \
+-d '' 
+
+2024-04-04 12:41:22 INFO [32m pytest tests/backend/test_create_build_conf.py::TestBuildConfCreateWithAlreadyUsedIdAndName::test_create_build_conf_when_build_conf_exists_with_id[Roles.PROJECT_VIEWER-t9OLheTdIxI-wrxVOO52Bdz] (teardown)[0m
+curl -X DELETE 'http://localhost:8111/app/rest/projects/id:S62hlBeCzZF' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: application/json'\
+-H 'Connection: keep-alive'\
+-H 'Content-Type: application/json'\
+-H 'X-TC-CSRF-Token: 0de6a26c-9ce9-4a42-96ed-753ce512657b'\
+-H 'Cookie: TCSESSIONID=0BCD71CB8035E815B50A33B79A08313F'\
+-H 'Content-Length: 0'\
+-H 'Authorization: Basic OjM4NzAyODQzODA0MjQ1NTUzMTM=' \
+-d '' 
+
+2024-04-04 12:41:22 INFO [32m pytest tests/backend/test_create_build_conf.py::TestBuildConfCreateWithAlreadyUsedIdAndName::test_create_build_conf_when_build_conf_exists_with_id[Roles.PROJECT_VIEWER-t9OLheTdIxI-wrxVOO52Bdz] (teardown)[0m
+curl -X GET 'http://localhost:8111/app/rest/projects' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: application/json'\
+-H 'Connection: keep-alive'\
+-H 'Content-Type: application/json'\
+-H 'X-TC-CSRF-Token: 0de6a26c-9ce9-4a42-96ed-753ce512657b'\
+-H 'Cookie: TCSESSIONID=0BCD71CB8035E815B50A33B79A08313F'\
+-H 'Authorization: Basic OjM4NzAyODQzODA0MjQ1NTUzMTM=' \
+-d ''
