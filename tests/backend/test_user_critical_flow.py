@@ -118,7 +118,7 @@ class TestProjectCreate:
                     build_conf_run_data_1.model_dump()
                 ).text
             )
-            time.sleep(15)
+            time.sleep(20)
         with allure.step(
             "Проверка соответствия параметров модели запуска билд конфига"
         ):
