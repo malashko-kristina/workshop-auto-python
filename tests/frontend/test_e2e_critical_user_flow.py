@@ -40,8 +40,7 @@ def test_critical_user_flow(browser, project_data, super_admin, build_conf_data,
     with allure.step("Отправка запроса на создание первого проекта"):
         project_data_2 = project_data_first_project()
         create_project_response = super_admin.api_manager.project_api.create_project(project_data_2.model_dump()).text
-    with allure.step(
-        "Проверка соответствия параметров созданного проекта с отправленными данными"):
+    with allure.step("Проверка соответствия параметров созданного проекта с отправленными данными"):
         project_model_response = ProjectResponseModel.model_validate_json(create_project_response)
     with pytest.assume:
         assert (project_model_response.id == project_data_2.id), (f"expected project id= {project_data_2.id},"
@@ -74,14 +73,11 @@ def test_critical_user_flow(browser, project_data, super_admin, build_conf_data,
         build_conf_creation_browser = BuildConfCreationPage(browser, project_id)
         build_conf_creation_browser.create_build_conf(build_conf_id, build_conf_name, description)
         build_conf_creation_browser.check_url_after_build_create(build_conf_id, project_id)
-    with allure.step(
-        "Проверка нахождения id созданной билд конфигурации в общем списке билд конфигураций"):
+    with allure.step("Проверка нахождения id созданной билд конфигурации в общем списке билд конфигураций"):
         get_build_conf_response = super_admin.api_manager.build_conf_api.get_build_conf(build_conf_data_1.id).text
-    with allure.step(
-        "Проверка соответствия параметров созданной билд конфигурации с отправленными данными"):
+    with allure.step("Проверка соответствия параметров созданной билд конфигурации с отправленными данными"):
         build_conf_model_response_1 = BuildResponseModel.model_validate_json(get_build_conf_response)
-        assert build_conf_model_response_1.id == build_conf_data_1.id, (
-            f"expected build conf id= {build_conf_data_1.id},"
+        assert build_conf_model_response_1.id == build_conf_data_1.id, (f"expected build conf id= {build_conf_data_1.id},"
             f" but '{build_conf_model_response_1.id}' given")
     with allure.step("Проверка количества активных агентов"):
         response_2 = (super_admin.api_manager.agent_api.check_amount_of_authorized_agents())
@@ -94,7 +90,7 @@ def test_critical_user_flow(browser, project_data, super_admin, build_conf_data,
         run_build_conf_without_steps = BuildConfRunPage(browser, project_id, build_conf_id)
         run_build_conf_without_steps.run_build_conf_ui()
     with allure.step("Отправка запроса на проверку количества билд конфигураций в очереди для запуска"):
-        get_build_conf_run_response = (super_admin.api_manager.build_conf_api.check_query_with_build_conf().text)
+        get_build_conf_run_response = super_admin.api_manager.build_conf_api.check_query_with_build_conf().text
     with allure.step("Проверка соответствия параметров модели ответа запуска билд конфигурации с отправленными данными"):
         build_run_response = BuildConfRunStatusModel.model_validate_json(get_build_conf_run_response)
         assert build_run_response.count == 0, (
