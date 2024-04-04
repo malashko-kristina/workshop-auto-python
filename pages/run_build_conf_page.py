@@ -6,8 +6,7 @@ class SideBarListBuildConfFragment(BasePage):
     def __init__(self, page):
         self.page = page
         super().__init__(page)
-        self.create_build_from_url = ("a.tabs:has-text"
-                                                    "('Build Steps')")
+        self.create_build_from_url = "a.tabs:has-text('Build Steps')"
 
     def click_create_steps_build_conf(self):
         with allure.step("Выбор создания шагов для билд конф"):

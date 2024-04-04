@@ -89,8 +89,7 @@ class BuildDataCopyModel(BaseModel):
 
 class BuildConfData:
     @staticmethod
-    def build_conf_data(project_id, name)\
-            -> BuildDataModel:
+    def build_conf_data(project_id, name) -> BuildDataModel:
         # Метод по генерации данных для билда
         return (BuildDataModel(
             id=DataGenerator.fake_build_id(),
@@ -120,8 +119,7 @@ class BuildConfData:
                 ]}))
 
     @staticmethod
-    def build_data_empty_steps(project_id)\
-            -> BuildDataModel:
+    def build_data_empty_steps(project_id) -> BuildDataModel:
         return (BuildDataModel(
             id=DataGenerator.fake_build_id(),
             name=DataGenerator.fake_name(),
@@ -130,8 +128,7 @@ class BuildConfData:
         ))
 
     @staticmethod
-    def build_data_without_steps(project_id)\
-            -> BuildDataModel:
+    def build_data_without_steps(project_id) -> BuildDataModel:
         return (BuildDataModel(
             id=DataGenerator.fake_build_id(),
             name=DataGenerator.fake_name(),
@@ -139,8 +136,7 @@ class BuildConfData:
         ))
 
     @staticmethod
-    def build_data_empty_id(project_id)\
-            -> BuildDataModel:
+    def build_data_empty_id(project_id) -> BuildDataModel:
         return (BuildDataModel(
             id="",
             name=DataGenerator.fake_name(),
@@ -169,8 +165,7 @@ class BuildConfData:
             ]}))
 
     @staticmethod
-    def build_data_empty_name(project_id)\
-            -> BuildDataModel:
+    def build_data_empty_name(project_id) -> BuildDataModel:
         return (BuildDataModel(
             id=DataGenerator.fake_build_id(),
             name="",
@@ -199,8 +194,7 @@ class BuildConfData:
             ]}))
 
     @staticmethod
-    def build_data_invalid_project_id(project_ids)\
-            -> BuildDataModel:
+    def build_data_invalid_project_id(project_ids) -> BuildDataModel:
         return (BuildDataModel(
             id=DataGenerator.fake_build_id(),
             name=DataGenerator.fake_name(),
@@ -229,8 +223,7 @@ class BuildConfData:
             ]}))
 
     @staticmethod
-    def build_data_invalid_ids(project_id, ids)\
-            -> BuildDataModel:
+    def build_data_invalid_ids(project_id, ids) -> BuildDataModel:
         return (BuildDataModel(
             id=ids,
             name=DataGenerator.fake_name(),

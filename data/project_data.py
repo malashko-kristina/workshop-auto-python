@@ -59,14 +59,14 @@ class ProjectResponseModel(BaseModel):
 
 class ProjectDataModel(BaseModel):
     parentProject: Dict[str, str]
-    name:  str
+    name: str
     id: str
     copeAllAssociatedSettings: bool
 
 
 class ProjectDataCopyModel(BaseModel):
     parentProject: Dict[str, str]
-    name:  str
+    name: str
     id: str
     copeAllAssociatedSettings: bool
     sourceProject: Dict[str, str]
@@ -74,8 +74,7 @@ class ProjectDataCopyModel(BaseModel):
 
 class ProjectData:
     @staticmethod
-    def project_data_correct_data(name)\
-            -> ProjectDataModel:
+    def project_data_correct_data(name) -> ProjectDataModel:
         return (ProjectDataModel(
             parentProject={"locator": "_Root"},
             name=name,
@@ -84,8 +83,7 @@ class ProjectData:
         ))
 
     @staticmethod
-    def first_project_data_correct_data()\
-            -> ProjectDataModel:
+    def first_project_data_correct_data() -> ProjectDataModel:
         return (ProjectDataModel(
             parentProject={"locator": "_Root"},
             name=DataGenerator.fake_build_id(),
@@ -103,32 +101,27 @@ class ProjectData:
         ))
 
     @staticmethod
-    def create_project_data_copy(project_id)\
-            -> ProjectDataCopyModel:
+    def create_project_data_copy(project_id) -> ProjectDataCopyModel:
         return (ProjectDataCopyModel(
             parentProject={"locator": "_Root"},
             name=DataGenerator.fake_name(),
-            id= DataGenerator.fake_project_id(),
+            id=DataGenerator.fake_project_id(),
             copeAllAssociatedSettings=True,
             sourceProject={"locator": project_id}
-
         ))
 
     @staticmethod
-    def project_copy_new_source_project()\
-            -> ProjectDataCopyModel:
+    def project_copy_new_source_project() -> ProjectDataCopyModel:
         return (ProjectDataCopyModel(
             parentProject={"locator": "_Root"},
             name=DataGenerator.fake_name(),
             id=DataGenerator.fake_project_id(),
             copeAllAssociatedSettings=True,
             sourceProject={"locator": DataGenerator.fake_build_id()}
-
         ))
 
     @staticmethod
-    def project_data_empty_parentProject()\
-            -> ProjectDataModel:
+    def project_data_empty_parentProject() -> ProjectDataModel:
         return (ProjectDataModel(
             parentProject={"locator": ""},
             name=DataGenerator.fake_name(),
@@ -137,8 +130,7 @@ class ProjectData:
         ))
 
     @staticmethod
-    def project_data_inv_parentProject(variant)\
-            -> ProjectDataModel:
+    def project_data_inv_parentProject(variant) -> ProjectDataModel:
         return (ProjectDataModel(
             parentProject={"locator": variant},
             name=DataGenerator.fake_name(),

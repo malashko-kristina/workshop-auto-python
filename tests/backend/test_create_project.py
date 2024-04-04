@@ -166,7 +166,7 @@ class TestProjectCreateWithInvalidData:
 
         with pytest.assume:
             assert (
-                f"NotFoundException: No project found by name or internal/external id"
+                "NotFoundException: No project found by name or internal/external id"
                 in create_project_response.text
             )
 
@@ -215,8 +215,7 @@ class TestProjectCreateWithVariantData:
 
         with pytest.assume:
             assert (
-                project_model_response.parentProjectId
-                == project_data_2.parentProject["locator"]
+                project_model_response.parentProjectId== project_data_2.parentProject["locator"]
             ), (
                 f"expected parent project id= {project_data_2.parentProject['locator']},"
                 f" but '{project_model_response.parentProjectId}' given in response"
@@ -343,8 +342,7 @@ class TestProjectCopy:
             project_data_3 = project_data
             create_project_response = (
                 super_admin.api_manager.project_api.create_project(
-                    project_data_3.model_dump()
-                ).text
+                    project_data_3.model_dump()).text
             )
         with allure.step(
             "Проверка соответствия параметров созданного проекта с отправленными данными"
@@ -359,8 +357,7 @@ class TestProjectCopy:
             )
         with pytest.assume:
             assert (
-                project_model_response.parentProjectId
-                == project_data_3.parentProject["locator"]
+                project_model_response.parentProjectId== project_data_3.parentProject["locator"]
             ), (
                 f"expected parent project id= {project_data_3.parentProject['locator']},"
                 f" but '{project_model_response.parentProjectId}' given in response"
@@ -371,8 +368,7 @@ class TestProjectCopy:
             project_copy_data_1 = project_copy_data
             create_project_copy_response = (
                 super_admin.api_manager.project_api.create_copy_project(
-                    project_copy_data_1.model_dump()
-                ).text
+                    project_copy_data_1.model_dump()).text
             )
         with allure.step(
             "Проверка соответствия параметров созданного проекта с отправленными данными"
@@ -387,8 +383,7 @@ class TestProjectCopy:
             )
         with pytest.assume:
             assert (
-                project_copy_model_response.parentProjectId
-                == project_copy_data_1.parentProject["locator"]
+                project_copy_model_response.parentProjectId== project_copy_data_1.parentProject["locator"]
             ), (
                 f"expected parent project id="
                 f" {project_copy_data_1.parentProject['locator']},"
@@ -418,8 +413,7 @@ class TestProjectCopy:
             project_data_3 = project_data
             create_project_response = (
                 super_admin.api_manager.project_api.create_project(
-                    project_data_3.model_dump()
-                ).text
+                    project_data_3.model_dump()).text
             )
         with allure.step(
             "Проверка соответствия параметров созданного проекта с отправленными данными"
@@ -434,8 +428,7 @@ class TestProjectCopy:
             )
         with pytest.assume:
             assert (
-                project_model_response.parentProjectId
-                == project_data_3.parentProject["locator"]
+                project_model_response.parentProjectId== project_data_3.parentProject["locator"]
             ), (
                 f"expected parent project id= {project_data_3.parentProject['locator']},"
                 f" but '{project_model_response.parentProjectId}' given in response"
@@ -479,8 +472,7 @@ class TestProjectCreateAndDelete:
             project_data_1 = project_data_without_deleting()
             create_project_response = (
                 super_admin.api_manager.project_api.create_project(
-                    project_data_1.model_dump()
-                ).text
+                    project_data_1.model_dump()).text
             )
         with allure.step(
             "Проверка соответствия параметров созданного проекта с отправленными данными"

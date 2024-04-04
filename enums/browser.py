@@ -1,2 +1,1 @@
 BROWSERS = ['chromium', 'firefox', 'webkit']
-

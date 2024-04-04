@@ -5,8 +5,7 @@ from pages.base_page import BasePage
 class MsgProjectCreatedFrt(BasePage):
     def __init__(self, page):
         super().__init__(page)
-        self.message_created_project = (".successMessage"
-                                                "#message_projectCreated")
+        self.message_created_project = (".successMessage#message_projectCreated")
 
     def check_text_in_selector(self, project_name):
         with allure.step("Проверка наличия текста на странице"):

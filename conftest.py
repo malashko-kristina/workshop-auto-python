@@ -32,7 +32,7 @@ def one_browser():
 @pytest.fixture
 def user_session():
     user_pool = []
-    """ 
+    """
     Создаем сессии созданных пользователей, которые мы потом будем удалять.
     Функция _create_user_session: Это вложенная функция, которая создает новую
     HTTP-сессию с помощью requests.Session(), оборачивает ее в ApiManager для

@@ -62,15 +62,9 @@ class CreateFormContainerFragment(BasePage):
             self.actions.click_button(self.create_project_button)
 
     def error_empty_project_name(self):
-        with allure.step(
-            f"Проверка нахождения текста об ошибке"
-            f" 'Project name is empty' в селекторе"
-            f" {self.error_empty_name}"
-        ):
+        with allure.step("Проверка нахождения текста об ошибке 'Project name is empty'"):
             self.actions.wait_for_selector(self.error_empty_name)
-            self.actions.assert_text_in_element(
-                self.error_empty_name, "Project name is empty"
-            )
+            self.actions.assert_text_in_element(self.error_empty_name, "Project name is empty")
             self.actions.check_error_color(self.error_empty_name)
 
     def error_invalid_project_id(self, project_id):
@@ -114,9 +108,7 @@ class ProjectCreationPage(BasePage):
         with allure.step("Клик по кнопке ручного создания проекта"):
             self.menu_list_create.click_create_manually()
         with allure.step("Заполнение полей информации о проекте"):
-            self.create_form_container.input_project_details(
-                name, project_id, description
-            )
+            self.create_form_container.input_project_details(name, project_id, description)
         with allure.step("Клик по кнопке создания проекта"):
             self.create_form_container.click_create_button()
             self.actions.wait_for_page_load()
@@ -128,16 +120,9 @@ class ProjectCreationPage(BasePage):
             self.actions.check_url(self.page_url)
 
     def check_error_empty_project_name_is_visible(self):
-        with allure.step(
-            f"Проверка нахождения текста об ошибке"
-            f" 'Project name is empty' в селекторе"
-            f" {self.create_form_container.error_empty_name}"
-        ):
+        with allure.step("Проверка нахождения текста об ошибке 'Project name is empty'"):
             self.create_form_container.error_empty_project_name()
 
     def check_error_invalid_project_id_is_visible(self, project_id):
-        with allure.step(
-            f"Проверка нахождения текста об ошибке"
-            f" о том, что project id уже используется"
-        ):
+        with allure.step("Проверка нахождения текста об ошибке о том, что project id уже используется"):
             self.create_form_container.error_invalid_project_id(project_id)

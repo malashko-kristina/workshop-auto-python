@@ -4,8 +4,7 @@ from utilis.data_generator import DataGenerator
 
 class UserData:
     @staticmethod
-    def create_user_data(role=Roles.SYSTEM_ADMIN.value,
-                         scope="g"):
+    def create_user_data(role=Roles.SYSTEM_ADMIN.value, scope="g"):
         # Метод, генерирующий данные юзера
         return {
             "username": DataGenerator.fake_name(),
@@ -14,8 +13,8 @@ class UserData:
             "roles": {
                 "role": [
                     {
-                           "roleId": role,
-                           "scope": scope,
+                        "roleId": role,
+                        "scope": scope,
                     }
                 ]
             }

@@ -35,8 +35,7 @@ class TestProjectCreate:
             project_data_1 = project_data
             create_project_response = (
                 super_admin.api_manager.project_api.create_project(
-                    project_data_1.model_dump()
-                ).text
+                    project_data_1.model_dump()).text
             )
         with allure.step(
             "Проверка соответствия параметров созданного проекта с отправленными данными"
@@ -50,8 +49,7 @@ class TestProjectCreate:
             ), f"expected project id= {project_data_1.id}, but '{project_model_response.id}' given"
         with pytest.assume:
             assert (
-                project_model_response.parentProjectId
-                == project_data_1.parentProject["locator"]
+                project_model_response.parentProjectId == project_data_1.parentProject["locator"]
             ), (
                 f"expected parent project id= {project_data_1.parentProject['locator']},"
                 f" but '{project_model_response.parentProjectId}' given in response"
@@ -61,8 +59,7 @@ class TestProjectCreate:
         ):
             get_project_response = (
                 super_admin.api_manager.project_api.get_project_by_locator(
-                    project_data_1.id
-                ).text
+                    project_data_1.id).text
             )
         with allure.step(
             "Проверка соответствия параметров созданного проекта с отправленными данными"
@@ -78,8 +75,7 @@ class TestProjectCreate:
             build_conf_data_1 = build_conf_data
             build_config_response = (
                 super_admin.api_manager.build_conf_api.create_build_conf(
-                    build_conf_data_1.model_dump()
-                ).text
+                    build_conf_data_1.model_dump()).text
             )
         with allure.step(
             "Проверка соответствия параметров созданной билд конфигурации с отправленными данными"
@@ -97,8 +93,7 @@ class TestProjectCreate:
         ):
             get_build_conf_response = (
                 super_admin.api_manager.build_conf_api.get_build_conf(
-                    build_conf_data_1.id
-                ).text
+                    build_conf_data_1.id).text
             )
         with allure.step(
             "Проверка соответствия параметров созданной билд конфигурации с отправленными данными"
@@ -115,8 +110,7 @@ class TestProjectCreate:
             build_conf_run_data_1 = build_conf_run_data
             build_run_response = (
                 super_admin.api_manager.run_build_conf_api.run_build_conf(
-                    build_conf_run_data_1.model_dump()
-                ).text
+                    build_conf_run_data_1.model_dump()).text
             )
             time.sleep(20)
         with allure.step(

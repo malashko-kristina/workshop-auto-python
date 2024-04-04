@@ -42,10 +42,7 @@ class BuildConfEditFragment(BasePage):
 
     def message_after_copy_build_conf(self):
         self.actions.wait_for_selector(self.copy_build_message)
-        self.actions.assert_text_in_element(
-            self.copy_build_message,
-            f"Build configuration has been copied successfully.",
-        )
+        self.actions.assert_text_in_element(self.copy_build_message, "Build configuration has been copied successfully.")
 
     def error_message_copy_build_conf(self, build_conf_id, first_symbol):
         with allure.step("Ошибка копировании билда"):
