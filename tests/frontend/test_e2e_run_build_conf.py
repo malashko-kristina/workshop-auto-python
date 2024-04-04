@@ -26,9 +26,7 @@ from utilis.data_generator import DataGenerator
 @allure.description(
     "Негативный тест проверяет шагов билд конфигурации с последующим ее запуском и отображением ошибки."
 )
-def test_run_build_conf(
-    browser, project_data, super_admin, build_conf_data, project_data_first_project
-):
+def test_run_build_conf(browser, project_data, super_admin, build_conf_data, project_data_first_project):
     project_data_1 = project_data
     project_id = project_data_1.id
     project_name = project_data_1.name

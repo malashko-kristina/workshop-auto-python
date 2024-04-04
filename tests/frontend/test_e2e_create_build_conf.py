@@ -28,8 +28,7 @@ from utilis.data_generator import DataGenerator
     " обязательными полями, невалидным id, с уже существующим"
     " именем билд конфигурации."
 )
-def test_create_build_conf_with_invalid_data(
-    browser, project_data, super_admin, build_conf_data, delete_all_projects):
+def test_create_build_conf_with_invalid_data(browser, project_data, super_admin, build_conf_data, delete_all_projects):
     project_data_1 = project_data
     project_id = project_data_1.id
     project_name = project_data_1.name

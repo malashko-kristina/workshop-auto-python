@@ -25,8 +25,7 @@ from utilis.data_generator import DataGenerator
 @allure.testcase("https://testcase.manager/testcase/1", name="Тест-кейс-207")
 @allure.title("Проверка создания проекта, билд конфигурации с последующим запуском")
 @allure.description("Позитивный тест проверяет критический юзер флоу от создания проекта до запуска билда.")
-def test_critical_user_flow(
-    browser, project_data, super_admin, build_conf_data, project_data_first_project):
+def test_critical_user_flow(browser, project_data, super_admin, build_conf_data, project_data_first_project):
     project_data_1 = project_data
     project_id = project_data_1.id
     project_name = project_data_1.name
@@ -70,7 +69,7 @@ def test_critical_user_flow(
                                                             f" but '{created_project.id}' given")
             with pytest.assume:
                 assert created_project.parentProjectId == project_parent, (f"expected parent project = {project_parent},"
-                    f" but '{created_project.parentProjectId}' given")
+                                                                           f" but '{created_project.parentProjectId}' given")
     with allure.step("Cоздание билд конфигурации"):
         build_conf_creation_browser = BuildConfCreationPage(browser, project_id)
         build_conf_creation_browser.create_build_conf(build_conf_id, build_conf_name, description)
