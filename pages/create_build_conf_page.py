@@ -91,8 +91,7 @@ class CreateBuildConfFormFrt(BasePage):
             )
             self.actions.check_error_color(self.build_id_error)
 
-    def error_used_build_name(self, build_conf_name,
-                                            project_name):
+    def error_used_build_name(self, build_conf_name, project_name):
         with allure.step("Проверка ошибки об используемом имени билда"):
             self.actions.wait_for_selector(self.build_name_error)
             self.actions.assert_text_in_element(
@@ -136,12 +135,12 @@ class BuildConfCreationPage(BasePage):
 
     def check_url_after_build_create(self, build_conf_id, project_id):
         self.page_url = (
-            f"/admin/editVcsRoot.html?action=addVcsRoot&editingScope"
+            "/admin/editVcsRoot.html?action=addVcsRoot&editingScope"
             f"=buildType%3A{build_conf_id}&cameFromUrl=%2Fadmin%2Fedit"
-            f"BuildTypeVcsRoots.html%3Finit%3D1%26id%3DbuildType%3A"
+            "BuildTypeVcsRoots.html%3Finit%3D1%26id%3DbuildType%3A"
             f"{build_conf_id}%26cameFromUrl%3D%252Fadmin%252FeditProject"
             f".html%253Finit%253D1%2526projectId%253D{project_id}&came"
-            f"FromTitle=Version%20Control%20Settings&showSkip=true"
+            "FromTitle=Version%20Control%20Settings&showSkip=true"
         )
         self.actions.wait_for_url_change(self.page_url)
 

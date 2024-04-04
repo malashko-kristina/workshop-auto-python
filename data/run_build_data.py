@@ -2,6 +2,7 @@ from typing import Optional, Dict
 from utilis.data_generator import DataGenerator
 from pydantic import BaseModel
 
+
 class BuildTypeRunModel(BaseModel):
     id: str
     name: str
@@ -30,7 +31,6 @@ class BuildTypesModel(BaseModel):
 class BuildRunRequestModel(BaseModel):
     buildType: BuildTypesModel
 
-
     class Config:
         extra = "allow"
 
@@ -56,7 +56,6 @@ class BuildRunResponseModel(BaseModel):
     artifacts: Optional[dict]
     vcsLabels: Optional[list]
     customization: Optional[dict] = None
-
 
     class Config:
         extra = "allow"
@@ -87,7 +86,6 @@ class BuildRunCancelResponseModel(BaseModel):
     finishOnAgentDate: Optional[str]
     customization: dict = None
 
-
     class Config:
         extra = "allow"
 
@@ -103,25 +101,25 @@ class BuildRunData:
     @staticmethod
     def run_build_data(build_conf_id) -> BuildRunRequestModel:
         return (BuildRunRequestModel(
-            buildType = {"id":build_conf_id}
+            buildType={"id": build_conf_id}
         ))
 
     @staticmethod
     def run_build_incorrect_data() -> BuildRunRequestModel:
         return (BuildRunRequestModel(
-            buildType = {"id":DataGenerator.fake_build_id()}
+            buildType={"id": DataGenerator.fake_build_id()}
         ))
 
     @staticmethod
     def create_run_build_data_with_invalid_id() -> BuildRunRequestModel:
         return (BuildRunRequestModel(
-            buildType = {"id":DataGenerator.fake_build_id()}
+            buildType={"id": DataGenerator.fake_build_id()}
         ))
 
     @staticmethod
     def create_run_build_data_with_empty_dict() -> BuildRunRequestModel:
         return (BuildRunRequestModel(
-            buildType = {}
+            buildType={}
         ))
 
     @staticmethod

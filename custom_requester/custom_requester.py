@@ -74,8 +74,7 @@ class CustomRequester:
                     for headers, value in request.headers.items()
                 ]
             )
-            full_test_name = f"pytest {os.environ.get('PYTEST_CURRENT_TEST', '').
-            replace(' (call)', '')}"
+            full_test_name = f"pytest {os.environ.get('PYTEST_CURRENT_TEST', '').replace(' (call)', '')}"
 
             body = ""
             if hasattr(request, "body") and request.body is not None:

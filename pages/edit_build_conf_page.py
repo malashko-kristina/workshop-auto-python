@@ -44,7 +44,7 @@ class BuildConfEditFragment(BasePage):
         self.actions.wait_for_selector(self.copy_build_message)
         self.actions.assert_text_in_element(
             self.copy_build_message,
-            f"Build configuration has been" f" copied successfully.",
+            f"Build configuration has been copied successfully.",
         )
 
     def error_message_copy_build_conf(self, build_conf_id, first_symbol):
@@ -52,13 +52,13 @@ class BuildConfEditFragment(BasePage):
             self.actions.wait_for_selector(self.error_message_id)
             self.actions.assert_text_in_element(
                 self.error_message_id,
-                f"Build configuration or template ID"
+                "Build configuration or template ID"
                 f' "{build_conf_id}" is invalid:'
-                f" starts with non-letter character"
+                " starts with non-letter character"
                 f" '{first_symbol}'. ID should start"
-                f" with a latin letter and contain"
-                f" only latin letters, digits and"
-                f" underscores (at most 225 characters).",
+                " with a latin letter and contain"
+                " only latin letters, digits and"
+                " underscores (at most 225 characters).",
             )
             self.actions.check_error_color(self.error_message_id)
 

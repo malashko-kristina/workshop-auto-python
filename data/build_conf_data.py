@@ -66,7 +66,6 @@ class BuildResponseModel(BaseModel):
     investigations: Optional[InvestigationsModel] = None
     compatibleAgents: Optional[CompatibleAgentsModel] = None
 
-
     class Config:
         extra = "allow"
 
@@ -76,7 +75,6 @@ class BuildDataModel(BaseModel):
     name: str
     project: Dict[str, str]
     steps: Optional[dict] = None
-
 
     class Config:
         extra = "allow"

@@ -6,8 +6,7 @@ class ContentBuildStepsFragment(BasePage):
     def __init__(self, page):
         self.page = page
         super().__init__(page)
-        self.add_build_steps_btn = "a.btn:has-text"\
-                                               "('Add build step')"
+        self.add_build_steps_btn = "a.btn:has-text('Add build step')"
 
     def click_create_steps_build_conf(self):
         with allure.step("Нажатия на кнопку добавления шагов к билд"):
@@ -22,7 +21,7 @@ class BuildStepsPage(BasePage):
     def __init__(self, page, build_conf_id):
         super().__init__(page)
         self.page_url = (
-            f"/admin/editBuildRunners.html?id=buildType:" f'"{build_conf_id}"'
+            f'/admin/editBuildRunners.html?id=buildType:"{build_conf_id}"'
         )
         self.content_build_steps = ContentBuildStepsFragment(page)
 

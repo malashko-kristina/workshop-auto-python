@@ -100,8 +100,7 @@ class EditProjectPageFrt(BasePage):
         self.project_name_selector = "input#name"
         self.project_id_selector = "input#externalId"
         self.project_description_selector = "input#description"
-        self.project_save_button = ('.submitButton'
-                                             '[name="submitButton"]')
+        self.project_save_button = '.submitButton[name="submitButton"]'
         self.project_cancel_button = ".cancel"
         self.invalid_id_error = "#errorExternalId"
         self.warning_message = "#changeExternalIdWarning"
@@ -173,7 +172,7 @@ class EditProjectPageFrt(BasePage):
         ):
             self.actions.wait_for_selector(self.empty_id_copy_error)
             self.actions.assert_text_in_element(
-                self.empty_id_copy_error, f"Project ID must not be empty."
+                self.empty_id_copy_error, "Project ID must not be empty."
             )
 
     def success_message_edit_saved(self):
