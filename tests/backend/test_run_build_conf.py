@@ -52,7 +52,7 @@ class TestRunBuildConfSeveralTimes:
             ), f"expected project id= {project_data_1.id}, but '{project_model_response.id}' given"
         with pytest.assume:
             assert (
-                project_model_response.parentProjectId== project_data_1.parentProject["locator"]
+                project_model_response.parentProjectId == project_data_1.parentProject["locator"]
             ), (
                 f"expected parent project id= {project_data_1.parentProject['locator']},"
                 f" but '{project_model_response.parentProjectId}' given in response"

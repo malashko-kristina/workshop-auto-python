@@ -33,9 +33,8 @@ class DataGenerator:
         first_letter_email = (faker_instance.random.choice(string.ascii_letters))
         first_part_email = "".join(faker_instance.random.choices(string.ascii_letters + string.digits + "_" + ".", k=9))
         second_part_email = "".join(faker_instance.random.choices(string.ascii_letters, k=4))
-        third_part_email = "".join(
-        faker_instance.random.choices(string.ascii_letters, k=3))
-        generated_email = (f"{first_letter_email}{first_part_email}"f"@{second_part_email}.{third_part_email}")
+        third_part_email = "".join(faker_instance.random.choices(string.ascii_letters, k=3))
+        generated_email = f"{first_letter_email}{first_part_email}"f"@{second_part_email}.{third_part_email}"
         return generated_email
 
     @staticmethod

@@ -215,7 +215,7 @@ class TestProjectCreateWithVariantData:
 
         with pytest.assume:
             assert (
-                project_model_response.parentProjectId== project_data_2.parentProject["locator"]
+                project_model_response.parentProjectId == project_data_2.parentProject["locator"]
             ), (
                 f"expected parent project id= {project_data_2.parentProject['locator']},"
                 f" but '{project_model_response.parentProjectId}' given in response"
@@ -357,7 +357,7 @@ class TestProjectCopy:
             )
         with pytest.assume:
             assert (
-                project_model_response.parentProjectId== project_data_3.parentProject["locator"]
+                project_model_response.parentProjectId == project_data_3.parentProject["locator"]
             ), (
                 f"expected parent project id= {project_data_3.parentProject['locator']},"
                 f" but '{project_model_response.parentProjectId}' given in response"
@@ -383,7 +383,7 @@ class TestProjectCopy:
             )
         with pytest.assume:
             assert (
-                project_copy_model_response.parentProjectId== project_copy_data_1.parentProject["locator"]
+                project_copy_model_response.parentProjectId == project_copy_data_1.parentProject["locator"]
             ), (
                 f"expected parent project id="
                 f" {project_copy_data_1.parentProject['locator']},"
@@ -428,7 +428,7 @@ class TestProjectCopy:
             )
         with pytest.assume:
             assert (
-                project_model_response.parentProjectId== project_data_3.parentProject["locator"]
+                project_model_response.parentProjectId == project_data_3.parentProject["locator"]
             ), (
                 f"expected parent project id= {project_data_3.parentProject['locator']},"
                 f" but '{project_model_response.parentProjectId}' given in response"

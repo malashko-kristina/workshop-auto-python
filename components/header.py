@@ -72,7 +72,7 @@ class Headers:
         self.actions.is_button_active(self.add_project_button)
         self.actions.click_button(self.add_project_button)
         self.actions.wait_for_page_load()
-        self.actions.check_url("/admin/createObjectMenu.html?projectId=_Root&showMode=createProjectMenu&cameFromUrl=http%3A%2F%2Flocalhost%3A8111%2Ffavorite%2Fprojects",equal=False)
+        self.actions.check_url("/admin/createObjectMenu.html?projectId=_Root&showMode=createProjectMenu&cameFromUrl=http%3A%2F%2Flocalhost%3A8111%2Ffavorite%2Fprojects", equal=False)
 
     def go_to_changes_through_header_button(self):
         self.actions.is_button_active(self.changes_button)

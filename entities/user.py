@@ -12,7 +12,7 @@ class Role:
 
 
 class User:
-    def __init__(self, username: str, password: str, session: ApiManager, roles: list,  **kwargs):
+    def __init__(self, username: str, password: str, session: ApiManager, roles: list, **kwargs):
         self.username = username
         self.password = password
         self.email = None

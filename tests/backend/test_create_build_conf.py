@@ -44,7 +44,7 @@ class TestBuildCreateWithInvalidData:
             ), f"expected project id= {project_data_1.id}, but '{project_model_response.id}' given"
         with pytest.assume:
             assert (
-                project_model_response.parentProjectId== project_data_1.parentProject["locator"]
+                project_model_response.parentProjectId == project_data_1.parentProject["locator"]
             ), (
                 f"expected parent project id= {project_data_1.parentProject['locator']},"
                 f" but '{project_model_response.parentProjectId}' given in response"
@@ -122,7 +122,7 @@ class TestBuildCreateWithInvalidData:
             )
         with pytest.assume:
             assert (
-                project_model_response.parentProjectId== project_data_1.parentProject["locator"]
+                project_model_response.parentProjectId == project_data_1.parentProject["locator"]
             ), (
                 f"expected parent project id= {project_data_1.parentProject['locator']},"
                 f" but '{project_model_response.parentProjectId}' given in response"
@@ -196,7 +196,7 @@ class TestBuildCreateWithInvalidData:
             )
         with pytest.assume:
             assert (
-                project_model_response.parentProjectId== project_data_1.parentProject["locator"]
+                project_model_response.parentProjectId == project_data_1.parentProject["locator"]
             ), (
                 f"expected parent project id= {project_data_1.parentProject['locator']},"
                 f" but '{project_model_response.parentProjectId}' given in response"
@@ -276,7 +276,7 @@ class TestBuildCreateWithInvalidData:
             )
         with pytest.assume:
             assert (
-                project_model_response.parentProjectId== project_data_1.parentProject["locator"]
+                project_model_response.parentProjectId == project_data_1.parentProject["locator"]
             ), (
                 f"expected parent project id= {project_data_1.parentProject['locator']},"
                 f" but '{project_model_response.parentProjectId}' given in response"
@@ -359,7 +359,7 @@ class TestBuildConfCreateWithoutObligatoryFields:
             )
         with pytest.assume:
             assert (
-                project_model_response.parentProjectId== project_data_1.parentProject["locator"]
+                project_model_response.parentProjectId == project_data_1.parentProject["locator"]
             ), (
                 f"expected parent project id= {project_data_1.parentProject['locator']},"
                 f" but '{project_model_response.parentProjectId}' given in response"
@@ -440,7 +440,7 @@ class TestBuildConfCreateWithoutObligatoryFields:
             ), f"expected project id= {project_data_1.id}, but '{project_response.id}' given"
         with pytest.assume:
             assert (
-                project_response.parentProjectId== project_data_1.parentProject["locator"]
+                project_response.parentProjectId == project_data_1.parentProject["locator"]
             ), (
                 f"expected parent project id= {project_data_1.parentProject['locator']},"
                 f" but '{project_response.parentProjectId}' given in response"
@@ -523,7 +523,7 @@ class TestBuildConfCreateWithAlreadyUsedIdAndName:
             )
         with pytest.assume:
             assert (
-                project_model_response.parentProjectId== project_data_1.parentProject["locator"]
+                project_model_response.parentProjectId == project_data_1.parentProject["locator"]
             ), (
                 f"expected parent project id= {project_data_1.parentProject['locator']},"
                 f" but '{project_model_response.parentProjectId}' given in response"
@@ -766,7 +766,7 @@ class TestBuildConfCopy:
             ), f"expected project id= {project_data_1.id}, but '{project_response.id}' given"
         with pytest.assume:
             assert (
-                project_response.parentProjectId== project_data_1.parentProject["locator"]
+                project_response.parentProjectId == project_data_1.parentProject["locator"]
             ), (
                 f"expected parent project id= {project_data_1.parentProject['locator']},"
                 f" but '{project_response.parentProjectId}' given in response"
@@ -849,7 +849,7 @@ class TestBuildConfCreateDeleteAndGetInfo:
             ), f"expected project id= {project_data_1.id}, but '{project_response.id}' given"
         with pytest.assume:
             assert (
-                project_response.parentProjectId== project_data_1.parentProject["locator"]
+                project_response.parentProjectId == project_data_1.parentProject["locator"]
             ), (
                 f"expected parent project id= {project_data_1.parentProject['locator']},"
                 f" but '{project_response.parentProjectId}' given in response"
