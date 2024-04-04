@@ -1,0 +1,20 @@
+2024-04-04 11:30:10 INFO [32m pytest tests/frontend/test_e2e_create_project.py::test_create_the_first_project[firefox] (setup)[0m
+curl -X GET 'http://localhost:8111/authenticationTest.html?csrf' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: */*'\
+-H 'Connection: keep-alive'\
+-H 'Authorization: Basic OjM3NTgwODc3MjcwMTQ1NDE3MTU=' \
+-d '' 
+
+2024-04-04 11:30:10 INFO [32m pytest tests/frontend/test_e2e_create_project.py::test_create_the_first_project[firefox] (setup)[0m
+curl -X GET 'http://localhost:8111/app/rest/projects' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: application/json'\
+-H 'Connection: keep-alive'\
+-H 'Content-Type: application/json'\
+-H 'X-TC-CSRF-Token: a215789c-ba95-40c8-adcd-9b64c85bed36'\
+-H 'Cookie: RecentLogin=; TCSESSIONID=768ED5E024A4CA4A638C9BC7B7B88FBF'\
+-H 'Authorization: Basic OjM3NTgwODc3MjcwMTQ1NDE3MTU=' \
+-d ''
