@@ -141,7 +141,7 @@ def test_create_project_invalid_id_name(
         project_creation_browser.create_project_manually(
             project_name, project_id, description
         )
-        project_creation_browser.check_url_after_project_creation(project_id)
+        project_creation_browser.check_url_after_prt_crt(project_id)
     with allure.step("Проверка редиректа на страницу редактирования проекта"):
         edit_project_browser = EditProjectFormPage(browser, project_id)
         edit_project_browser.wait_edit_project_url()

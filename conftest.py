@@ -108,7 +108,7 @@ def project_data_create(super_admin):
     project_id_pool = []
 
     def _project_data():
-        project = ProjectData.create_project_data_with_data()
+        project = ProjectData.project_with_data()
         project_id_pool.append(project.id)
         return project
 

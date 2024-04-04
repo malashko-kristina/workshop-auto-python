@@ -29,8 +29,7 @@ from utilis.data_generator import DataGenerator
     " именем билд конфигурации."
 )
 def test_create_build_conf_with_invalid_data(
-    browser, project_data, super_admin, build_conf_data, delete_all_projects
-):
+    browser, project_data, super_admin, build_conf_data, delete_all_projects):
     project_data_1 = project_data
     project_id = project_data_1.id
     project_name = project_data_1.name
@@ -44,8 +43,7 @@ def test_create_build_conf_with_invalid_data(
     with allure.step("Авторизация пользователя"):
         login_browser = LoginPage(browser)
         login_browser.login_in_account(
-            UsualUserCreds.USER_LOGIN, UsualUserCreds.USER_PASSWORD
-        )
+            UsualUserCreds.USER_LOGIN, UsualUserCreds.USER_PASSWORD)
         login_browser.check_url_favourite_projects()
         login_browser.login_form_body.userpic_is_visible()
     with allure.step("Создание первого проекта"):

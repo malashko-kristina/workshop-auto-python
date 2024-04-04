@@ -132,7 +132,7 @@ class TestRunBuildConfSeveralTimes:
             get_build_conf_run_response = (
                 super_admin.api_manager.run_build_conf_api.check_query_with_build_conf().text
             )
-            time.sleep(10)
+            time.sleep(15)
         with allure.step(
             "Проверка соответствия параметров запущенных билд конфигураций с отправленными данными"
         ):
