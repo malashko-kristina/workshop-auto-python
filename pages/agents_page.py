@@ -15,7 +15,8 @@ class AgentsPage(BasePage):
         )
 
     @allure.step(
-        "Переход на страницу агентов и авторизация" " нового неавторизованного агента"
+        "Переход на страницу агентов и авторизация"
+        " нового неавторизованного агента"
     )
     def authorize_agent(self):
         self.actions.navigate(self.page_url)

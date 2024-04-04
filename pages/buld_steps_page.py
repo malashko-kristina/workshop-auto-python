@@ -6,15 +6,16 @@ class ContentBuildStepsFragment(BasePage):
     def __init__(self, page):
         self.page = page
         super().__init__(page)
-        self.add_build_steps_button_selector = "a.btn:has-text" "('Add build step')"
+        self.add_build_steps_btn = "a.btn:has-text"\
+                                               "('Add build step')"
 
     def click_create_steps_build_conf(self):
         with allure.step("Нажатия на кнопку добавления шагов к билд"):
-            self.actions.click_button(self.add_build_steps_button_selector)
+            self.actions.click_button(self.add_build_steps_btn)
 
     def is_build_steps_active(self):
         with allure.step("Проверка активности кнопки создания шагов"):
-            return self.actions.is_element_visible(self.add_build_steps_button_selector)
+            return self.actions.is_element_visible(self.add_build_steps_btn)
 
 
 class BuildStepsPage(BasePage):

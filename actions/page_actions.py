@@ -85,7 +85,7 @@ class PageAction:
         with allure.step(f"Проверка, что элемент {selector} скрыт"):
             expect(self.page.locator(selector)).to_be_hidden()
 
-    def check_error_text_color(self, selector):
+    def check_error_color(self, selector):
         with allure.step("Проверка, что текст ошибки красного цвета"):
             error_element = self.page.locator(selector)
             color = error_element.evaluate(

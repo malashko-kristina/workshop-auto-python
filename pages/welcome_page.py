@@ -1,6 +1,7 @@
 import allure
 from pages.base_page import BasePage
 
+
 class CreateTheFirstProjectFragment(BasePage):
     def __init__(self, page):
         self.page = page
@@ -17,7 +18,8 @@ class CreateTheFirstProjectFragment(BasePage):
         with allure.step('Проверка видимости текста'):
             self.actions.wait_for_selector(self.welcome_text)
             self.actions.is_element_visible(self.welcome_text)
-            self.actions.assert_text_in_element(self.welcome_text, "Welcome to TeamCity")
+            self.actions.assert_text_in_element(self.welcome_text,
+                                                "Welcome to TeamCity")
 
 
 class CreateTheFirstProjectPage(BasePage):
@@ -32,5 +34,5 @@ class CreateTheFirstProjectPage(BasePage):
             self.actions.check_url(self.page_url, equal=False)
         with allure.step('Проверка приветственного текста'):
             self.create_the_first_project.check_text_is_visible()
-        with allure.step('Клик по кнопке создания проекта для перехода на страницу создания проекта'):
+        with allure.step('Переход на страницу создания проекта'):
             self.create_the_first_project.click_create_project_button()

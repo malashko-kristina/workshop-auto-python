@@ -9,24 +9,33 @@ class MenuListCreateFragment(BasePage):
         self.create_from_url_selector = (
             "a.createOption:has-text" "('From a repository URL')"
         )
-        self.create_manually_selector = "a.createOption:" "has-text(' Manually')"
+        self.create_manually_selector = "a.createOption:"\
+                                        "has-text(' Manually')"
 
     def click_create_from_url(self):
         with allure.step("Выбор создания проекта по url"):
-            self.actions.click_button(self.create_from_url_selector)
+            self.actions.click_button(
+                self.create_from_url_selector
+            )
 
     def click_create_manually(self):
         with allure.step("Выбор создания проекта вручную"):
-            self.actions.is_element_visible(self.create_manually_selector)
+            self.actions.is_element_visible(
+                self.create_manually_selector
+            )
             self.actions.click_button(self.create_manually_selector)
 
     def is_create_from_url_active(self):
-        with allure.step("Проверка активности кнопки создания проекта по url"):
-            return self.actions.is_element_visible(self.create_from_url_selector)
+        with (allure.step("Активность кнопки создания проекта по url")):
+            return self.actions.is_element_visible(
+                self.create_from_url_selector
+            )
 
     def is_create_manually_active(self):
-        with allure.step("Проверка активности кнопки создания проекта вручную"):
-            return self.actions.is_element_visible(self.create_manually_selector)
+        with allure.step("Активность кнопки создания проекта вручную"):
+            return self.actions.is_element_visible(
+                self.create_manually_selector
+            )
 
 
 class CreateFormContainerFragment(BasePage):
@@ -34,7 +43,7 @@ class CreateFormContainerFragment(BasePage):
         super().__init__(page)
         self.project_name_selector = "input#name"
         self.project_id_selector = "input#externalId"
-        self.project_description_selector = "input#description"
+        self.project_description = "input#description"
         self.create_project_button = "input#createProject"
         self.error_empty_name = "#errorName"
         self.error_used_id = "#errorExternalId"
@@ -43,8 +52,10 @@ class CreateFormContainerFragment(BasePage):
         with allure.step("Ввод данных для создания проекта"):
             self.actions.wait_for_selector(self.project_name_selector)
             self.actions.input_text(self.project_name_selector, name)
-            self.actions.input_text(self.project_id_selector, project_id)
-            self.actions.input_text(self.project_description_selector, description)
+            self.actions.input_text(self.project_id_selector,
+                                    project_id)
+            self.actions.input_text(self.project_description,
+                                    description)
 
     def click_create_button(self):
         with allure.step("Нажатие кнопки создания проекта"):
@@ -63,7 +74,7 @@ class CreateFormContainerFragment(BasePage):
             self.actions.assert_text_in_element(
                 self.error_empty_name, "Project name is empty"
             )
-            self.actions.check_error_text_color(self.error_empty_name)
+            self.actions.check_error_color(self.error_empty_name)
 
     def error_invalid_project_id(self, project_id):
         with allure.step(
@@ -74,9 +85,10 @@ class CreateFormContainerFragment(BasePage):
         ):
             self.actions.assert_text_in_element(
                 self.error_used_id,
-                f'Project ID "{project_id}"' f" is already used by another project",
+                f'Project ID "{project_id}"'
+                f" is already used by another project",
             )
-            self.actions.check_error_text_color(self.error_used_id)
+            self.actions.check_error_color(self.error_used_id)
 
 
 class ProjectCreationPage(BasePage):
@@ -112,7 +124,7 @@ class ProjectCreationPage(BasePage):
             self.create_form_container.click_create_button()
             self.actions.wait_for_page_load()
 
-    def check_url_after_project_creation(self, project_id):
+    def check_url_after_prt_crt(self, project_id):
         with allure.step("Проверка загрузки страницы после создания проекта"):
             self.page_url = f"/admin/editProject.html?projectId={project_id}"
             self.actions.wait_for_page_load()

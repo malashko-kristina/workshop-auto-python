@@ -10,28 +10,35 @@ class BuildTypeRunModel(BaseModel):
     href: str
     webUrl: str
 
+
 class UserModel(BaseModel):
     username: str
     id: int
     href: str
+
 
 class TriggeredModel(BaseModel):
     type: str
     date: str
     user: UserModel
 
+
 class BuildTypesModel(BaseModel):
     id: str
+
 
 class BuildRunRequestModel(BaseModel):
     buildType: BuildTypesModel
 
+
     class Config:
         extra = "allow"
+
 
 class BuildRunCancelRequestModel(BaseModel):
     comment: str
     readdIntoQueue: bool
+
 
 class BuildRunResponseModel(BaseModel):
     id: int
@@ -50,8 +57,10 @@ class BuildRunResponseModel(BaseModel):
     vcsLabels: Optional[list]
     customization: Optional[dict] = None
 
+
     class Config:
         extra = "allow"
+
 
 class BuildRunCancelResponseModel(BaseModel):
     id: int
@@ -78,32 +87,35 @@ class BuildRunCancelResponseModel(BaseModel):
     finishOnAgentDate: Optional[str]
     customization: dict = None
 
+
     class Config:
         extra = "allow"
+
 
 class BuildConfRunStatusModel(BaseModel):
     count: int
     href: str
     build: list
 
+
 class BuildRunData:
 
     @staticmethod
-    def create_run_build_correct_data(build_conf_id) -> BuildRunRequestModel:
+    def run_build_data(build_conf_id) -> BuildRunRequestModel:
         return (BuildRunRequestModel(
-            buildType = {"id": build_conf_id}
+            buildType = {"id":build_conf_id}
         ))
 
     @staticmethod
-    def create_run_build_incorrect_data() -> BuildRunRequestModel:
+    def run_build_incorrect_data() -> BuildRunRequestModel:
         return (BuildRunRequestModel(
-            buildType = {"id": DataGenerator.fake_build_id()}
+            buildType = {"id":DataGenerator.fake_build_id()}
         ))
 
     @staticmethod
     def create_run_build_data_with_invalid_id() -> BuildRunRequestModel:
         return (BuildRunRequestModel(
-            buildType = {"id": DataGenerator.fake_build_id()}
+            buildType = {"id":DataGenerator.fake_build_id()}
         ))
 
     @staticmethod
@@ -113,10 +125,8 @@ class BuildRunData:
         ))
 
     @staticmethod
-    def cancel_build_conf_in_queue() -> BuildRunCancelRequestModel:
+    def cancel_build_in_queue() -> BuildRunCancelRequestModel:
         return (BuildRunCancelRequestModel(
             comment="Canceling a queued build",
             readdIntoQueue=False
         ))
-
-

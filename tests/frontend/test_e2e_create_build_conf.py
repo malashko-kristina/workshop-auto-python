@@ -20,10 +20,13 @@ from utilis.data_generator import DataGenerator
 @allure.issue("https://issue.tracker/project/123", name="Баг-трекер")
 @allure.testcase("https://testcase.manager/testcase/1", name="Тест-кейс-204")
 @allure.title(
-    "Проверка создания билд конфигурации с пустыми обязательными полями, невалидным id, с уже существующим именем билд конфигурации"
+    "Проверка создания билд конфигурации с пустыми обязательными полями,"
+    " невалидным id, с уже существующим именем билд конфигурации"
 )
 @allure.description(
-    "Негативный тест проверяет создание билд конфигурации с пустыми обязательными полями, невалидным id, с уже существующим именем билд конфигурации."
+    "Негативный тест проверяет создание билд конфигурации с пустыми"
+    " обязательными полями, невалидным id, с уже существующим"
+    " именем билд конфигурации."
 )
 def test_create_build_conf_with_invalid_data(
     browser, project_data, super_admin, build_conf_data, delete_all_projects
@@ -46,14 +49,14 @@ def test_create_build_conf_with_invalid_data(
         login_browser.check_url_favourite_projects()
         login_browser.login_form_body.userpic_is_visible()
     with allure.step("Создание первого проекта"):
-        go_to_first_project_creation_browser = CreateTheFirstProjectPage(browser)
-        go_to_first_project_creation_browser.tap_on_create_first_project()
+        fst_project_creation_brw = CreateTheFirstProjectPage(browser)
+        fst_project_creation_brw.tap_on_create_first_project()
         project_creation_browser = ProjectCreationPage(browser)
         project_creation_browser.create_project_manually(
             project_name, project_id, description
         )
-        project_creation_browser.check_url_after_project_creation(project_id)
-    with allure.step("Проверка редиректа на страницу редактирования проекта"):
+        project_creation_browser.check_url_after_prt_crt(project_id)
+    with allure.step("Проверка редиректа на стр редактирования проекта"):
         edit_project_browser = EditProjectFormPage(browser, project_id)
         edit_project_browser.wait_edit_project_url()
         edit_project_browser.check_success_project_creation(
@@ -271,13 +274,13 @@ def test_create_invalid_copy_build_conf(
     browser,
     project_data,
     super_admin,
-    build_conf_data_without_deleting_id,
+    build_data_without_del_id,
     project_data_first_project,
 ):
     project_data_1 = project_data
     project_id = project_data_1.id
     project_name = project_data_1.name
-    build_conf_data_1 = build_conf_data_without_deleting_id
+    build_conf_data_1 = build_data_without_del_id
     build_conf_id = build_conf_data_1.id
     build_conf_name = build_conf_data_1.name
     description = DataGenerator.random_text()

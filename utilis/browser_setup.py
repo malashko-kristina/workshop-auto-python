@@ -23,8 +23,6 @@ class BrowserSetup:
                                 "height": browser_height})
         return playwright, browser, context, page
 
-
-
     @classmethod
     def teardown(cls, context, browser, playwright,
                  trace_file="trace.zip"):

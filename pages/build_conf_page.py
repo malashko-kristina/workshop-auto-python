@@ -28,7 +28,8 @@ class BuildConfDetailsPage(BasePage):
     def edit_build_conf(self, build_conf_id):
         with allure.step("Переход на страницу создания билд конфигурации"):
             self.go_to_creation_build_conf_detailed_page()
-        with allure.step("Переход на страницу редактирования билд конфигурации"):
+        with allure.step("Переход на страницу edit билд конфигурации"):
             self.build_conf_details.go_to_edit_build_conf_page()
-            self.page_url = f"/admin/editBuild.html?id=buildType:{build_conf_id}"
+            self.page_url = (f"/admin/editBuild.html?id=buildType:"
+                             f"{build_conf_id}")
             self.actions.wait_for_url_change(self.page_url)

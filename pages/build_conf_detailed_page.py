@@ -7,16 +7,16 @@ class ErrorMessageFragment(BasePage):
     def __init__(self, page):
         self.page = page
         super().__init__(page)
-        self.error_message_build_problem = (
+        self.error_build_problem = (
             "[data-test-panel-heading"
             '="expandBuildProblemsSection"]'
             " > span#buildProblemsPreview"
         )
 
     def check_error_on_screen(self):
-        with allure.step("Проверка наличия текста ошибки message_build_problem"):
-            self.actions.wait_for_selector(self.error_message_build_problem)
-            self.actions.check_error_text_color(self.error_message_build_problem)
+        with (allure.step("Проверка ошибки message_build_problem")):
+            self.actions.wait_for_selector(self.error_build_problem)
+            self.actions.check_error_color(self.error_build_problem)
 
 
 class CheckRunBuildErrors(BasePage):

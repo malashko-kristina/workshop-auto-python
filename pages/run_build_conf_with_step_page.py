@@ -6,7 +6,8 @@ class StepAddMessageFragment(BasePage):
     def __init__(self, page):
         self.page = page
         super().__init__(page)
-        self.step_add_message_selector = "div#unprocessed_buildRunnerSettingsUpdated"
+        self.step_add_message_selector = ("div#unprocessed_build"
+                                          "RunnerSettingsUpdated")
 
     def check_text_in_selector(self):
         with allure.step("Проверка наличия текста на странице"):
@@ -16,18 +17,24 @@ class StepAddMessageFragment(BasePage):
             )
 
 
-class BreadCrumbsWrapperRunBuildConfWithStep(BasePage):
+class WrapperRunBuildConfWithStep(BasePage):
     def __init__(self, page):
         self.page = page
         super().__init__(page)
-        self.run_build_conf_with_step_selector = "#breadcrumbsWrapper > div.quickLinks > div:nth-child(1) > span > button:nth-child(1)"
+        self.run_build_conf_with_step_selector = ("#breadcrumbsWrapper"
+                                                  " > div.quickLinks"
+                                                  " > div:nth-child(1)"
+                                                  " > span > button"
+                                                  ":nth-child(1)")
 
     def click_run_build_conf(self):
         with allure.step("Запуск билд кофигурации с шагом"):
-            self.actions.click_button(self.run_build_conf_with_step_selector)
+            self.actions.click_button(
+                self.run_build_conf_with_step_selector
+            )
 
     def is_run_build_active(self):
-        with allure.step("Проверка активности кнопки запуска билд конфигурации"):
+        with allure.step("Активность кнопки запуска билд конфигурации"):
             return self.actions.is_element_visible(
                 self.run_build_conf_with_step_selector
             )
@@ -36,27 +43,29 @@ class BreadCrumbsWrapperRunBuildConfWithStep(BasePage):
 class RunBuildWithStep(BasePage):
     def __init__(self, page, build_conf_id):
         super().__init__(page)
-        self.page_url = f"/admin/editBuildRunners.html?id=buildType:{build_conf_id}"
+        self.page_url = (f"/admin/editBuildRunners.html?id=buildType"
+                         f":{build_conf_id}")
         self.success_message = StepAddMessageFragment(page)
-        self.run_build_with_step = BreadCrumbsWrapperRunBuildConfWithStep(page)
+        self.run_build_with_step = WrapperRunBuildConfWithStep(page)
 
     def go_to_build_steps_page(self):
         with allure.step(
-            "Переход на страницу с отображением шагов к билд конфигурации"
+            "Переход на стр с отображением шагов к билд конф"
         ):
             self.actions.navigate(self.page_url)
             self.actions.wait_for_page_load()
 
     def check_url_change(self, build_conf_id):
         with allure.step(
-            "Проверка изменения url страницы на /admin/editBuildRunners.html?id=buildType:{build_conf_id}"
+            "Проверка изменения url страницы"
         ):
-            self.page_url = f"/admin/editBuildRunners.html?id=buildType:{build_conf_id}"
+            self.page_url = (f"/admin/editBuildRunners.html?id=buildType"
+                             f":{build_conf_id}")
             self.actions.wait_for_url_change(self.page_url)
 
     def run_build_conf_with_step(self):
         with allure.step(
-            "Проверка текста на странице об успешном добавлении шагов к билд конфигурации"
+            "Текст об успешном добавлении шагов к билд конф"
         ):
             self.success_message.check_text_in_selector()
         with allure.step("Клик по кнопке запуска билда"):

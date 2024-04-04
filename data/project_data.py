@@ -6,10 +6,12 @@ class Templates(BaseModel):
     count: int
     buildType: list = []
 
+
 class ParametersModel(BaseModel):
     property: list = []
     count: int
     href: str
+
 
 class ParentProjectModel(BaseModel):
     id: str
@@ -18,17 +20,21 @@ class ParentProjectModel(BaseModel):
     href: str
     webUrl: str
 
+
 class BuildTypes(BaseModel):
     count: int
     buildType: list = []
+
 
 class VcsRoots(BaseModel):
     count: int
     href: str
 
+
 class ProjectFeatures(BaseModel):
     count: int
     href: str
+
 
 class ProjectResponseModel(BaseModel):
     id: str
@@ -46,14 +52,17 @@ class ProjectResponseModel(BaseModel):
     projectFeatures: Optional[ProjectFeatures] = None
     projects: dict
 
+
     class Config:
         extra = "allow"
+
 
 class ProjectDataModel(BaseModel):
     parentProject: Dict[str, str]
     name:  str
     id: str
     copeAllAssociatedSettings: bool
+
 
 class ProjectDataCopyModel(BaseModel):
     parentProject: Dict[str, str]
@@ -62,31 +71,32 @@ class ProjectDataCopyModel(BaseModel):
     copeAllAssociatedSettings: bool
     sourceProject: Dict[str, str]
 
+
 class ProjectData:
     @staticmethod
-    def create_project_data_with_correct_data(name)\
+    def project_data_correct_data(name)\
             -> ProjectDataModel:
         return (ProjectDataModel(
-            parentProject={"locator": "_Root"},
+            parentProject={"locator":"_Root"},
             name=name,
             id=DataGenerator.fake_project_id(),
             copeAllAssociatedSettings=True
         ))
 
     @staticmethod
-    def create_first_project_data_with_correct_data()\
+    def first_project_data_correct_data()\
             -> ProjectDataModel:
         return (ProjectDataModel(
-            parentProject={"locator": "_Root"},
+            parentProject={"locator":"_Root"},
             name=DataGenerator.fake_build_id(),
             id=DataGenerator.fake_build_id(),
             copeAllAssociatedSettings=True
         ))
 
     @staticmethod
-    def create_project_data_with_data() -> ProjectDataModel:
+    def project_with_data() -> ProjectDataModel:
         return (ProjectDataModel(
-            parentProject={"locator": "_Root"},
+            parentProject={"locator":"_Root"},
             name=DataGenerator.fake_name(),
             id=DataGenerator.fake_project_id(),
             copeAllAssociatedSettings=True
@@ -96,7 +106,7 @@ class ProjectData:
     def create_project_data_copy(project_id)\
             -> ProjectDataCopyModel:
         return (ProjectDataCopyModel(
-            parentProject={"locator": "_Root"},
+            parentProject={"locator":"_Root"},
             name=DataGenerator.fake_name(),
             id= DataGenerator.fake_project_id(),
             copeAllAssociatedSettings=True,
@@ -105,10 +115,10 @@ class ProjectData:
         ))
 
     @staticmethod
-    def create_project_data_copy_with_another_source_project()\
+    def project_copy_new_source_project()\
             -> ProjectDataCopyModel:
         return (ProjectDataCopyModel(
-            parentProject={"locator": "_Root"},
+            parentProject={"locator":"_Root"},
             name=DataGenerator.fake_name(),
             id=DataGenerator.fake_project_id(),
             copeAllAssociatedSettings=True,
@@ -117,64 +127,60 @@ class ProjectData:
         ))
 
     @staticmethod
-    def create_project_data_with_empty_parentProject()\
+    def project_data_empty_parentProject()\
             -> ProjectDataModel:
         return (ProjectDataModel(
-            parentProject={"locator": ""},
+            parentProject={"locator":""},
             name=DataGenerator.fake_name(),
             id=DataGenerator.fake_project_id(),
             copeAllAssociatedSettings=True
         ))
 
     @staticmethod
-    def create_project_data_with_invalid_parentProject(variant)\
+    def project_data_inv_parentProject(variant)\
             -> ProjectDataModel:
         return (ProjectDataModel(
-            parentProject={"locator": variant},
+            parentProject={"locator":variant},
             name=DataGenerator.fake_name(),
             id=DataGenerator.fake_project_id(),
             copeAllAssociatedSettings=True
         ))
 
     @staticmethod
-    def create_project_data_with_invalid_name() -> ProjectDataModel:
+    def project_data_invalid_name() -> ProjectDataModel:
         return (ProjectDataModel(
-            parentProject={"locator": "_Root"},
+            parentProject={"locator":"_Root"},
             name="",
             id=DataGenerator.fake_project_id(),
             copeAllAssociatedSettings=True
         ))
 
     @staticmethod
-    def create_project_data_with_empty_id() -> ProjectDataModel:
+    def project_data_empty_id() -> ProjectDataModel:
         return (ProjectDataModel(
-            parentProject={"locator": "_Root"},
+            parentProject={"locator":"_Root"},
             name=DataGenerator.fake_name(),
             id="",
             copeAllAssociatedSettings = True
         ))
 
     @staticmethod
-    def create_project_data_with_invalid_ids(ids) -> ProjectDataModel:
+    def project_data_invalid_ids(ids) -> ProjectDataModel:
         return (ProjectDataModel(
-            parentProject={"locator": "_Root"},
+            parentProject={"locator":"_Root"},
             name=DataGenerator.fake_name(),
             id=ids,
             copeAllAssociatedSettings=True
         ))
 
     @staticmethod
-    def create_project_data_with_false() -> ProjectDataModel:
+    def project_data_false() -> ProjectDataModel:
         return (ProjectDataModel(
-            parentProject={"locator": "_Root"},
+            parentProject={"locator":"_Root"},
             name=DataGenerator.fake_name(),
             id=DataGenerator.fake_project_id(),
             copeAllAssociatedSettings=False
         ))
-
-
-
-
 
 
 

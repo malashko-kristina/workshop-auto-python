@@ -7,7 +7,8 @@ class LoginFormBody(BasePage):
         super().__init__(page)
         self.username_locator = "#username"
         self.password_locator = "#password"
-        self.login_button_locator = "input.loginButton[name='submitLogin']"
+        self.login_button_locator = ("input.loginButton"
+                                     "[name='submitLogin']")
         self.userpic = 'span[data-test="avatar"]'
 
     def input_user_details(self, login, password):
@@ -40,14 +41,14 @@ class LoginPage(BasePage):
             self.actions.wait_for_page_load()
 
     def check_url_favourite_projects_mode(self):
-        with allure.step("Проверка страницы по url /favorite/projects?mode=builds"):
+        with allure.step("Проверка страницы по url"):
             self.page_url = "/favorite/projects?mode=builds"
             self.actions.check_url(self.page_url, equal=False)
 
     def check_url_favourite_projects(self):
         self.page_url = "/favorite/projects"
         with allure.step(
-            "Проверка перехода по url /favorite/projects (для самого первого проекта)"
+            "Проверка перехода по url (для самого первого проекта)"
         ):
             self.actions.check_url(self.page_url, equal=False)
 

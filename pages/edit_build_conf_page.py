@@ -22,19 +22,19 @@ class BuildConfEditFragment(BasePage):
         self.delete_build_conf_message = "#message_buildTypeRemoved"
 
     def tap_on_actions_button(self):
-        with allure.step("Клик на кнопку actions на странице билд конфигурации"):
+        with allure.step("Клик на кнопку actions на стр билд конф"):
             self.actions.wait_for_selector(self.actions_button)
             self.actions.is_element_visible(self.actions_button)
             self.actions.click_button(self.actions_button)
 
     def tap_on_copy_build_conf(self, new_build_conf_id, new_build_conf_name):
-        with allure.step("Клик на кнопку copy для копирования билд конфигурации"):
+        with allure.step("Клик на кнопку copy для copy билд конф"):
             self.actions.wait_for_selector(self.copy_button)
             self.actions.is_element_visible(self.copy_button)
             self.actions.click_button(self.copy_button)
-        with allure.step("Добавления нового билд конф name в поле build conf name"):
+        with allure.step("Add нового билд конф name в поле build conf name"):
             self.actions.input_text(self.new_build_name, new_build_conf_name)
-        with allure.step("Добавления нового билд конф id в поле build conf id"):
+        with allure.step("Add нового билд конф id в поле build conf id"):
             self.actions.input_text(self.new_build_id, new_build_conf_id)
         with allure.step("Клик на кнопку копирования билд конфигурации"):
             self.actions.is_element_visible(self.copy_build_button)
@@ -48,7 +48,7 @@ class BuildConfEditFragment(BasePage):
         )
 
     def error_message_copy_build_conf(self, build_conf_id, first_symbol):
-        with allure.step("Проверка отображения текста ошибки копировании билда"):
+        with allure.step("Ошибка копировании билда"):
             self.actions.wait_for_selector(self.error_message_id)
             self.actions.assert_text_in_element(
                 self.error_message_id,
@@ -60,7 +60,7 @@ class BuildConfEditFragment(BasePage):
                 f" only latin letters, digits and"
                 f" underscores (at most 225 characters).",
             )
-            self.actions.check_error_text_color(self.error_message_id)
+            self.actions.check_error_color(self.error_message_id)
 
     def message_after_delete_build_conf(self, build_conf_name):
         with allure.step("Проверка сообщения об удалении билд конфигурации"):
@@ -91,9 +91,10 @@ class BuildConfEditFragment(BasePage):
             self.message_after_delete_build_conf(build_conf_name)
 
     def url_after_build_conf_deleted(self, project_id):
-        with allure.step("Проверка url после успешной удаления билд конфигурации"):
+        with allure.step("Url после успешного удаления билд конф"):
             self.page_url = (
-                f"/admin/editProject.html?projectId" f"={project_id}#buildTypeRemoved"
+                f"/admin/editProject.html?projectId" f"={project_id}"
+                f"#buildTypeRemoved"
             )
             self.actions.wait_for_url_change(self.page_url)
 
@@ -102,7 +103,8 @@ class BuildConfEditPage(BasePage):
 
     def __init__(self, page, build_conf_id):
         super().__init__(page)
-        self.page_url = f"/admin/editBuild.html?id=buildType:" f"{build_conf_id}"
+        self.page_url = f"/admin/editBuild.html?id=buildType:"\
+                        f"{build_conf_id}"
         self.build_conf_edit = BuildConfEditFragment(page)
 
     def go_to_edit_build_conf_page(self):
@@ -120,16 +122,18 @@ class BuildConfEditPage(BasePage):
             )
 
     def check_success_message_build_copy(self, new_build_conf_id):
-        with allure.step("Отображение сообщения успешного копировании билда"):
+        with allure.step("Сообщение успешного копировании билда"):
             self.build_conf_edit.message_after_copy_build_conf()
-        with allure.step("Проверка страницы после создания копии билд конфига"):
+        with allure.step("Страница после создания копии билд конфига"):
             self.page_url = (
-                f"/admin/editBuild.html?id=buildType:" f"{new_build_conf_id}"
+                f"/admin/editBuild.html?id=buildType:"
+                f"{new_build_conf_id}"
             )
             self.actions.wait_for_url_change(self.page_url)
 
-    def check_error_message_build_copy(self, build_conf_id, first_symbol):
-        with allure.step("Отображения сообщения ошибки копирования билда"):
+    def check_error_message_build_copy(self, build_conf_id,
+                                       first_symbol):
+        with allure.step("Ошибка копирования билда"):
             self.build_conf_edit.error_message_copy_build_conf(
                 build_conf_id, first_symbol
             )
@@ -142,8 +146,14 @@ class BuildConfEditPage(BasePage):
         with allure.step("Клик на кнопку actions на странице билда"):
             self.build_conf_edit.tap_on_actions_button()
         with allure.step("Клик на кнопку удаления билд конфигурации"):
-            self.build_conf_edit.tap_on_delete_build_conf(build_conf_name)
+            self.build_conf_edit.tap_on_delete_build_conf(
+                build_conf_name
+            )
         with allure.step("Проверка страницы после успешного удаления билда"):
-            self.build_conf_edit.url_after_build_conf_deleted(project_id)
+            self.build_conf_edit.url_after_build_conf_deleted(
+                project_id
+            )
         with allure.step("Проверка сообщения об удалении билд конфигурации"):
-            self.build_conf_edit.message_after_delete_build_conf(build_conf_name)
+            self.build_conf_edit.message_after_delete_build_conf(
+                build_conf_name
+            )

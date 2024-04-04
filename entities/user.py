@@ -1,6 +1,7 @@
 from api.api_manager import ApiManager
 from enums.roles import Roles
 
+
 class Role:
     def __init__(self, role_id, scope="g", href=None):
         if role_id not in Roles.__members__:
@@ -8,6 +9,7 @@ class Role:
         self.role_id = role_id
         self.scope = scope
         self.href = href
+
 
 class User:
     def __init__(self, username: str, password: str,

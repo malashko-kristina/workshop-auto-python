@@ -758,7 +758,7 @@ class TestBuildConfCopy:
         user_create,
         project_data,
         build_conf_data,
-        build_conf_data_copy_with_invalid_parent_build_conf,
+        build_data_copy_invalid_parent_bc,
     ):
         with allure.step("Отправка запроса на создание проекта"):
             project_data_1 = project_data
@@ -807,7 +807,7 @@ class TestBuildConfCopy:
         with allure.step(
             "Отправка запроса на создание копии уже существующей билд конфигурации с неизвестным source build conf"
         ):
-            build_copy_1 = build_conf_data_copy_with_invalid_parent_build_conf
+            build_copy_1 = build_data_copy_invalid_parent_bc
             copy_build_conf_response = (
                 super_admin.api_manager.build_conf_api.create_build_conf_copy(
                     build_copy_1.model_dump(),
@@ -843,7 +843,7 @@ class TestBuildConfCreateDeleteAndGetInfo:
         super_admin,
         user_create,
         project_data,
-        build_conf_data_without_deleting_id,
+        build_data_without_del_id,
     ):
 
         with allure.step("Отправка запроса на создание проекта"):
@@ -872,7 +872,7 @@ class TestBuildConfCreateDeleteAndGetInfo:
                 f" but '{project_response.parentProjectId}' given in response"
             )
         with allure.step("Отправка запроса на создание билд конфигурации"):
-            build_conf_data_1 = build_conf_data_without_deleting_id
+            build_conf_data_1 = build_data_without_del_id
             build_config_response = (
                 super_admin.api_manager.build_conf_api.create_build_conf(
                     build_conf_data_1.model_dump()
