@@ -18,13 +18,14 @@ jobs:
           python-version: "3.10"
           architecture: "x64"
           token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Python Style Checker
-        uses: andymckay/pycodestyle-action@0.1.3
       - name: Install Black
         run: pip install black
       - name: Auto-format code with Black
         run: black .
-      - run: echo "Code formatting with Black after running Flake8 successful"
+      - run: echo "Code formatting with Black"
+      - name: Python Style Checker
+        uses: andymckay/pycodestyle-action@0.1.3
+
 
   run-tests:
     needs: lint
