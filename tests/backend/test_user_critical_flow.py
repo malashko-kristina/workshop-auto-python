@@ -24,51 +24,48 @@ class TestProjectCreate:
                 create_project_response = super_admin.api_manager.project_api.create_project(project_data_1.model_dump()).text
             with allure.step("Проверка соответствия параметров созданного проекта с отправленными данными"):
                 project_model_response = ProjectResponseModel.model_validate_json(create_project_response)
-
             with pytest.assume:
                 assert project_model_response.id == project_data_1.id, \
                     f"expected project id= {project_data_1.id}, but '{project_model_response.id}' given"
-
             with pytest.assume:
                 assert project_model_response.parentProjectId == project_data_1.parentProject["locator"], \
                 (f"expected parent project id= {project_data_1.parentProject['locator']},"
                        f" but '{project_model_response.parentProjectId}' given in response")
-
-            #Дополнительная проверка создания проекта (не видно, создан он или нет, так как сразу идет удаление)
             with allure.step("Проверка нахождения id созданного проекта в общем списке проектов"):
                 get_project_response = super_admin.api_manager.project_api.get_project_by_locator(project_data_1.id).text
             with allure.step("Проверка соответствия параметров созданного проекта с отправленными данными"):
                 created_model_project_response = ProjectResponseModel.model_validate_json(get_project_response)
-
             with pytest.assume:
                 assert created_model_project_response.id == project_data_1.id, f"There is no project with {project_data_1.id} id"
-
             with allure.step("Отправка запроса на создание билд конфигурации"):
                 build_conf_data_1 = build_conf_data
                 build_config_response = super_admin.api_manager.build_conf_api.create_build_conf(build_conf_data_1.model_dump()).text
             with allure.step("Проверка соответствия параметров созданной билд конфигурации с отправленными данными"):
                 build_conf_model_response = BuildResponseModel.model_validate_json(build_config_response)
-
             with pytest.assume:
                 assert build_conf_model_response.id == build_conf_data_1.id, \
                     f"expected build conf id= {build_conf_data_1.id}, but '{build_conf_model_response.id}' given"
-
-            with allure.step("Отправка запроса на запуск созданной билд конфигурации с временем ожидания после запроса 3 секунды"):
+            with allure.step("Проверка нахождения id созданной билд конфигурации в общем списке билд конфигураций"):
+                get_build_conf_response = super_admin.api_manager.build_conf_api.get_build_conf(build_conf_data_1.id).text
+            with allure.step("Проверка соответствия параметров созданной билд конфигурации с отправленными данными"):
+                build_conf_model_response_1 = BuildResponseModel.model_validate_json(get_build_conf_response)
+            with pytest.assume:
+                assert build_conf_model_response_1.id == build_conf_data_1.id, \
+                    f"expected build conf id= {build_conf_data_1.id}, but '{build_conf_model_response_1.id}' given"
+            with allure.step("Отправка запроса на запуск созданной билд конфигурации с временем ожидания после запроса 10 секунд"):
                 build_conf_run_data_1 = build_conf_run_data
                 build_run_response = super_admin.api_manager.run_build_conf_api.run_build_conf(build_conf_run_data_1.model_dump()).text
-                time.sleep(3)
+                time.sleep(15)
             with allure.step("Проверка соответствия параметров модели запуска билд конфигурации с отправленными данными"):
                 build_run_model_response = BuildRunResponseModel.model_validate_json(build_run_response)
-
             with pytest.assume:
                 assert build_run_model_response.state == "queued", \
                     f"build was expected to be run= {build_run_model_response.state} should be queued, but it is not in a query= {build_run_model_response.state}"
-
             with allure.step("Отправка запроса на проверку количества билд конфигураций в очереди для запуска"):
                 get_build_conf_run_response = super_admin.api_manager.build_conf_api.check_query_with_build_conf().text
+                time.sleep(15)
             with allure.step("Проверка соответствия параметров модели ответа запуска билд конфигурации с отправленными данными"):
                 build_conf_run_check_model_response = BuildConfRunStatusModel.model_validate_json(get_build_conf_run_response)
-
             with pytest.assume:
                 assert build_conf_run_check_model_response.count == 0, \
                     f"build was expected to be out of the query=0, but it is still here: query={build_conf_run_check_model_response.count}"

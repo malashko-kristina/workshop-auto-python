@@ -118,6 +118,7 @@ class BuildConfData:
                     }
                 ]}))
 
+
     @staticmethod
     def create_build_conf_data_with_empty_steps(project_id) -> BuildDataModel:
         return (BuildDataModel(

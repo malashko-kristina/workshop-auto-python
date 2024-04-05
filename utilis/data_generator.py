@@ -66,6 +66,12 @@ class DataGenerator:
         result_id = f"{non_latin}{string_part}"
         return result_id
 
+    @staticmethod
+    def random_text():
+        # Рандомный текст из 20 слов
+        random_text = faker_instance.words(nb=20)
+        result = ' '.join(random_text)
+        return result
 
 
 
