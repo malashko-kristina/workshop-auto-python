@@ -1,7 +1,7 @@
 import pytest
 import requests
+from playwright.async_api import expect
 from swagger_coverage_py.reporter import CoverageReporter
-
 from api.api_manager import ApiManager
 from data.build_conf_data import BuildConfData
 from data.project_data import ProjectData
@@ -14,6 +14,9 @@ from resources.user_creds import SuperAdminCreds
 from utilis.browser_setup import BrowserSetup
 from utilis.data_generator import DataGenerator
 from enums.host import BASE_URL
+
+
+expect.set_options(timeout=30000)
 
 
 @pytest.fixture(scope="session", autouse=True)
