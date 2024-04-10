@@ -1,5 +1,7 @@
 import pytest
 import requests
+from swagger_coverage_py.reporter import CoverageReporter
+
 from api.api_manager import ApiManager
 from data.build_conf_data import BuildConfData
 from data.project_data import ProjectData
@@ -11,7 +13,16 @@ from enums.roles import Roles
 from resources.user_creds import SuperAdminCreds
 from utilis.browser_setup import BrowserSetup
 from utilis.data_generator import DataGenerator
+from enums.host import BASE_URL
 
+
+@pytest.fixture(scope="session", autouse=True)
+def setup_swagger_coverage(request):
+    reporter = CoverageReporter(api_name="teamcityapi", host=BASE_URL)
+    reporter.cleanup_input_files()
+    reporter.setup("/app/rest/swagger.json")
+    yield
+    reporter.generate_report()
 
 @pytest.fixture(params=BROWSERS)
 def browser(request):

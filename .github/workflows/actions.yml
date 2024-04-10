@@ -151,6 +151,12 @@ jobs:
           allure_history: allure-history
           allure_results: results
 
+      - name: Swagger Coverage Report
+        run: |
+          mkdir -p gh-pages/swagger-coverage
+          cp swagger-coverage-report-teamcityapi.html gh-pages/swagger-coverage/index.html
+        if: always()
+
       - name: Publish test report
         uses: peaceiris/actions-gh-pages@v3
         if: always()
