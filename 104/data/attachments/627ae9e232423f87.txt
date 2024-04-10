@@ -1,0 +1,44 @@
+2024-04-10 10:09:58 INFO [32m pytest tests/backend/test_create_project.py::TestProjectCreateWithVariantData::test_create_project_with_false[Roles.PROJECT_VIEWER] (setup)[0m
+curl -X GET 'http://localhost:8111/authenticationTest.html?csrf' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: */*'\
+-H 'Connection: keep-alive'\
+-H 'Authorization: Basic OjU5NTI5Njk4NzQ4Nzg5MDgzMzU=' \
+-d ''
+2024-04-10 10:09:58 INFO [32m pytest tests/backend/test_create_project.py::TestProjectCreateWithVariantData::test_create_project_with_false[Roles.PROJECT_VIEWER][0m
+curl -X POST 'http://localhost:8111/app/rest/projects' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: application/json'\
+-H 'Connection: keep-alive'\
+-H 'Content-Type: application/json'\
+-H 'X-TC-CSRF-Token: e28382a9-8c0d-47d6-9f02-37c817ee80f5'\
+-H 'Cookie: RecentLogin=; TCSESSIONID=A12446725122803B0220487B7344001B'\
+-H 'Content-Length: 119'\
+-H 'Authorization: Basic OjU5NTI5Njk4NzQ4Nzg5MDgzMzU=' \
+-d '{"parentProject": {"locator": "_Root"}, "name": "significant", "id": "DtSOpqCpEkG", "copeAllAssociatedSettings": false}'
+2024-04-10 10:09:58 INFO [32m pytest tests/backend/test_create_project.py::TestProjectCreateWithVariantData::test_create_project_with_false[Roles.PROJECT_VIEWER] (teardown)[0m
+curl -X DELETE 'http://localhost:8111/app/rest/projects/id:DtSOpqCpEkG' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: application/json'\
+-H 'Connection: keep-alive'\
+-H 'Content-Type: application/json'\
+-H 'X-TC-CSRF-Token: e28382a9-8c0d-47d6-9f02-37c817ee80f5'\
+-H 'Cookie: TCSESSIONID=A12446725122803B0220487B7344001B'\
+-H 'Content-Length: 0'\
+-H 'Authorization: Basic OjU5NTI5Njk4NzQ4Nzg5MDgzMzU=' \
+-d '' 
+
+2024-04-10 10:09:58 INFO [32m pytest tests/backend/test_create_project.py::TestProjectCreateWithVariantData::test_create_project_with_false[Roles.PROJECT_VIEWER] (teardown)[0m
+curl -X GET 'http://localhost:8111/app/rest/projects' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: application/json'\
+-H 'Connection: keep-alive'\
+-H 'Content-Type: application/json'\
+-H 'X-TC-CSRF-Token: e28382a9-8c0d-47d6-9f02-37c817ee80f5'\
+-H 'Cookie: TCSESSIONID=A12446725122803B0220487B7344001B'\
+-H 'Authorization: Basic OjU5NTI5Njk4NzQ4Nzg5MDgzMzU=' \
+-d ''

@@ -1,0 +1,26 @@
+2024-04-10 10:09:58 INFO [32m pytest tests/backend/test_create_project.py::TestProjectCreateWithInvalidData::test_create_project_with_invalid_parentProject[Roles.PROJECT_DEVELOPER-_Root4] (setup)[0m
+curl -X GET 'http://localhost:8111/authenticationTest.html?csrf' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: */*'\
+-H 'Connection: keep-alive'\
+-H 'Authorization: Basic OjU5NTI5Njk4NzQ4Nzg5MDgzMzU=' \
+-d ''
+2024-04-10 10:09:58 INFO [32m pytest tests/backend/test_create_project.py::TestProjectCreateWithInvalidData::test_create_project_with_invalid_parentProject[Roles.PROJECT_DEVELOPER-_Root4][0m
+curl -X POST 'http://localhost:8111/app/rest/projects' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: application/json'\
+-H 'Connection: keep-alive'\
+-H 'Content-Type: application/json'\
+-H 'X-TC-CSRF-Token: 4ffdaea5-66cc-4aa9-b7d1-8c99dae6b7b8'\
+-H 'Cookie: RecentLogin=; TCSESSIONID=5808DED2FA07321A4282C65AC95C06CE'\
+-H 'Content-Length: 112'\
+-H 'Authorization: Basic OjU5NTI5Njk4NzQ4Nzg5MDgzMzU=' \
+-d '{"parentProject": {"locator": "_Root4"}, "name": "meet", "id": "NV5WsJuo5Iw", "copeAllAssociatedSettings": true}' 
+
+2024-04-10 10:09:58 INFO 	RESPONSE:
+STATUS_CODE: [31m404[0m
+DATA: [31mResponding with error, status code: 404 (Not Found).
+Details: jetbrains.buildServer.server.rest.errors.NotFoundException: No project found by name or internal/external id '_Root4'.
+Could not find the entity requested. Check the reference is correct and the user has permissions to access the entity.[0m

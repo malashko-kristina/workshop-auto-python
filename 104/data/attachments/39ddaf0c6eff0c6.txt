@@ -1,0 +1,26 @@
+2024-04-10 10:09:57 INFO [32m pytest tests/backend/test_create_project.py::TestProjectCreateWithInvalidData::test_create_project_with_invalid_ids[Roles.PROJECT_ADMIN-9@00AMvDKOG] (setup)[0m
+curl -X GET 'http://localhost:8111/authenticationTest.html?csrf' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: */*'\
+-H 'Connection: keep-alive'\
+-H 'Authorization: Basic OjU5NTI5Njk4NzQ4Nzg5MDgzMzU=' \
+-d ''
+2024-04-10 10:09:57 INFO [32m pytest tests/backend/test_create_project.py::TestProjectCreateWithInvalidData::test_create_project_with_invalid_ids[Roles.PROJECT_ADMIN-9@00AMvDKOG][0m
+curl -X POST 'http://localhost:8111/app/rest/projects' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: application/json'\
+-H 'Connection: keep-alive'\
+-H 'Content-Type: application/json'\
+-H 'X-TC-CSRF-Token: 945f5987-5679-46e9-9765-2bfeb4d57551'\
+-H 'Cookie: RecentLogin=; TCSESSIONID=C5E62C62280CFAA6459FCFF6BE5247E9'\
+-H 'Content-Length: 116'\
+-H 'Authorization: Basic OjU5NTI5Njk4NzQ4Nzg5MDgzMzU=' \
+-d '{"parentProject": {"locator": "_Root"}, "name": "agreement", "id": "9@00AMvDKOG", "copeAllAssociatedSettings": true}' 
+
+2024-04-10 10:09:57 INFO 	RESPONSE:
+STATUS_CODE: [31m500[0m
+DATA: [31mError has occurred during request processing, status code: 500 (Internal Server Error).
+Details: jetbrains.buildServer.serverSide.InvalidIdentifierException: Project ID "9@00AMvDKOG" is invalid: starts with non-letter character '9'. ID should start with a latin letter and contain only latin letters, digits and underscores (at most 225 characters).
+Error occurred while processing this request.[0m

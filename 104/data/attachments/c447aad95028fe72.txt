@@ -1,0 +1,120 @@
+2024-04-10 10:09:55 INFO [32m pytest tests/backend/test_create_build_conf.py::TestBuildConfCopy::test_project_copy[Roles.PROJECT_ADMIN-qxZ4c1BopKt-I9wUpzqWCna] (setup)[0m
+curl -X GET 'http://localhost:8111/authenticationTest.html?csrf' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: */*'\
+-H 'Connection: keep-alive'\
+-H 'Authorization: Basic OjU5NTI5Njk4NzQ4Nzg5MDgzMzU=' \
+-d ''
+2024-04-10 10:09:55 INFO [32m pytest tests/backend/test_create_build_conf.py::TestBuildConfCopy::test_project_copy[Roles.PROJECT_ADMIN-qxZ4c1BopKt-I9wUpzqWCna][0m
+curl -X POST 'http://localhost:8111/app/rest/projects' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: application/json'\
+-H 'Connection: keep-alive'\
+-H 'Content-Type: application/json'\
+-H 'X-TC-CSRF-Token: eea3cc94-9912-4832-a3f9-8bfe6df7bbf8'\
+-H 'Cookie: RecentLogin=; TCSESSIONID=0735B2160AABA2B5C3FB63E5F29519B0'\
+-H 'Content-Length: 118'\
+-H 'Authorization: Basic OjU5NTI5Njk4NzQ4Nzg5MDgzMzU=' \
+-d '{"parentProject": {"locator": "_Root"}, "name": "qxZ4c1BopKt", "id": "OddK_dHizXd", "copeAllAssociatedSettings": true}' 
+
+2024-04-10 10:09:55 INFO [32m pytest tests/backend/test_create_build_conf.py::TestBuildConfCopy::test_project_copy[Roles.PROJECT_ADMIN-qxZ4c1BopKt-I9wUpzqWCna][0m
+curl -X POST 'http://localhost:8111/app/rest/buildTypes' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: application/json'\
+-H 'Connection: keep-alive'\
+-H 'Content-Type: application/json'\
+-H 'X-TC-CSRF-Token: eea3cc94-9912-4832-a3f9-8bfe6df7bbf8'\
+-H 'Cookie: TCSESSIONID=0735B2160AABA2B5C3FB63E5F29519B0'\
+-H 'Content-Length: 344'\
+-H 'Authorization: Basic OjU5NTI5Njk4NzQ4Nzg5MDgzMzU=' \
+-d '{"id": "Ox1gMIbGDve", "name": "I9wUpzqWCna", "project": {"id": "OddK_dHizXd"}, "steps": {"step": [{"name": "myCommandLineStep", "type": "simpleRunner", "properties": {"property": [{"name": "script.content", "value": "echo 'Hello World!'"}, {"name": "teamcity.step.mode", "value": "default"}, {"name": "use.custom.script", "value": "true"}]}}]}}' 
+
+2024-04-10 10:09:55 INFO [32m pytest tests/backend/test_create_build_conf.py::TestBuildConfCopy::test_project_copy[Roles.PROJECT_ADMIN-qxZ4c1BopKt-I9wUpzqWCna][0m
+curl -X POST 'http://localhost:8111/app/rest/projects/OddK_dHizXd/buildTypes' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: application/json'\
+-H 'Connection: keep-alive'\
+-H 'Content-Type: application/json'\
+-H 'X-TC-CSRF-Token: eea3cc94-9912-4832-a3f9-8bfe6df7bbf8'\
+-H 'Cookie: TCSESSIONID=0735B2160AABA2B5C3FB63E5F29519B0'\
+-H 'Content-Length: 113'\
+-H 'Authorization: Basic OjU5NTI5Njk4NzQ4Nzg5MDgzMzU=' \
+-d '{"sourceBuildTypeLocator": "Ox1gMIbGDve", "name": "door", "id": "YvdaLXWJXko", "copyAllAssociatedSettings": true}'
+2024-04-10 10:09:55 INFO [32m pytest tests/backend/test_create_build_conf.py::TestBuildConfCopy::test_project_copy[Roles.PROJECT_ADMIN-qxZ4c1BopKt-I9wUpzqWCna] (teardown)[0m
+curl -X DELETE 'http://localhost:8111/app/rest/buildTypes/id:YvdaLXWJXko' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: application/json'\
+-H 'Connection: keep-alive'\
+-H 'Content-Type: application/json'\
+-H 'X-TC-CSRF-Token: eea3cc94-9912-4832-a3f9-8bfe6df7bbf8'\
+-H 'Cookie: TCSESSIONID=0735B2160AABA2B5C3FB63E5F29519B0'\
+-H 'Content-Length: 0'\
+-H 'Authorization: Basic OjU5NTI5Njk4NzQ4Nzg5MDgzMzU=' \
+-d '' 
+
+2024-04-10 10:09:55 INFO [32m pytest tests/backend/test_create_build_conf.py::TestBuildConfCopy::test_project_copy[Roles.PROJECT_ADMIN-qxZ4c1BopKt-I9wUpzqWCna] (teardown)[0m
+curl -X GET 'http://localhost:8111/app/rest/buildQueue' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: application/json'\
+-H 'Connection: keep-alive'\
+-H 'Content-Type: application/json'\
+-H 'X-TC-CSRF-Token: eea3cc94-9912-4832-a3f9-8bfe6df7bbf8'\
+-H 'Cookie: TCSESSIONID=0735B2160AABA2B5C3FB63E5F29519B0'\
+-H 'Authorization: Basic OjU5NTI5Njk4NzQ4Nzg5MDgzMzU=' \
+-d '' 
+
+2024-04-10 10:09:55 INFO [32m pytest tests/backend/test_create_build_conf.py::TestBuildConfCopy::test_project_copy[Roles.PROJECT_ADMIN-qxZ4c1BopKt-I9wUpzqWCna] (teardown)[0m
+curl -X DELETE 'http://localhost:8111/app/rest/buildTypes/id:Ox1gMIbGDve' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: application/json'\
+-H 'Connection: keep-alive'\
+-H 'Content-Type: application/json'\
+-H 'X-TC-CSRF-Token: eea3cc94-9912-4832-a3f9-8bfe6df7bbf8'\
+-H 'Cookie: TCSESSIONID=0735B2160AABA2B5C3FB63E5F29519B0'\
+-H 'Content-Length: 0'\
+-H 'Authorization: Basic OjU5NTI5Njk4NzQ4Nzg5MDgzMzU=' \
+-d '' 
+
+2024-04-10 10:09:55 INFO [32m pytest tests/backend/test_create_build_conf.py::TestBuildConfCopy::test_project_copy[Roles.PROJECT_ADMIN-qxZ4c1BopKt-I9wUpzqWCna] (teardown)[0m
+curl -X GET 'http://localhost:8111/app/rest/buildQueue' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: application/json'\
+-H 'Connection: keep-alive'\
+-H 'Content-Type: application/json'\
+-H 'X-TC-CSRF-Token: eea3cc94-9912-4832-a3f9-8bfe6df7bbf8'\
+-H 'Cookie: TCSESSIONID=0735B2160AABA2B5C3FB63E5F29519B0'\
+-H 'Authorization: Basic OjU5NTI5Njk4NzQ4Nzg5MDgzMzU=' \
+-d '' 
+
+2024-04-10 10:09:55 INFO [32m pytest tests/backend/test_create_build_conf.py::TestBuildConfCopy::test_project_copy[Roles.PROJECT_ADMIN-qxZ4c1BopKt-I9wUpzqWCna] (teardown)[0m
+curl -X DELETE 'http://localhost:8111/app/rest/projects/id:OddK_dHizXd' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: application/json'\
+-H 'Connection: keep-alive'\
+-H 'Content-Type: application/json'\
+-H 'X-TC-CSRF-Token: eea3cc94-9912-4832-a3f9-8bfe6df7bbf8'\
+-H 'Cookie: TCSESSIONID=0735B2160AABA2B5C3FB63E5F29519B0'\
+-H 'Content-Length: 0'\
+-H 'Authorization: Basic OjU5NTI5Njk4NzQ4Nzg5MDgzMzU=' \
+-d '' 
+
+2024-04-10 10:09:55 INFO [32m pytest tests/backend/test_create_build_conf.py::TestBuildConfCopy::test_project_copy[Roles.PROJECT_ADMIN-qxZ4c1BopKt-I9wUpzqWCna] (teardown)[0m
+curl -X GET 'http://localhost:8111/app/rest/projects' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: application/json'\
+-H 'Connection: keep-alive'\
+-H 'Content-Type: application/json'\
+-H 'X-TC-CSRF-Token: eea3cc94-9912-4832-a3f9-8bfe6df7bbf8'\
+-H 'Cookie: TCSESSIONID=0735B2160AABA2B5C3FB63E5F29519B0'\
+-H 'Authorization: Basic OjU5NTI5Njk4NzQ4Nzg5MDgzMzU=' \
+-d ''
