@@ -24,6 +24,7 @@ def setup_swagger_coverage(request):
     yield
     reporter.generate_report()
 
+
 @pytest.fixture(params=BROWSERS)
 def browser(request):
     playwright, browser, context, page = (BrowserSetup.setup
