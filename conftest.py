@@ -21,7 +21,7 @@ expect.set_options(timeout=30000)
 
 @pytest.fixture(scope="session", autouse=True)
 def setup_swagger_coverage(request):
-    marks = [item for item in request.session.items if item.get_closest_marker('swagger-coverage-exl')]
+    marks = [item for item in request.session.items if item.get_closest_marker('swagger_coverage_exl')]
     if not marks:
         reporter = CoverageReporter(api_name="teamcityapi", host=BASE_URL)
         reporter.cleanup_input_files()
