@@ -11,14 +11,11 @@ class UserData:
             "password": DataGenerator.fake_project_id(),
             "email": DataGenerator.fake_emaiL(),
             "roles": {
-                "role":[
+                "role": [
                     {
-                           "roleId": role,
-                           "scope": scope,
+                        "roleId": role,
+                        "scope": scope,
                     }
                 ]
             }
         }
-
-
-

@@ -1,19 +1,24 @@
 import allure
 from pages.base_page import BasePage
 
+
 class SideBarListBuildConfFragment(BasePage):
     def __init__(self, page):
         self.page = page
         super().__init__(page)
-        self.create_build_conf_from_url_selector = "a.tabs:has-text('Build Steps')"
+        self.create_build_from_url = "a.tabs:has-text('Build Steps')"
 
     def click_create_steps_build_conf(self):
-        with allure.step('Выбор создания шагов для билд конфигурации'):
-            self.actions.click_button(self.create_build_conf_from_url_selector)
+        with allure.step("Выбор создания шагов для билд конф"):
+            self.actions.click_button(self.create_build_from_url)
 
     def is_build_steps_active(self):
-        with allure.step('Проверка активности кнопки создания шагов для билд конфигурации'):
-            return self.actions.is_element_visible(self.create_build_conf_from_url_selector)
+        with allure.step(
+            "Активность кнопки создания шагов для билд конф"
+        ):
+            return self.actions.is_element_visible(
+                self.create_build_from_url
+            )
 
 
 class BreadCrumbsWrapperRunBuildConf(BasePage):
@@ -23,18 +28,23 @@ class BreadCrumbsWrapperRunBuildConf(BasePage):
         self.run_build_conf_selector = "button.btn_mini"
 
     def click_run_build_conf(self):
-        with allure.step('Запуск билд кофигурации'):
+        with allure.step("Запуск билд кофигурации"):
             self.actions.click_button(self.run_build_conf_selector)
 
     def is_run_build_active(self):
-        with allure.step('Проверка активности кнопки запуска билд конфигурации'):
-            return self.actions.is_element_visible(self.run_build_conf_selector)
+        with allure.step("Активность кнопки запуска билд конфигурации"):
+            return self.actions.is_element_visible(
+                self.run_build_conf_selector
+            )
 
 
 class BuildConfRunPage(BasePage):
     def __init__(self, page, project_id, build_conf_id):
         super().__init__(page)
-        self.page_url = (f'/admin/editBuildTypeVcsRoots.html?init=1&id=buildType:{build_conf_id}&cameFromUrl=%2Fadmin%2FeditProject.html%3Finit%3D1%26projectId%3D{project_id}')
+        self.page_url = (f"/admin/editBuildTypeVcsRoots.html?init="
+                         f"1&id=buildType:{build_conf_id}&cameFromUrl"
+                         f"=%2Fadmin%2FeditProject.html%3Finit%3D1%2"
+                         f"6projectId%3D{project_id}")
         self.run_build_conf_wrapper = BreadCrumbsWrapperRunBuildConf(page)
         self.create_steps_build_conf_bar = SideBarListBuildConfFragment(page)
 
@@ -44,7 +54,9 @@ class BuildConfRunPage(BasePage):
             self.actions.wait_for_page_load()
 
     def tap_on_add_build_steps(self):
-        with allure.step("Клик на кнопку перехода на страницу создания шагов к билд конфигурации"):
+        with allure.step(
+            "Переход на страницу создания шагов к билд конф"
+        ):
             self.create_steps_build_conf_bar.is_build_steps_active()
             self.create_steps_build_conf_bar.click_create_steps_build_conf()
 
@@ -52,9 +64,3 @@ class BuildConfRunPage(BasePage):
         with allure.step("Запуск билд конфигурации без добавления шагов"):
             self.run_build_conf_wrapper.click_run_build_conf()
             self.actions.wait_for_url_change(self.page_url)
-
-
-
-
-
-

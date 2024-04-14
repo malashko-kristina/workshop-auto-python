@@ -1,5 +1,3 @@
-import time
-
 from actions.page_actions import PageAction
 
 
@@ -7,32 +5,58 @@ class Headers:
     def __init__(self, actions: PageAction):
         self.actions = actions
         self.logo_button = '.ring-icon-icon'
-        self.project_button = 'a[title="Projects"] >> text="Projects"'
-        self.add_project_button = 'a[title="Create subproject"][data-test-link-with-icon="add"]'
-        self.changes_button = 'a[title="Changes"] >> text="Changes"'
-        self.agents_button = 'a[title="Agents"][data-test="ring-link"]'
-        self.agents_count = '.Links__counter--Bn[data-hint-container-id="header-agents-active"]'
-        self.queue_button = 'a[title="Queue"][data-test="ring-link"]'
-        self.queue_count = '..Links__counter--Bn[data-hint-container-id="header-queue-number"]'
+        self.project_button = ('a[title="Projects"]'
+                               ' >> text="Projects"')
+        self.add_project_button = ('a[title="Create subproject"]'
+                                   '[data-test-link-with-icon="add"]')
+        self.changes_button = ('a[title="Changes"]'
+                               ' >> text="Changes"')
+        self.agents_button = ('a[title="Agents"]'
+                              '[data-test="ring-link"]')
+        self.agents_count = ('.Links__counter--Bn'
+                             '[data-hint-container-id="header-agents-active"]')
+        self.queue_button = ('a[title="Queue"]'
+                             '[data-test="ring-link"]')
+        self.queue_count = ('..Links__counter--Bn'
+                            '[data-hint-container-id="header-queue-number"]')
         self.theme_drop_down = 'span.ring-button-content'
-        self.light_theme = '.ring-list-label[title="Light"][data-test="ring-list-item-label"]'
-        self.dark_theme = '.ring-list-label[title="Dark"][data-test="ring-list-item-label"]'
-        self.system_theme = '.ring-list-label[title="System theme"][data-test="ring-list-item-label"]'
-        self.administration_button = 'a[title="Administration"][data-test="ring-link"] >> text="Administration"'
+        self.light_theme = ('.ring-list-label[title="Light"]'
+                            '[data-test="ring-list-item-label"]')
+        self.dark_theme = ('.ring-list-label[title="Dark"]'
+                           '[data-test="ring-list-item-label"]')
+        self.system_theme = ('.ring-list-label[title="System theme"]'
+                             '[data-test="ring-list-item-label"]')
+        self.administration_button = ('a[title="Administration"]'
+                                      '[data-test="ring-link"]'
+                                      ' >> text="Administration"')
         self.help_icon = '#userPanel > div:nth-child(5) > div > button'
-        self.documentation_button = 'a[data-test="ring-link ring-list-link ring-list-item"] >> text ="Documentation"'
-        self.teamcity_kotlin = 'a[data-test="ring-link ring-list-link ring-list-item"] >> text ="TeamCity Kotlin DSL"'
-        self.feedback = 'a[data-test="ring-link ring-list-link ring-list-item"] >> text ="Feedback"'
-        self.getting_started = 'a[data-test="ring-link ring-list-link ring-list-item"] >> text ="Getting started"'
-        self.about_sakura = 'a[data-test="ring-link ring-list-link ring-list-item"] >> text ="About Sakura UI"'
-        self.whats_new = 'a[data-test="ring-link ring-list-link ring-list-item"] >> text ="What\'s new"'
+        self.documentation_button = ('a[data-test="ring-link'
+                                     ' ring-list-link ring-list-item"]'
+                                     ' >> text ="Documentation"')
+        self.teamcity_kotlin = ('a[data-test="ring-link'
+                                ' ring-list-link ring-list-item"]'
+                                ' >> text ="TeamCity Kotlin DSL"')
+        self.feedback = ('a[data-test="ring-link ring-list-link'
+                         ' ring-list-item"] >> text ="Feedback"')
+        self.getting_started = ('a[data-test="ring-link'
+                                ' ring-list-link ring-list-item"]'
+                                ' >> text ="Getting started"')
+        self.about_sakura = ('a[data-test="ring-link ring-list-link'
+                             ' ring-list-item"] >> text ="About Sakura UI"')
+        self.whats_new = ('a[data-test="ring-link ring-list-link'
+                          ' ring-list-item"] >> text ="What\'s new"')
         self.search_button = "#SAKURA_HEADER_RIGHT > div > div > span"
         self.admin_button = 'button[title="admin"][type="button"]'
-        self.profile_button = 'a[data-test="ring-link ring-list-link ring-list-item"] >> text="Profile"'
-        self.favourite_builds_button = 'a[data-test="ring-link ring-list-link ring-list-item"] >> text="Favorite Builds"'
-        self.investigation_button = 'a[data-test="ring-link ring-list-link ring-list-item"] >> text="Investigations"'
-        self.logout_button = 'a[data-test="ring-link ring-list-link ring-list-item"] >> text="Logout"'
-
+        self.profile_button = ('a[data-test="ring-link ring-list-link'
+                               ' ring-list-item"] >> text="Profile"')
+        self.favourite_builds_button = ('a[data-test="ring-link ring-list-link'
+                                        ' ring-list-item"]'
+                                        ' >> text="Favorite Builds"')
+        self.investigation_button = ('a[data-test="ring-link ring-list-link'
+                                     ' ring-list-item"]'
+                                     ' >> text="Investigations"')
+        self.logout_button = ('a[data-test="ring-link ring-list-link'
+                              ' ring-list-item"] >> text="Logout"')
 
     def logo_is_visible_and_clickable(self):
         self.actions.is_button_active(self.logo_button)
@@ -48,8 +72,7 @@ class Headers:
         self.actions.is_button_active(self.add_project_button)
         self.actions.click_button(self.add_project_button)
         self.actions.wait_for_page_load()
-        self.actions.check_url(f"/admin/createObjectMenu.html?projectId=_Root&showMode=createProjectMenu&cameFromUrl=http%3A%2F%2Flocalhost%3A8111%2Ffavorite%2Fprojects", equal=False)
-
+        self.actions.check_url("/admin/createObjectMenu.html?projectId=_Root&showMode=createProjectMenu&cameFromUrl=http%3A%2F%2Flocalhost%3A8111%2Ffavorite%2Fprojects", equal=False)
 
     def go_to_changes_through_header_button(self):
         self.actions.is_button_active(self.changes_button)
@@ -145,7 +168,6 @@ class Headers:
         self.actions.is_button_active(self.getting_started)
         self.actions.click_button(self.getting_started)
         self.actions.wait_for_page_load()
-
 
     def go_to_about_sakura_through_header_button(self):
         self.actions.is_button_active(self.help_icon)

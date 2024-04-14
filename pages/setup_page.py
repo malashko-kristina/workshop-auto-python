@@ -1,6 +1,7 @@
 import allure
 from pages.base_page import BasePage
 
+
 class FirstStartWindow(BasePage):
 
     def __init__(self, page):
@@ -68,7 +69,8 @@ class SetUpUser(BasePage):
         self.username_field = "input#input_teamcityUsername"
         self.password_field = "input#password1"
         self.repeat_password_field = "input#retypedPassword"
-        self.create_account_button = "input.btn.loginButton[value='Create Account']"
+        self.create_account_button = ("input.btn.loginButton"
+                                      "[value='Create Account']")
 
     def fill_user_data(self, username, password):
         self.actions.wait_for_page_load()
@@ -95,25 +97,25 @@ class SetUpPage(BasePage):
         self.setup_user = SetUpUser(self.page)
 
     def set_up(self, username="admin", password="admin"):
-        with allure.step("Переход на самую первую приветственную страницу"):
+        with allure.step("Переход на приветственную страницу"):
             self.actions.navigate(self.page_url)
             self.actions.wait_for_page_load()
-        with allure.step("Клик на кнопку продолжить на странице 'First Start'"):
+        with allure.step("Продолжить на стр 'First Start'"):
             self.first_start_window.proceed_step()
             self.loading.wait_loading()
-        with allure.step("Клик на кнопку продолжить на странице 'DataBase connection setup'"):
+        with allure.step("Продолжить на 'DataBase connection setup'"):
             self.first_start_window.proceed_step()
             self.loading.wait_loading()
-        with allure.step("Добавление флажка в чекбокс о принятии лицензионного соглашения"):
+        with allure.step("Принятие лицензионного соглашения"):
             self.agreement.check_in_box()
-        with allure.step("Проверка перехода на страницу 'License Agreement'"):
+        with allure.step("Переход на стр 'License Agreement'"):
             self.actions.check_url(self.agreement.page_url)
-        with allure.step("Клик на кнопку продолжить после принятия лицензионного соглашения"):
+        with allure.step("Принятие лицензионного соглашения"):
             self.agreement.continue_agreement()
             self.actions.wait_for_page_load()
-        with allure.step("Заполнение данных пользователя для его создания"):
+        with allure.step("Заполнение данных юзера для его создания"):
             self.setup_user.fill_user_data(username, password)
-        with allure.step("Клик на кнопку создания пользователя"):
+        with allure.step("Клик на кнопку создания юзера"):
             self.setup_user.create_user()
         with allure.step("Проверка перехода на страницу логина"):
             self.page_url = "/favorite/projects"

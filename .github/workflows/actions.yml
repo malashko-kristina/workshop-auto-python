@@ -8,10 +8,25 @@ on:
   workflow_dispatch:
 
 jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v3
+        with:
+          python-version: "3.10"
+          architecture: "x64"
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Install flake8
+        run: pip install flake8
+      - name: Run flake8
+        run: flake8 --ignore=E501,E123 .
 
   run-tests:
+    needs: lint
+    if: ${{ github.event_name == 'workflow_dispatch' || needs.lint.result == 'success' }}
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -59,7 +74,6 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y python3.10 python3-pip
           pip install -r requirements.txt
-
 
       - name: Install Playwright Dependencies
         run: |
@@ -121,4 +135,33 @@ jobs:
           name: allure-report
           path: ./allure-report
 
+      - name: Load test report history
+        uses: actions/checkout@v2
+        if: always()
+        continue-on-error: true
+        with:
+          ref: gh-pages
+          path: gh-pages
+
+      - name: Build test report
+        uses: simple-elf/allure-report-action@v1.7
+        if: always()
+        with:
+          gh_pages: gh-pages
+          allure_history: allure-history
+          allure_results: results
+
+      - name: Swagger Coverage Report
+        run: |
+          mkdir -p gh-pages/swagger-coverage
+          cp swagger-coverage-report-teamcityapi.html gh-pages/swagger-coverage/index.html
+        if: always()
+
+      - name: Publish test report
+        uses: peaceiris/actions-gh-pages@v3
+        if: always()
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: allure-history
 

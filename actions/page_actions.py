@@ -1,5 +1,4 @@
 import re
-from playwright.sync_api import ElementHandle
 from playwright.sync_api import Page, expect
 import allure
 
@@ -13,15 +12,15 @@ class PageAction:
             self.page.goto(url)
 
     def press_on_enter_keyboard_button(self):
-        with allure.step("Нажатие на клавишу Enter на физической клавиатуре"):
-                self.page.keyboard.press('Enter')
+        with allure.step("Enter на физической клавиатуре"):
+            self.page.keyboard.press('Enter')
 
     def check_url(self, expected_url, equal=True):
         if equal:
-            with allure.step(f"Проверка URL: ожидаемый URL равен {expected_url}"):
+            with allure.step(f"Ожидаемый URL содержит {expected_url}"):
                 expect(self.page).to_have_url(expected_url)
         else:
-            with allure.step(f"Проверка URL: ожидаемый URL содержит {expected_url}"):
+            with allure.step(f"Ожидаемый URL содержит {expected_url}"):
                 pattern = f".*{re.escape(expected_url)}.*"
                 expect(self.page).to_have_url(re.compile(pattern))
 
@@ -34,25 +33,21 @@ class PageAction:
             self.page.check(selector)
 
     def wait_for_page_load(self):
-        with allure.step(f"Ожидание загрузки страницы"):
+        with allure.step("Ожидание загрузки страницы"):
             self.page.wait_for_load_state("load", timeout=90000)
-
 
     def click_button(self, selector):
         with allure.step(f"Клик по элементу: {selector}"):
             self.wait_for_selector(selector)
             self.page.click(selector)
 
-
     def is_element_visible(self, selector):
         with allure.step(f"Проверка видимости элемента: {selector}"):
             expect(self.page.locator(selector)).to_be_visible()
 
-
     def is_button_active(self, selector):
         with allure.step(f"Проверка активности кнопки: {selector}"):
             expect(self.page.locator(selector)).to_be_enabled(timeout=30000)
-
 
     def input_text(self, selector, text):
         with allure.step(f"Ввод теста '{text}' в элемент: {selector}"):
@@ -63,8 +58,9 @@ class PageAction:
             self.page.fill(selector, text)
 
     def wait_for_selector(self, selector):
-        with allure.step(f"Ожидаем появления селектора: {selector} на протяжении 1.5 минут"):
-            self.page.wait_for_selector(selector, state='visible', timeout=100000)
+        with allure.step(f"Ожидаем появления селектора: {selector}"):
+            self.page.wait_for_selector(
+                selector, state='visible', timeout=100000)
 
     def wait_for_disappear_selector(self, selector):
         with allure.step(f"Ожидаем появления селектора: {selector}"):
@@ -74,24 +70,24 @@ class PageAction:
         with allure.step(f"Проверка наличия текста '{text}' на странице"):
             expect(self.page).to_have_text(text)
 
-
     def assert_text_in_element(self, selector, text):
-        with allure.step(f"Проверка наличия текста '{text}' в элементе: {selector}"):
+        with allure.step(f"Проверка наличия текста '{text}'"
+                         f" в элементе: {selector}"):
             expect(self.page.locator(selector)).to_have_text(text)
 
-
     def assert_element_attribute(self, selector, attribute, value):
-        with allure.step(f"Проверка значения '{value}' аттрибута {attribute} элемента: {selector}"):
-            expect(self.page.locator(selector)).to_have_attribute(attribute, value)
-
+        with allure.step(f"Проверка значения '{value}'"
+                         f" аттрибута {attribute} элемента: {selector}"):
+            expect(self.page.locator(selector)
+                   ).to_have_attribute(attribute, value)
 
     def assert_element_hidden(self, selector):
         with allure.step(f"Проверка, что элемент {selector} скрыт"):
             expect(self.page.locator(selector)).to_be_hidden()
 
-
-    def check_error_text_color(self, selector):
-        with allure.step(f"Проверка, что текст ошибки красного цвета"):
+    def check_error_color(self, selector):
+        with allure.step("Проверка, что текст ошибки красного цвета"):
             error_element = self.page.locator(selector)
-            color = error_element.evaluate('(element) => window.getComputedStyle(element).color')
+            color = error_element.evaluate(
+                '(element) => window.getComputedStyle(element).color')
             return color == "rgb(238, 68, 80)"

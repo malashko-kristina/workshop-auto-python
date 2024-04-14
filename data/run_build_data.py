@@ -99,38 +99,32 @@ class BuildConfRunStatusModel(BaseModel):
 class BuildRunData:
 
     @staticmethod
-    def create_run_build_correct_data(build_conf_id) -> BuildRunRequestModel:
+    def run_build_data(build_conf_id) -> BuildRunRequestModel:
         return (BuildRunRequestModel(
-            buildType = {"id": build_conf_id}
+            buildType={"id": build_conf_id}
         ))
 
     @staticmethod
-    def create_run_build_incorrect_data() -> BuildRunRequestModel:
+    def run_build_incorrect_data() -> BuildRunRequestModel:
         return (BuildRunRequestModel(
-            buildType = {"id": DataGenerator.fake_build_id()}
+            buildType={"id": DataGenerator.fake_build_id()}
         ))
 
     @staticmethod
     def create_run_build_data_with_invalid_id() -> BuildRunRequestModel:
         return (BuildRunRequestModel(
-            buildType = {"id": DataGenerator.fake_build_id()}
+            buildType={"id": DataGenerator.fake_build_id()}
         ))
 
     @staticmethod
     def create_run_build_data_with_empty_dict() -> BuildRunRequestModel:
         return (BuildRunRequestModel(
-            buildType = {}
+            buildType={}
         ))
 
     @staticmethod
-    def cancel_build_conf_in_queue() -> BuildRunCancelRequestModel:
+    def cancel_build_in_queue() -> BuildRunCancelRequestModel:
         return (BuildRunCancelRequestModel(
             comment="Canceling a queued build",
             readdIntoQueue=False
         ))
-
-
-
-
-
-
