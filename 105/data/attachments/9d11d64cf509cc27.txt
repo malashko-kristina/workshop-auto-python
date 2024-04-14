@@ -1,0 +1,26 @@
+2024-04-14 15:58:16 INFO [32m pytest tests/backend/test_create_project.py::TestProjectCreateWithInvalidData::test_create_project_with_empty_parentProject[Roles.PROJECT_ADMIN] (setup)[0m
+curl -X GET 'http://localhost:8111/authenticationTest.html?csrf' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: */*'\
+-H 'Connection: keep-alive'\
+-H 'Authorization: Basic OjEyOTQ0MTg2MjIwMjc0MjA1MjI=' \
+-d ''
+2024-04-14 15:58:16 INFO [32m pytest tests/backend/test_create_project.py::TestProjectCreateWithInvalidData::test_create_project_with_empty_parentProject[Roles.PROJECT_ADMIN][0m
+curl -X POST 'http://localhost:8111/app/rest/projects' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: application/json'\
+-H 'Connection: keep-alive'\
+-H 'Content-Type: application/json'\
+-H 'X-TC-CSRF-Token: dc0b50f2-3c8b-4e94-bb31-d05fc28e91d1'\
+-H 'Cookie: RecentLogin=; TCSESSIONID=8A0EA3BFDB3F6307E48759D85194DC9C'\
+-H 'Content-Length: 109'\
+-H 'Authorization: Basic OjEyOTQ0MTg2MjIwMjc0MjA1MjI=' \
+-d '{"parentProject": {"locator": ""}, "name": "imagine", "id": "TOaNChXINUG", "copeAllAssociatedSettings": true}' 
+
+2024-04-14 15:58:16 INFO 	RESPONSE:
+STATUS_CODE: [31m400[0m
+DATA: [31mResponding with error, status code: 400 (Bad Request).
+Details: jetbrains.buildServer.server.rest.errors.BadRequestException: No project specified. Either 'id', 'internalId' or 'locator' attribute should be present.
+Invalid request. Please check the request URL and data are correct.[0m

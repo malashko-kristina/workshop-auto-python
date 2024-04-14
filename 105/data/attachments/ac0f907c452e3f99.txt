@@ -1,0 +1,26 @@
+2024-04-14 15:58:15 INFO [32m pytest tests/backend/test_create_project.py::TestProjectCreateWithInvalidData::test_create_project_with_invalid_ids[Roles.PROJECT_ADMIN-MwGG 098] (setup)[0m
+curl -X GET 'http://localhost:8111/authenticationTest.html?csrf' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: */*'\
+-H 'Connection: keep-alive'\
+-H 'Authorization: Basic OjEyOTQ0MTg2MjIwMjc0MjA1MjI=' \
+-d ''
+2024-04-14 15:58:15 INFO [32m pytest tests/backend/test_create_project.py::TestProjectCreateWithInvalidData::test_create_project_with_invalid_ids[Roles.PROJECT_ADMIN-MwGG 098][0m
+curl -X POST 'http://localhost:8111/app/rest/projects' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: application/json'\
+-H 'Connection: keep-alive'\
+-H 'Content-Type: application/json'\
+-H 'X-TC-CSRF-Token: 01796b7b-0904-45d1-bc2c-b121fdfca67c'\
+-H 'Cookie: RecentLogin=; TCSESSIONID=4407ADDBFF2EA55ADDF2918DDEE99BA8'\
+-H 'Content-Length: 108'\
+-H 'Authorization: Basic OjEyOTQ0MTg2MjIwMjc0MjA1MjI=' \
+-d '{"parentProject": {"locator": "_Root"}, "name": "ball", "id": "MwGG 098", "copeAllAssociatedSettings": true}' 
+
+2024-04-14 15:58:15 INFO 	RESPONSE:
+STATUS_CODE: [31m500[0m
+DATA: [31mError has occurred during request processing, status code: 500 (Internal Server Error).
+Details: jetbrains.buildServer.serverSide.InvalidIdentifierException: Project ID "MwGG 098" is invalid: contains unsupported character ' '. ID should start with a latin letter and contain only latin letters, digits and underscores (at most 225 characters).
+Error occurred while processing this request.[0m
