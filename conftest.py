@@ -58,8 +58,6 @@ def user_session():
     for easy management of API calls, adds the created session object to the
     user_pool and returns it. This function allows you to create separate
     sessions for different users if necessary.
-    
-    
     """
 
     def _create_user_session():
