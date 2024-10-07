@@ -1,0 +1,38 @@
+import allure
+
+from pages.base_page import BasePage
+
+
+class ErrorMessageFragment(BasePage):
+    def __init__(self, page):
+        self.page = page
+        super().__init__(page)
+        self.error_build_problem = (
+            "[data-test-panel-heading"
+            '="expandBuildProblemsSection"]'
+            " > span#buildProblemsPreview"
+        )
+
+    def check_error_on_screen(self):
+        with (allure.step("Checking for the error message_build_problem")):
+            self.actions.wait_for_selector(self.error_build_problem)
+            self.actions.check_error_color(self.error_build_problem)
+
+
+class CheckRunBuildErrors(BasePage):
+    def __init__(self, page):
+        super().__init__(page)
+        # todo self.page_url = (f'/buildConfiguration/Testpr_Buildconf/{run_id}
+        #  ?expandBuildDeploymentsSection=false&hideTestsFromDependencies=false
+        #  &hideProblemsFromDependencies=false&expandBuildProblemsSection=true')
+        self.error_message = ErrorMessageFragment(page)
+
+    # todo def go_to_build_run_failed_page(self):
+    # todo  with allure.step("Navigating to the page displaying the steps"):
+    # todo self.actions.navigate(self.page_url)
+    # todo self.actions.wait_for_page_load()
+
+    def run_build_conf_failed(self):
+        with allure.step("Checking for errors after a failed build run"):
+            self.actions.wait_for_page_load()
+            self.error_message.check_error_on_screen()

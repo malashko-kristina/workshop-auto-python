@@ -1,0 +1,167 @@
+import allure
+from pages.base_page import BasePage
+
+
+class MenuCreateBuildConfFrt(BasePage):
+    def __init__(self, page):
+        self.page = page
+        super().__init__(page)
+        self.create_build_conf_from_url_selector = (
+            "a.createOption:" "has-text('From a repository URL')"
+        )
+        self.create_build_conf_manually_selector = (
+            "a.createOption:" "has-text(' Manually')"
+        )
+
+    def click_create_build_conf_from_url(self):
+        with allure.step("Select to create a build configuration by url"):
+            self.actions.click_button(self.create_build_conf_from_url_selector)
+
+    def create_build_manually(self):
+        with allure.step("Select to create a build configuration manually"):
+            self.actions.click_button(self.create_build_conf_manually_selector)
+
+    def is_create_from_url_active(self):
+        with allure.step("Check the activity of the build creation button by url"):
+            return self.actions.is_element_visible(
+                self.create_build_conf_from_url_selector
+            )
+
+    def is_create_manually_active(self):
+        with allure.step("Check the activity of the build creation button manually"):
+            return self.actions.is_element_visible(
+                self.create_build_conf_manually_selector
+            )
+
+
+class CreateBuildConfFormFrt(BasePage):
+    def __init__(self, page):
+        super().__init__(page)
+        self.build_name = "input#buildTypeName"
+        self.build_id = "input#buildTypeExternalId"
+        self.build_description = "input#description"
+        self.create_build_conf_button = (
+            "input.btn.btn_primary" '.submitButton[name="createBuildType"]'
+        )
+        self.build_name_error = "#error_buildTypeName"
+        self.build_id_error = "#error_buildTypeExternalId"
+
+    def input_build_conf_details(self, build_conf_name, build_conf_id,
+                                 description):
+        with allure.step("Enter data to create a build configuration"):
+            self.actions.wait_for_selector(self.build_name)
+            self.actions.input_text(self.build_name, build_conf_name)
+            self.actions.input_text(self.build_id, build_conf_id)
+            self.actions.input_text(self.build_description, description)
+
+    def click_create_build_conf_button(self):
+        with allure.step("Click the button to create a build configuration"):
+            self.actions.is_element_visible(self.create_build_conf_button)
+            self.actions.click_button(self.create_build_conf_button)
+
+    def error_empty_build_name(self):
+        with allure.step("Check the error text about an empty build name"):
+            self.actions.wait_for_selector(self.build_name_error)
+            self.actions.assert_text_in_element(
+                self.build_name_error, "Name must not be empty"
+            )
+            self.actions.check_error_color(self.build_name_error)
+
+    def error_empty_build_id(self):
+        with allure.step("Check the error text about empty build id"):
+            self.actions.wait_for_selector(self.build_id_error)
+            self.actions.assert_text_in_element(
+                self.build_id_error, "The ID field must not be empty."
+            )
+            self.actions.check_error_color(self.build_id_error)
+
+    def check_error_message_invalid_build_id(self, build_conf_id,
+                                             first_symbol):
+        with allure.step("Error checking empty invalid build id"):
+            self.actions.wait_for_selector(self.build_id_error)
+            self.actions.assert_text_in_element(
+                self.build_id_error,
+                f"Build configuration or template ID"
+                f' "{build_conf_id}" is invalid: starts'
+                f" with non-letter character"
+                f" '{first_symbol}'. ID should start"
+                f" with a latin letter and contain only"
+                f" latin letters, digits and underscores"
+                f" (at most 225 characters).",
+            )
+            self.actions.check_error_color(self.build_id_error)
+
+    def error_used_build_name(self, build_conf_name, project_name):
+        with allure.step("Check for error about build name used"):
+            self.actions.wait_for_selector(self.build_name_error)
+            self.actions.assert_text_in_element(
+                self.build_name_error,
+                f"Build configuration with name"
+                f' "{build_conf_name}" already'
+                f' exists in project: "{project_name}"',
+            )
+            self.actions.check_error_color(self.build_name_error)
+
+
+class BuildConfCreationPage(BasePage):
+    def __init__(self, page, project_id):
+        super().__init__(page)
+        self.page_url = (
+            f"/admin/createObjectMenu.html?projectId={project_id}"
+            f"&showMode=createBuildTypeMenu&cameFromUrl=%2Fadmin%"
+            f"2FeditProject.html%3FprojectId%3DTests"
+        )
+        self.menu_create_build = MenuCreateBuildConfFrt(page)
+        self.create_build_form = CreateBuildConfFormFrt(
+            page
+        )
+
+    def go_to_creation_build_conf_page(self):
+        with allure.step("Go to the page for creating a build config"):
+            self.actions.navigate(self.page_url)
+            self.actions.wait_for_page_load()
+
+    def create_build_conf(self, build_conf_id, build_conf_name,
+                          description):
+        self.go_to_creation_build_conf_page()
+        with allure.step("Click on the button to manually create a build config"):
+            self.menu_create_build.create_build_manually()
+        with allure.step("Adding information to create a build config"):
+            self.create_build_form.input_build_conf_details(
+                build_conf_name, build_conf_id, description
+            )
+        with allure.step("Click on the button to create a build configuration"):
+            self.create_build_form.click_create_build_conf_button()
+
+    def check_url_after_build_create(self, build_conf_id, project_id):
+        self.page_url = (
+            "/admin/editVcsRoot.html?action=addVcsRoot&editingScope"
+            f"=buildType%3A{build_conf_id}&cameFromUrl=%2Fadmin%2Fedit"
+            "BuildTypeVcsRoots.html%3Finit%3D1%26id%3DbuildType%3A"
+            f"{build_conf_id}%26cameFromUrl%3D%252Fadmin%252FeditProject"
+            f".html%253Finit%253D1%2526projectId%253D{project_id}&came"
+            "FromTitle=Version%20Control%20Settings&showSkip=true"
+        )
+        self.actions.wait_for_url_change(self.page_url)
+
+    def check_error_empty_build_name(self):
+        with allure.step("Error creating build empty name field"):
+            self.create_build_form.error_empty_build_name()
+
+    def check_error_empty_build_id(self):
+        with allure.step("Error creating build empty id field"):
+            self.create_build_form.error_empty_build_id()
+
+    def check_error_invalid_build_id(self, build_conf_id, first_symbol):
+        with allure.step("Error creating build invalid buIld id"):
+            self.create_build_form.check_error_message_invalid_build_id(
+                build_conf_id, first_symbol
+            )
+
+    def check_error_used_build_id(self, build_conf_name, project_name):
+        with allure.step(
+            "Error creating build due to already used name field"
+        ):
+            self.create_build_form.error_used_build_name(
+                build_conf_name, project_name
+            )

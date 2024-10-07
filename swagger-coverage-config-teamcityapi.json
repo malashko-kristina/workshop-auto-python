@@ -1,0 +1,23 @@
+{
+  "rules": {
+    "status": {
+      "enable": true,
+      "ignore": [
+        "500"
+      ],
+      "filter": []
+    },
+    "only-declared-status": {
+      "enable": false
+    },
+    "exclude-deprecated" : {
+      "enable" : true
+    }
+  },
+  "writers": {
+    "html": {
+      "locale": "en",
+      "filename":"swagger-coverage-report-teamcityapi.html"
+    }
+  }
+}

@@ -89,8 +89,8 @@ class BuildDataCopyModel(BaseModel):
 
 class BuildConfData:
     @staticmethod
-    def create_build_conf_data(project_id, name) -> BuildDataModel:
-        # Метод по генерации данных для билда
+    def build_conf_data(project_id, name) -> BuildDataModel:
+        # Method for generating data for the build
         return (BuildDataModel(
             id=DataGenerator.fake_build_id(),
             name=name,
@@ -119,7 +119,7 @@ class BuildConfData:
                 ]}))
 
     @staticmethod
-    def create_build_conf_data_with_empty_steps(project_id) -> BuildDataModel:
+    def build_data_empty_steps(project_id) -> BuildDataModel:
         return (BuildDataModel(
             id=DataGenerator.fake_build_id(),
             name=DataGenerator.fake_name(),
@@ -128,7 +128,7 @@ class BuildConfData:
         ))
 
     @staticmethod
-    def create_build_conf_data_without_steps(project_id) -> BuildDataModel:
+    def build_data_without_steps(project_id) -> BuildDataModel:
         return (BuildDataModel(
             id=DataGenerator.fake_build_id(),
             name=DataGenerator.fake_name(),
@@ -136,7 +136,7 @@ class BuildConfData:
         ))
 
     @staticmethod
-    def create_build_conf_data_with_empty_id(project_id) -> BuildDataModel:
+    def build_data_empty_id(project_id) -> BuildDataModel:
         return (BuildDataModel(
             id="",
             name=DataGenerator.fake_name(),
@@ -165,7 +165,7 @@ class BuildConfData:
             ]}))
 
     @staticmethod
-    def create_build_conf_data_with_empty_name(project_id) -> BuildDataModel:
+    def build_data_empty_name(project_id) -> BuildDataModel:
         return (BuildDataModel(
             id=DataGenerator.fake_build_id(),
             name="",
@@ -194,7 +194,7 @@ class BuildConfData:
             ]}))
 
     @staticmethod
-    def create_build_conf_data_with_invalid_project_id(project_ids) -> BuildDataModel:
+    def build_data_invalid_project_id(project_ids) -> BuildDataModel:
         return (BuildDataModel(
             id=DataGenerator.fake_build_id(),
             name=DataGenerator.fake_name(),
@@ -223,7 +223,7 @@ class BuildConfData:
             ]}))
 
     @staticmethod
-    def create_build_conf_data_with_invalid_ids(project_id, ids) -> BuildDataModel:
+    def build_data_invalid_ids(project_id, ids) -> BuildDataModel:
         return (BuildDataModel(
             id=ids,
             name=DataGenerator.fake_name(),
@@ -252,7 +252,7 @@ class BuildConfData:
             ]}))
 
     @staticmethod
-    def create_build_conf_data_copy(build_conf_id) -> BuildDataCopyModel:
+    def build_data_copy(build_conf_id) -> BuildDataCopyModel:
         return (BuildDataCopyModel(
             sourceBuildTypeLocator=build_conf_id,
             name=DataGenerator.fake_name(),
@@ -261,15 +261,10 @@ class BuildConfData:
         ))
 
     @staticmethod
-    def create_build_conf_data_copy_with_invalid_parent_build_conf() -> BuildDataCopyModel:
+    def build_invalid_parent() -> BuildDataCopyModel:
         return (BuildDataCopyModel(
             sourceBuildTypeLocator=DataGenerator.fake_build_id(),
             name=DataGenerator.fake_name(),
             id=DataGenerator.fake_build_id(),
             copyAllAssociatedSettings=True
         ))
-
-
-
-
-
