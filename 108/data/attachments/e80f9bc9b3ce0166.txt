@@ -1,0 +1,63 @@
+2024-10-07 10:31:48 INFO [32m pytest tests/backend/test_create_project.py::TestProjectCreateWithTheSameData::test_create_project_when_project_exists_with_id[Roles.PROJECT_DEVELOPER-h03Oh0516Gm] (setup)[0m
+curl -X GET 'http://localhost:8111/authenticationTest.html?csrf' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: */*'\
+-H 'Connection: keep-alive'\
+-H 'Authorization: Basic OjIwNzQwNzc3Mjc1ODU0NDk4OTA=' \
+-d ''
+2024-10-07 10:31:48 INFO [32m pytest tests/backend/test_create_project.py::TestProjectCreateWithTheSameData::test_create_project_when_project_exists_with_id[Roles.PROJECT_DEVELOPER-h03Oh0516Gm][0m
+curl -X POST 'http://localhost:8111/app/rest/projects' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: application/json'\
+-H 'Connection: keep-alive'\
+-H 'Content-Type: application/json'\
+-H 'X-TC-CSRF-Token: fabeaf1b-f0e3-4714-8bef-3a70a2f43e8d'\
+-H 'Cookie: RecentLogin=; TCSESSIONID=9857BD80209884C304085292C81D0E0D'\
+-H 'Content-Length: 118'\
+-H 'Authorization: Basic OjIwNzQwNzc3Mjc1ODU0NDk4OTA=' \
+-d '{"parentProject": {"locator": "_Root"}, "name": "h03Oh0516Gm", "id": "vVetC_uD8sx", "copeAllAssociatedSettings": true}' 
+
+2024-10-07 10:31:48 INFO [32m pytest tests/backend/test_create_project.py::TestProjectCreateWithTheSameData::test_create_project_when_project_exists_with_id[Roles.PROJECT_DEVELOPER-h03Oh0516Gm][0m
+curl -X POST 'http://localhost:8111/app/rest/projects' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: application/json'\
+-H 'Connection: keep-alive'\
+-H 'Content-Type: application/json'\
+-H 'X-TC-CSRF-Token: fabeaf1b-f0e3-4714-8bef-3a70a2f43e8d'\
+-H 'Cookie: TCSESSIONID=9857BD80209884C304085292C81D0E0D'\
+-H 'Content-Length: 118'\
+-H 'Authorization: Basic OjIwNzQwNzc3Mjc1ODU0NDk4OTA=' \
+-d '{"parentProject": {"locator": "_Root"}, "name": "uzQGKBCOIml", "id": "vVetC_uD8sx", "copeAllAssociatedSettings": true}' 
+
+2024-10-07 10:31:48 INFO 	RESPONSE:
+STATUS_CODE: [31m400[0m
+DATA: [31mResponding with error, status code: 400 (Bad Request).
+Details: jetbrains.buildServer.serverSide.identifiers.DuplicateExternalIdException: Project ID "vVetC_uD8sx" is already used by another project
+Project ID "vVetC_uD8sx" is already used by another project[0m
+2024-10-07 10:31:48 INFO [32m pytest tests/backend/test_create_project.py::TestProjectCreateWithTheSameData::test_create_project_when_project_exists_with_id[Roles.PROJECT_DEVELOPER-h03Oh0516Gm] (teardown)[0m
+curl -X DELETE 'http://localhost:8111/app/rest/projects/id:vVetC_uD8sx' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: application/json'\
+-H 'Connection: keep-alive'\
+-H 'Content-Type: application/json'\
+-H 'X-TC-CSRF-Token: fabeaf1b-f0e3-4714-8bef-3a70a2f43e8d'\
+-H 'Cookie: TCSESSIONID=9857BD80209884C304085292C81D0E0D'\
+-H 'Content-Length: 0'\
+-H 'Authorization: Basic OjIwNzQwNzc3Mjc1ODU0NDk4OTA=' \
+-d '' 
+
+2024-10-07 10:31:48 INFO [32m pytest tests/backend/test_create_project.py::TestProjectCreateWithTheSameData::test_create_project_when_project_exists_with_id[Roles.PROJECT_DEVELOPER-h03Oh0516Gm] (teardown)[0m
+curl -X GET 'http://localhost:8111/app/rest/projects' \
+-H 'User-Agent: python-requests/2.31.0'\
+-H 'Accept-Encoding: gzip, deflate'\
+-H 'Accept: application/json'\
+-H 'Connection: keep-alive'\
+-H 'Content-Type: application/json'\
+-H 'X-TC-CSRF-Token: fabeaf1b-f0e3-4714-8bef-3a70a2f43e8d'\
+-H 'Cookie: TCSESSIONID=9857BD80209884C304085292C81D0E0D'\
+-H 'Authorization: Basic OjIwNzQwNzc3Mjc1ODU0NDk4OTA=' \
+-d ''
