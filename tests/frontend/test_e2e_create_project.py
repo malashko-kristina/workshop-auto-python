@@ -10,14 +10,14 @@ from resources.user_creds import UsualUserCreds
 from utilis.data_generator import DataGenerator
 
 
-@allure.feature("Управление проектами")
-@allure.story("Создание первого проекта")
+@allure.feature("Project Management")
+@allure.story("Create the first project")
 @allure.severity(allure.severity_level.CRITICAL)
-@allure.link("https://example.com/docs/create_project", name="Документация")
-@allure.issue("https://issue.tracker/project/123", name="Баг-трекер")
-@allure.testcase("https://testcase.manager/testcase/1", name="Тест-кейс-199")
-@allure.title("Проверка создания первого проекта")
-@allure.description("Позитивный тест проверяет создание первого проекта в аккаунте.")
+@allure.link("https://example.com/docs/create_project", name="Documentation")
+@allure.issue("https://issue.tracker/project/123", name="Bug-tracker")
+@allure.testcase("https://testcase.manager/testcase/1", name="Test-case-199")
+@allure.title("Check the creation of the first project")
+@allure.description("Positive test checks Create the first project in the account.")
 def test_create_the_first_project(
     browser,
     project_data_create,
@@ -31,14 +31,14 @@ def test_create_the_first_project(
     description = DataGenerator.random_text()
     project_parent = project_data_1.parentProject["locator"]
 
-    with allure.step("Авторизация пользователя"):
+    with allure.step("User authorization"):
         login_browser = LoginPage(browser)
         login_browser.login_in_account(
             UsualUserCreds.USER_LOGIN, UsualUserCreds.USER_PASSWORD
         )
         login_browser.check_url_favourite_projects()
         login_browser.login_form_body.userpic_is_visible()
-    with allure.step("Создание первого проекта"):
+    with allure.step("Create the first project"):
         go_to_first_project_creation_browser = CreateTheFirstProjectPage(browser)
         go_to_first_project_creation_browser.tap_on_create_first_project()
         project_creation_browser = ProjectCreationPage(browser)
@@ -46,13 +46,13 @@ def test_create_the_first_project(
             project_name, project_id, description
         )
         project_creation_browser.check_url_after_prt_crt(project_id)
-    with allure.step("Проверка редиректа на страницу редактирования проекта"):
+    with allure.step("Check the redirect to the project editing page"):
         edit_project_browser = EditProjectFormPage(browser, project_id)
         edit_project_browser.wait_edit_project_url()
         edit_project_browser.check_success_project_creation(
             project_name, project_id, description
         )
-    with allure.step("Отправка запроса на получение информации о созданном проекте"):
+    with allure.step("Send a request to receive information about the created project"):
         response = super_admin.api_manager.project_api.get_project_by_locator(
             project_name
         ).text
@@ -66,14 +66,14 @@ def test_create_the_first_project(
                 f"expected parent project = {project_parent},"
                 f" but '{created_project.parentProjectId}' given"
             )
-    with allure.step("Проверка отображения имени приложения"):
+    with allure.step("Check the display of the application name"):
         edit_project_browser.footer.check_app_name_is_visible()
-    with allure.step("Проверка отображения текста копирайтинга"):
+    with allure.step("Check the display of copywriting text"):
         edit_project_browser.footer.check_copyright_text_is_visible()
-    with allure.step("Выход из аккаунта"):
+    with allure.step("Logout from account"):
         edit_project_browser.header.go_to_logout_admin_panel_through_header_button()
     with allure.step(
-        "Проверка нахождения id созданного проекта в общем списке проектов"
+        "Check if the created project id is in the general list of projects"
     ):
         get_project_response = (
             super_admin.api_manager.project_api.get_project_by_locator(
@@ -81,7 +81,7 @@ def test_create_the_first_project(
             ).text
         )
     with allure.step(
-        "Проверка соответствия параметров созданного проекта с отправленными данными"
+        "Check whether the parameters of the created project match the submitted data"
     ):
         created_model_project_response = ProjectResponseModel.model_validate_json(
             get_project_response
@@ -91,15 +91,15 @@ def test_create_the_first_project(
         )
 
 
-@allure.feature("Управление проектами")
-@allure.story('Создание проекта с пустым полем "id", с уже используемым id')
+@allure.feature("Project Management")
+@allure.story('Create a project with an empty "id" field, with an already used id')
 @allure.severity(allure.severity_level.CRITICAL)
-@allure.link("https://example.com/docs/create_project", name="Документация")
-@allure.issue("https://issue.tracker/project/123", name="Баг-трекер")
-@allure.testcase("https://testcase.manager/testcase/1", name="Тест-кейс-200")
-@allure.title('Проверка создания проекта с пустым полем "id", с уже используемым id')
+@allure.link("https://example.com/docs/create_project", name="Documentation")
+@allure.issue("https://issue.tracker/project/123", name="Bug-tracker")
+@allure.testcase("https://testcase.manager/testcase/1", name="Test-case-200")
+@allure.title('Check if a project is created with an empty "id" field, with an already used id')
 @allure.description(
-    'Флоу негативных тестов проверяет создание нового проекта с пустым полем "id", с уже используемым id.'
+    'Negative test flow checks creation of a new project with empty "id" field, with already used id.'
 )
 def test_create_project_invalid_id_name(browser, project_data_create, super_admin, project_data_first_project):
     project_data_1 = project_data_create()
@@ -109,13 +109,13 @@ def test_create_project_invalid_id_name(browser, project_data_create, super_admi
     description = DataGenerator.random_text()
     project_parent = project_data_1.parentProject["locator"]
 
-    with allure.step("Отправка запроса на создание первого проекта"):
+    with allure.step("Submit a request to Create the first project"):
         project_data_2 = project_data_first_project()
         create_project_response = super_admin.api_manager.project_api.create_project(
             project_data_2.model_dump()
         ).text
     with allure.step(
-        "Проверка соответствия параметров созданного проекта с отправленными данными"
+        "Check whether the parameters of the created project match the submitted data"
     ):
         project_model_response = ProjectResponseModel.model_validate_json(
             create_project_response
@@ -125,28 +125,28 @@ def test_create_project_invalid_id_name(browser, project_data_create, super_admi
             f"expected project id= {project_data_2.id},"
             f" but '{project_model_response.id}' given"
         )
-    with allure.step("Авторизация пользователя"):
+    with allure.step("User authorization"):
         login_browser = LoginPage(browser)
         login_browser.login_in_account(
             UsualUserCreds.USER_LOGIN, UsualUserCreds.USER_PASSWORD
         )
         login_browser.check_url_favourite_projects_mode()
         login_browser.login_form_body.userpic_is_visible()
-    with allure.step("Переход на страницу создания проекта через хедер"):
+    with allure.step("Go to the project creation page via the header"):
         project_creation_browser = ProjectCreationPage(browser)
         project_creation_browser.header.go_to_create_projects_through_header_button()
-    with allure.step("Создание проекта через хедер"):
+    with allure.step("Create a project via header"):
         project_creation_browser.create_project_manually(
             project_name, project_id, description
         )
         project_creation_browser.check_url_after_prt_crt(project_id)
-    with allure.step("Проверка редиректа на страницу редактирования проекта"):
+    with allure.step("Check the redirect to the project editing page"):
         edit_project_browser = EditProjectFormPage(browser, project_id)
         edit_project_browser.wait_edit_project_url()
         edit_project_browser.check_success_project_creation(
             project_name, project_id, description
         )
-    with allure.step("Отправка запроса на получение информации о созданном проекте"):
+    with allure.step("Send a request to receive information about the created project"):
         response = super_admin.api_manager.project_api.get_project_by_locator(
             project_name
         ).text
@@ -160,41 +160,41 @@ def test_create_project_invalid_id_name(browser, project_data_create, super_admi
                 f"expected parent project = {project_parent},"
                 f" but '{created_project.parentProjectId}' given"
             )
-    with allure.step("Создание проекта с пустым именем"):
+    with allure.step("Create a project with an empty name"):
         project_creation_with_error_browser = ProjectCreationPage(browser)
         project_creation_with_error_browser.go_to_creation_page()
         project_creation_with_error_browser.create_project_manually(
             "", project_id, description
         )
         project_creation_with_error_browser.check_error_empty_project_name_is_visible()
-    with allure.step("Создание проекта с уже используемым id"):
+    with allure.step("Create a project with an already used id"):
         project_creation_with_error_browser.create_project_manually(
             project_name_2, project_id, description
         )
         project_creation_with_error_browser.check_error_invalid_project_id_is_visible(
             project_id
         )
-    with allure.step("Проверка отображения версии билда приложения"):
+    with allure.step("Check the display of the application build version"):
         project_creation_with_error_browser.footer.check_build_version_is_visible()
-    with allure.step("Проверка отображения имени приложения"):
+    with allure.step("Check the display of the application name"):
         project_creation_with_error_browser.footer.check_app_name_is_visible()
-    with allure.step("Проверка отображения текста копирайтинга"):
+    with allure.step("Check the display of copywriting text"):
         project_creation_with_error_browser.footer.check_copyright_text_is_visible()
 
 
-@allure.feature("Управление проектами")
+@allure.feature("Project Management")
 @allure.story(
-    "Изменение данных проекта с использованием невалидного id с последующим корректным его изменением"
+    "Change project data using an invalid id and then changing it correctly"
 )
 @allure.severity(allure.severity_level.CRITICAL)
-@allure.link("https://example.com/docs/create_project", name="Документация")
-@allure.issue("https://issue.tracker/project/123", name="Баг-трекер")
-@allure.testcase("https://testcase.manager/testcase/1", name="Тест-кейс-201")
+@allure.link("https://example.com/docs/create_project", name="Documentation")
+@allure.issue("https://issue.tracker/project/123", name="Bug-tracker")
+@allure.testcase("https://testcase.manager/testcase/1", name="Test-case-201")
 @allure.title(
-    "Изменение данных проекта с использованием невалидного id с последующим корректным его изменением"
+    "Change project data using an invalid id and then changing it correctly"
 )
 @allure.description(
-    "Флоу из негативный теста по изменению проекта с невалидным id с последующим корректным его изменением."
+    "Flow from a negative test on changing a project with an invalid id followed by its correct change."
 )
 def test_create_project_invalid_id_edit(
     browser, project_data_without_deleting, super_admin, project_data_first_project
@@ -207,13 +207,13 @@ def test_create_project_invalid_id_edit(
     description = DataGenerator.random_text()
     project_parent = project_data_1.parentProject["locator"]
 
-    with allure.step("Отправка запроса на создание первого проекта"):
+    with allure.step("Submit a request to Create the first project"):
         project_data_2 = project_data_first_project()
         create_project_response = super_admin.api_manager.project_api.create_project(
             project_data_2.model_dump()
         ).text
     with allure.step(
-        "Проверка соответствия параметров созданного проекта с отправленными данными"
+        "Check whether the parameters of the created project match the submitted data"
     ):
         project_model_response = ProjectResponseModel.model_validate_json(
             create_project_response
@@ -223,27 +223,27 @@ def test_create_project_invalid_id_edit(
             f"expected project id= {project_data_2.id},"
             f" but '{project_model_response.id}' given"
         )
-    with allure.step("Авторизация пользователя"):
+    with allure.step("User authorization"):
         login_browser = LoginPage(browser)
         login_browser.login_in_account(
             UsualUserCreds.USER_LOGIN, UsualUserCreds.USER_PASSWORD
         )
         login_browser.check_url_favourite_projects_mode()
         login_browser.login_form_body.userpic_is_visible()
-    with allure.step("Создание проекта"):
+    with allure.step("Create a project"):
         project_creation_browser = ProjectCreationPage(browser)
         project_creation_browser.go_to_creation_page()
         project_creation_browser.create_project_manually(
             project_name, project_id, description
         )
-    with allure.step("Проверка редиректа на страницу редактирования проекта"):
+    with allure.step("Check the redirect to the project editing page"):
         edit_project_browser = EditProjectFormPage(browser, project_id)
         edit_project_browser.wait_edit_project_url()
         edit_project_browser.check_success_project_creation(
             project_name, project_id, description
         )
         with allure.step(
-            "Отправка запроса на получение информации о созданном проекте"
+            "Send a request to receive information about the created project"
         ):
             response = super_admin.api_manager.project_api.get_project_by_locator(
                 project_name
@@ -259,7 +259,7 @@ def test_create_project_invalid_id_edit(
                     f"expected parent project = {project_parent},"
                     f" but '{created_project.parentProjectId}' given"
                 )
-    with allure.step("Редактирование проекта с использованием невалидного id"):
+    with allure.step("Edit a project using an invalid id"):
         project_invalid_edit_browser = EditProjectFormPage(browser, project_id)
         project_invalid_edit_browser.check_project_url_edit()
         project_invalid_edit_browser.add_changes_to_project_data(
@@ -270,7 +270,7 @@ def test_create_project_invalid_id_edit(
         project_invalid_edit_browser.check_error_message_invalid_project_id_edit(
             project_id_invalid
         )
-    with allure.step("Редактирование проекта с использованием валидных данных"):
+    with allure.step("Edit a project using valid data"):
         project_edit_browser = EditProjectFormPage(browser, project_id)
         project_edit_browser.check_project_url_edit()
         project_edit_browser.add_changes_to_project_data(
@@ -278,11 +278,11 @@ def test_create_project_invalid_id_edit(
         )
         project_edit_browser.tap_on_save_changes_button()
         project_edit_browser.check_success_message_edit_saved()
-    with allure.step("Удаление проекта"):
+    with allure.step("Delete a project"):
         delete_project_browser = EditProjectFormPage(browser, project_id_2)
         delete_project_browser.check_project_url_edit()
         delete_project_browser.delete_project()
-    with allure.step("Отправка запроса на получение информации об удаленно проекте"):
+    with allure.step("Send a request for information about a remote project"):
         get_delete_project_response = (
             super_admin.api_manager.project_api.get_project_by_locator(
                 project_id_2, expected_status=HTTPStatus.NOT_FOUND
@@ -295,15 +295,15 @@ def test_create_project_invalid_id_edit(
         ) in get_delete_project_response.text
 
 
-@allure.feature("Управление проектами")
-@allure.story("Создание копии уже существующего проекта с изменением id")
+@allure.feature("Project Management")
+@allure.story("Create a copy of an existing project with a change in id")
 @allure.severity(allure.severity_level.CRITICAL)
-@allure.link("https://example.com/docs/create_project", name="Документация")
-@allure.issue("https://issue.tracker/project/123", name="Баг-трекер")
-@allure.testcase("https://testcase.manager/testcase/1", name="Тест-кейс-202")
-@allure.title("Проверка создания копии проекта")
+@allure.link("https://example.com/docs/create_project", name="Documentation")
+@allure.issue("https://issue.tracker/project/123", name="Bug-tracker")
+@allure.testcase("https://testcase.manager/testcase/1", name="Test-case-202")
+@allure.title("Check the creation of a copy of the project")
 @allure.description(
-    "Позитивный тест проверяет создание нового проекта на основе копирования с уже существующего."
+    "A positive test verifies the creation of a new project based on copying from an existing one."
 )
 def test_create_project_by_copy(
     browser, project_data_create, super_admin, project_data_first_project
@@ -315,13 +315,13 @@ def test_create_project_by_copy(
     project_id_new = DataGenerator.fake_build_id()
     project_parent = project_data_1.parentProject["locator"]
 
-    with allure.step("Отправка запроса на создание первого проекта"):
+    with allure.step("Submit a request to Create the first project"):
         project_data_2 = project_data_first_project()
         create_project_response = super_admin.api_manager.project_api.create_project(
             project_data_2.model_dump()
         ).text
     with allure.step(
-        "Проверка соответствия параметров созданного проекта с отправленными данными"
+        "Check whether the parameters of the created project match the submitted data"
     ):
         project_model_response = ProjectResponseModel.model_validate_json(
             create_project_response
@@ -331,27 +331,27 @@ def test_create_project_by_copy(
             f"expected project id= {project_data_2.id},"
             f" but '{project_model_response.id}' given"
         )
-    with allure.step("Авторизация пользователя"):
+    with allure.step("User authorization"):
         login_browser = LoginPage(browser)
         login_browser.login_in_account(
             UsualUserCreds.USER_LOGIN, UsualUserCreds.USER_PASSWORD
         )
         login_browser.check_url_favourite_projects_mode()
         login_browser.login_form_body.userpic_is_visible()
-    with allure.step("Создание проекта"):
+    with allure.step("Create a project"):
         project_creation_browser = ProjectCreationPage(browser)
         project_creation_browser.go_to_creation_page()
         project_creation_browser.create_project_manually(
             project_name, project_id, description
         )
-    with allure.step("Проверка редиректа на страницу редактирования проекта"):
+    with allure.step("Check the redirect to the project editing page"):
         edit_project_browser = EditProjectFormPage(browser, project_id)
         edit_project_browser.wait_edit_project_url()
         edit_project_browser.check_success_project_creation(
             project_name, project_id, description
         )
         with allure.step(
-            "Отправка запроса на получение информации о созданном проекте"
+            "Send a request to receive information about the created project"
         ):
             response = super_admin.api_manager.project_api.get_project_by_locator(
                 project_name
@@ -367,12 +367,12 @@ def test_create_project_by_copy(
                     f"expected parent project = {project_parent},"
                     f" but '{created_project.parentProjectId}' given"
                 )
-    with allure.step("Создание копии проекта"):
+    with allure.step("Create a copy of the project"):
         edit_project_browser.check_project_url_edit()
         edit_project_browser.copy_project(project_id_new)
         edit_project_browser.check_success_message_project_copy()
     with allure.step(
-        "Проверка нахождения id созданного проекта в общем списке проектов"
+        "Check if the created project id is in the general list of projects"
     ):
         get_project_response = (
             super_admin.api_manager.project_api.get_project_by_locator(
@@ -380,7 +380,7 @@ def test_create_project_by_copy(
             ).text
         )
     with allure.step(
-        "Проверка соответствия параметров созданного проекта с отправленными данными"
+        "Check whether the parameters of the created project match the submitted data"
     ):
         project_response = ProjectResponseModel.model_validate_json(
             get_project_response
@@ -389,11 +389,11 @@ def test_create_project_by_copy(
         assert (
             project_response.id == project_id_new
         ), f"There is no project with {project_id_new} id"
-    with allure.step("Удаление проекта"):
+    with allure.step("Delete a project"):
         delete_project_browser = EditProjectFormPage(browser, project_id_new)
         delete_project_browser.check_project_url_edit()
         delete_project_browser.delete_project()
-    with allure.step("Отправка запроса на получение информации об удаленно проекте"):
+    with allure.step("Send a request for information about a remote project"):
         get_delete_project_response = (
             super_admin.api_manager.project_api.get_project_by_locator(
                 project_id_new, expected_status=HTTPStatus.NOT_FOUND
@@ -406,15 +406,15 @@ def test_create_project_by_copy(
         ) in get_delete_project_response.text
 
 
-@allure.feature("Управление проектами")
-@allure.story("Создание копии уже существующего проекта с пустым id")
+@allure.feature("Project Management")
+@allure.story("Create a copy of an existing project with an empty id")
 @allure.severity(allure.severity_level.CRITICAL)
-@allure.link("https://example.com/docs/create_project", name="Документация")
-@allure.issue("https://issue.tracker/project/123", name="Баг-трекер")
-@allure.testcase("https://testcase.manager/testcase/1", name="Тест-кейс-203")
-@allure.title('Проверка создания копии проекта с пустым полем "id"')
+@allure.link("https://example.com/docs/create_project", name="Documentation")
+@allure.issue("https://issue.tracker/project/123", name="Bug-tracker")
+@allure.testcase("https://testcase.manager/testcase/1", name="Test-case-203")
+@allure.title('Check if a project copy is created with an empty "id" field')
 @allure.description(
-    'Негативный тест проверяет создание копии нового проекта с пустым полем "id".'
+    'A negative test checks the creation of a copy of a new project with an empty "id" field..'
 )
 def test_create_project_by_copy_empty_id(
     browser, project_data_create, super_admin, project_data_first_project
@@ -426,13 +426,13 @@ def test_create_project_by_copy_empty_id(
     project_id_empty = " "
     project_parent = project_data_1.parentProject["locator"]
 
-    with allure.step("Отправка запроса на создание первого проекта"):
+    with allure.step("Submit a request to Create the first project"):
         project_data_2 = project_data_first_project()
         create_project_response = super_admin.api_manager.project_api.create_project(
             project_data_2.model_dump()
         ).text
     with allure.step(
-        "Проверка соответствия параметров созданного проекта с отправленными данными"
+        "Check whether the parameters of the created project match the submitted data"
     ):
         project_response = ProjectResponseModel.model_validate_json(
             create_project_response
@@ -441,27 +441,27 @@ def test_create_project_by_copy_empty_id(
         assert (
             project_response.id == project_data_2.id
         ), f"expected project id= {project_data_2.id}, but '{project_response.id}' given"
-    with allure.step("Авторизация пользователя"):
+    with allure.step("User authorization"):
         login_browser = LoginPage(browser)
         login_browser.login_in_account(
             UsualUserCreds.USER_LOGIN, UsualUserCreds.USER_PASSWORD
         )
         login_browser.check_url_favourite_projects_mode()
         login_browser.login_form_body.userpic_is_visible()
-    with allure.step("Создание проекта"):
+    with allure.step("Create a project"):
         project_creation_browser = ProjectCreationPage(browser)
         project_creation_browser.go_to_creation_page()
         project_creation_browser.create_project_manually(
             project_name, project_id, description
         )
-    with allure.step("Проверка редиректа на страницу редактирования проекта"):
+    with allure.step("Check the redirect to the project editing page"):
         edit_project_browser = EditProjectFormPage(browser, project_id)
         edit_project_browser.wait_edit_project_url()
         edit_project_browser.check_success_project_creation(
             project_name, project_id, description
         )
         with allure.step(
-            "Отправка запроса на получение информации о созданном проекте"
+            "Send a request to receive information about the created project"
         ):
             response = super_admin.api_manager.project_api.get_project_by_locator(
                 project_name
@@ -477,11 +477,11 @@ def test_create_project_by_copy_empty_id(
                     f"expected parent project = {project_parent},"
                     f" but '{created_project.parentProjectId}' given"
                 )
-    with allure.step("Попытка создания копии проекта с пустым project id"):
+    with allure.step("Attempt to create a copy of a project with an empty project id"):
         edit_project_browser.check_project_url_edit()
         edit_project_browser.copy_project(project_id_empty)
         edit_project_browser.check_error_message_project_copy()
-    with allure.step("Отправка запроса на получение информации о несозданном проекте"):
+    with allure.step("Send a request to get information about an uncreated project"):
         get_delete_project_response = (
             super_admin.api_manager.project_api.get_project_by_locator(
                 project_id_empty, expected_status=HTTPStatus.NOT_FOUND

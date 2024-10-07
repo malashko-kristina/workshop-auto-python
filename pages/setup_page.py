@@ -14,19 +14,19 @@ class FirstStartWindow(BasePage):
         self.data_base_title = "#pageContent > h1"
 
     def is_restore_button_active(self):
-        with allure.step("Проверка активности кнопки restore"):
+        with allure.step("Check the restore button activity"):
             self.actions.is_button_active(self.restore_button)
 
     def click_on_restore_button(self):
-        with allure.step("Клик по кнопке restore"):
+        with allure.step("Click on the restore button"):
             self.actions.click_button(self.restore_button)
 
     def is_proceed_button_active(self):
-        with allure.step("Проверка активности кнопки proceed"):
+        with allure.step("Check the activity of the proceed button"):
             self.actions.wait_for_selector(self.proceed_button)
 
     def click_on_proceed_button(self):
-        with allure.step("Клик по кнопке proceed"):
+        with allure.step("Click on the proceed button"):
             self.actions.click_button(self.proceed_button)
 
     def proceed_step(self):
@@ -97,26 +97,26 @@ class SetUpPage(BasePage):
         self.setup_user = SetUpUser(self.page)
 
     def set_up(self, username="admin", password="admin"):
-        with allure.step("Переход на приветственную страницу"):
+        with allure.step("Go to the welcome page"):
             self.actions.navigate(self.page_url)
             self.actions.wait_for_page_load()
-        with allure.step("Продолжить на стр 'First Start'"):
+        with allure.step("Continue to page 'First Start'"):
             self.first_start_window.proceed_step()
             self.loading.wait_loading()
-        with allure.step("Продолжить на 'DataBase connection setup'"):
+        with allure.step("Continue to 'DataBase connection setup'"):
             self.first_start_window.proceed_step()
             self.loading.wait_loading()
-        with allure.step("Принятие лицензионного соглашения"):
+        with allure.step("Acceptance of the license agreement"):
             self.agreement.check_in_box()
-        with allure.step("Переход на стр 'License Agreement'"):
+        with allure.step("Go to page 'License Agreement'"):
             self.actions.check_url(self.agreement.page_url)
-        with allure.step("Принятие лицензионного соглашения"):
+        with allure.step("Acceptance of the license agreement"):
             self.agreement.continue_agreement()
             self.actions.wait_for_page_load()
-        with allure.step("Заполнение данных юзера для его создания"):
+        with allure.step("Fill in user data to create it"):
             self.setup_user.fill_user_data(username, password)
-        with allure.step("Клик на кнопку создания юзера"):
+        with allure.step("Click on the user creation button"):
             self.setup_user.create_user()
-        with allure.step("Проверка перехода на страницу логина"):
+        with allure.step("Check the transition to the login page"):
             self.page_url = "/favorite/projects"
             self.actions.wait_for_url_change(self.page_url)

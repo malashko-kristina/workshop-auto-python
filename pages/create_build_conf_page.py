@@ -14,21 +14,21 @@ class MenuCreateBuildConfFrt(BasePage):
         )
 
     def click_create_build_conf_from_url(self):
-        with allure.step("Выбор создания билд конфигурации по url"):
+        with allure.step("Select to create a build configuration by url"):
             self.actions.click_button(self.create_build_conf_from_url_selector)
 
     def create_build_manually(self):
-        with allure.step("Выбор создания билд конфигурации вручную"):
+        with allure.step("Select to create a build configuration manually"):
             self.actions.click_button(self.create_build_conf_manually_selector)
 
     def is_create_from_url_active(self):
-        with allure.step("Проверка активности кнопки создания билда по url"):
+        with allure.step("Check the activity of the build creation button by url"):
             return self.actions.is_element_visible(
                 self.create_build_conf_from_url_selector
             )
 
     def is_create_manually_active(self):
-        with allure.step("Проверка активности кнопки создания билда вручную"):
+        with allure.step("Check the activity of the build creation button manually"):
             return self.actions.is_element_visible(
                 self.create_build_conf_manually_selector
             )
@@ -48,19 +48,19 @@ class CreateBuildConfFormFrt(BasePage):
 
     def input_build_conf_details(self, build_conf_name, build_conf_id,
                                  description):
-        with allure.step("Ввод данных для создания билд конфигурации"):
+        with allure.step("Enter data to create a build configuration"):
             self.actions.wait_for_selector(self.build_name)
             self.actions.input_text(self.build_name, build_conf_name)
             self.actions.input_text(self.build_id, build_conf_id)
             self.actions.input_text(self.build_description, description)
 
     def click_create_build_conf_button(self):
-        with allure.step("Нажатие кнопки создания билд конфигурации"):
+        with allure.step("Click the button to create a build configuration"):
             self.actions.is_element_visible(self.create_build_conf_button)
             self.actions.click_button(self.create_build_conf_button)
 
     def error_empty_build_name(self):
-        with allure.step("Проверка текста ошибки о пустом имени билда"):
+        with allure.step("Check the error text about an empty build name"):
             self.actions.wait_for_selector(self.build_name_error)
             self.actions.assert_text_in_element(
                 self.build_name_error, "Name must not be empty"
@@ -68,7 +68,7 @@ class CreateBuildConfFormFrt(BasePage):
             self.actions.check_error_color(self.build_name_error)
 
     def error_empty_build_id(self):
-        with allure.step("Проверка текста ошибки о пустом id билда"):
+        with allure.step("Check the error text about empty build id"):
             self.actions.wait_for_selector(self.build_id_error)
             self.actions.assert_text_in_element(
                 self.build_id_error, "The ID field must not be empty."
@@ -77,7 +77,7 @@ class CreateBuildConfFormFrt(BasePage):
 
     def check_error_message_invalid_build_id(self, build_conf_id,
                                              first_symbol):
-        with allure.step("Проверка ошибки пустой невалидный id билда"):
+        with allure.step("Error checking empty invalid build id"):
             self.actions.wait_for_selector(self.build_id_error)
             self.actions.assert_text_in_element(
                 self.build_id_error,
@@ -92,7 +92,7 @@ class CreateBuildConfFormFrt(BasePage):
             self.actions.check_error_color(self.build_id_error)
 
     def error_used_build_name(self, build_conf_name, project_name):
-        with allure.step("Проверка ошибки об используемом имени билда"):
+        with allure.step("Check for error about build name used"):
             self.actions.wait_for_selector(self.build_name_error)
             self.actions.assert_text_in_element(
                 self.build_name_error,
@@ -117,20 +117,20 @@ class BuildConfCreationPage(BasePage):
         )
 
     def go_to_creation_build_conf_page(self):
-        with allure.step("Переход на страницу создания билд конф"):
+        with allure.step("Go to the page for creating a build config"):
             self.actions.navigate(self.page_url)
             self.actions.wait_for_page_load()
 
     def create_build_conf(self, build_conf_id, build_conf_name,
                           description):
         self.go_to_creation_build_conf_page()
-        with allure.step("Клик на кнопку ручного создания билд конф"):
+        with allure.step("Click on the button to manually create a build config"):
             self.menu_create_build.create_build_manually()
-        with allure.step("Добавления информации для создания билд конф"):
+        with allure.step("Adding information to create a build config"):
             self.create_build_form.input_build_conf_details(
                 build_conf_name, build_conf_id, description
             )
-        with allure.step("Клик на кнопку создания билд конфигурации"):
+        with allure.step("Click on the button to create a build configuration"):
             self.create_build_form.click_create_build_conf_button()
 
     def check_url_after_build_create(self, build_conf_id, project_id):
@@ -145,22 +145,22 @@ class BuildConfCreationPage(BasePage):
         self.actions.wait_for_url_change(self.page_url)
 
     def check_error_empty_build_name(self):
-        with allure.step("Ошибка создания билда пустое поле имени"):
+        with allure.step("Error creating build empty name field"):
             self.create_build_form.error_empty_build_name()
 
     def check_error_empty_build_id(self):
-        with allure.step("Ошибка создания билда пустое поле id"):
+        with allure.step("Error creating build empty id field"):
             self.create_build_form.error_empty_build_id()
 
     def check_error_invalid_build_id(self, build_conf_id, first_symbol):
-        with allure.step("Ошибка создания билда invalid buIld id"):
+        with allure.step("Error creating build invalid buIld id"):
             self.create_build_form.check_error_message_invalid_build_id(
                 build_conf_id, first_symbol
             )
 
     def check_error_used_build_id(self, build_conf_name, project_name):
         with allure.step(
-            "Ошибка создания билд из-за уже используемого поля name"
+            "Error creating build due to already used name field"
         ):
             self.create_build_form.error_used_build_name(
                 build_conf_name, project_name

@@ -7,7 +7,7 @@ faker_instance = Faker()
 
 class DataGenerator:
     """""
-    Фейкер для генерации рандомных данных/значений
+    Fake for generating random data/values
     """ ""
 
     @staticmethod
@@ -39,7 +39,7 @@ class DataGenerator:
 
     @staticmethod
     def incorrect_id_1():
-        # Строка начинается не с латинской буквы, содержит спецсимволы
+        # The line does not start with a Latin letter and contains special characters
         special_symbol = (faker_instance.random.choice("@#$%^&*"))
         first_part_symbols = "".join(faker_instance.random.choices(string.digits + special_symbol, k=4))
         second_part_symbols = "".join(faker_instance.random.choices(string.ascii_letters, k=7))
@@ -48,7 +48,7 @@ class DataGenerator:
 
     @staticmethod
     def incorrect_id_2():
-        # В строке есть пробел
+        # There is a space in the line
         string_part = "".join(faker_instance.random.choices(string.ascii_letters, k=4))
         numbers_part = "".join(faker_instance.random.choices(string.digits, k=3))
         result_1 = f"{string_part} {numbers_part}"
@@ -56,7 +56,7 @@ class DataGenerator:
 
     @staticmethod
     def incorrect_id_3():
-        # Строка содержит буквы русского алфавита
+        # The string contains letters of the Russian alphabet
         non_latin = random.choice("абвгдеёжзийклмнопрстуфхцчшщъыьэюя")
         string_part = "".join(faker_instance.random.choices(string.digits, k=7))
         result_id = f"{non_latin}{string_part}"
@@ -64,7 +64,7 @@ class DataGenerator:
 
     @staticmethod
     def random_text():
-        # Рандомный текст из 20 слов
+        # Random text of 20 words
         random_text = faker_instance.words(nb=20)
         result = " ".join(random_text)
         return result

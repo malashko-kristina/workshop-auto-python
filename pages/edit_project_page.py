@@ -8,7 +8,7 @@ class MsgProjectCreatedFrt(BasePage):
         self.message_created_project = (".successMessage#message_projectCreated")
 
     def check_text_in_selector(self, project_name):
-        with allure.step("Проверка наличия текста на странице"):
+        with allure.step("Checking for text on a page"):
             self.actions.wait_for_selector(self.message_created_project)
             self.actions.assert_text_in_element(
                 self.message_created_project,
@@ -35,13 +35,13 @@ class OptionsProjectCreatedFrt(BasePage):
         self.message_error_empty_id = "#error_newProjectExternalId"
 
     def tap_on_actions_button(self):
-        with allure.step("Клик на кнопку actions на стр проекта"):
+        with allure.step("Click on the actions button on the project page"):
             self.actions.wait_for_selector(self.actions_button)
             self.actions.is_button_active(self.actions_button)
             self.actions.click_button(self.actions_button)
 
     def tap_on_delete_project_button(self):
-        with allure.step("Клик на кнопку удаления на стр проекта"):
+        with allure.step("Click on the delete button on the project page"):
             self.actions.wait_for_selector(self.delete_project_button)
             self.actions.assert_text_in_element(
                 self.delete_project_button, "Delete project..."
@@ -61,18 +61,18 @@ class OptionsProjectCreatedFrt(BasePage):
         #  /{project_id}" manually')
 
     def tap_copy_project_btn(self, project_id):
-        with allure.step("Клик на кнопку copy для copy проекта"):
+        with allure.step("Click on the copy button to copy the project"):
             self.actions.is_element_visible(self.copy_project_button)
             self.actions.click_button(self.copy_project_button)
             self.actions.wait_for_selector(self.copy_button)
-        with allure.step("Add нового проджект id в поле project id"):
+        with allure.step("Add a new project id in the project id field"):
             self.actions.input_text(self.new_project_id, project_id)
-        with allure.step("Клик на кнопку копирования проекта"):
+        with allure.step("Click on the Copy Project button"):
             self.actions.is_element_visible(self.copy_button)
             self.actions.click_button(self.copy_button)
 
     def success_message_copy_project(self):
-        with allure.step("Проверка текста об успешном копировании проекта"):
+        with allure.step("Check the text about successful copying of the project"):
             self.actions.wait_for_selector(self.after_copy_message)
             self.actions.assert_text_in_element(
                 self.after_copy_message,
@@ -84,8 +84,7 @@ class OptionsProjectCreatedFrt(BasePage):
 
     def error_message_copy_project_empty_id(self):
         with allure.step(
-            "Проверка отображения текста об ошибке копирования проекта"
-            " (project id пустой)"
+            "Checking the display of text about the project copy error (project id is empty)"
         ):
             self.actions.wait_for_selector(self.message_error_empty_id)
             self.actions.assert_text_in_element(
@@ -108,7 +107,7 @@ class EditProjectPageFrt(BasePage):
 
     def input_project_edit_details(self, name, project_id,
                                    description):
-        with allure.step("Ввод данных для изменения проекта"):
+        with allure.step("Enter data to change the project"):
             self.actions.input_text(self.project_name_selector,
                                     name)
             self.actions.input_text(self.project_id_selector,
@@ -117,43 +116,43 @@ class EditProjectPageFrt(BasePage):
                                     description)
 
     def check_project_name(self, name):
-        with allure.step("Проверка имени проекта"):
+        with allure.step("Check the project name"):
             self.actions.assert_element_attribute(
                 self.project_name_selector, "value", f"{name}"
             )
 
     def check_project_id(self, project_id):
-        with allure.step("Проверка данных проекта"):
+        with allure.step("Project data verification"):
             self.actions.assert_element_attribute(
                 self.project_id_selector, "value", f"{project_id}"
             )
 
     def check_description(self, description):
-        with allure.step("Проверка description проекта"):
+        with allure.step("Check the project description"):
             self.actions.assert_element_attribute(
                 self.project_description_selector, "value",
                 f"{description}"
             )
 
     def click_save_project_edit_button(self):
-        with allure.step("Нажатие кнопки изменения созданного проекта"):
+        with allure.step("Click the edit button on a created project"):
             self.actions.is_element_visible(self.project_save_button)
             self.actions.click_button(self.project_save_button)
 
     def click_cancel_project_edit_button(self):
-        with allure.step("Отмена изменения созданного проекта"):
+        with allure.step("Undo changes to a created project"):
             self.actions.is_element_visible(self.project_cancel_button)
             self.actions.click_button(self.project_cancel_button)
 
     def warning_message_displaying(self):
         with allure.step(
-            "Отображение предупреждения после edit данных проекта"
+            "Display warning after editing project data"
         ):
             self.actions.wait_for_selector(self.warning_message)
 
     def err_inv_project_id_edit(self, project_id):
         with allure.step(
-            "Проверка ошибки при edit проекта (невалидный project id)"
+            "Check for an error when editing a project (invalid project id)"
         ):
             self.actions.wait_for_selector(self.invalid_id_error)
             self.actions.assert_text_in_element(
@@ -167,7 +166,7 @@ class EditProjectPageFrt(BasePage):
 
     def err_empty_project_id_copy(self):
         with allure.step(
-            "Проверка ошибкм при копировании проекта (пустой project id)"
+            "Check for error when copying a project (empty project id)"
         ):
             self.actions.wait_for_selector(self.empty_id_copy_error)
             self.actions.assert_text_in_element(
@@ -176,7 +175,7 @@ class EditProjectPageFrt(BasePage):
 
     def success_message_edit_saved(self):
         with allure.step(
-            "Сообщение об успешном сохранении данных edit проекта"
+            "Message about successful saving of project edit data"
         ):
             self.actions.wait_for_selector(self.message_success)
             self.actions.assert_text_in_element(
@@ -191,7 +190,7 @@ class AddBuildConf(BasePage):
                                  '("Create build configuration")')
 
     def click_on_create_build_cond(self):
-        with allure.step("Нажатие кнопки создания билд конфигурации"):
+        with allure.step("Click the button to create a build configuration"):
             self.actions.wait_for_selector(self.build_add_button)
             self.actions.is_element_visible(self.build_add_button)
             self.actions.click_button(self.build_add_button)
@@ -208,21 +207,21 @@ class EditProjectFormPage(BasePage):
         self.add_build_conf = AddBuildConf(page)
 
     def go_to_edit_page(self):
-        with allure.step("Переход на страницу edit проекта"):
+        with allure.step("Go to the project edit page"):
             self.actions.navigate(self.page_url)
 
     def wait_edit_project_url(self):
-        with allure.step("Проверка страницы редактирования проекта"):
+        with allure.step("Check the project edit page"):
             self.actions.wait_for_url_change(self.page_url)
 
     def check_project_url_edit(self):
-        with allure.step("Проверка страницы редактирования проекта"):
+        with allure.step("Check the project edit page"):
             self.actions.check_url(self.page_url)
 
     def check_success_project_creation(self, name, project_id,
                                        description):
         with allure.step(
-            "Сообщение об успешном создании проекта и данных проекта"
+            "Message about successful creation of the project and project data"
         ):
             self.wait_edit_project_url()
             self.message_created_project.check_text_in_selector(name)
@@ -232,18 +231,18 @@ class EditProjectFormPage(BasePage):
 
     def add_changes_to_project_data(self, name, project_id,
                                     description):
-        with allure.step("Ввод изменений полей данных проекта"):
+        with allure.step("Enter changes to project data fields"):
             self.edit_project_page.input_project_edit_details(
                 name, project_id, description
             )
             self.edit_project_page.click_save_project_edit_button()
 
     def tap_on_save_changes_button(self):
-        with allure.step("Сохранение изменений данных проекта"):
+        with allure.step("Save changes to project data"):
             self.edit_project_page.click_save_project_edit_button()
 
     def redirect_to_create_build_conf(self, project_id):
-        with allure.step("Клик на кнопку создания билд конфигурации"):
+        with allure.step("Click on the button to create a build configuration"):
             self.add_build_conf.click_on_create_build_cond()
             self.page_url = (f"/admin/createObjectMenu.html?projectId"
                              f"={project_id}&showMode=createBuildType"
@@ -253,39 +252,39 @@ class EditProjectFormPage(BasePage):
 
     def check_error_message_invalid_project_id_edit(self, project_id):
         with allure.step(
-            "Сообщение об ошибке при edit проекта (inv project id)"
+            "Error message when editing a project (inv project id)"
         ):
             self.edit_project_page.err_inv_project_id_edit(project_id)
 
     def check_warning_message_edit(self):
         with allure.step(
-            "Отображение предупреждения после edit данных проекта"
+            "Display warning after editing project data"
         ):
             self.edit_project_page.warning_message_displaying()
 
     def check_success_message_edit_saved(self):
         with allure.step(
-            "Сообщение сохранении данных редактирования проекта"
+            "Message about saving project editing data"
         ):
             self.edit_project_page.success_message_edit_saved()
 
     def check_success_message_project_copy(self):
-        with allure.step("Отображение об успешном copy проекта"):
+        with allure.step("Display of successful copy of the project"):
             self.drop_down_menu.success_message_copy_project()
 
     def delete_project(self):
-        with allure.step("Удаление проекта"):
+        with allure.step("Delete a project"):
             self.drop_down_menu.tap_on_actions_button()
             self.drop_down_menu.tap_on_delete_project_button()
             self.drop_down_menu.message_delete_project()
 
     def copy_project(self, project_id):
-        with allure.step("Копирование проекта"):
+        with allure.step("Copy a project"):
             self.drop_down_menu.tap_on_actions_button()
             self.drop_down_menu.tap_copy_project_btn(project_id)
 
     def check_error_message_project_copy(self):
         with allure.step(
-            "Ошибка при создании копии проекта с пустым id"
+            "Error creating project copy with empty id"
         ):
             self.edit_project_page.err_empty_project_id_copy()

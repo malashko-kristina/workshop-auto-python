@@ -90,7 +90,7 @@ class BuildDataCopyModel(BaseModel):
 class BuildConfData:
     @staticmethod
     def build_conf_data(project_id, name) -> BuildDataModel:
-        # Метод по генерации данных для билда
+        # Method for generating data for the build
         return (BuildDataModel(
             id=DataGenerator.fake_build_id(),
             name=name,

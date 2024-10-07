@@ -10,7 +10,7 @@ class StepAddMessageFragment(BasePage):
                                           "RunnerSettingsUpdated")
 
     def check_text_in_selector(self):
-        with allure.step("Проверка наличия текста на странице"):
+        with allure.step("Check for text on a page"):
             self.actions.wait_for_selector(self.step_add_message_selector)
             self.actions.assert_text_in_element(
                 self.step_add_message_selector, "Build step settings updated."
@@ -28,13 +28,13 @@ class WrapperRunBuildConfWithStep(BasePage):
                                                   ":nth-child(1)")
 
     def click_run_build_conf(self):
-        with allure.step("Запуск билд кофигурации с шагом"):
+        with allure.step("Launch build configuration with step"):
             self.actions.click_button(
                 self.run_build_conf_with_step_selector
             )
 
     def is_run_build_active(self):
-        with allure.step("Активность кнопки запуска билд конфигурации"):
+        with allure.step("Activity of the build configuration launch button"):
             return self.actions.is_element_visible(
                 self.run_build_conf_with_step_selector
             )
@@ -50,14 +50,14 @@ class RunBuildWithStep(BasePage):
 
     def go_to_build_steps_page(self):
         with allure.step(
-            "Переход на стр с отображением шагов к билд конф"
+            "Go to page with display of steps to build configuration"
         ):
             self.actions.navigate(self.page_url)
             self.actions.wait_for_page_load()
 
     def check_url_change(self, build_conf_id):
         with allure.step(
-            "Проверка изменения url страницы"
+            "Check page url change"
         ):
             self.page_url = (f"/admin/editBuildRunners.html?id=buildType"
                              f":{build_conf_id}")
@@ -65,9 +65,9 @@ class RunBuildWithStep(BasePage):
 
     def run_build_conf_with_step(self):
         with allure.step(
-            "Текст об успешном добавлении шагов к билд конф"
+            "Text about successful adding of steps to build config"
         ):
             self.success_message.check_text_in_selector()
-        with allure.step("Клик по кнопке запуска билда"):
+        with allure.step("Click on the build start button"):
             self.run_build_with_step.is_run_build_active()
             self.run_build_with_step.click_run_build_conf()

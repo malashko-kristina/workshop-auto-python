@@ -9,7 +9,7 @@ class MsgBuildConfCreatedFrt(BasePage):
                                       "Created")
 
     def check_text_in_selector(self):
-        with allure.step("Проверка наличия текста на странице"):
+        with allure.step("Check for text on a page"):
             self.actions.assert_text_in_element(
                 self.message_created_build,
                 "Build configuration successfully created."
@@ -23,7 +23,7 @@ class AddVCSPageFragment(BasePage):
         self.project_skip = '.cancel >> text="Skip"'
 
     def click_skip_vcs_add_button(self):
-        with allure.step("Нажатие кнопки пропуска создания vcs"):
+        with allure.step("Press the skip vcs creation button"):
             self.actions.is_button_active(self.project_skip)
             self.actions.click_button(self.project_skip)
 
@@ -43,18 +43,18 @@ class AddVCSFormPage(BasePage):
         self.add_vcs_page = AddVCSPageFragment(page)
 
     def go_to_vcs_add_page(self):
-        with allure.step("Переход на страницу добавления vcs"):
+        with allure.step("Go to the page for adding vcs"):
             self.actions.navigate(self.page_url)
             self.actions.wait_for_page_load()
 
     def skip_vcs(self, build_conf_id, project_id):
         with allure.step(
-            "Текст об успешном добавлении шагов к билд конфигурации"
+            "Text about successful adding of steps to build configuration"
         ):
             self.message_created_build_conf.check_text_in_selector()
-        with allure.step("Клик по кнопке для пропуска секции VCS"):
+        with allure.step("Click the button to skip the VCS section"):
             self.add_vcs_page.click_skip_vcs_add_button()
-        with allure.step("Проверка загрузки страницы"):
+        with allure.step("Check page loading"):
             self.page_url = (f"/admin/editBuildTypeVcsRoots.html"
                              f"?init=1&id=buildType:{build_conf_id}"
                              f"&cameFromUrl=%2Fadmin%2FeditProject."

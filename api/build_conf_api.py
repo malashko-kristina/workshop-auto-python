@@ -6,7 +6,7 @@ class BuildConfAPI(CustomRequester):
 
     def create_build_conf(self, build_conf_data,
                           expected_status=HTTPStatus.OK):
-        # Метод для отправки запроса на создание билд конфигурации
+        # Method for sending a request to create a build configuration
         return self.send_request(
             "POST",
             "/app/rest/buildTypes",
@@ -16,7 +16,7 @@ class BuildConfAPI(CustomRequester):
 
     def run_build_conf(self, run_build_data,
                        expected_status=HTTPStatus.OK):
-        # Метод для отправки запроса для запуска билд конфигурации
+        # Method for sending a request to trigger a build configuration
         return self.send_request(
             "POST",
             "/app/rest/buildQueue",
@@ -26,7 +26,7 @@ class BuildConfAPI(CustomRequester):
 
     def check_status_build_conf(self, build_conf_id,
                                 expected_status=HTTPStatus.OK):
-        # Метод запроса списка билд конф в очереди по билд конф id
+        # Method to request the list of build configurations in the queue by build configuration ID
         return self.send_request(
             "GET",
             f"/app/rest/buildQueue?locator=buildType"
@@ -35,14 +35,14 @@ class BuildConfAPI(CustomRequester):
         )
 
     def check_query_with_build_conf(self, expected_status=HTTPStatus.OK):
-        # Метод запроса списка билд конфигураций в очереди
+        # Method to request the list of build configurations in the queue
         return self.send_request(
             "GET", "/app/rest/buildQueue",
             expected_status=expected_status
         )
 
     def get_build_conf(self, build_conf_id, expected_status=HTTPStatus.OK):
-        # Метод для отправки запроса по получению инфы о конкретном билде
+        # Method for sending a request to retrieve information about a specific build
         return self.send_request(
             "GET",
             f"/app/rest/buildTypes/id:{build_conf_id}",
@@ -51,7 +51,7 @@ class BuildConfAPI(CustomRequester):
 
     def delete_build_conf(self, build_conf_id,
                           expected_status=HTTPStatus.NO_CONTENT):
-        # Метод для удаления билд конфигурации
+        # Method for deleting a build configuration
         return self.send_request(
             "DELETE",
             f"/app/rest/buildTypes/id:{build_conf_id}",
@@ -62,7 +62,7 @@ class BuildConfAPI(CustomRequester):
         self, build_conf_data, project_id,
             expected_status=HTTPStatus.OK
     ):
-        # Метод по копированию билд конфигурации
+        # Method for copying a build configuration
         return self.send_request(
             "POST",
             f"/app/rest/projects/{project_id}/buildTypes",
@@ -71,7 +71,7 @@ class BuildConfAPI(CustomRequester):
         )
 
     def clean_up_build(self, build_conf_id):
-        # Логика проверки создания билд конф и его удаления
+        # Logic for checking the creation of a build configuration and its deletion
         self.delete_build_conf(build_conf_id)
         get_response = self.check_query_with_build_conf().json()
         build_conf_ids = [
@@ -80,5 +80,5 @@ class BuildConfAPI(CustomRequester):
         ]
         assert (
             build_conf_id not in build_conf_ids
-        ), ("ID созданного билд конфига найдет в списке"
-            " билд конфигов после удаления")
+        ), ("The ID of the created build configuration will be found in the"
+            " list of build configurations after deletion.")

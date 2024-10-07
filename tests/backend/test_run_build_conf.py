@@ -13,17 +13,17 @@ from data.run_build_data import (
 
 class TestRunBuildConfSeveralTimes:
 
-    @allure.feature("Управление запуском билд конфигураций")
+    @allure.feature("Manage the launch of build configurations")
     @allure.story(
-        "Отправка запроса на запуск одной и той же билд конфигурации несколько раз с разными ролями"
+        "Send a request to run the same build configuration multiple times with different roles"
     )
     @allure.severity(allure.severity_level.CRITICAL)
-    @allure.link("https://example.com/docs/create_project", name="Документация")
-    @allure.issue("https://issue.tracker/project/123", name="Баг-трекер")
-    @allure.testcase("https://testcase.manager/testcase/456", name="Тест-кейс-23")
-    @allure.title("Проверка запуска одной и той же билд конфигурации несколько раз")
+    @allure.link("https://example.com/docs/create_project", name="Documentation")
+    @allure.issue("https://issue.tracker/project/123", name="Bug-tracker")
+    @allure.testcase("https://testcase.manager/testcase/456", name="Test-case-23")
+    @allure.title("Check if the same build configuration is run multiple times")
     @allure.description(
-        "Тест проверяет запуск одной и той билд конфигурации несколько раз."
+        "The test checks the launch of the same build configuration several times."
     )
     def test_run_build_conf_several_times_with_roles(
         self,
@@ -34,14 +34,14 @@ class TestRunBuildConfSeveralTimes:
         build_conf_run_data,
     ):
 
-        with allure.step("Отправка запроса на создание проекта"):
+        with allure.step("Submit a request to create a project"):
             project_data_1 = project_data
             create_project_response = (
                 super_admin.api_manager.project_api.create_project(
                     project_data_1.model_dump()).text
             )
         with allure.step(
-            "Проверка соответствия параметров созданного проекта с отправленными данными"
+            "Check whether the parameters of the created project match the submitted data"
         ):
             project_model_response = ProjectResponseModel.model_validate_json(
                 create_project_response
@@ -57,14 +57,14 @@ class TestRunBuildConfSeveralTimes:
                 f"expected parent project id= {project_data_1.parentProject['locator']},"
                 f" but '{project_model_response.parentProjectId}' given in response"
             )
-        with allure.step("Отправка запроса на создание билд конфигурации"):
+        with allure.step("Submit a request to create a build configuration"):
             build_conf_data_1 = build_conf_data
             build_config_response = (
                 super_admin.api_manager.build_conf_api.create_build_conf(
                     build_conf_data_1.model_dump()).text
             )
         with allure.step(
-            "Проверка соответствия параметров созданной билд конфигурации с отправленными данными"
+            "Check whether the parameters of the created build configuration match the sent data"
         ):
             build_conf_model_response = BuildResponseModel.model_validate_json(
                 build_config_response
@@ -74,7 +74,7 @@ class TestRunBuildConfSeveralTimes:
                 f"expected build conf id= {build_conf_data_1.id},"
                 f" but '{build_conf_model_response.id}' given"
             )
-        with allure.step("Отправка запроса на запуск билд конфигурации"):
+        with allure.step("Send a request to run a build configuration"):
             build_conf_run_data_1 = build_conf_run_data
             build_run_response = (
                 super_admin.api_manager.run_build_conf_api.run_build_conf(
@@ -82,7 +82,7 @@ class TestRunBuildConfSeveralTimes:
             )
             time.sleep(20)
         with allure.step(
-            "Проверка соответствия параметров запущенной билд конфигурации с отправленными данными"
+            "Check whether the parameters of the running build configuration match the sent data"
         ):
             build_run_model_response = BuildRunResponseModel.model_validate_json(
                 build_run_response
@@ -92,12 +92,12 @@ class TestRunBuildConfSeveralTimes:
                 f"build was expected to be run= {build_run_model_response.state} should be queued,"
                 f" but it is not in a query= {build_run_model_response.state}"
             )
-        with allure.step("Проверка количества билд конфигураций в очереди для запуска"):
+        with allure.step("Check the number of build configurations in the queue to run"):
             get_build_conf_run_response = (
                 super_admin.api_manager.run_build_conf_api.check_query_with_build_conf().text
             )
         with allure.step(
-            "Проверка соответствия параметров запущенных билд конфигураций с отправленными данными"
+            "Check the compliance of the parameters of the launched build configurations with the sent data"
         ):
             build_conf_run_check_model_response = (
                 BuildConfRunStatusModel.model_validate_json(get_build_conf_run_response)
@@ -108,7 +108,7 @@ class TestRunBuildConfSeveralTimes:
                 f" but it is still here:"
                 f" query={build_conf_run_check_model_response.count}"
             )
-        with allure.step("Отправка запроса на повторный запуск билд конфигурации"):
+        with allure.step("Send a request to re-run the build configuration"):
             build_conf_run_data_2 = copy.deepcopy(build_conf_run_data)
             build_run_response = (
                 super_admin.api_manager.run_build_conf_api.run_build_conf(
@@ -116,7 +116,7 @@ class TestRunBuildConfSeveralTimes:
             )
             time.sleep(20)
         with allure.step(
-            "Проверка соответствия параметров запущенной билд конфигурации с отправленными данными"
+            "Check whether the parameters of the running build configuration match the sent data"
         ):
             build_run_model_response = BuildRunResponseModel.model_validate_json(
                 build_run_response
@@ -127,14 +127,14 @@ class TestRunBuildConfSeveralTimes:
                 f" should be queued, but it is not in a query= {build_run_model_response.state}"
             )
         with allure.step(
-            "Отправка запроса на проверку количества билд конфигураций в очереди для запуска"
+            "Check whether the parameters of the running build configuration match the sent data"
         ):
             get_build_conf_run_response = (
                 super_admin.api_manager.run_build_conf_api.check_query_with_build_conf().text
             )
             time.sleep(20)
         with allure.step(
-            "Проверка соответствия параметров запущенных билд конфигураций с отправленными данными"
+            "Check the compliance of the parameters of the launched build configurations with the sent data"
         ):
             build_conf_run_check_model_response = (
                 BuildConfRunStatusModel.model_validate_json(get_build_conf_run_response)
@@ -148,17 +148,17 @@ class TestRunBuildConfSeveralTimes:
 
 class TestRunBuildConfWithWrongBuildConfId:
 
-    @allure.feature("Управление запуском билд конфигураций")
+    @allure.feature("Manage the launch of build configurations")
     @allure.story(
-        "Отправка запроса на запуск несуществующей билд конфигурации с разными ролями"
+        "Send a request to run a non-existent build configuration with different roles"
     )
     @allure.severity(allure.severity_level.CRITICAL)
-    @allure.link("https://example.com/docs/create_project", name="Документация")
-    @allure.issue("https://issue.tracker/project/123", name="Баг-трекер")
+    @allure.link("https://example.com/docs/create_project", name="Documentation")
+    @allure.issue("https://issue.tracker/project/123", name="Bug-tracker")
     @allure.testcase("https://testcase.manager/testcase/456", name="Тест-кейс-24")
     @allure.title("Проверка запуска несуществующей билд конфигурации")
     @allure.description(
-        "Негативный тест проверяет запуск несуществующей билд конфигурации."
+        "A negative test checks for running a non-existent build configuration.."
     )
     def test_run_build_conf_with_wrong_build_id_with_roles(
         self,
@@ -169,14 +169,14 @@ class TestRunBuildConfWithWrongBuildConfId:
         build_conf_run_data_with_wrong_build_conf_id,
     ):
 
-        with allure.step("Отправка запроса на создание проекта"):
+        with allure.step("Submit a request to create a project"):
             project_data_1 = project_data
             create_project_response = (
                 super_admin.api_manager.project_api.create_project(
                     project_data_1.model_dump()).text
             )
         with allure.step(
-            "Проверка соответствия параметров созданного проекта с отправленными данными"
+            "Check whether the parameters of the created project match the submitted data"
         ):
             project_model_response = ProjectResponseModel.model_validate_json(
                 create_project_response
@@ -193,14 +193,14 @@ class TestRunBuildConfWithWrongBuildConfId:
                 f"expected parent project id= {project_data_1.parentProject['locator']},"
                 f" but '{project_model_response.parentProjectId}' given in response"
             )
-        with allure.step("Отправка запроса на создание билд конфигурации"):
+        with allure.step("Submit a request to create a build configuration"):
             build_conf_data_1 = build_conf_data
             build_config_response = (
                 super_admin.api_manager.build_conf_api.create_build_conf(
                     build_conf_data_1.model_dump()).text
             )
         with allure.step(
-            "Проверка соответствия параметров созданной билд конфигурации с отправленными данными"
+            "Check whether the parameters of the created build configuration match the sent data"
         ):
             build_conf_model_response = BuildResponseModel.model_validate_json(
                 build_config_response
@@ -210,7 +210,7 @@ class TestRunBuildConfWithWrongBuildConfId:
                 f"expected build conf id= {build_conf_data_1.id},"
                 f" but '{build_conf_model_response.id}' given"
             )
-        with allure.step("Отправка запроса на запуск билд конфигурации"):
+        with allure.step("Send a request to run a build configuration"):
             build_conf_run_data_1 = build_conf_run_data_with_wrong_build_conf_id
             build_run_response = (
                 super_admin.api_manager.run_build_conf_api.run_build_conf(

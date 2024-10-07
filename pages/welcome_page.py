@@ -10,12 +10,12 @@ class CreateTheFirstProjectFragment(BasePage):
         self.create_button_selector = 'a[data-test="create-project"]'
 
     def click_create_project_button(self):
-        with allure.step('Клик по кнопке создания проекта'):
+        with allure.step('Click on the button to create a project'):
             self.actions.is_element_visible(self.create_button_selector)
             self.actions.click_button(self.create_button_selector)
 
     def check_text_is_visible(self):
-        with allure.step('Проверка видимости текста'):
+        with allure.step('Check text visibility'):
             self.actions.wait_for_selector(self.welcome_text)
             self.actions.is_element_visible(self.welcome_text)
             self.actions.assert_text_in_element(self.welcome_text,
@@ -30,9 +30,9 @@ class CreateTheFirstProjectPage(BasePage):
         self.page_url = "/favorite/projects"
 
     def tap_on_create_first_project(self):
-        with allure.step('Проверка текущей страницы'):
+        with allure.step('Check the current page'):
             self.actions.check_url(self.page_url, equal=False)
-        with allure.step('Проверка приветственного текста'):
+        with allure.step('Check the welcome text'):
             self.create_the_first_project.check_text_is_visible()
-        with allure.step('Переход на страницу создания проекта'):
+        with allure.step('Go to the project creation page'):
             self.create_the_first_project.click_create_project_button()

@@ -8,7 +8,7 @@ class BuildConfDetailsFragment(BasePage):
         self.edit_build_button = 'a[title="Edit configuration..."]'
 
     def go_to_edit_build_conf_page(self):
-        with allure.step("Переход на страницу редактирования билда"):
+        with allure.step("Navigating to the build edit page"):
             self.actions.is_button_active(self.edit_build_button)
             self.actions.click_button(self.edit_build_button)
 
@@ -21,14 +21,14 @@ class BuildConfDetailsPage(BasePage):
         self.build_conf_details = BuildConfDetailsFragment(page)
 
     def go_to_creation_build_conf_detailed_page(self):
-        with allure.step("Переход на страницу редактирования билда"):
+        with allure.step("Navigating to the build editing page"):
             self.actions.navigate(self.page_url)
             self.actions.wait_for_page_load()
 
     def edit_build_conf(self, build_conf_id):
-        with allure.step("Переход на страницу создания билд конфигурации"):
+        with allure.step("Navigating to the build configuration creation page"):
             self.go_to_creation_build_conf_detailed_page()
-        with allure.step("Переход на страницу edit билд конфигурации"):
+        with allure.step("Navigating to the edit build configuration page"):
             self.build_conf_details.go_to_edit_build_conf_page()
             self.page_url = (f"/admin/editBuild.html?id=buildType:"
                              f"{build_conf_id}")

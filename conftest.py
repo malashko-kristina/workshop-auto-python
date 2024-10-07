@@ -52,12 +52,14 @@ def one_browser():
 def user_session():
     user_pool = []
     """
-    Создаем сессии созданных пользователей, которые мы потом будем удалять.
-    Функция _create_user_session: Это вложенная функция, которая создает новую
-    HTTP-сессию с помощью requests.Session(), оборачивает ее в ApiManager для
-    удобства управления API-вызовами, добавляет созданный объект сессии
-    в user_pool и возвращает его. Эта функция позволяет создавать отдельные
-    сессии для разных пользователей при необходимости.
+    We create sessions of created users, which we will delete later.
+    _create_user_session function: This is a nested function that creates
+    a new HTTP session using requests.Session(), wraps it in an ApiManager
+    for easy management of API calls, adds the created session object to the
+    user_pool and returns it. This function allows you to create separate
+    sessions for different users if necessary.
+    
+    
     """
 
     def _create_user_session():
@@ -67,19 +69,18 @@ def user_session():
         return user_session
 
     """
-    Ключевое слово yield возвращается из фикстуры с функцией _create_user_session.
-    Это означает, что в тестах, где используется эта фикстура, будет предоставлена
-    возможность создавать пользовательские сессии вызовом _create_user_session().
-    Выполнение кода после yield отложено до момента завершения скоупа фикстуры.
+    The yield keyword is returned from the fixture with the _create_user_session function.
+    This means that tests that use this fixture will be provided with the ability to
+    create user sessions by calling _create_user_session().
+    Execution of code after yield is delayed until the fixture scope is complete.
     """
     yield _create_user_session
 
     """
-    Очистка сессий: После того как тесты, использующие эту фикстуру, завершат своё
-    выполнение, pytest продолжит выполнение кода после yield. В этой части кода
-    происходит итерация по всем сессиям в user_pool с вызовом метода close_session()
-    для каждой сессии. Это для корректного закрытия всех сессий и освобождения
-    ресурсов, ассоциированных с ними.
+    Cleaning up sessions: After the tests using this fixture have finished executing,
+    pytest will continue executing the code after yield. This part of the code iterates
+    over all sessions in the user_pool, calling the close_session() method for each session.
+    This is to properly close all sessions and free up the resources associated with them.
     """
     for user in user_pool:
         user.close_session()
@@ -93,7 +94,7 @@ def super_admin(user_session):
         SuperAdminCreds.PASSWORD,
         new_session,
         ["SUPER_ADMIN", "g"],
-    )  # В класс юзер создаем новый объект
+    )  # In the user class we create a new object
     super_admin.api_manager.auth_api.auth_and_get_csrf(super_admin.creds)
     return super_admin
 
@@ -103,7 +104,7 @@ def super_admin(user_session):
             Roles.PROJECT_VIEWER]
 )
 def user_create(user_session, super_admin):
-    # Фикстура, создающая юзера от имени супер админа
+    # Fixture that creates a user on behalf of the super admin
     created_users_pool = []
 
     def _user_create(role):

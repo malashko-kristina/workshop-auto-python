@@ -9,23 +9,23 @@ from utilis.data_generator import DataGenerator
 
 class TestBuildCreateWithInvalidData:
 
-    @allure.feature("Управление билд конфигурациями")
+    @allure.feature("Manage build configurations")
     @allure.story(
-        'Отправка запроса на создание билд конфигурации с пустым полем "id" с разными ролями'
+        'Sending a request to create a build configuration with an empty "id" field with different roles'
     )
     @allure.severity(allure.severity_level.CRITICAL)
-    @allure.link("https://example.com/docs/create_project", name="Документация")
-    @allure.issue("https://issue.tracker/project/123", name="Баг-трекер")
-    @allure.testcase("https://testcase.manager/testcase/456", name="Тест-кейс-12")
-    @allure.title('Проверка создания билд конфигурации с пустым полем "id"')
+    @allure.link("https://example.com/docs/create_project", name="Documentation")
+    @allure.issue("https://issue.tracker/project/123", name="Bug tracker")
+    @allure.testcase("https://testcase.manager/testcase/456", name="Test-case-12")
+    @allure.title('Check the creation of a build configuration with an empty "id" field')
     @allure.description(
-        'Негативный тест создание билд конфигурации с пустым полем "id".'
+        'Negative test creating a build configuration with an empty "id" field.'
     )
     def test_create_build_conf_with_empty_id_field(
         self, super_admin, user_create, project_data, build_conf_data_with_empty_id
     ):
 
-        with allure.step("Отправка запроса на создание проекта"):
+        with allure.step("Submit a request to create a project"):
             project_data_1 = project_data
             create_project_response = (
                 super_admin.api_manager.project_api.create_project(
@@ -33,7 +33,7 @@ class TestBuildCreateWithInvalidData:
                 ).text
             )
         with allure.step(
-            "Проверка соответствия параметров созданного проекта с отправленными данными"
+            "Check whether the parameters of the created project match the submitted data"
         ):
             project_model_response = ProjectResponseModel.model_validate_json(
                 create_project_response
@@ -50,7 +50,7 @@ class TestBuildCreateWithInvalidData:
                 f" but '{project_model_response.parentProjectId}' given in response"
             )
         with allure.step(
-            "Проверка нахождения id созданного проекта в общем списке проектов"
+            "Check if the created project id is in the general list of projects"
         ):
             get_project_response = (
                 super_admin.api_manager.project_api.get_project_by_locator(
@@ -58,7 +58,7 @@ class TestBuildCreateWithInvalidData:
                 ).text
             )
         with allure.step(
-            "Проверка соответствия параметров созданного проекта с отправленными данными"
+            "Check whether the parameters of the created project match the submitted data"
         ):
             created_model_project_response = ProjectResponseModel.model_validate_json(
                 get_project_response
@@ -69,7 +69,7 @@ class TestBuildCreateWithInvalidData:
             ), f"There is no project with {project_data_1.id} id"
 
         with allure.step(
-            "Отправка запроса на создание билд конфигурации с пустым id полем"
+            "Send a request to create a build configuration with an empty id field"
         ):
             build_conf_data_1 = build_conf_data_with_empty_id
             build_config_response = (
@@ -86,23 +86,23 @@ class TestBuildCreateWithInvalidData:
             )
 
     @allure.story(
-        'Отправка запроса на создание билд конфигурации с invalid data в поле "id" с разными ролями'
+        'Send a request to create a build configuration with invalid data in the "id" field with different roles'
     )
     @allure.severity(allure.severity_level.CRITICAL)
-    @allure.link("https://example.com/docs/create_project", name="Документация")
-    @allure.issue("https://issue.tracker/project/123", name="Баг-трекер")
-    @allure.testcase("https://testcase.manager/testcase/456", name="Тест-кейс-13")
+    @allure.link("https://example.com/docs/create_project", name="Documentation")
+    @allure.issue("https://issue.tracker/project/123", name="Bug tracker")
+    @allure.testcase("https://testcase.manager/testcase/456", name="Test-case-13")
     @allure.title(
-        'Проверка создания билд конфигурации с невалидными данными в поле "id"'
+        'Check for creation of build configuration with invalid data in the "id" field'
     )
     @allure.description(
-        'Негативный тест создание билд конфигурации с невалидными с невалидными данными в поле "id.'
+        'Negative test creating a build configuration with invalid data in the "id" field.'
     )
     def test_create_build_conf_with_invalid_id_field(
         self, super_admin, user_create, project_data, build_data_with_invalid_ids
     ):
 
-        with allure.step("Отправка запроса на создание проекта"):
+        with allure.step("Submit a request to create a project"):
             project_data_1 = project_data
             create_project_response = (
                 super_admin.api_manager.project_api.create_project(
@@ -110,7 +110,7 @@ class TestBuildCreateWithInvalidData:
                 ).text
             )
         with allure.step(
-            "Проверка соответствия параметров созданного проекта с отправленными данными"
+            "Check whether the parameters of the created project match the submitted data"
         ):
             project_model_response = ProjectResponseModel.model_validate_json(
                 create_project_response
@@ -128,7 +128,7 @@ class TestBuildCreateWithInvalidData:
                 f" but '{project_model_response.parentProjectId}' given in response"
             )
         with allure.step(
-            "Проверка нахождения id созданного проекта в общем списке проектов"
+            "Check if the created project id is in the general list of projects"
         ):
             get_project_response = (
                 super_admin.api_manager.project_api.get_project_by_locator(
@@ -136,7 +136,7 @@ class TestBuildCreateWithInvalidData:
                 ).text
             )
         with allure.step(
-            "Проверка соответствия параметров созданного проекта с отправленными данными"
+            "Check whether the parameters of the created project match the submitted data"
         ):
             created_model_project_response = ProjectResponseModel.model_validate_json(
                 get_project_response
@@ -146,7 +146,7 @@ class TestBuildCreateWithInvalidData:
                 f"There is no project with" f" {project_data_1.id} id"
             )
         with allure.step(
-            "Отправка запроса на создание билд конфигурации с invalid данными в 'id' поле"
+            "Send a request to create a build configuration with invalid data in the 'id' field"
         ):
             build_conf_data_1 = build_data_with_invalid_ids
             build_config_response = (
@@ -162,21 +162,21 @@ class TestBuildCreateWithInvalidData:
             ) in build_config_response.text
 
     @allure.story(
-        'Отправка запроса на создание билд конфигурации с пустым полем "name" с разными ролями'
+        'Send a request to create a build configuration with an empty "name" field with different roles'
     )
     @allure.severity(allure.severity_level.CRITICAL)
-    @allure.link("https://example.com/docs/create_project", name="Документация")
-    @allure.issue("https://issue.tracker/project/123", name="Баг-трекер")
-    @allure.testcase("https://testcase.manager/testcase/456", name="Тест-кейс-14")
-    @allure.title('Проверка создания билд конфигурации с пустым полем "name"')
+    @allure.link("https://example.com/docs/create_project", name="Documentation")
+    @allure.issue("https://issue.tracker/project/123", name="Bug tracker")
+    @allure.testcase("https://testcase.manager/testcase/456", name="Test-case-14")
+    @allure.title('Check the creation of a build configuration with an empty "name" field')
     @allure.description(
-        'Негативный тест создание билд конфигурации с пустым полем "name".'
+        'Negative test creating a build configuration with an empty "name" field.'
     )
     def test_create_build_conf_with_empty_name_field(
         self, super_admin, user_create, project_data, build_conf_data_with_empty_name
     ):
 
-        with allure.step("Отправка запроса на создание проекта"):
+        with allure.step("Submit a request to create a project"):
             project_data_1 = project_data
             create_project_response = (
                 super_admin.api_manager.project_api.create_project(
@@ -184,7 +184,7 @@ class TestBuildCreateWithInvalidData:
                 ).text
             )
         with allure.step(
-            "Проверка соответствия параметров созданного проекта с отправленными данными"
+            "Check whether the parameters of the created project match the submitted data"
         ):
             project_model_response = ProjectResponseModel.model_validate_json(
                 create_project_response
@@ -202,7 +202,7 @@ class TestBuildCreateWithInvalidData:
                 f" but '{project_model_response.parentProjectId}' given in response"
             )
         with allure.step(
-            "Проверка нахождения id созданного проекта в общем списке проектов"
+            "Check if the created project id is in the general list of projects"
         ):
             get_project_response = (
                 super_admin.api_manager.project_api.get_project_by_locator(
@@ -210,7 +210,7 @@ class TestBuildCreateWithInvalidData:
                 ).text
             )
         with allure.step(
-            "Проверка соответствия параметров созданного проекта с отправленными данными"
+            "Check whether the parameters of the created project match the submitted data"
         ):
             created_model_project_response = ProjectResponseModel.model_validate_json(
                 get_project_response
@@ -220,7 +220,7 @@ class TestBuildCreateWithInvalidData:
                 f"There is no project" f" with {project_data_1.id} id"
             )
         with allure.step(
-            "Отправка запроса на создание билд конфигурации с пустым 'name' полем"
+            "Send a request to create a build configuration with an empty 'name' field"
         ):
             build_conf_data_1 = build_conf_data_with_empty_name
             build_config_response = (
@@ -236,17 +236,17 @@ class TestBuildCreateWithInvalidData:
             )
 
     @allure.story(
-        'Отправка запроса на создание билд конфигурации с invalid data в поле "project_id" с разными ролями'
+        'Send a request to create a build configuration with invalid data in the "project_id" field with different roles'
     )
     @allure.severity(allure.severity_level.CRITICAL)
-    @allure.link("https://example.com/docs/create_project", name="Документация")
-    @allure.issue("https://issue.tracker/project/123", name="Баг-трекер")
-    @allure.testcase("https://testcase.manager/testcase/456", name="Тест-кейс-15")
+    @allure.link("https://example.com/docs/create_project", name="Documentation")
+    @allure.issue("https://issue.tracker/project/123", name="Bug tracker")
+    @allure.testcase("https://testcase.manager/testcase/456", name="Test-case-15")
     @allure.title(
-        'Проверка создания билд конфигурации с невалидными данными в поле "project_id"'
+        'Check for creation of build configuration with invalid data in the "project_id" field'
     )
     @allure.description(
-        'Негативный тест создание билд конфигурации с невалидными данными в поле "project_id".'
+        'Negative test creating a build configuration with invalid data in the "project_id" field.'
     )
     def test_create_build_conf_with_invalid_project_id(
         self,
@@ -256,7 +256,7 @@ class TestBuildCreateWithInvalidData:
         build_conf_data_with_invalid_project_id,
     ):
 
-        with allure.step("Отправка запроса на создание проекта"):
+        with allure.step("Submit a request to create a project"):
             project_data_1 = project_data
             create_project_response = (
                 super_admin.api_manager.project_api.create_project(
@@ -264,7 +264,7 @@ class TestBuildCreateWithInvalidData:
                 ).text
             )
         with allure.step(
-            "Проверка соответствия параметров созданного проекта с отправленными данными"
+            "Check whether the parameters of the created project match the submitted data"
         ):
             project_model_response = ProjectResponseModel.model_validate_json(
                 create_project_response
@@ -282,7 +282,7 @@ class TestBuildCreateWithInvalidData:
                 f" but '{project_model_response.parentProjectId}' given in response"
             )
         with allure.step(
-            "Проверка нахождения id созданного проекта в общем списке проектов"
+            "Check if the created project id is in the general list of projects"
         ):
             get_project_response = (
                 super_admin.api_manager.project_api.get_project_by_locator(
@@ -290,7 +290,7 @@ class TestBuildCreateWithInvalidData:
                 ).text
             )
         with allure.step(
-            "Проверка соответствия параметров созданного проекта с отправленными данными"
+            "Check whether the parameters of the created project match the submitted data"
         ):
             project_response = ProjectResponseModel.model_validate_json(
                 get_project_response
@@ -300,7 +300,7 @@ class TestBuildCreateWithInvalidData:
                 project_response.id == project_data_1.id
             ), f"There is no project with {project_data_1.id} id"
         with allure.step(
-            "Отправка запроса на создание билд конфигурации с невалидными данными в 'project_id' поле"
+            "Send a request to create a build configuration with invalid data in the 'project_id' field"
         ):
             build_conf_data_1 = build_conf_data_with_invalid_project_id
             build_config_response = (
@@ -319,17 +319,17 @@ class TestBuildCreateWithInvalidData:
 
 class TestBuildConfCreateWithoutObligatoryFields:
 
-    @allure.feature("Управление билд конфигурациями")
+    @allure.feature("Manage build configurations")
     @allure.story(
-        'Отправка запроса на создание билд конфигурации с пустым полем "steps" с разными ролями'
+        'Send a request to create a build configuration with an empty "steps" field with different roles'
     )
     @allure.severity(allure.severity_level.CRITICAL)
-    @allure.link("https://example.com/docs/create_project", name="Документация")
-    @allure.issue("https://issue.tracker/project/123", name="Баг-трекер")
-    @allure.testcase("https://testcase.manager/testcase/456", name="Тест-кейс-16")
-    @allure.title('Проверка создания билд конфигурации с пустым полем "steps"')
+    @allure.link("https://example.com/docs/create_project", name="Documentation")
+    @allure.issue("https://issue.tracker/project/123", name="Bug tracker")
+    @allure.testcase("https://testcase.manager/testcase/456", name="Test-case-16")
+    @allure.title('Check the creation of a build configuration with an empty "steps" field')
     @allure.description(
-        'Тест проверяет создание билд конфигурации с пустым полем "steps".'
+        'The test checks the creation of a build configuration with an empty "steps" field.'
     )
     def test_create_build_conf_with_empty_steps_field(
         self,
@@ -339,7 +339,7 @@ class TestBuildConfCreateWithoutObligatoryFields:
         build_conf_data_with_empty_steps_field,
     ):
 
-        with allure.step("Отправка запроса на создание проекта"):
+        with allure.step("Submit a request to create a project"):
             project_data_1 = project_data
             create_project_response = (
                 super_admin.api_manager.project_api.create_project(
@@ -347,7 +347,7 @@ class TestBuildConfCreateWithoutObligatoryFields:
                 ).text
             )
         with allure.step(
-            "Проверка соответствия параметров созданного проекта с отправленными данными"
+            "Check whether the parameters of the created project match the submitted data"
         ):
             project_model_response = ProjectResponseModel.model_validate_json(
                 create_project_response
@@ -365,7 +365,7 @@ class TestBuildConfCreateWithoutObligatoryFields:
                 f" but '{project_model_response.parentProjectId}' given in response"
             )
         with allure.step(
-            "Проверка нахождения id созданного проекта в общем списке проектов"
+            "Check if the created project id is in the general list of projects"
         ):
             get_project_response = (
                 super_admin.api_manager.project_api.get_project_by_locator(
@@ -373,7 +373,7 @@ class TestBuildConfCreateWithoutObligatoryFields:
                 ).text
             )
         with allure.step(
-            "Проверка соответствия параметров созданного проекта с отправленными данными"
+            "Check whether the parameters of the created project match the submitted data"
         ):
             project_response = ProjectResponseModel.model_validate_json(
                 get_project_response
@@ -383,7 +383,7 @@ class TestBuildConfCreateWithoutObligatoryFields:
                 f"There is no project" f" with {project_data_1.id} id"
             )
         with allure.step(
-            "Отправка запроса на создание билд конфигурации с пустым 'steps' полем"
+            "Send a request to create a build configuration with an empty 'steps' field"
         ):
             build_conf_data_1 = build_conf_data_with_empty_steps_field()
             build_config_response = (
@@ -392,7 +392,7 @@ class TestBuildConfCreateWithoutObligatoryFields:
                 ).text
             )
         with allure.step(
-            "Проверка соответствия параметров созданной билд конфигурации с отправленными данными"
+            "Check whether the parameters of the created build configuration match the sent data"
         ):
             build_response = BuildResponseModel.model_validate_json(
                 build_config_response
@@ -403,16 +403,16 @@ class TestBuildConfCreateWithoutObligatoryFields:
                 build_response.id == build_conf_data_1.id
             ), f"expected build conf id= {build_conf_data_1.id}, but '{build_response.id}' given"
 
-    @allure.feature("Управление билд конфигурациями")
+    @allure.feature("Manage build configurations")
     @allure.story(
-        'Отправка запроса на создание билд конфигурации без поля "steps" с разными ролями'
+        'Send a request to create a build configuration without the "steps" field with different roles'
     )
     @allure.severity(allure.severity_level.CRITICAL)
-    @allure.link("https://example.com/docs/create_project", name="Документация")
-    @allure.issue("https://issue.tracker/project/123", name="Баг-трекер")
-    @allure.testcase("https://testcase.manager/testcase/456", name="Тест-кейс-17")
-    @allure.title('Проверка создания билд конфигурации без поля "steps"')
-    @allure.description('Тест проверяет создание билд конфигурации без поля "steps".')
+    @allure.link("https://example.com/docs/create_project", name="Documentation")
+    @allure.issue("https://issue.tracker/project/123", name="Bug tracker")
+    @allure.testcase("https://testcase.manager/testcase/456", name="Test-case-17")
+    @allure.title('Check the creation of a build configuration without the "steps" field')
+    @allure.description('The test checks the creation of a build configuration without the "steps" field.')
     def test_create_build_conf_without_steps_field(
         self,
         super_admin,
@@ -421,7 +421,7 @@ class TestBuildConfCreateWithoutObligatoryFields:
         build_conf_data_without_steps_field,
     ):
 
-        with allure.step("Отправка запроса на создание проекта"):
+        with allure.step("Submit a request to create a project"):
             project_data_1 = project_data
             create_project_response = (
                 super_admin.api_manager.project_api.create_project(
@@ -429,7 +429,7 @@ class TestBuildConfCreateWithoutObligatoryFields:
                 ).text
             )
         with allure.step(
-            "Проверка соответствия параметров созданного проекта с отправленными данными"
+            "Check whether the parameters of the created project match the submitted data"
         ):
             project_response = ProjectResponseModel.model_validate_json(
                 create_project_response
@@ -446,7 +446,7 @@ class TestBuildConfCreateWithoutObligatoryFields:
                 f" but '{project_response.parentProjectId}' given in response"
             )
         with allure.step(
-            "Проверка нахождения id созданного проекта в общем списке проектов"
+            "Check if the created project id is in the general list of projects"
         ):
             get_project_response = (
                 super_admin.api_manager.project_api.get_project_by_locator(
@@ -454,7 +454,7 @@ class TestBuildConfCreateWithoutObligatoryFields:
                 ).text
             )
         with allure.step(
-            "Проверка соответствия параметров созданного проекта с отправленными данными"
+            "Check whether the parameters of the created project match the submitted data"
         ):
             project_response = ProjectResponseModel.model_validate_json(
                 get_project_response
@@ -464,7 +464,7 @@ class TestBuildConfCreateWithoutObligatoryFields:
                 f"There is no project with" f" {project_data_1.id} id"
             )
         with allure.step(
-            "Отправка запроса на создание билд конфигурации без поля 'steps'"
+            "Send a request to create a build configuration without the 'steps' field"
         ):
             build_conf_data_1 = build_conf_data_without_steps_field()
             build_config_response = (
@@ -473,7 +473,7 @@ class TestBuildConfCreateWithoutObligatoryFields:
                 ).text
             )
         with allure.step(
-            "Проверка соответствия параметров созданной билд конфигурации с отправленными данными"
+            "Check whether the parameters of the created build configuration match the sent data"
         ):
             build_response = BuildResponseModel.model_validate_json(
                 build_config_response
@@ -486,32 +486,32 @@ class TestBuildConfCreateWithoutObligatoryFields:
 
 class TestBuildConfCreateWithAlreadyUsedIdAndName:
 
-    @allure.feature("Управление билд конфигурациями")
+    @allure.feature("Manage build configurations")
     @allure.story(
-        "Отправка запроса на создание билд конфигурации с name, которое уже используется, с разными ролями"
+        "Send a request to create a build configuration with a name that is already in use, with different roles"
     )
     @allure.severity(allure.severity_level.CRITICAL)
-    @allure.link("https://example.com/docs/create_project", name="Документация")
-    @allure.issue("https://issue.tracker/project/123", name="Баг-трекер")
-    @allure.testcase("https://testcase.manager/testcase/456", name="Тест-кейс-18")
+    @allure.link("https://example.com/docs/create_project", name="Documentation")
+    @allure.issue("https://issue.tracker/project/123", name="Bug tracker")
+    @allure.testcase("https://testcase.manager/testcase/456", name="Test-case-18")
     @allure.title(
-        'Проверка создания билд конфигурации с уже существующим "name" билд конфигурации'
+        'Check creation of build configuration with already existing "name" build configuration'
     )
     @allure.description(
-        'Негативный тест проверяет создание билд конфигурации с уже существующим "name" билд конфигурации.'
+        'Negative test checks creation of build configuration with already existing "name" build configuration.'
     )
     def test_create_build_conf_when_build_conf_exists_with_name(
         self, super_admin, user_create, project_data, build_conf_data
     ):
 
-        with allure.step("Отправка запроса на создание проекта"):
+        with allure.step("Submit a request to create a project"):
             project_data_1 = project_data
             create_project_response = (
                 super_admin.api_manager.project_api.create_project(
                     project_data_1.model_dump()).text
             )
         with allure.step(
-            "Проверка соответствия параметров созданного проекта с отправленными данными"
+            "Check whether the parameters of the created project match the submitted data"
         ):
             project_model_response = ProjectResponseModel.model_validate_json(
                 create_project_response
@@ -528,14 +528,14 @@ class TestBuildConfCreateWithAlreadyUsedIdAndName:
                 f"expected parent project id= {project_data_1.parentProject['locator']},"
                 f" but '{project_model_response.parentProjectId}' given in response"
             )
-        with allure.step("Отправка запроса на создание билд конфигурации"):
+        with allure.step("Submit a request to create a build configuration"):
             build_conf_data_1 = build_conf_data
             build_config_response = (
                 super_admin.api_manager.build_conf_api.create_build_conf(
                     build_conf_data_1.model_dump()).text
             )
         with allure.step(
-            "Проверка соответствия параметров созданной билд конфигурации с отправленными данными"
+            "Check whether the parameters of the created build configuration match the sent data"
         ):
             build_response = BuildResponseModel.model_validate_json(
                 build_config_response
@@ -545,7 +545,7 @@ class TestBuildConfCreateWithAlreadyUsedIdAndName:
                 build_response.id == build_conf_data_1.id
             ), f"expected build conf id= {build_conf_data_1.id}, but '{build_response.id}' given"
         with allure.step(
-            "Отправка запроса на создание билд конфигурации с не уникальным 'name'"
+            "Submit a request to create a build configuration с не уникальным 'name'"
         ):
             build_conf_data_2 = copy.deepcopy(build_conf_data)
             build_conf_data_2.id = DataGenerator.fake_project_id()
@@ -562,25 +562,25 @@ class TestBuildConfCreateWithAlreadyUsedIdAndName:
                 f' already exists in project: "{project_data_1.name}"'
             ) in build_config_response_2.text
 
-    @allure.feature("Управление билд конфигурациями")
+    @allure.feature("Manage build configurations")
     @allure.story(
-        "Отправка запроса на создание билд конфигурации с id, которое уже используется, с разными ролями"
+        "Submit a request to create a build configuration с id, которое уже используется, с разными ролями"
     )
     @allure.severity(allure.severity_level.CRITICAL)
-    @allure.link("https://example.com/docs/create_project", name="Документация")
-    @allure.issue("https://issue.tracker/project/123", name="Баг-трекер")
-    @allure.testcase("https://testcase.manager/testcase/2", name="Тест-кейс-19")
+    @allure.link("https://example.com/docs/create_project", name="Documentation")
+    @allure.issue("https://issue.tracker/project/123", name="Bug tracker")
+    @allure.testcase("https://testcase.manager/testcase/2", name="Test-case-19")
     @allure.title(
-        'Проверка создания билд конфигурации с уже существующим "id" билд конфигурации'
+        'Check for creation of a build configuration with an existing "id" of a build configuration'
     )
     @allure.description(
-        'Негативный тест проверяет создание билд конфигурации с уже существующим "id" билд конфигурации.'
+        'Negative test checks creation of build configuration with already existing "id" of build configuration.'
     )
     def test_create_build_conf_when_build_conf_exists_with_id(
         self, super_admin, user_create, project_data, build_conf_data
     ):
 
-        with allure.step("Отправка запроса на создание проекта"):
+        with allure.step("Submit a request to create a project"):
             project_data_1 = project_data
             create_project_response = (
                 super_admin.api_manager.project_api.create_project(
@@ -588,7 +588,7 @@ class TestBuildConfCreateWithAlreadyUsedIdAndName:
                 ).text
             )
         with allure.step(
-            "Проверка соответствия параметров созданного проекта с отправленными данными"
+            "Check whether the parameters of the created project match the submitted data"
         ):
             project_response = ProjectResponseModel.model_validate_json(
                 create_project_response
@@ -604,14 +604,14 @@ class TestBuildConfCreateWithAlreadyUsedIdAndName:
                 f"expected parent project id= {project_data_1.parentProject['locator']},"
                 f" but '{project_response.parentProjectId}' given in response"
             )
-        with allure.step("Отправка запроса на создание билд конфигурации"):
+        with allure.step("Submit a request to create a build configuration"):
             build_conf_data_1 = build_conf_data
             build_config_response = (
                 super_admin.api_manager.build_conf_api.create_build_conf(
                     build_conf_data_1.model_dump()).text
             )
         with allure.step(
-            "Проверка соответствия параметров созданной билд конфигурации с отправленными данными"
+            "Check whether the parameters of the created build configuration match the sent data"
         ):
             build_response = BuildResponseModel.model_validate_json(
                 build_config_response
@@ -621,7 +621,7 @@ class TestBuildConfCreateWithAlreadyUsedIdAndName:
                 build_response.id == build_conf_data_1.id
             ), f"expected build conf id= {build_conf_data_1.id}, but '{build_response.id}' given"
         with allure.step(
-            "Отправка запроса на создание билд конфигурации с неуникальным 'id'"
+            "Submit a request to create a build configuration with non-unique 'id'"
         ):
             build_conf_data_2 = build_conf_data
             build_config_response_2 = (
@@ -640,17 +640,17 @@ class TestBuildConfCreateWithAlreadyUsedIdAndName:
 
 class TestBuildConfCopy:
 
-    @allure.feature("Управление билд конфигурациями")
+    @allure.feature("Manage build configurations")
     @allure.story(
-        "Отправка запроса на копирование уже существующей билд конфигурации с разными ролями"
+        "Sending a request to copy an existing build configuration with different roles"
     )
     @allure.severity(allure.severity_level.CRITICAL)
-    @allure.link("https://example.com/docs/create_project", name="Документация")
-    @allure.issue("https://issue.tracker/project/123", name="Баг-трекер")
-    @allure.testcase("https://testcase.manager/testcase/2", name="Тест-кейс-20")
-    @allure.title("Проверка копирования билд конфигурации")
+    @allure.link("https://example.com/docs/create_project", name="Documentation")
+    @allure.issue("https://issue.tracker/project/123", name="Bug tracker")
+    @allure.testcase("https://testcase.manager/testcase/2", name="Test-case-20")
+    @allure.title("Check the copying of the build configuration")
     @allure.description(
-        'Тест проверяет копирование билд конфигурации в текущий проект".'
+        'The test checks copying of the build configuration to the current project".'
     )
     def test_project_copy(
         self,
@@ -660,7 +660,7 @@ class TestBuildConfCopy:
         build_conf_data,
         build_conf_data_copy,
     ):
-        with allure.step("Отправка запроса на создание проекта"):
+        with allure.step("Submit a request to create a project"):
             project_data_1 = project_data
             create_project_response = (
                 super_admin.api_manager.project_api.create_project(
@@ -668,7 +668,7 @@ class TestBuildConfCopy:
                 ).text
             )
         with allure.step(
-            "Проверка соответствия параметров созданного проекта с отправленными данными"
+            "Check whether the parameters of the created project match the submitted data"
         ):
             project_response = ProjectResponseModel.model_validate_json(
                 create_project_response
@@ -684,14 +684,14 @@ class TestBuildConfCopy:
                 f"expected parent project id= {project_data_1.parentProject['locator']},"
                 f" but '{project_response.parentProjectId}' given in response"
             )
-        with allure.step("Отправка запроса на создание билд конфигурации"):
+        with allure.step("Submit a request to create a build configuration"):
             build_conf_data_1 = build_conf_data
             build_config_response = (
                 super_admin.api_manager.build_conf_api.create_build_conf(
                     build_conf_data_1.model_dump()).text
             )
         with allure.step(
-            "Проверка соответствия параметров созданной билд конфигурации с отправленными данными"
+            "Check whether the parameters of the created build configuration match the sent data"
         ):
             build_response = BuildResponseModel.model_validate_json(
                 build_config_response
@@ -703,7 +703,7 @@ class TestBuildConfCopy:
                 f" but '{build_response.id}' given"
             )
         with allure.step(
-            "Отправка запроса на создание копии уже существующей билд конфигурации"
+            "Send a request to create a copy of an existing build configuration"
         ):
             build_conf_data_copy_1 = build_conf_data_copy
             copy_build_conf_response = (
@@ -712,7 +712,7 @@ class TestBuildConfCopy:
                 ).text
             )
         with allure.step(
-            "Проверка соответствия параметров созданной копии билд конфигурации с отправленными данными"
+            "Check whether the parameters of the created copy of the build configuration match the sent data"
         ):
             build_response = BuildResponseModel.model_validate_json(
                 copy_build_conf_response
@@ -727,17 +727,17 @@ class TestBuildConfCopy:
             ), f"expected parent project id={project_data_1.id}"
 
     @allure.story(
-        "Отправка запроса на копирование уже существующей билд конфигурации с неизвестным source build conf с разными ролями"
+        "Send a request to copy an existing build config with an unknown source build conf with different roles"
     )
     @allure.severity(allure.severity_level.CRITICAL)
-    @allure.link("https://example.com/docs/create_project", name="Документация")
-    @allure.issue("https://issue.tracker/project/123", name="Баг-трекер")
-    @allure.testcase("https://testcase.manager/testcase/2", name="Тест-кейс-21")
+    @allure.link("https://example.com/docs/create_project", name="Documentation")
+    @allure.issue("https://issue.tracker/project/123", name="Bug tracker")
+    @allure.testcase("https://testcase.manager/testcase/2", name="Test-case-21")
     @allure.title(
-        'Проверка копирования билд конфигурации с неизвестным "id" source build conf'
+        'Check the copying of the build configuration с неизвестным "id" source build conf'
     )
     @allure.description(
-        'Негативный тест проверяет создание  билд конфигурации путем копирования с использованием неизвестным "id" source build conf.'
+        'Negative test checks creation of build config by copying using unknown "id" source build config.'
     )
     def test_build_conf_copy_with_invalid_source_build_conf(
         self,
@@ -747,7 +747,7 @@ class TestBuildConfCopy:
         build_conf_data,
         build_data_copy_invalid_parent_bc,
     ):
-        with allure.step("Отправка запроса на создание проекта"):
+        with allure.step("Submit a request to create a project"):
             project_data_1 = project_data
             create_project_response = (
                 super_admin.api_manager.project_api.create_project(
@@ -755,7 +755,7 @@ class TestBuildConfCopy:
                 ).text
             )
         with allure.step(
-            "Проверка соответствия параметров созданного проекта с отправленными данными"
+            "Check whether the parameters of the created project match the submitted data"
         ):
             project_response = ProjectResponseModel.model_validate_json(
                 create_project_response
@@ -771,14 +771,14 @@ class TestBuildConfCopy:
                 f"expected parent project id= {project_data_1.parentProject['locator']},"
                 f" but '{project_response.parentProjectId}' given in response"
             )
-        with allure.step("Отправка запроса на создание билд конфигурации"):
+        with allure.step("Submit a request to create a build configuration"):
             build_conf_data_1 = build_conf_data
             build_config_response = (
                 super_admin.api_manager.build_conf_api.create_build_conf(
                     build_conf_data_1.model_dump()).text
             )
         with allure.step(
-            "Проверка соответствия параметров созданной билд конфигурации с отправленными данными"
+            "Check whether the parameters of the created build configuration match the sent data"
         ):
             build_response = BuildResponseModel.model_validate_json(
                 build_config_response
@@ -790,7 +790,7 @@ class TestBuildConfCopy:
                 f" but '{build_response.id}' given"
             )
         with allure.step(
-            "Отправка запроса на создание копии уже существующей билд конфигурации с неизвестным source build conf"
+            "Send a request to create a copy of an existing build configuration с неизвестным source build conf"
         ):
             build_copy_1 = build_data_copy_invalid_parent_bc
             copy_build_conf_response = (
@@ -809,19 +809,20 @@ class TestBuildConfCopy:
 
 class TestBuildConfCreateDeleteAndGetInfo:
 
-    @allure.feature("Управление билд конфигурациями")
+    @allure.feature("Manage build configurations")
     @allure.story(
-        "Отправка запроса на создание, удаление билд конфигурации и получением информации о ней с разными ролями"
+        "Send a request to create, delete a build configuration and get information about it with different roles"
     )
     @allure.severity(allure.severity_level.CRITICAL)
-    @allure.link("https://example.com/docs/create_project", name="Документация")
-    @allure.issue("https://issue.tracker/project/123", name="Баг-трекер")
-    @allure.testcase("https://testcase.manager/testcase/456", name="Тест-кейс-22")
+    @allure.link("https://example.com/docs/create_project", name="Documentation")
+    @allure.issue("https://issue.tracker/project/123", name="Bug tracker")
+    @allure.testcase("https://testcase.manager/testcase/456", name="Test-case-22")
     @allure.title(
-        "Проверка создания, удаления билд конфигурации и получения информации о ней"
+        "Check the creation, deletion of a build configuration and obtaining information about it"
     )
     @allure.description(
-        "Негативный тест проверяет создание билд конфигурации, ее удаление и запрос информации о ней."
+        "The negative test checks the creation of a build configuration,"
+        " its deletion and the request for information about it."
     )
     def test_create_build_conf_delete_and_get_info(
         self,
@@ -831,14 +832,14 @@ class TestBuildConfCreateDeleteAndGetInfo:
         build_data_without_del_id,
     ):
 
-        with allure.step("Отправка запроса на создание проекта"):
+        with allure.step("Submit a request to create a project"):
             project_data_1 = project_data
             create_project_response = (
                 super_admin.api_manager.project_api.create_project(
                     project_data_1.model_dump()).text
             )
         with allure.step(
-            "Проверка соответствия параметров созданного проекта с отправленными данными"
+            "Check whether the parameters of the created project match the submitted data"
         ):
             project_response = ProjectResponseModel.model_validate_json(
                 create_project_response
@@ -854,14 +855,14 @@ class TestBuildConfCreateDeleteAndGetInfo:
                 f"expected parent project id= {project_data_1.parentProject['locator']},"
                 f" but '{project_response.parentProjectId}' given in response"
             )
-        with allure.step("Отправка запроса на создание билд конфигурации"):
+        with allure.step("Submit a request to create a build configuration"):
             build_conf_data_1 = build_data_without_del_id
             build_config_response = (
                 super_admin.api_manager.build_conf_api.create_build_conf(
                     build_conf_data_1.model_dump()).text
             )
         with allure.step(
-            "Проверка соответствия параметров созданной билд конфигурации с отправленными данными"
+            "Check whether the parameters of the created build configuration match the sent data"
         ):
             build_response = BuildResponseModel.model_validate_json(
                 build_config_response
@@ -879,7 +880,7 @@ class TestBuildConfCreateDeleteAndGetInfo:
         with pytest.assume:
             assert build_conf_delete_response.status_code == 204
         with allure.step(
-            "Отправка запроса на получение информации об удаленной билд конфигурации"
+            "Send a request to get information about a remote build configuration"
         ):
             get_about_delete_build_conf_response = (
                 super_admin.api_manager.build_conf_api.get_build_conf(

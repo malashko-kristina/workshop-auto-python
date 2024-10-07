@@ -7,7 +7,7 @@ load_dotenv()
 
 class BuildVersion:
     """
-    Версия билда, указанная в футере
+    The build version specified in the footer
     """
     BUILD_VERSION = os.getenv("BUILD_VERSION")
 
@@ -19,7 +19,7 @@ class BuildVersion:
 
 class AppName:
     """
-    Имя приложения, указанное в футере
+    The name of the application shown in the footer
     """
     APP_NAME = os.getenv('APPLICATION_NAME')
 

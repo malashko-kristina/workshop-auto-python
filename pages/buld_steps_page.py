@@ -9,11 +9,11 @@ class ContentBuildStepsFragment(BasePage):
         self.add_build_steps_btn = "a.btn:has-text('Add build step')"
 
     def click_create_steps_build_conf(self):
-        with allure.step("Нажатия на кнопку добавления шагов к билд"):
+        with allure.step("Click on the button to add steps to the build"):
             self.actions.click_button(self.add_build_steps_btn)
 
     def is_build_steps_active(self):
-        with allure.step("Проверка активности кнопки создания шагов"):
+        with allure.step("Check the activity of the create steps button"):
             return self.actions.is_element_visible(self.add_build_steps_btn)
 
 
@@ -26,12 +26,12 @@ class BuildStepsPage(BasePage):
         self.content_build_steps = ContentBuildStepsFragment(page)
 
     def go_to_build_steps_page(self):
-        with allure.step("Переход на страницу для добавления шагов"):
+        with allure.step("Go to page to add steps"):
             self.actions.navigate(self.page_url)
             self.actions.wait_for_page_load()
 
     def add_build_steps(self, build_conf_id):
-        with allure.step("Клик по кнопке добавления шагов"):
+        with allure.step("Click on the add steps button"):
             self.content_build_steps.is_build_steps_active()
             self.content_build_steps.click_create_steps_build_conf()
             self.page_url = (

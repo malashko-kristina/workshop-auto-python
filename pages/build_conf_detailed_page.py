@@ -14,7 +14,7 @@ class ErrorMessageFragment(BasePage):
         )
 
     def check_error_on_screen(self):
-        with (allure.step("Проверка ошибки message_build_problem")):
+        with (allure.step("Checking for the error message_build_problem")):
             self.actions.wait_for_selector(self.error_build_problem)
             self.actions.check_error_color(self.error_build_problem)
 
@@ -28,11 +28,11 @@ class CheckRunBuildErrors(BasePage):
         self.error_message = ErrorMessageFragment(page)
 
     # todo def go_to_build_run_failed_page(self):
-    # todo  with allure.step("Переход на страницу с отображением шагов"):
+    # todo  with allure.step("Navigating to the page displaying the steps"):
     # todo self.actions.navigate(self.page_url)
     # todo self.actions.wait_for_page_load()
 
     def run_build_conf_failed(self):
-        with allure.step("Проверка ошибок после неудачного запуска билда"):
+        with allure.step("Checking for errors after a failed build run"):
             self.actions.wait_for_page_load()
             self.error_message.check_error_on_screen()
